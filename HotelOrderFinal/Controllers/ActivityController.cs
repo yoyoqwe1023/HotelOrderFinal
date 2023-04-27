@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using HotelOrderFinal.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace HotelOrderFinal.Controllers
 {
@@ -6,7 +7,10 @@ namespace HotelOrderFinal.Controllers
     {
         public IActionResult List()
         {
-            return View();
+            HotelOrderContext db = new HotelOrderContext();
+            var datas = from c in db.Activities
+                        select c;
+            return View(datas);
         }
     }
 }

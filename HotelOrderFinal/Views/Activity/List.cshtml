@@ -1,0 +1,88 @@
+﻿@model IEnumerable<HotelOrderFinal.Models.Activity>
+
+@{
+    ViewData["Title"] = "List";
+}
+<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle">About Us</h2>
+            <ol class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">About</li>
+            </ol>
+        </div>
+    </div>
+</section>
+<h1>List</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ActivityId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActivityName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActivityImage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActivityDirections)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActivityTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActivityPlace)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActivityPeople)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActivityCost)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActivityId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActivityName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActivityImage)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActivityDirections)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActivityTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActivityPlace)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActivityPeople)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ActivityCost)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
