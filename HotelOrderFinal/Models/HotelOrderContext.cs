@@ -23,11 +23,12 @@ namespace HotelOrderFinal.Models
         public virtual DbSet<Comment> Comments { get; set; } = null!;
         public virtual DbSet<Discount> Discounts { get; set; } = null!;
         public virtual DbSet<DiscountReference> DiscountReferences { get; set; } = null!;
+        public virtual DbSet<Facility> Facilities { get; set; } = null!;
         public virtual DbSet<HotelFacility> HotelFacilities { get; set; } = null!;
         public virtual DbSet<HotelIndustry> HotelIndustries { get; set; } = null!;
         public virtual DbSet<HotelRegionName> HotelRegionNames { get; set; } = null!;
+        public virtual DbSet<MultipleFacility> MultipleFacilities { get; set; } = null!;
         public virtual DbSet<MultipleHotelFacility> MultipleHotelFacilities { get; set; } = null!;
-        public virtual DbSet<MultipleRoomFacility> MultipleRoomFacilities { get; set; } = null!;
         public virtual DbSet<Order> Orders { get; set; } = null!;
         public virtual DbSet<OrderDetail> OrderDetails { get; set; } = null!;
         public virtual DbSet<OrderDetailStatus> OrderDetailStatuses { get; set; } = null!;
@@ -36,7 +37,6 @@ namespace HotelOrderFinal.Models
         public virtual DbSet<Room> Rooms { get; set; } = null!;
         public virtual DbSet<RoomAdmin> RoomAdmins { get; set; } = null!;
         public virtual DbSet<RoomClass> RoomClasses { get; set; } = null!;
-        public virtual DbSet<RoomFacility> RoomFacilities { get; set; } = null!;
         public virtual DbSet<RoomImage> RoomImages { get; set; } = null!;
         public virtual DbSet<RoomMember> RoomMembers { get; set; } = null!;
         public virtual DbSet<RoomStyle> RoomStyles { get; set; } = null!;
@@ -48,7 +48,7 @@ namespace HotelOrderFinal.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("\nData Source=.;Initial Catalog=HotelOrder;Integrated Security=True");
+                optionsBuilder.UseSqlServer("Data Source=.;Initial Catalog=HotelOrder;Integrated Security=True");
             }
         }
 
@@ -101,6 +101,8 @@ namespace HotelOrderFinal.Models
                 entity.Property(e => e.ActivityId).HasColumnName("ActivityID");
 
                 entity.Property(e => e.ActivityCost).HasMaxLength(10);
+
+                entity.Property(e => e.ActivityImage).HasMaxLength(50);
 
                 entity.Property(e => e.ActivityPlace).HasMaxLength(50);
 
@@ -197,6 +199,13 @@ namespace HotelOrderFinal.Models
                     .HasConstraintName("FK_DiscountReference_RoomMember");
             });
 
+            modelBuilder.Entity<Facility>(entity =>
+            {
+                entity.Property(e => e.FacilityId).HasColumnName("FacilityID");
+
+                entity.Property(e => e.FacilityName).HasMaxLength(20);
+            });
+
             modelBuilder.Entity<HotelFacility>(entity =>
             {
                 entity.Property(e => e.HotelFacilityId).HasColumnName("HotelFacilityID");
@@ -237,6 +246,29 @@ namespace HotelOrderFinal.Models
                 entity.Property(e => e.RegionName).HasMaxLength(50);
             });
 
+            modelBuilder.Entity<MultipleFacility>(entity =>
+            {
+                entity.HasKey(e => e.MultipleFacilitiesId);
+
+                entity.Property(e => e.MultipleFacilitiesId).HasColumnName("MultipleFacilitiesID");
+
+                entity.Property(e => e.FacilityId).HasColumnName("FacilityID");
+
+                entity.Property(e => e.RoomId)
+                    .HasMaxLength(20)
+                    .HasColumnName("RoomID");
+
+                entity.HasOne(d => d.Facility)
+                    .WithMany(p => p.MultipleFacilities)
+                    .HasForeignKey(d => d.FacilityId)
+                    .HasConstraintName("FK_MultipleFacilities_Facilities");
+
+                entity.HasOne(d => d.Room)
+                    .WithMany(p => p.MultipleFacilities)
+                    .HasForeignKey(d => d.RoomId)
+                    .HasConstraintName("FK_MultipleFacilities_Room");
+            });
+
             modelBuilder.Entity<MultipleHotelFacility>(entity =>
             {
                 entity.Property(e => e.MultipleHotelFacilityId).HasColumnName("MultipleHotelFacilityID");
@@ -254,30 +286,6 @@ namespace HotelOrderFinal.Models
                     .WithMany(p => p.MultipleHotelFacilities)
                     .HasForeignKey(d => d.HotelId)
                     .HasConstraintName("FK_MultipleHotelFacilities_HotelIndustries");
-            });
-
-            modelBuilder.Entity<MultipleRoomFacility>(entity =>
-            {
-                entity.HasKey(e => e.MultipleRoomFacilitiesId)
-                    .HasName("PK_MultipleFacilities");
-
-                entity.Property(e => e.MultipleRoomFacilitiesId).HasColumnName("MultipleRoomFacilitiesID");
-
-                entity.Property(e => e.RoomFacilityId).HasColumnName("RoomFacilityID");
-
-                entity.Property(e => e.RoomId)
-                    .HasMaxLength(20)
-                    .HasColumnName("RoomID");
-
-                entity.HasOne(d => d.RoomFacility)
-                    .WithMany(p => p.MultipleRoomFacilities)
-                    .HasForeignKey(d => d.RoomFacilityId)
-                    .HasConstraintName("FK_MultipleFacilities_Facilities");
-
-                entity.HasOne(d => d.Room)
-                    .WithMany(p => p.MultipleRoomFacilities)
-                    .HasForeignKey(d => d.RoomId)
-                    .HasConstraintName("FK_MultipleFacilities_Room");
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -458,13 +466,6 @@ namespace HotelOrderFinal.Models
                     .HasColumnName("RoomClassID");
 
                 entity.Property(e => e.RoomClassName).HasMaxLength(20);
-            });
-
-            modelBuilder.Entity<RoomFacility>(entity =>
-            {
-                entity.Property(e => e.RoomFacilityId).HasColumnName("RoomFacilityID");
-
-                entity.Property(e => e.RoomFacilityName).HasMaxLength(20);
             });
 
             modelBuilder.Entity<RoomImage>(entity =>

@@ -7,7 +7,7 @@ namespace HotelOrderFinal.Models
     {
         public Room()
         {
-            MultipleRoomFacilities = new HashSet<MultipleRoomFacility>();
+            MultipleFacilities = new HashSet<MultipleFacility>();
             RoomImages = new HashSet<RoomImage>();
         }
 
@@ -25,7 +25,7 @@ namespace HotelOrderFinal.Models
         public virtual HotelIndustry? Hotel { get; set; }
         public virtual RoomClass? RoomClass { get; set; }
         public virtual RoomStyle? RoomStyle { get; set; }
-        public virtual ICollection<MultipleRoomFacility> MultipleRoomFacilities { get; set; }
+        public virtual ICollection<MultipleFacility> MultipleFacilities { get; set; }
         public virtual ICollection<RoomImage> RoomImages { get; set; }
     }
 }

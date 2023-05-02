@@ -17,7 +17,8 @@ namespace HotelOrderFinal.Models
         public DateTime? ActivityTime { get; set; }
         public string? ActivityPlace { get; set; }
         public int? ActivityPeople { get; set; }
-        public string? ActivityCost { get; set; }       
+        public string? ActivityCost { get; set; }
+
         public virtual ICollection<ActivityReference> ActivityReferences { get; set; }
     }
 }
