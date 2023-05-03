@@ -27,7 +27,7 @@ namespace HotelOrderFinal.Controllers
             return View(cust);
         }
         [HttpPost]
-        public IActionResult Edit(CActivityPhoto p)
+        public IActionResult Edit(CActivityWrap p)
         {
             HotelOrderContext db = new HotelOrderContext();
             Activity cust = db.Activities.FirstOrDefault(t => t.ActivityId == p.ActivityId);

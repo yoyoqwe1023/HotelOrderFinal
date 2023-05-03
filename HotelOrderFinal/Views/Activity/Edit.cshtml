@@ -3,7 +3,20 @@
 @{
     ViewData["Title"] = "Edit";
 }
+<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle">About Us</h2>
+            <ol class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">About</li>
+            </ol>
+        </div>
+    </div>
+</section>
 
+<div style="margin:50px">
 <h1>修改活動資訊</h1>
 
 <h4>修改活動內容</h4>
@@ -62,10 +75,11 @@
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="List">取消</a>
+    <div>
+        <a asp-action="List">取消</a>
+    </div>
 </div>
+
 
 @*@section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
