@@ -22,6 +22,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>*@
+    <style>
+    .card-text {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            overflow: hidden;
+    }
+    </style>
 </head>
 <body>
     <div class="container-fluid">
@@ -76,10 +85,11 @@
                                 <div class="card" style="width: 21rem;margin-bottom: 20px;">
                                         <img src="~/image/@item.ActivityImage" width="320" height="240" />
                                         <br>
-                                        <span>@Html.DisplayFor(modelItem => item.ActivityTime)</span>
+                                        
                                         <div class="card-body">
+                                        <p>@Html.DisplayFor(modelItem => item.ActivityTime)</p>
                                             <h5 class="card-title"> @Html.DisplayFor(modelItem => item.ActivityName)</h5>
-                                            <p class="card-text">@Html.DisplayFor(modelItem => item.ActivityDirections)</p>
+                                            <div class="card-text">@Html.DisplayFor(modelItem => item.ActivityDirections)</div>
                                             <a href="#" class="btn btn-primary">前往詳細內容</a>
                                         </div>
                                     </div>
