@@ -1,5 +1,5 @@
 ﻿using HotelOrderFinal.Models;
-using HotelOrderFinal.ViewModels;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelOrderFinal.Controllers

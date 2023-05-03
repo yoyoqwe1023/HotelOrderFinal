@@ -33,9 +33,9 @@
                 </p>
             </div>
             <div class="col-md-8">
-                <h2>活動一覽表</h2>
+                <h2>分區活動遊覽</h2>
 
-                <table class="table">
+                @*<table class="table">
                     <thead>
                         <tr>
                             <th>
@@ -62,43 +62,36 @@
 
                             <th></th>
                         </tr>
-                    </thead>
+                    </thead>*@
+
                     <tbody>
                         @{
-                            int count = 0;
                             foreach (var item in Model)
                             {
-                                count++;
-                                <tr>
-                                    <td>
-                                        @count
-                                    </td>
-                                    <td>
+                                
+                                <div class="col-3 col-1-sm-6">
+                                    <div>
+                                        <input type="hidden" value="@Html.DisplayFor(modelItem => item.ActivityId)" />
+                                    </div>
+                                    <div class="card" style="width: 21rem;">
                                         <img src="~/image/@item.ActivityImage" width="320" height="240" />
                                         <br>
-                                        <span class> @Html.DisplayFor(modelItem => item.ActivityName)</span>
-                                    </td>
-                                   
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ActivityDirections)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ActivityTime)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ActivityPlace)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ActivityPeople)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.ActivityCost)
-                                    </td>
-                                    <td>
-                                        @Html.ActionLink("修改", "Edit", new {  id=item.ActivityId  }) |
-                                        @Html.ActionLink("刪除", "Delete","Customer", new {  id=item.ActivityId },new {onclick="return confirm('確定刪除嗎?')"})
-                                    </td>
-                                </tr>
+                                        <span class>@Html.DisplayFor(modelItem => item.ActivityTime)</span>
+                                        <div class="card-body">
+                                            <h5 class="card-title"> @Html.DisplayFor(modelItem => item.ActivityName)</h5>
+                                            <p class="card-text">@Html.DisplayFor(modelItem => item.ActivityDirections)</p>
+                                            <a href="#" class="btn btn-primary">前往詳細內容</a>
+                                        </div>
+                                    </div>
+
+
+                                    @*<td>
+                            @Html.ActionLink("修改", "Edit", new {  id=item.ActivityId  }) |
+                            @Html.ActionLink("刪除", "Delete","Customer", new {  id=item.ActivityId },new {onclick="return confirm('確定刪除嗎?')"})
+                            </td>*@
+                                </div>
+                                
+                            
                             }
                         }
                     </tbody>
