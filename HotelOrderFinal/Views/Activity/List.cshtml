@@ -32,7 +32,7 @@
                     <a asp-action="Create">前往訂房</a>
                 </p>
             </div>
-            <div class="col-md-8">
+            <div class="col-md-10">
                 <h2>分區活動遊覽</h2>
 
                 @*<table class="table">
@@ -64,38 +64,38 @@
                         </tr>
                     </thead>*@
 
-                    <tbody>
+                <div class="d-flex flex-wrap">
                         @{
                             foreach (var item in Model)
                             {
                                 
-                                <div class="col-3 col-1-sm-6">
+                                <div class="col-4 col-1-sm-6">
                                     <div>
                                         <input type="hidden" value="@Html.DisplayFor(modelItem => item.ActivityId)" />
                                     </div>
-                                    <div class="card" style="width: 21rem;">
+                                <div class="card" style="width: 21rem;margin-bottom: 20px;">
                                         <img src="~/image/@item.ActivityImage" width="320" height="240" />
                                         <br>
-                                        <span class>@Html.DisplayFor(modelItem => item.ActivityTime)</span>
+                                        <span>@Html.DisplayFor(modelItem => item.ActivityTime)</span>
                                         <div class="card-body">
                                             <h5 class="card-title"> @Html.DisplayFor(modelItem => item.ActivityName)</h5>
                                             <p class="card-text">@Html.DisplayFor(modelItem => item.ActivityDirections)</p>
                                             <a href="#" class="btn btn-primary">前往詳細內容</a>
                                         </div>
                                     </div>
-
+                     
 
                                     @*<td>
                             @Html.ActionLink("修改", "Edit", new {  id=item.ActivityId  }) |
                             @Html.ActionLink("刪除", "Delete","Customer", new {  id=item.ActivityId },new {onclick="return confirm('確定刪除嗎?')"})
                             </td>*@
-                                </div>
-                                
-                            
-                            }
+
+                        </div>
+
+
+                    }
                         }
-                    </tbody>
-                </table>
+               </div>
             </div>
         </div>
     </div>
