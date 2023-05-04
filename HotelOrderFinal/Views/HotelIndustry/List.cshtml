@@ -1,0 +1,156 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "List";
+}
+
+<!--================Breadcrumb Area =================-->
+<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle">About Us</h2>
+            <ol class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">About</li>
+            </ol>
+        </div>
+    </div>
+</section>
+<!--================Breadcrumb Area =================-->
+<!--================ Facilities Area  =================-->
+<section class="facilities_area section_gap">
+    @*背景圖*@
+    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background="">
+    </div>
+    @*分頁*@
+    <nav>
+        <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">由地圖尋找</button>
+            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">由地區篩選</button>
+        </div>
+    </nav>
+    @*分頁下的內容*@
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <iframe width="1280" height="720" src="https://zh.wikipedia.org/wiki/Wikipedia:%E9%A6%96%E9%A1%B5" frameborder="0" style="border:0" allowfullscreen></iframe>
+        </div>
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            @*手風琴*@
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            北部
+                        </button>
+                    </h2>
+                    @*手風琴內容*@
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <strong>測試內容.</strong>測試內容<code>測試內容</code>測試內容
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            中部
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            <strong>測試內容.</strong>測試內容<code>測試內容</code>測試內容
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*容器*@
+    <div class="container">
+        <div>
+            @*調整外框長寬*@
+            <div class="col-lg-4 col-md-6">
+                <div class="facilities_item">
+                    <h4 class="sec_h4"><i class="lnr lnr-coffee-cup"></i>預留格式</h4>
+                    <p>之後要用來作為分頁標籤內容的元素</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================ Facilities Area  =================-->
+<!--================ Testimonial Area  =================-->
+<section class="testimonial_area section_gap">
+    <div class="container">
+        <div class="section_title text-center">
+            <h2 class="title_color">Testimonial from our Clients</h2>
+            <p>The French Revolution constituted for the conscience of the dominant aristocratic class a fall from </p>
+        </div>
+        <div class="testimonial_slider owl-carousel">
+            <div class="media testimonial_item">
+                <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
+                <div class="media-body">
+                    <p>As conscious traveling Paupers we must always be concerned about our dear Mother Earth. If you think about it, you travel across her face, and She is the </p>
+                    <a href="#"><h4 class="sec_h4">Fanny Spencer</h4></a>
+                    <div class="star">
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star-half-o"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="media testimonial_item">
+                <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
+                <div class="media-body">
+                    <p>As conscious traveling Paupers we must always be concerned about our dear Mother Earth. If you think about it, you travel across her face, and She is the </p>
+                    <a href="#"><h4 class="sec_h4">Fanny Spencer</h4></a>
+                    <div class="star">
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star-half-o"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="media testimonial_item">
+                <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
+                <div class="media-body">
+                    <p>As conscious traveling Paupers we must always be concerned about our dear Mother Earth. If you think about it, you travel across her face, and She is the </p>
+                    <a href="#"><h4 class="sec_h4">Fanny Spencer</h4></a>
+                    <div class="star">
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star-half-o"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="media testimonial_item">
+                <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
+                <div class="media-body">
+                    <p>As conscious traveling Paupers we must always be concerned about our dear Mother Earth. If you think about it, you travel across her face, and She is the </p>
+                    <a href="#"><h4 class="sec_h4">Fanny Spencer</h4></a>
+                    <div class="star">
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star"></i></a>
+                        <a href="#"><i class="fa fa-star-half-o"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--================ Testimonial Area  =================-->
+<!--================ start footer Area  =================-->
+@*<h1>@ViewData["Title"]</h1>
+
+
+<p>Use this page to detail your site's privacy policy.</p>*@
