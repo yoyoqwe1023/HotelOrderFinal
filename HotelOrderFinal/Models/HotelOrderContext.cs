@@ -76,6 +76,10 @@ namespace HotelOrderFinal.Models
                     .HasMaxLength(20)
                     .HasColumnName("MemberID");
 
+                entity.Property(e => e.RoomClassId)
+                    .HasMaxLength(20)
+                    .HasColumnName("RoomClassID");
+
                 entity.HasOne(d => d.Member)
                     .WithMany(p => p.Comment)
                     .HasForeignKey(d => d.MemberId)
