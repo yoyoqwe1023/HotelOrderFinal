@@ -37,6 +37,7 @@ namespace HotelOrderFinal.Models
         public virtual DbSet<RoomFacility> RoomFacility { get; set; }
         public virtual DbSet<RoomImage> RoomImage { get; set; }
         public virtual DbSet<RoomMember> RoomMember { get; set; }
+        public virtual DbSet<RoomStyle> RoomStyle { get; set; }
         public virtual DbSet<SpecialRequest> SpecialRequest { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -75,10 +76,19 @@ namespace HotelOrderFinal.Models
                     .HasMaxLength(20)
                     .HasColumnName("MemberID");
 
+                entity.Property(e => e.RoomClassId)
+                    .HasMaxLength(20)
+                    .HasColumnName("RoomClassID");
+
                 entity.HasOne(d => d.Member)
                     .WithMany(p => p.Comment)
                     .HasForeignKey(d => d.MemberId)
                     .HasConstraintName("FK_Comments_RoomMember");
+
+                entity.HasOne(d => d.RoomClass)
+                    .WithMany(p => p.Comment)
+                    .HasForeignKey(d => d.RoomClassId)
+                    .HasConstraintName("FK_Comment_RoomClass");
             });
 
             modelBuilder.Entity<Discount>(entity =>
@@ -328,7 +338,9 @@ namespace HotelOrderFinal.Models
                     .HasMaxLength(20)
                     .HasColumnName("RoomClassID");
 
-                entity.Property(e => e.RoomStatus).HasMaxLength(20);
+                entity.Property(e => e.RoomStyleId)
+                    .HasMaxLength(20)
+                    .HasColumnName("RoomStyleID");
 
                 entity.HasOne(d => d.Admin)
                     .WithMany(p => p.Room)
@@ -344,6 +356,11 @@ namespace HotelOrderFinal.Models
                     .WithMany(p => p.Room)
                     .HasForeignKey(d => d.RoomClassId)
                     .HasConstraintName("FK_Room_RoomClass");
+
+                entity.HasOne(d => d.RoomStyle)
+                    .WithMany(p => p.Room)
+                    .HasForeignKey(d => d.RoomStyleId)
+                    .HasConstraintName("FK_Room_RoomStyle");
             });
 
             modelBuilder.Entity<RoomAdmin>(entity =>
@@ -444,6 +461,17 @@ namespace HotelOrderFinal.Models
                     .HasForeignKey(d => d.AdminId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_RoomMember_RoomAdmin");
+            });
+
+            modelBuilder.Entity<RoomStyle>(entity =>
+            {
+                entity.Property(e => e.RoomStyleId)
+                    .HasMaxLength(20)
+                    .HasColumnName("RoomStyleID");
+
+                entity.Property(e => e.RoomStyleIdetail).HasColumnName("RoomStyleIDetail");
+
+                entity.Property(e => e.RoomStyleName).HasMaxLength(20);
             });
 
             modelBuilder.Entity<SpecialRequest>(entity =>
