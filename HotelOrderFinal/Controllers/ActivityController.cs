@@ -8,7 +8,7 @@ namespace HotelOrderFinal.Controllers
         public IActionResult List()
         {
             HotelOrderContext db = new HotelOrderContext();
-            var datas = from c in db.Activities
+            var datas = from c in db.Activity
                         select c;
             return View(datas);
         }
