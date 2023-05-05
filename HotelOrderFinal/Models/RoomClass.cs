@@ -9,6 +9,7 @@ namespace HotelOrderFinal.Models
     {
         public RoomClass()
         {
+            Comment = new HashSet<Comment>();
             Room = new HashSet<Room>();
         }
 
@@ -19,6 +20,7 @@ namespace HotelOrderFinal.Models
         public decimal? HolidayPrice { get; set; }
         public decimal? AddPrice { get; set; }
 
+        public virtual ICollection<Comment> Comment { get; set; }
         public virtual ICollection<Room> Room { get; set; }
     }
 }

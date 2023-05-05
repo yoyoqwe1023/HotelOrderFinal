@@ -91,6 +91,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[RoomStyle]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[SpecialRequest]",
          "ObjectType": 0
       }
