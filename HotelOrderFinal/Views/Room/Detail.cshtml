@@ -17,14 +17,14 @@
 </section>
 <h1>Detail</h1>
 <div class="container">
-    <h1>Room Details</h1>
+    <h2>@Html.DisplayFor(model => model.RoomClassName)</h2>
     <hr>
     <div class="row">
         <div class="col-md-4">
             <img src="https://via.placeholder.com/300x200.png?text=Room+Image" class="img-fluid" alt="Room Image">
         </div>
         <div class="col-md-8">
-            <h2>@Html.DisplayFor(model => model.RoomClassName)</h2>
+          
             <p>@Html.DisplayFor(model => model.RoomClassDetail)</p>
             <h4>Room Amenities:</h4>
             <ul>
