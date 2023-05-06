@@ -27,6 +27,13 @@ namespace HotelOrderFinal.Controllers
             return View(room);
 
         }
+        public IActionResult SearchRooms()
+        {
+            HotelOrderContext db = new HotelOrderContext();
+            var datas = from c in db.RoomClass
+                        select c;
+            return View(datas);
 
+        }
     }
 }
