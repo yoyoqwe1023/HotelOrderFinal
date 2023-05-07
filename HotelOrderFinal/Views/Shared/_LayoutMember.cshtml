@@ -4,6 +4,7 @@
 <html lang="en">
 <head>
     @*Required meta tags*@
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="~/image/caticon.png" type="image/png">
@@ -18,7 +19,6 @@
     <!-- main css -->
     <link rel="stylesheet" href="~/css/style.css">
     <link rel="stylesheet" href="~/css/responsive.css">
-    <link rel="stylesheet" href="~/css/ForHotelIndustry.css" >
 
     @*Bootstrap CSS*@
 @*    @Styles.Render("~/Content/css/bootstrap.css")
@@ -59,19 +59,27 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-
                 <!--Collect the nav links, forms, and other content for toggling-->
                 <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                     <ul class="nav navbar-nav menu_nav ml-auto">
                         
                         <li class="nav-item active; nav-item">@Html.ActionLink("關於", "About", "Home", null, new { @class = "nav-link" })</li>
-                        <li class="nav-item active; nav-item">@Html.ActionLink("飯店一覽", "List", "HotelIndustry", null, new { @class = "nav-link" })</li>
-                        <li class="nav-item active; nav-item">@Html.ActionLink("房型", "List", "Room", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item active; nav-item">@Html.ActionLink("房型", "ListTest", "Room", null, new { @class = "nav-link" })</li>
                         <li class="nav-item active; nav-item">@Html.ActionLink("活動", "List", "Activity", null, new { @class = "nav-link" })</li>
                         <li class="nav-item active; nav-item">@Html.ActionLink("評論", "List", "Comment", null, new { @class = "nav-link" })</li>
                         <li class="nav-item active; nav-item">@Html.ActionLink("交通資訊", "Index", "Home", null, new { @class = "nav-link" })</li>
-                        <li class="nav-item active; nav-item">@Html.ActionLink("會員登入", "Login", "Member", null, new { @class = "nav-link" })</li>
-                        <li class="nav-item active; nav-item">@Html.ActionLink("會員註冊", "Create", "Member", null, new { @class = "nav-link" })</li>
+                        
+                        @{
+                            var userName = Context.Session.GetString("UserName");
+                            var userId = Context.Session.GetString("UserID");
+
+                            <li class="nav-item active; nav-item">歡迎，@userName</li>
+                        }
+                        <li class="nav-item active; nav-item">@Html.ActionLink("會員修改", "Edit", "Member", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item active; nav-item">@Html.ActionLink("登出", "Logout", "Member", null, new { @class = "nav-link" })</li>
+            @*            <li>@Html.ActionLink("登出", "Logout", "Member")</li>
+                        <li><a href="#">@Context.Session.GetString("WelCome")</a></li>*@
+
 
 
                     </ul>
@@ -194,7 +202,6 @@
     <script src="~/js/stellar.js"></script>
     <script src="~/vendors/lightbox/simpleLightbox.min.js"></script>
     <script src="~/js/custom.js"></script>
-    <script src="~/js/bootstrap.js"></script>
 
 </body>
 </html>
