@@ -12,13 +12,17 @@ namespace HotelOrderFinal.Controllers
             _enviro = p;
         }
 
-        public IActionResult List()
+        public IActionResult List() 
+            //現在這個寫法是display全部datas，沒有做分類，要思考一下分類作法
+            //找demo的查詢應該是一個分類方向
         {
             HotelOrderContext db = new HotelOrderContext();
             var datas = from HI in db.HotelIndustry
+                        where HI.HotelRegionId == 1
                         select HI;
             return View(datas);
         }
+
         public IActionResult Edit(int? id)
         {
             HotelOrderContext db = new HotelOrderContext();

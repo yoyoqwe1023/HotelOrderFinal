@@ -25,7 +25,7 @@ namespace HotelOrderFinal.Models
         public virtual DbSet<DiscountReference> DiscountReferences { get; set; } = null!;
         public virtual DbSet<Facility> Facilities { get; set; } = null!;
         public virtual DbSet<HotelFacility> HotelFacilities { get; set; } = null!;
-        public virtual DbSet<HotelIndustry> HotelIndustries { get; set; } = null!;
+        public virtual DbSet<HotelIndustry> HotelIndustry { get; set; } = null!;
         public virtual DbSet<HotelRegionName> HotelRegionNames { get; set; } = null!;
         public virtual DbSet<MultipleFacility> MultipleFacilities { get; set; } = null!;
         public virtual DbSet<MultipleHotelFacility> MultipleHotelFacilities { get; set; } = null!;

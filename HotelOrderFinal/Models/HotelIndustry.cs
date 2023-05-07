@@ -16,7 +16,7 @@ namespace HotelOrderFinal.Models
         public string? HotelPhone { get; set; }
         public int? HotelRegionId { get; set; }
         public string? HotelAddress { get; set; }
-        public byte[]? HotelImage { get; set; }
+        public string? HotelImage { get; set; }
         public string? HotelImageDiscription { get; set; }
 
         public virtual HotelRegionName? HotelRegion { get; set; }

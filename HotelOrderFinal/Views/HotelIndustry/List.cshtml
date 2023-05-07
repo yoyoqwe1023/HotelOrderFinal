@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 @*手風琴內容*@
-                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample" >
                     <div class="accordion-body">
                         <div class="container">
                         @*容器 排版未處理完*@
@@ -60,7 +60,7 @@
                                 foreach (var item in Model)
                                 {
                                     <div>
-                                        <input type="hidden" value="@Html.DisplayFor(modelItem =>item.HotelId)" />
+                                        <input type="hidden" value="@Html.DisplayFor(modelItem =>item.HotelRegionId)" />
                                     </div>
                                     <div class="col-lg-6 col-md-6">
                                         <div class="facilities_item">
