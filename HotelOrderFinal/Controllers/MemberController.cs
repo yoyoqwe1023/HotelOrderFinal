@@ -2,16 +2,19 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Win32;
+using System.Diagnostics.Metrics;
+
 
 namespace HotelOrderFinal.Controllers
 {
     public class MemberController : Controller
     {
-        private  HotelOrderContext db;
+        private HotelOrderContext db;
         private IWebHostEnvironment _enviro;
         // GET: MemberController
         public IActionResult Index()
         {
+
             return View();
         }
 
@@ -24,21 +27,23 @@ namespace HotelOrderFinal.Controllers
         public IActionResult Login(RoomMember model)
         {
             db = new HotelOrderContext();
-
+            //HttpContext.Session.SetString("LayoutMessage", "_LayoutMember");
             var member = db.RoomMember.Where(o => o.MemberPhone == model.MemberPhone && o.MemberPassword == model.MemberPassword).FirstOrDefault();
             if (member == null)
             {
                 ViewBag.Message = "帳密錯誤，登入失敗";
                 return View();
             }
-
             ViewBag.Message = model.MemberName + "，歡迎光臨";
+            // 將使用者名字存入 ViewBag 或 ViewData 中
+            ViewBag.UserName = model.MemberName;
+            ViewData["UserID"] = member.MemberId;
 
-            HttpContext.Session.SetString("UserName", model.MemberName);
+            HttpContext.Session.SetString("UserName", member.MemberName);
             HttpContext.Session.SetString("UserID", member.MemberId);
-
+            HttpContext.Session.SetString("LayoutMessage", "_LayoutMember");
             return RedirectToAction("Index", "Home");
-         }
+        }
         // GET: MemberController/Details/5
         public IActionResult Details(int id)
         {
@@ -74,7 +79,7 @@ namespace HotelOrderFinal.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index", "Home");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
                 return View();
@@ -82,8 +87,13 @@ namespace HotelOrderFinal.Controllers
         }
 
         // GET: MemberController/Edit/5
-        public IActionResult Edit(string id = "MB00009")
+        public IActionResult Edit(string id)
         {
+            if (HttpContext.Session.GetString("UserID") == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            id = HttpContext.Session.GetString("UserID");
             db = new HotelOrderContext();
             RoomMember cust = db.RoomMember.FirstOrDefault(t => t.MemberId == id);
             if (cust == null)
@@ -114,6 +124,18 @@ namespace HotelOrderFinal.Controllers
             {
                 return View();
             }
+        }
+
+
+        public IActionResult Logout()
+        {
+            // 登出
+            
+            HttpContext.Session.Clear();
+            HttpContext.Session.SetString("LayoutMessage", "_Layout");
+
+            // 重新導向至首頁
+            return RedirectToAction("Index", "Home");
         }
 
         // GET: MemberController/Delete/5

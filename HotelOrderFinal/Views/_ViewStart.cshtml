@@ -1,3 +1,13 @@
-﻿@{
-    Layout = "_Layout";
+﻿
+@{
+    var httpContext = ViewContext.HttpContext;
+    if (httpContext.Session.GetString("LayoutMessage") == "_LayoutMember")
+    {
+        Layout = "_LayoutMember";
+    }
+    else
+    {
+        Layout = "_Layout";
+    }
 }
+
