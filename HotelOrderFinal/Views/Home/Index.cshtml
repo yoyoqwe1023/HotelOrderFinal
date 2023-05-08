@@ -31,22 +31,23 @@
     <div class="hotel_booking_area position">
         <div class="container">
             <div class="hotel_booking_table">
-                <div class="col-md-3">
+                @*<div class="col-md-3">
                     <h2>預約<br> 您的房間</h2>
-                </div>
-                <div class="col-md-9">
-                    <div class="boking_table">
-                        <div class="row">
-                            <div class="col-md-4">
+                </div>*@
+                <div class="col-md-12">
+                    <div class="boking_table" style="width:100%">
+                        <div class="row" >
+                            <div class="col-md-3">
                                 <div class="book_tabel_item">
-                                    <div class="form-group">
-                                        <div class='input-group date' id='datetimepicker11'>
-                                            <input type='text' class="form-control" placeholder="入住日" />
-                                            <span class="input-group-addon">
-                                                <i class="fa fa-calendar" aria-hidden="true"></i>
-                                            </span>
-                                        </div>
+                                    <div class="input-group">
+                                        <select class="wide">
+                                            <option data-display="入住地區">選擇地區</option>
+                                            <option value="1">北區</option>
+                                            <option value="2">中區</option>
+                                            <option value="3">南區</option>
+                                        </select>
                                     </div>
+                                    
                                     @*<div class="form-group">
                                         <div class='input-group date' id='datetimepicker1'>
                                             <input type='text' class="form-control" placeholder="退房日" />
@@ -57,11 +58,11 @@
                                     </div>*@
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="book_tabel_item">
                                     <div class="form-group">
-                                        <div class='input-group date' id='datetimepicker1'>
-                                            <input type='text' class="form-control" placeholder="退房日" />
+                                        <div class='input-group date' id='datetimepicker11'>
+                                            <input type='text' class="form-control" placeholder="入住日" />
                                             <span class="input-group-addon">
                                                 <i class="fa fa-calendar" aria-hidden="true"></i>
                                             </span>
@@ -87,22 +88,24 @@
                                     </div>*@
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="book_tabel_item">
-                                    <div class="input-group">
-                                        <select class="wide">
-                                            <option data-display="入住房型">房型</option>
-                                            <option value="1">精緻商務房</option>
-                                            <option value="2">豪華雙人房</option>
-                                            <option value="3">商務四人房</option>
-                                            <option value="4">親子家庭房</option>
-                                            <option value="5">總統套房</option>
-                                        </select>
+                                    <div class="form-group">
+                                        <div class='input-group date' id='datetimepicker1'>
+                                            <input type='text' class="form-control" placeholder="退房日" />
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                            </span>
+                                        </div>
                                     </div>
+                                </div>
+                        </div>
+                            <div class="col-md-3">
+                                <div class="book_tabel_item">
                                     <a href="#">@Html.ActionLink("立即預約", "Index", "Order", null, new { @class = "book_now_btn button_hover" })</a>
                                 </div>
                             </div>
-                        </div>
+                          </div>
                     </div>
                 </div>
             </div>

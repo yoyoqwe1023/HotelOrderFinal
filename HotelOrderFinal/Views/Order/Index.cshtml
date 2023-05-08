@@ -21,11 +21,24 @@
     </style>
 </head>
 
-
 <body>
 <<header>
-    <div class="row">
-        <div class="col-md-2 offset-md-3">
+        <div class="row" style="width:80% margin: 0 auto">
+            <div class="col-md-2 offset-md-2">
+                <!-- 調整地區 -->
+                <div class="book_tabel_item" >
+                    <div class="form-group" >
+                        <div  >
+                            <select>
+                                <option value="option1">北區</option>
+                                <option value="option2">中區</option>
+                                <option value="option3">南區</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <div class="col-md-2 ">
             <!-- 調整入住日期欄位的位置和寬度 -->
             <div class="book_tabel_item">
                 <div class="form-group">
@@ -59,13 +72,14 @@
         </div>
     </div>
 </header>
-    <header style="margin-bottom: 20px;">
-    <div class="row mt-3">
+    <header style="margin-bottom:20px; width:80% margin: 0 auto">
+    <div class="row">
             <div class="col-md-6 offset-md-2 roomlist-head " style="margin-right:20px;" > @*list*@
+                <section>
                 <div style="margin-bottom:3px;">   @*roomall*@
                     <div class="row">
                         @*room*@
-                        <div col-md-4 >
+                        <div class="col-md-4" >
                             @*圖片*@
                             <img />圖片顯示123456
                         </div>
@@ -73,31 +87,68 @@
                             @*房間資訊*@
                             <h4>RoomClaseName 雙人房</h4>
                             <p> RoomClassDetail 精緻的空間設計，讓風格、造型獲得全然的釋放，呈現出清爽的質感以及讓人心情愉悅的無壓空間氣氛。 </p>
+                            <p> 住宿人數：2</p>
                             <p> 坪數：RoomSize 13</p>
                         </div>
                     </div>
                     <div > @*pricetitle*@
-                        <table>
+                        <table width="100%">
                             <tr style="background-color: #f0f0f0;">
-                                <th width="40%"></th>
+                                <th width="40%">入住地區</th>
                                 <th width="20%">價格</th>
                                 <th width="20%">數量</th>
                                 <th width="20%"></th>
                             </tr>
-                    
                             <tr> @*price*@
-                                <th></th>
+                                <th>北部</th>
                                 <th>NT$ 4000</th>
                                  <th >1</th>
                                  <th>
-                                         <button class="btn btn-primary btn-block">加入購物車</button>
+                                      <button class="btn btn-primary btn-block">加入購物車</button>
                                 </th>
                             </tr>
                         </table>
                     </div>
-
+                   
             </div>
-            
+                    <div style="margin-bottom:3px;">
+                        @*roomall*@
+                        <div class="row">
+                            @*room*@
+                            <div class="col-md-4">
+                                @*圖片*@
+                                <img />圖片顯示123456
+                            </div>
+                            <div class="col-md-8 ">
+                                @*房間資訊*@
+                                <h4>RoomClaseName 雙人房</h4>
+                                <p> RoomClassDetail 精緻的空間設計，讓風格、造型獲得全然的釋放，呈現出清爽的質感以及讓人心情愉悅的無壓空間氣氛。 </p>
+                                <p> 坪數：RoomSize 13</p>
+                            </div>
+                        </div>
+                        <div>
+                            @*pricetitle*@
+                            <table width="100%">
+                                <tr style="background-color: #f0f0f0;">
+                                    <th width="40%">入住地區</th>
+                                    <th width="20%">價格</th>
+                                    <th width="20%">數量</th>
+                                    <th width="20%"></th>
+                                </tr>
+                                <tr>
+                                    @*price*@
+                                    <th>北部</th>
+                                    <th>NT$ 4000</th>
+                                    <th>1</th>
+                                    <th>
+                                        <button class="btn btn-primary btn-block">加入購物車</button>
+                                    </th>
+                                </tr>
+                            </table>
+                        </div>
+
+                    </div>
+                </section>
         </div>
         <div class="col-md-3 shoppoing-head" >
             <div style="text-align:center;">
@@ -109,6 +160,10 @@
                         <tr >
                             <th width="40%">房間類型</th>
                             <td>RoomClaseName 雙人房</td>
+                        </tr>
+                        <tr>
+                            <th>入住地區</th>
+                            <td>北部</td>
                         </tr>
                         <tr>
                             <th>入住日期</th>
@@ -126,8 +181,33 @@
                             <th>小計</th>
                             <td>NT$ 4000</td>
                         </tr>
+                        <tr></tr>
+                        <tr>
+                            <th width="40%">房間類型</th>
+                            <td>RoomClaseName 雙人房</td>
+                        </tr>
+                        <tr>
+                            <th>入住地區</th>
+                            <td>北部</td>
+                        </tr>
+                        <tr>
+                            <th>入住日期</th>
+                            <td>2023/5/7</td>
+                        </tr>
+                        <tr>
+                            <th>退房日期</th>
+                            <td>2023/5/8</td>
+                        </tr>
+                        <tr>
+                            <th>數量</th>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <th>小計</th>
+                            <td>NT$ 4000</td>
+                        </tr>
+                        <tr></tr>
                     </table>
-                    
                 </div>
                 <hr />
                 <div>

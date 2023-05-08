@@ -1,0 +1,84 @@
+﻿@model HotelOrderFinal.Models.RoomMember
+
+@{
+    ViewData["Title"] = "會員資料修改";
+}
+
+<h1>會員資料修改</h1>
+
+<h4>RoomMember</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div  class="form-group">
+                <label asp-for="AdminId" class="control-label"></label>
+                <input asp-for="AdminId" class="form-control" />
+                <span asp-validation-for="AdminId" class="text-danger"></span>
+            </div>
+            <div  class="form-group">
+                <label asp-for="MemberId" class="control-label"></label>
+                <input asp-for="MemberId" class="form-control" />
+                <span asp-validation-for="MemberId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemberName" class="control-label"></label>
+                <input asp-for="MemberName" class="form-control" />
+                <span asp-validation-for="MemberName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemberBirthday" class="control-label"></label>
+                <input asp-for="MemberBirthday" class="form-control" />
+                <span asp-validation-for="MemberBirthday" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemberGender" class="control-label"></label>
+                <input asp-for="MemberGender" class="form-control" />
+                <span asp-validation-for="MemberGender" class="text-danger"></span>
+            </div>
+@*            <div class="form-group">
+                <label asp-for="MemberIdentity" class="control-label"></label>
+                <input asp-for="MemberIdentity" class="form-control" />
+                <span asp-validation-for="MemberIdentity" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <label asp-for="MemberPhone" class="control-label"></label>
+                <input asp-for="MemberPhone" class="form-control" />
+                <span asp-validation-for="MemberPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemberEmail" class="control-label"></label>
+                <input asp-for="MemberEmail" class="form-control" />
+                <span asp-validation-for="MemberEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemberPhoto" class="control-label"></label>
+                <input asp-for="MemberPhoto" class="form-control" />
+                <span asp-validation-for="MemberPhoto" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemberPassword" class="control-label"></label>
+                <input asp-for="MemberPassword" class="form-control" />
+                <span asp-validation-for="MemberPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemberLavel" class="control-label"></label>
+                <input asp-for="MemberLavel" class="form-control" />
+                <span asp-validation-for="MemberLavel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MemberOrderTotal" class="control-label"></label>
+                <input asp-for="MemberOrderTotal" class="form-control" />
+                <span asp-validation-for="MemberOrderTotal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
