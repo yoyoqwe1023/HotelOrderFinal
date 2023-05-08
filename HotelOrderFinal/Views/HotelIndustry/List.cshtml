@@ -2,9 +2,37 @@
 
 @{
     Layout = "_Layout";
-    ViewData["Title"] = "List";
+    ViewData ["Title"] = "List";
 }
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready
+        (
+            function () {
+                //抓region-id
+                //$('.accordion').on('aria-expanded=true', function (event) {
+                //    var regionId = $(event.target).find('.accordion-button').data('region-id');
+                //    loadData(regionId);
+                //});
 
+                loadData();
+                function loadData(regionId) {
+                    var apiUrl = "https://localhost:7007/api/APIHotelIndustry?regionId=" + regionId;
+                    $.ajax({
+                        url: apiUrl,
+                        method: 'get',
+                        success: function (data) {
+                            for (var i = 0; i < data.length; i++) {
+                                $("#hoteldata").append(
+                                    data[i].hotelName
+                                );
+                            }
+                        }
+                    });
+                }
+            }
+        );
+</script>
 <!--================Breadcrumb Area =================-->
 <section class="breadcrumb_area">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
@@ -40,7 +68,7 @@
             </div>
         </div>
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-            @*手風琴 0506改用accordion-flush 記得要有d-flex justify-content-center、buttonwidthL、拔掉h2*@
+            @*手風琴 0506:改用accordion-flush 記得要有d-flex justify-content-center、buttonwidthL、拔掉h2*@
             <div class="accordion" id="accordionExample">
                 <div class="accordion-item">
                     <div class="d-flex justify-content-center">
@@ -50,29 +78,25 @@
                     </div>
                 </div>
                 @*手風琴內容*@
-                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample" >
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                        <div class="container">
                         @*容器 排版未處理完*@
+                        <div class="container">
+                            <div class="row mb_30" id="test-1">
 
-                        <div class="row mb_30">
-                            @{
-                                foreach (var item in Model)
-                                {
-                                    <div>
-                                        <input type="hidden" value="@Html.DisplayFor(modelItem =>item.HotelRegionId)" />
+
+
+                                <div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div id="hoteldata" class="facilities_item" data-region-id="1">
+                                        <h5 class="d-flex justify-content-center" id="hotelname"></h5>
+                                        <img src="" width="280" height="210" />
                                     </div>
-                                    <div class="col-lg-6 col-md-6">
-                                        <div class="facilities_item">
-                                            <h5 class="d-flex justify-content-center">@Html.DisplayFor(modelItem => item.HotelName)</h5>
-                                                <img src="~/image/@item.HotelImage" width="280" height="210"  />
-                                        </div>
-                                    </div>
-                                }
-                            }
+                                </div>
+
+                            </div>
                         </div>
-                    </div>
-
                         @*容器*@
                     </div>
                 </div>
