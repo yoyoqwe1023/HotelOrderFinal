@@ -8,7 +8,10 @@ namespace HotelOrderFinal.Controllers
     {
         public IActionResult List()
         {
-            return View();
+            HotelOrderContext db = new HotelOrderContext();
+            var datas = from c in db.RoomClass
+                        select c;
+            return View(datas);
         }
         public IActionResult ListTest()
         {
@@ -18,7 +21,7 @@ namespace HotelOrderFinal.Controllers
             return View(datas);
 
         }
-
+       
         public IActionResult Detail(string id)
         {
             HotelOrderContext db = new HotelOrderContext();

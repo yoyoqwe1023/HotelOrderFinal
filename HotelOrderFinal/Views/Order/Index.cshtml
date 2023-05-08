@@ -24,40 +24,32 @@
 
 <body>
 <<header>
-    <div class="row">
-        <div class="col-md-2 offset-md-3">
-            <!-- 調整入住日期欄位的位置和寬度 -->
-            <div class="book_tabel_item">
-                <div class="form-group">
-                    <div class='input-group date' id='datetimepicker11'>
-                        <input type='text' class="form-control" placeholder="入住日" />
-                        <span class="input-group-addon">
-                            <i class="fa fa-calendar" aria-hidden="true"></i>
-                        </span>
+        <div class="row">
+            <div class="col-md-2 offset-md-3">
+                <div class="book_tabel_item">
+                    <div class="form-group">
+                        <label for="checkInDate">入住日期:</label>
+                        <input type="date" id="checkInDate" name="checkInDate" class="form-control" placeholder="入住日" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2">
+                <div class="book_tabel_item">
+                    <div class="form-group">
+                        <label for="checkOutDate">退房日期:</label>
+                        <input type="date" id="checkOutDate" name="checkOutDate" class="form-control" placeholder="退房日" />
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-2">
-            <!-- 調整退房日期欄位的寬度 -->
-            <div class="book_tabel_item">
-                <div class="form-group">
-                    <div class='input-group date' id='datetimepicker1'>
-                        <input type='text' class="form-control" placeholder="退房日" />
-                        <span class="input-group-addon">
-                            <i class="fa fa-calendar" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
+
         <div class="col-md-1">
             <!-- 調整搜尋按鈕的位置和寬度 -->
             <div class="book_tabel_item">
                 <a href="#" class="btn btn-primary btn-block">搜尋</a>
             </div>
         </div>
-    </div>
+    
 </header>
     <header style="margin-bottom: 20px;">
     <div class="row mt-3">
