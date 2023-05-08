@@ -1,5 +1,5 @@
 ﻿using HotelOrderFinal.Models;
-using HotelOrderFinal.ViewModels;
+
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelOrderFinal.Controllers
@@ -27,7 +27,7 @@ namespace HotelOrderFinal.Controllers
             return View(cust);
         }
         [HttpPost]
-        public IActionResult Edit(CActivityPhoto p)
+        public IActionResult Edit(CActivityWrap p)
         {
             HotelOrderContext db = new HotelOrderContext();
             Activity cust = db.Activity.FirstOrDefault(t => t.ActivityId == p.ActivityId);

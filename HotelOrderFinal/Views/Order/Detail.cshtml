@@ -1,0 +1,93 @@
+﻿<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle">訂房明細</h2>
+        </div>
+    </div>
+</section>
+
+<body>
+    <div class="col-md-10 offset-md-1 ">
+        <div style="background-color:bisque; margin-bottom:10px;margin-top:10px; height:80px;">
+                <!--步驟-->   
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+                    @*<ul >
+                <li>
+                    <span class="athTHRS__number">1</span>查詢空房
+                        
+                        </li>
+                        <li ><span >2</span>訂房明細
+                        </li>
+                        <li ><span >3</span>資料確認
+                        </li>
+                        <li ><span >4</span>訂單完成
+                        </li>
+                    </ul>
+                </div>*@
+         </div>
+        <div style="border:solid green;margin-bottom:10px;margin-top:10px;">
+        <div style="margin:10px;">
+            <h2>訂房明細</h2>
+        </div>
+        <div style="margin:10px;">
+            <table style="box-sizing: border-box">
+                <tbody>
+                  <tr style="background-color: #f0f0f0;">
+                    <th width="25%">住宿時間</th>
+                    <th width ="25%">房間類型</th>
+                    <th width="10%">數量</th>
+                    <th width="15%">人數</th>
+                    <th width="15%">小計</th>
+                    <th width="10%">刪除</th>
+                  </tr>
+                  <tr>
+                        <td><p>入住日期</p><p>2023/5/7</p><p>退房日期</p><p>2023/5/8</p></td>
+                        <td>雙人房</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>NT$ 4000</td>
+                        <td>刪除</td>
+                  </tr>
+                </tbody>
+            </table>
+            <hr />
+            <div>
+                <h4>備注</h4>
+                <input type="text" style="border:dashed black;"/>
+            </div>
+        </div>
+
+    </div>
+        <div style="border:solid green;margin-bottom:10px;margin-top:10px;">
+            <div>
+                <h2>優惠卷</h2>
+            </div>
+            <div>
+                折價卷預留位置
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-4"></div>
+                <div class="col-md-4">
+                    <table>
+                        <tr>
+                            <th width="25%">優待卷</th>
+                            <td class="text-right">NT$ -100</td>
+                        </tr>
+                        <tr>
+                            <th>總金額</th>
+                            <td class="text-right">NT$ 400</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div>
+            <a href="#">@Html.ActionLink("訂購", "Create", "Order", null, new { @class = "btn btn-primary btn-block" })</a>
+        </div>
+    </div>
+</body>
