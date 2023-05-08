@@ -83,11 +83,11 @@ a:hover, a:focus {
 }
 
 body {
-  line-height: 24px;
-  font-size: 14px;
-  font-family: "Poppins", sans-serif;
-  font-weight: 300;
-  color: #777777;
+    line-height: 24px;
+    font-size: 14px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    color: #777777;
 }
 
 section {
