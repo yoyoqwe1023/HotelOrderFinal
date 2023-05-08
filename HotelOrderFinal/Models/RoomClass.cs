@@ -2,6 +2,7 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace HotelOrderFinal.Models
 {
@@ -16,7 +17,9 @@ namespace HotelOrderFinal.Models
         public string RoomClassId { get; set; }
         public string RoomClassName { get; set; }
         public string RoomClassDetail { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal? WeekdayPrice { get; set; }
+        [DisplayFormat(DataFormatString = "{0:F0}")]
         public decimal? HolidayPrice { get; set; }
         public decimal? AddPrice { get; set; }
 
