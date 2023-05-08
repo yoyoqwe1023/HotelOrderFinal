@@ -18,5 +18,10 @@ namespace HotelOrderFinal.Controllers
         {
             return View();
         }
+
+        public IActionResult ShowOrder()
+        {
+            return View();
+        }
     }
 }
