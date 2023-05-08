@@ -39,21 +39,24 @@
             </div>
             <div class="col-md-10">
                 <div class="d-flex flex-wrap">
-                    @{
-                        foreach (var item in Model)
-                        {
-                                <div class="col-4 col-1-sm-6">
-                                    <div class="card" style="width: 20rem;">
-                                        <div class="card-body">
-                                            <input type="hidden" value="@Html.DisplayFor(modelItem => item.CommentId)" />
-                                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.CommentDate)</h5>
-                                            <h5 class="card-title">@Html.DisplayFor(modelItem => item.MemberId)</h5>
-                                            <h6 class="card-subtitle mb-2 text-body-secondary"><img src="../image/comment/shining.png"><img src="../image/comment/shining.png"><img src="../image/comment/shining.png" alt="">　3</h6>
-                                            <p class="card-text; lnr-highlight:16rem;">@Html.DisplayFor(modelItem => item.CommentDetail)</p>
-                                        </div>
-                                    </div>
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-4 col-1-sm-6">
+                            <div class="card" style="width: 20rem;">
+                                <div class="card-body">
+                                    <input type="hidden" value="@Html.DisplayFor(modelItem => item.CommentId)" />
+                                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.CommentDate)</h5>
+                                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.MemberId)</h5>
+                                    <h6 class="card-subtitle mb-2 text-body-secondary">
+                                       @for (var i = 0; i < item.CommentPoint; i++)
+                                       {
+                                         <img src="../image/comment/shining.png">
+                                       }
+                                       @Html.DisplayFor(modelItem => item.CommentPoint)</h6>
+                                    <p class="card-text; lnr-highlight:16rem;">@Html.DisplayFor(modelItem => item.CommentDetail)</p>
                                 </div>
-                        }
+                            </div>
+                        </div>
                     }
                 </div>
             </div>
