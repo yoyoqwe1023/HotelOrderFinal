@@ -3,6 +3,20 @@
     ViewData["Title"] = "Login";
 }
 
+
+<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle">About Us</h2>
+            <ol class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">About</li>
+            </ol>
+        </div>
+    </div>
+</section>
+
 <h2>登入系統</h2>
 
 @using (Html.BeginForm("Login", "Member", FormMethod.Post))
@@ -13,7 +27,6 @@
         <h4>請輸入帳號與密碼</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
         <div class="form-group">
             帳號 (註冊時的手機)
             <div class="col-md-10">
@@ -29,8 +42,30 @@
         <div class="form-group">
             <div class="col-md-offset-0 col-md-10">
                 <input type="submit" value="登入" class="btn btn-default" />
+                @using (Html.BeginForm("Login", "Member",  new { id = "my-form-id" }))
+                {
+                <button type="button" class="btn btn-primary" onclick="demoLogin()">Demo</button>
+                }
                 @ViewBag.Message
             </div>
         </div>
     </div>
+@section Scripts {
+    <script type="text/javascript">
+        function demoLogin() {
+            // 取得表單元素和欄位元素
+            var form = document.getElementById("my-form-id");
+            var phoneField = document.getElementById("MemberPhone");
+            var passwordField = document.getElementById("MemberPassword");
+
+            // 設定 Demo 帳號密碼
+            phoneField.value = "0936582783";
+            passwordField.value = "64V7VpFc";
+
+            // 提交表單
+            form.submit();
+        }
+    </script>
+}
+}
 }
