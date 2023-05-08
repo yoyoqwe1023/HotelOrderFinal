@@ -49,7 +49,7 @@
                 @Html.DisplayFor(modelItem => item.FacilityName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FacilityImage)
+                            <img src="~/image/facility/@item.FacilityImage" width="50" height="50" />
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new {  id=item.FacilityId  }) |                

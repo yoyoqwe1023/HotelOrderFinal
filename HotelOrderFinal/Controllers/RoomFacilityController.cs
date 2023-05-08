@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HotelOrderFinal.Controllers
 {
-    public class FacilityController : Controller
+    public class RoomFacilityController : Controller
     {
         private IWebHostEnvironment _enviro;
-        public FacilityController(IWebHostEnvironment p)
+        public RoomFacilityController(IWebHostEnvironment p)
         {
             _enviro = p;
         }
@@ -36,7 +36,7 @@ namespace HotelOrderFinal.Controllers
                 if (p.photo != null)
                 {
                     string photoName = Guid.NewGuid().ToString() + ".jpg";
-                    string path = _enviro.WebRootPath + "/image/" + photoName;
+                    string path = _enviro.WebRootPath + "/image/facility/" + photoName;
                     p.photo.CopyTo(new FileStream(path, FileMode.Create));
                     facility.FacilityImage = photoName;
                 }
