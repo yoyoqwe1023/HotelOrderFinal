@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<HotelOrderFinal.Models.RoomClass>
 
 @{
-    ViewData["Title"] = "ListTest";
+    ViewData["Title"] = "List";
 }
 
 <h1>ListTest</h1>
@@ -12,7 +12,7 @@
 <table class="table">
     <thead>
         <tr>
-            
+
             <th>
                 @Html.DisplayNameFor(model => model.RoomClassId)
             </th>
@@ -35,36 +35,37 @@
         </tr>
     </thead>
     <tbody>
-      
-     
-           @foreach (var item in Model) {
-             
-                <tr>                 
-            <td>
-                @Html.DisplayFor(modelItem => item.RoomClassId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoomClassName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RoomClassDetail)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WeekdayPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HolidayPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AddPrice)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+
+
+        @foreach (var item in Model)
+        {
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoomClassId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoomClassName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoomClassDetail)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WeekdayPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HolidayPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AddPrice)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                     @Html.ActionLink("Detail", "Detail",new {  id=item.RoomClassId})
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-}
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>
+            </tr>
+        }
+        }
     </tbody>
 </table>
