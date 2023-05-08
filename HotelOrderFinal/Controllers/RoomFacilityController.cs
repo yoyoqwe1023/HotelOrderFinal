@@ -35,12 +35,14 @@ namespace HotelOrderFinal.Controllers
             {
                 if (p.photo != null)
                 {
-                    string photoName = Guid.NewGuid().ToString() + ".jpg";
-                    string path = _enviro.WebRootPath + "/image/facility/" + photoName;
+                    string photoName = Guid.NewGuid().ToString() + ".png";
+                    string path = _enviro.WebRootPath + "/image/facility/" + photoName;                    
                     p.photo.CopyTo(new FileStream(path, FileMode.Create));
                     facility.FacilityImage = photoName;
                 }
-                facility.FacilityName = p.FacilityName;             
+
+                facility.FacilityName = p.FacilityName;
+              
                 db.SaveChanges();
             }
             return RedirectToAction("Index");
