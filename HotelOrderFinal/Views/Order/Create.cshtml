@@ -2,17 +2,68 @@
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
         <div class="page-cover text-center">
-            <h2 class="page-cover-tittle">訂房首頁</h2>
+            <h2 class="page-cover-tittle">資料確認</h2>
         </div>
     </div>
 </section>
+
+<head>
+    <style>
+        label {
+            width: 100px;
+           
+        }
+        .lab1{
+            width: 200px;
+        }
+
+        .row {
+            display: flex;
+            align-items: center;
+            margin-left: 0px;
+        }
+    </style>
+</head>
+
 <body>
     <div class="col-md-10 offset-md-1 ">
         <div>
             <h2>會員資料</h2>
+            <form>
+                <div class="form-group">
+                    <label >姓名:</label>
+                    <input type="text" id="account" name="account" value="姓名帶入" readonly="true" />
+                </div>
+                <div class="form-group">
+                    <label>手機:</label>
+                    <input type="text" id="phone" name="phone" value="0922123456" readonly="true" />
+                </div>
+                <div class="form-group">
+                    <label>電子郵件:</label>
+                    <input type="text" id="email" name="email" value="123456@gmail.com" readonly="true" />
+                </div>
+            </form>
         </div>
         <div>
             <h2>付款方式</h2>
+            <div class="row">
+                <label class="lab1">
+                    <input type="radio" name="pay" value="cash" required checked />現金(現場支付)
+                </label>
+                <label class="lab1">
+                    <input type="radio" name="pay" value="creditcard" />信用卡
+                </label>
+            </div>
+        </div>
+        <div>
+            <h2>注意事項</h2>
+            <ol>
+                <li>飯店入住時間：下午3點之後；退房時間：中午11點以前。</li>
+                <li>飯店全館禁止吸菸及謝絕寵物入住(除導盲犬)，謝謝合作。</li>
+                <li>入住時請出示身分證或護照以便住宿登記。</li>
+                <li>平、旺、假日之定義，將依飯店規定為主。</li>
+                
+            </ol>
         </div>
 
 
@@ -21,7 +72,7 @@
                 <a href="#">@Html.ActionLink("返回上一頁", "Detail", "Order", null, new { @class = "btn btn-primary btn-block" })</a>
             </div>
             <div class="col-md-2">
-                <a href="#">@Html.ActionLink("付款", "Create", "Order", null, new { @class = "btn btn-primary btn-block" })</a>
+                <a href="#">@Html.ActionLink("付款", "ShowOrder", "Order", null, new { @class = "btn btn-primary btn-block" })</a>
             </div>
         </div>
     </div>
