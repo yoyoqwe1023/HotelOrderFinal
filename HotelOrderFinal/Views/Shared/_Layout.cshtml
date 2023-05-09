@@ -41,8 +41,8 @@
     @Scripts.Render("~/Scripts/vendors/lightbox/simpleLightbox.min.js")
     @Scripts.Render("~/Scripts/vendors/owl-carousel/owl.carousel.min.js")*@
 
-
-
+    @*AJAX老師說這個要留*@
+    @RenderSection("Styles", required: false)
 
 </head>
 <body>
@@ -197,7 +197,11 @@
     <script src="~/js/custom.js"></script>
     <script src="~/js/bootstrap.js"></script>
     <script src="~/js/datetimepicker.js"></script>
-    @await RenderSectionAsync("Scripts",required:false)
+    @*@await RenderSectionAsync("Scripts",required:false)*@
+
+    
+    @*AJAX老師說這個要留*@
+    @RenderSection("Scripts", required: false)
 
 </body>
 </html>
