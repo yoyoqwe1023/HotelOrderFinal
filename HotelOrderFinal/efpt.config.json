@@ -83,15 +83,7 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[RoomImage]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[dbo].[RoomMember]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[RoomStyle]",
          "ObjectType": 0
       },
       {

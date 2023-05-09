@@ -8,10 +8,10 @@ namespace HotelOrderFinal.Models
     public partial class MultipleRoomFacility
     {
         public int MultipleRoomFacilitiyId { get; set; }
-        public string RoomId { get; set; }
+        public string RoomClassId { get; set; }
         public int? FacilityId { get; set; }
 
         public virtual RoomFacility Facility { get; set; }
-        public virtual Room Room { get; set; }
+        public virtual RoomClass RoomClass { get; set; }
     }
 }
