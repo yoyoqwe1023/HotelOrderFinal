@@ -6,6 +6,7 @@ tomorrow.setDate(tomorrow.getDate() + 1); // 設定退房日為明天
 // 設定入住日期欄位的屬性
 var checkInDateInput = document.getElementById("checkInDate");
 checkInDateInput.value = formatDate(today); // 設定起始日為今天
+checkInDateInput.min = formatDate(today);
 
 // 設定退房日期欄位的屬性
 var checkOutDateInput = document.getElementById("checkOutDate");
