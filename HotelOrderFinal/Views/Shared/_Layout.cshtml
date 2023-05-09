@@ -52,24 +52,27 @@
             <nav class="navbar navbar-expand-lg navbar-light">
                 <!--Brand and toggle get grouped for better mobile display-->
                 <a class="navbar-brand logo_h" asp-controller="Home" asp-action="Index">
-                    <img src="~/image/Logo2.png" alt="">
+                    <img src="~/image/logo transparentsmall.png" alt="">
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
+
                 <!--Collect the nav links, forms, and other content for toggling-->
                 <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                     <ul class="nav navbar-nav menu_nav ml-auto">
                         
                         <li class="nav-item active; nav-item">@Html.ActionLink("關於", "About", "Home", null, new { @class = "nav-link" })</li>
+                        @*<li class="nav-item active; nav-item">@Html.ActionLink("訂房", "Index", "Order", null, new { @class = "nav-link" })</li>*@
                         <li class="nav-item active; nav-item">@Html.ActionLink("飯店一覽", "List", "HotelIndustry", null, new { @class = "nav-link" })</li>
                         <li class="nav-item active; nav-item">@Html.ActionLink("房型", "List", "Room", null, new { @class = "nav-link" })</li>
                         <li class="nav-item active; nav-item">@Html.ActionLink("活動", "List", "Activity", null, new { @class = "nav-link" })</li>
                         <li class="nav-item active; nav-item">@Html.ActionLink("評論", "List", "Comment", null, new { @class = "nav-link" })</li>
                         <li class="nav-item active; nav-item">@Html.ActionLink("交通資訊", "Index", "Home", null, new { @class = "nav-link" })</li>
                         <li class="nav-item active; nav-item">@Html.ActionLink("會員登入", "Login", "Member", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item active; nav-item">@Html.ActionLink("會員註冊", "Create", "Member", null, new { @class = "nav-link" })</li>
 
 
                     </ul>
@@ -193,6 +196,8 @@
     <script src="~/vendors/lightbox/simpleLightbox.min.js"></script>
     <script src="~/js/custom.js"></script>
     <script src="~/js/bootstrap.js"></script>
+    <script src="~/js/datetimepicker.js"></script>
+    @await RenderSectionAsync("Scripts",required:false)
 
 </body>
 </html>

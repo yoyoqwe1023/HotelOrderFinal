@@ -14,14 +14,14 @@ namespace HotelOrderFinal.Controllers
         public IActionResult List()
         {
             HotelOrderContext db = new HotelOrderContext();
-            var datas = from c in db.Activities
+            var datas = from c in db.Activity
                         select c;
             return View(datas);
         }
         public IActionResult Edit(int? id)
         {
             HotelOrderContext db = new HotelOrderContext();
-            Activity cust = db.Activities.FirstOrDefault(t => t.ActivityId == id);
+            Activity cust = db.Activity.FirstOrDefault(t => t.ActivityId == id);
             if (cust == null)
                 return RedirectToAction("List");
             return View(cust);
@@ -30,7 +30,7 @@ namespace HotelOrderFinal.Controllers
         public IActionResult Edit(CActivityWrap p)
         {
             HotelOrderContext db = new HotelOrderContext();
-            Activity cust = db.Activities.FirstOrDefault(t => t.ActivityId == p.ActivityId);
+            Activity cust = db.Activity.FirstOrDefault(t => t.ActivityId == p.ActivityId);
             if (cust != null)
             {
                 if (p.photo != null)

@@ -6,13 +6,13 @@
 <section class="breadcrumb_area">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
-        <div class="page-cover text-center">
+        @*<div class="page-cover text-center">
             <h2 class="page-cover-tittle">About Us</h2>
             <ol class="breadcrumb">
                 <li><a href="index.html">Home</a></li>
                 <li class="active">About</li>
             </ol>
-        </div>
+        </div>*@
     </div>
 </section>
 
@@ -34,51 +34,26 @@
 </head>
 <body>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-2" style="background-color: #f2f2f2;">
+        <div class="row" style="background-color: #dcebfd;">
+          @* -------------------------------------------------------
+              <div class="col-md-2" style="background-color: #f2f2f2;">
                 <h2>左欄內容</h2>
                 <p>
                     <a asp-action="Create">前往訂房</a>
                 </p>
             </div>
-            <div class="col-md-10">
-                <h2>分區活動遊覽</h2>
-
-                @*<table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                序
-                            </th>
-                            <th>
-                                活動名稱
-                            </th>                           
-                            <th>
-                                活動描述
-                            </th>
-                            <th>
-                                活動時間
-                            </th>
-                            <th>
-                                活動地點
-                            </th>
-                            <th>
-                                活動人數上限
-                            </th>
-                            <th>
-                                報名費用
-                            </th>
-
-                            <th></th>
-                        </tr>
-                    </thead>*@
+            --------------------------------------------------------*@
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="page-cover text-center">
+                    <h2 class="page-cover text-center">分區活動遊覽</h2>
 
                 <div class="d-flex flex-wrap">
                         @{
                             foreach (var item in Model)
                             {
                                 
-                                <div class="col-4 col-1-sm-6">
+                                <div class="col-4 col-2-sm-5">
                                     <div>
                                         <input type="hidden" value="@Html.DisplayFor(modelItem => item.ActivityId)" />
                                     </div>
@@ -101,13 +76,13 @@
                             </td>*@
 
                         </div>
-
-
                     }
                         }
                </div>
             </div>
+            <div class="col-md-2"></div>
         </div>
+    </div>
     </div>
 </body>
 

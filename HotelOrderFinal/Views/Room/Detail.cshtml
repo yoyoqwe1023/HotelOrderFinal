@@ -1,0 +1,52 @@
+﻿@model HotelOrderFinal.Models.RoomClass
+
+@{
+    ViewData["Title"] = "Detail";
+}
+<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle">About Us</h2>
+            <ol class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">Detail</li>
+            </ol>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <h2>@Html.DisplayFor(model => model.RoomClassName)</h2>
+    <hr>
+    <div class="row">
+        <div class="col-md-4">
+            <img src="~/image/room1.jpg" alt="" width="360px">
+            @*<img src="https://via.placeholder.com/300x200.png?text=Room+Image" class="img-fluid" alt="Room Image">*@
+        </div>
+        <div class="col-md-8">
+            <h2>房型介紹</h2>
+            <p>@Html.DisplayFor(model => model.RoomClassDetail)</p>
+            <h4>Room Amenities:</h4>
+            <ul>
+                <li>King-size bed</li>
+                <li>Work desk</li>
+                <li>Sofa</li>
+                <li>Flat-screen TV</li>
+                <li>Air conditioning</li>
+                <li>Minibar</li>
+                <li>Shower</li>
+                <li>Hairdryer</li>
+                <li>Free toiletries</li>
+            </ul>
+            <a href="#"><h5 class="sec_h4">價格:</h5></a>
+            <ul style="list-style-type:none" >
+                <li><h5>平日：NT$@Html.DisplayFor(model => model.WeekdayPrice)</h5></li>
+                <li><h5>假日：NT$@Html.DisplayFor(model => model.HolidayPrice)</h5></li>
+            </ul>            
+        </div>
+    </div>
+    @Html.ActionLink("立即預約", "Index", "Order", null, new { @class = "book_now_btn button_hover" })
+    @*<a href="#">@Html.ActionLink("立即預約", "Index", "Order", null, new { @class = "book_now_btn button_hover" })</a>*@
+</div>
+
