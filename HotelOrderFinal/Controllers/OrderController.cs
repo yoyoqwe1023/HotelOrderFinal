@@ -16,6 +16,10 @@ namespace HotelOrderFinal.Controllers
 
         public IActionResult Create()
         {
+            if (HttpContext.Session.GetString("UserID") == null)
+            {
+                return RedirectToAction("Login", "Member");
+            }
             return View();
         }
 
