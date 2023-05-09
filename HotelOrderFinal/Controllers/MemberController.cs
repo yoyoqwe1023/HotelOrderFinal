@@ -1,6 +1,7 @@
 ﻿using HotelOrderFinal.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Win32;
 using System.Diagnostics.Metrics;
 
@@ -44,8 +45,11 @@ namespace HotelOrderFinal.Controllers
             HttpContext.Session.SetString("LayoutMessage", "_LayoutMember");
             return RedirectToAction("Index", "Home");
         }
-        // GET: MemberController/Details/5
-        public IActionResult Details(int id)
+
+       
+
+            // GET: MemberController/Details/5
+            public IActionResult Details(int id)
         {
             return View();
         }

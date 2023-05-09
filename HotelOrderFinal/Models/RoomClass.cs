@@ -10,17 +10,22 @@ namespace HotelOrderFinal.Models
         public RoomClass()
         {
             Comment = new HashSet<Comment>();
+            MultipleRoomFacility = new HashSet<MultipleRoomFacility>();
             Room = new HashSet<Room>();
         }
 
         public string RoomClassId { get; set; }
         public string RoomClassName { get; set; }
         public string RoomClassDetail { get; set; }
+        public string RoomClassPhoto1 { get; set; }
+        public string RoomClassPhoto2 { get; set; }
+        public string RoomClassPhoto3 { get; set; }
         public decimal? WeekdayPrice { get; set; }
         public decimal? HolidayPrice { get; set; }
         public decimal? AddPrice { get; set; }
 
         public virtual ICollection<Comment> Comment { get; set; }
+        public virtual ICollection<MultipleRoomFacility> MultipleRoomFacility { get; set; }
         public virtual ICollection<Room> Room { get; set; }
     }
 }
