@@ -4,35 +4,7 @@
     Layout = "_Layout";
     ViewData ["Title"] = "List";
 }
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready
-        (
-            function () {
-                //抓region-id
-                //$('.accordion').on('aria-expanded=true', function (event) {
-                //    var regionId = $(event.target).find('.accordion-button').data('region-id');
-                //    loadData(regionId);
-                //});
 
-                loadData();
-                function loadData(regionId) {
-                    var apiUrl = "https://localhost:7007/api/APIHotelIndustry?regionId=" + regionId;
-                    $.ajax({
-                        url: apiUrl,
-                        method: 'get',
-                        success: function (data) {
-                            for (var i = 0; i < data.length; i++) {
-                                $("#hoteldata").append(
-                                    data[i].hotelName
-                                );
-                            }
-                        }
-                    });
-                }
-            }
-        );
-</script>
 <!--================Breadcrumb Area =================-->
 <section class="breadcrumb_area">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
@@ -72,7 +44,7 @@
             <div class="accordion" id="accordionExample">
                 <div class="accordion-item">
                     <div class="d-flex justify-content-center">
-                        <button class="accordion-button collapsed buttonwidthL" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        <button id="button1" class="accordion-button collapsed buttonwidthL" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" data-hotelregionid="1">
                             北部
                         </button>
                     </div>
@@ -81,43 +53,63 @@
                 <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
                         @*容器 排版未處理完*@
-                        <div class="container">
-                            <div class="row mb_30" id="test-1">
-
-
-
+                        <div class="container" id="hoteldata1">
+                            <div class="row mb_30">
                                 <div>
                                 </div>
                                 <div class="col-lg-6 col-md-6">
-                                    <div id="hoteldata" class="facilities_item" data-region-id="1">
-                                        <h5 class="d-flex justify-content-center" id="hotelname"></h5>
-                                        <img src="" width="280" height="210" />
+                                    <div class="facilities_item">
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                         @*容器*@
                     </div>
                 </div>
             </div>
+
             <div class="accordion-item">
                 <div class="d-flex justify-content-center" id="headingTwo">
-                    <button class="accordion-button collapsed buttonwidthL" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    <button class="accordion-button collapsed buttonwidthL" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" data-hotelregionid="2">
                         中部
                     </button>
                 </div>
             </div>
+            @*手風琴內容*@
             <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                 <div class="accordion-body">
                     @*容器*@
-                    <div class="container">
-                        <div>
-                            @*調整外框位置*@
-                            <div class="d-flex justify-content-center">
+                    <div class="container" id="hoteldata2">
+                        <div class="row mb_30">
+                            <div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
                                 <div class="facilities_item">
-                                    <h4 class="sec_h4"><i class="lnr lnr-coffee-cup"></i>預留格式</h4>
-                                    <p>之後要用來作為分頁標籤內容的元素</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*容器*@
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <div class="d-flex justify-content-center" id="headingThree">
+                    <button class="accordion-button collapsed buttonwidthL" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" data-hotelregionid="3">
+                        南部
+                    </button>
+                </div>
+            </div>
+            @*手風琴內容*@
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    @*容器*@
+                    <div class="container" id="hoteldata3">
+                        <div class="row mb_30">
+                            <div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+                                <div class="facilities_item">
                                 </div>
                             </div>
                         </div>
@@ -202,3 +194,114 @@
 
 
 <p>Use this page to detail your site's privacy policy.</p>*@
+
+
+@section Scripts{
+
+    <script>
+        //$("#hoteldata3").empty();與$("#hoteldata3").append應該要寫一個可以自己判別的通用式
+        catchid1()
+        catchid2()
+        catchid3()
+        function catchid1() {
+            //抓hotelregionid
+            $('.accordion-button').on('click', function (event) {
+
+                var hotelRegionId = $(event.target).data('hotelregionid');
+
+                var apiUrl = "https://localhost:7007/api/APIHotelIndustry?hotelRegionId=" + hotelRegionId;
+                //僅輸出符合api所設參數的內容
+                $.ajax({
+                    url: apiUrl,
+                    method: 'get',
+                    success: function (data) {
+                        $("#hoteldata1").empty(); //清空之前的資料
+                        for (var i = 0; i < data.length; i++) {
+                            $("#hoteldata1").append(
+                                '<div class="container" >' +
+                                '<div class= "row mb_30" id = "test-1" >' +
+                                '<div>' +
+                                '</div>' +
+                                '<div class="col-lg-6 col-md-6" >' +
+                                '<div id = "hoteldata" class= "facilities_item" data - hotelregionid="1" >' +
+                                '<h1>' + data[i].hotelName + '</h1>' +
+                                '<img src="/image/' + data[i].hotelImage + ' "  width = "280" height = "210" />' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>'
+                            );
+                        }
+                    }
+                });
+            });
+        }
+        function catchid2() {
+            //抓hotelregionid
+            $('.accordion-button').on('click', function (event) {
+
+                var hotelRegionId = $(event.target).data('hotelregionid');
+
+                var apiUrl = "https://localhost:7007/api/APIHotelIndustry?hotelRegionId=" + hotelRegionId;
+                //僅輸出符合api所設參數的內容
+                $.ajax({
+                    url: apiUrl,
+                    method: 'get',
+                    success: function (data) {
+                        $("#hoteldata2").empty(); //清空之前的資料
+                        for (var i = 0; i < data.length; i++) {
+                            $("#hoteldata2").append(
+                                '<div class="container" >' +
+                                '<div class= "row mb_30" id = "test-1" >' +
+                                '<div>' +
+                                '</div>' +
+                                '<div class="col-lg-6 col-md-6" >' +
+                                '<div id = "hoteldata" class= "facilities_item" data - hotelregionid="1" >' +
+                                '<h1>' + data[i].hotelName + '</h1>' +
+                                '<img src="/image/' + data[i].hotelImage + ' "  width = "280" height = "210" />' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>'
+                            );
+                        }
+                    }
+                });
+            });
+        }
+        function catchid3() {
+            //抓hotelregionid
+            $('.accordion-button').on('click', function (event) {
+
+                var hotelRegionId = $(event.target).data('hotelregionid');
+
+                var apiUrl = "https://localhost:7007/api/APIHotelIndustry?hotelRegionId=" + hotelRegionId;
+                //僅輸出符合api所設參數的內容
+                $.ajax({
+                    url: apiUrl,
+                    method: 'get',
+                    success: function (data) {
+                        $("#hoteldata3").empty(); //清空之前的資料
+                        for (var i = 0; i < data.length; i++) {
+                            $("#hoteldata3").append(
+                                '<div class="container" >' +
+                                '<div class= "row mb_30" id = "test-1" >' +
+                                '<div>' +
+                                '</div>' +
+                                '<div class="col-lg-6 col-md-6" >' +
+                                '<div id = "hoteldata" class= "facilities_item" data - hotelregionid="1" >' +
+                                '<h1>' + data[i].hotelName + '</h1>' +
+                                '<img src="/image/' + data[i].hotelImage + ' "  width = "280" height = "210" />' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>' +
+                                '</div>'
+                            );
+                        }
+                    }
+                });
+            });
+        }
+
+    </script>
+                        }
