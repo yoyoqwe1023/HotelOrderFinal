@@ -1,7 +1,7 @@
 ﻿@model HotelOrderFinal.Models.HotelIndustry
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Create";
 }
 <section class="breadcrumb_area">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
@@ -16,15 +16,15 @@
     </div>
 </section>
 
-<h1>Edit</h1>
 
-<h4>HotelIndustry</h4>
+<h1>新增飯店資料</h1>
+
+<h4 >飯店資料</h4>
 <hr />
 <div class="row" style="margin:50px;">
     <div class="col-md-4">
-        <form asp-action="Edit" enctype="multipart/form-data">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" value="@Model.HotelId" name="HotelId" />
             <div class="form-group">
                 <label asp-for="HotelName" class="control-label"></label>
                 <input asp-for="HotelName" class="form-control" />
@@ -50,7 +50,6 @@
                 <input asp-for="HotelImageDiscription" class="form-control" />
                 <span asp-validation-for="HotelImageDiscription" class="text-danger"></span>
             </div>
-
             <div class="form-group col-md-10">
                 <label class="control-label">飯店照片</label>
                 <input type="file" name="photo" class="form-control" />
@@ -58,22 +57,15 @@
             <br />
             <div class="form-group col-md-10">
                 <input type="submit" value="送出" class="btn btn-primary" style="margin-right:10px; margin-bottom:10px;" />
-                <button class="btn btn-secondary" style="margin-right:10px; margin-bottom:10px;" asp-action="List">回到飯店一覽</button>
+                <button class="btn btn-secondary" style="margin-right:10px; margin-bottom:10px;"  asp-action="List">回到飯店一覽</button>
                 <br />
-                <button class="btn btn-danger" style="margin-right:10px; margin-bottom:10px;">@Html.ActionLink("刪除", "Delete", "HotelIndustry", new {id=Model.HotelId}, new { @style="color:white" ,onclick = "return confirm('確定刪除?')"})</button>
-                <br />
-                <button class="btn btn-secondary" asp-action="Index" asp-controller="Home">回到首頁</button>
+                <button class="btn btn-danger" asp-action="Index" asp-controller="Home">回到首頁</button>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
-@*@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}*@
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

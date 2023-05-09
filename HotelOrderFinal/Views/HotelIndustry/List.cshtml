@@ -28,8 +28,8 @@
     @*在class中nav應該是有flex標籤 用於啟動justify-content-center置中 *@
     <nav>
         <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
-            <button class="nav-link active buttonwidth" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">由地圖尋找</button>
-            <button class="nav-link  buttonwidth" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">由地區篩選</button>
+            <button class="nav-link active" id="nav-home-tab" style="width:20%;" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true" >由地圖尋找</button>
+            <button class="nav-link" id="nav-profile-tab" style="width:20%;" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">由地區篩選</button>
         </div>
     </nav>
     @*分頁下的內容*@
@@ -44,19 +44,17 @@
             <div class="accordion" id="accordionExample">
                 <div class="accordion-item">
                     <div class="d-flex justify-content-center">
-                        <button id="button1" class="accordion-button collapsed buttonwidthL" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" data-hotelregionid="1">
+                        <button id="btn1" class="accordion-button collapsed" type="button" style="width:40%" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne" data-hotelregionid="1">
                             北部
                         </button>
                     </div>
                 </div>
                 @*手風琴內容*@
-                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body">
                         @*容器 排版未處理完*@
                         <div class="container" id="hoteldata1">
                             <div class="row mb_30">
-                                <div>
-                                </div>
                                 <div class="col-lg-6 col-md-6">
                                     <div class="facilities_item">
                                     </div>
@@ -69,14 +67,14 @@
             </div>
 
             <div class="accordion-item">
-                <div class="d-flex justify-content-center" id="headingTwo">
-                    <button class="accordion-button collapsed buttonwidthL" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" data-hotelregionid="2">
+                <div class="d-flex justify-content-center">
+                    <button id="btn2" class="accordion-button collapsed" type="button" style="width:40%" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo" data-hotelregionid="2">
                         中部
                     </button>
                 </div>
             </div>
             @*手風琴內容*@
-            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
                 <div class="accordion-body">
                     @*容器*@
                     <div class="container" id="hoteldata2">
@@ -95,13 +93,13 @@
 
             <div class="accordion-item">
                 <div class="d-flex justify-content-center" id="headingThree">
-                    <button class="accordion-button collapsed buttonwidthL" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" data-hotelregionid="3">
+                    <button id="btn3" class="accordion-button collapsed" type="button" style="width:40%" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree" data-hotelregionid="3">
                         南部
                     </button>
                 </div>
             </div>
             @*手風琴內容*@
-            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+            <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
                 <div class="accordion-body">
                     @*容器*@
                     <div class="container" id="hoteldata3">
@@ -205,7 +203,7 @@
         catchid3()
         function catchid1() {
             //抓hotelregionid
-            $('.accordion-button').on('click', function (event) {
+            $('#btn1').on('click', function (event) {
 
                 var hotelRegionId = $(event.target).data('hotelregionid');
 
@@ -223,9 +221,10 @@
                                 '<div>' +
                                 '</div>' +
                                 '<div class="col-lg-6 col-md-6" >' +
-                                '<div id = "hoteldata" class= "facilities_item" data - hotelregionid="1" >' +
+                                '<div id = "hotelupload1" class= "facilities_item" >' +
                                 '<h1>' + data[i].hotelName + '</h1>' +
                                 '<img src="/image/' + data[i].hotelImage + ' "  width = "280" height = "210" />' +
+                                '<br>' + data[i].hotelImageDiscription +
                                 '</div>' +
                                 '</div>' +
                                 '</div>' +
@@ -238,7 +237,7 @@
         }
         function catchid2() {
             //抓hotelregionid
-            $('.accordion-button').on('click', function (event) {
+            $('#btn2').on('click', function (event) {
 
                 var hotelRegionId = $(event.target).data('hotelregionid');
 
@@ -256,9 +255,10 @@
                                 '<div>' +
                                 '</div>' +
                                 '<div class="col-lg-6 col-md-6" >' +
-                                '<div id = "hoteldata" class= "facilities_item" data - hotelregionid="1" >' +
+                                '<div id = "hotelupload2" class= "facilities_item">' +
                                 '<h1>' + data[i].hotelName + '</h1>' +
                                 '<img src="/image/' + data[i].hotelImage + ' "  width = "280" height = "210" />' +
+                                '<br>' + data[i].hotelImageDiscription +
                                 '</div>' +
                                 '</div>' +
                                 '</div>' +
@@ -271,8 +271,7 @@
         }
         function catchid3() {
             //抓hotelregionid
-            $('.accordion-button').on('click', function (event) {
-
+            $('#btn3').on('click', function (event) {
                 var hotelRegionId = $(event.target).data('hotelregionid');
 
                 var apiUrl = "https://localhost:7007/api/APIHotelIndustry?hotelRegionId=" + hotelRegionId;
@@ -289,9 +288,10 @@
                                 '<div>' +
                                 '</div>' +
                                 '<div class="col-lg-6 col-md-6" >' +
-                                '<div id = "hoteldata" class= "facilities_item" data - hotelregionid="1" >' +
+                                '<div id="hotelupload3"class= "facilities_item">' +
                                 '<h1>' + data[i].hotelName + '</h1>' +
                                 '<img src="/image/' + data[i].hotelImage + ' "  width = "280" height = "210" />' +
+                                '<br>' +data[i].hotelImageDiscription +
                                 '</div>' +
                                 '</div>' +
                                 '</div>' +
