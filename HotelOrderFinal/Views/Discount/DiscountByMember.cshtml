@@ -1,0 +1,92 @@
+﻿@model IEnumerable<HotelOrderFinal.Models.Discount>
+
+@{
+    ViewData["Title"] = "List";
+}
+
+<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        @*  <div class="page-cover text-center">
+        <h2 class="page-cover-tittle">About Us</h2>
+        <ol class="breadcrumb">
+        <li><a href="index.html">Home</a></li>
+        <li class="active">About</li>
+        </ol>
+        </div>*@
+    </div>
+</section>
+
+<table class="table">
+    <thead>
+        <tr>
+            @* <th>
+            @Html.DisplayNameFor(model => model.DiscountId)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.DiscountName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiscountImage)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiscountDirections)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiscountStart)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiscountEnd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiscountDiscount)
+            </th>
+            @*<th>
+            @Html.DisplayNameFor(model => model.MemberId)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.DiscountUse)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @* <td>
+            @Html.DisplayFor(modelItem => item.DiscountId)
+            </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiscountName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiscountImage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiscountDirections)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiscountStart)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiscountEnd)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiscountDiscount)
+                </td>
+                @*<td>
+            @Html.DisplayFor(modelItem => item.MemberId)
+            </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiscountUse)
+                </td>
+
+                <td>
+                    @Html.ActionLink("修改", "Edit", new {  id=item.DiscountId  }) |
+                    @Html.ActionLink("刪除", "Delete","Discount", new {  id=item.DiscountId },new {onclick="return confirm('確定刪除嗎?')"})
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

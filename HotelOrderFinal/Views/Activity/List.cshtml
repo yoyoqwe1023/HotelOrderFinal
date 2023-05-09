@@ -30,6 +30,11 @@
             line-clamp: 2;
             overflow: hidden;
     }
+
+    .card-img{
+            display: block;
+            margin: 0 auto;
+    }
     </style>
 </head>
 <body>
@@ -48,34 +53,34 @@
                 <div class="page-cover text-center">
                     <h2 class="page-cover text-center">分區活動遊覽</h2>
 
-                <div class="d-flex flex-wrap">
+                    <div class="d-flex flex-wrap">
                         @{
                             foreach (var item in Model)
                             {
                                 
-                                <div class="col-4 col-2-sm-5">
-                                    <div>
-                                        <input type="hidden" value="@Html.DisplayFor(modelItem => item.ActivityId)" />
-                                    </div>
-                                <div class="card" style="width: 21rem;margin-bottom: 20px;">
-                                        <img src="~/image/@item.ActivityImage" width="320" height="240" />
-                                        <br>
-                                        
-                                        <div class="card-body">
-                                        <p>@Html.DisplayFor(modelItem => item.ActivityTime)</p>
-                                            <h5 class="card-title"> @Html.DisplayFor(modelItem => item.ActivityName)</h5>
-                                            <div class="card-text">@Html.DisplayFor(modelItem => item.ActivityDirections)</div>
-                                            <a href="#" class="btn btn-primary">前往詳細內容</a>
+                                    <div class="col-4 col-2-sm-5">
+                                        <div>
+                                            <input type="hidden" value="@Html.DisplayFor(modelItem => item.ActivityId)" />
                                         </div>
-                                    </div>
-                     
+                                    <div class="card" style="width: 21rem;margin-bottom: 20px;">
+                                        <img class="card-img" src="~/image/@item.ActivityImage" width="320" height="240" />
+                                            <br>
+                                            
+                                            <div class="card-body">
+                                            <p>@Html.DisplayFor(modelItem => item.ActivityTime)</p>
+                                                <h5 class="card-title"> @Html.DisplayFor(modelItem => item.ActivityName)</h5>
+                                                <div class="card-text">@Html.DisplayFor(modelItem => item.ActivityDirections)</div>
+                                                <a href="#" class="btn btn-primary">前往詳細內容</a>
+                                            </div>
+                                        </div>
+                         
 
-                                    @*<td>
+                                        @*<td>
                             @Html.ActionLink("修改", "Edit", new {  id=item.ActivityId  }) |
                             @Html.ActionLink("刪除", "Delete","Customer", new {  id=item.ActivityId },new {onclick="return confirm('確定刪除嗎?')"})
                             </td>*@
 
-                        </div>
+                            </div>
                     }
                         }
                </div>

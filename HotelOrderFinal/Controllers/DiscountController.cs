@@ -7,6 +7,13 @@ namespace HotelOrderFinal.Controllers
 {
     public class DiscountController : Controller
     {
+        public IHttpContextAccessor _contextAccessor;
+
+        public DiscountController(IHttpContextAccessor contextAccessor)
+        {
+            this._contextAccessor = contextAccessor;
+        }
+
         public IActionResult List(CKeywordViewModel vm)
         {
             HotelOrderContext db = new HotelOrderContext();
@@ -14,11 +21,8 @@ namespace HotelOrderFinal.Controllers
             if (string.IsNullOrEmpty(vm.txtKeyword))
                 datas = from c in db.Discount
                         select c;
-            else
-                datas = db.Discount.Where(p => p.DiscountName.Contains(vm.txtKeyword) ||
-                p.DiscountName.Contains(vm.txtKeyword) ||
-                p.DiscountImage.ToString().Contains(vm.txtKeyword) ||
-                p.DiscountUse.ToString().Contains(vm.txtKeyword));
+            else              
+            return RedirectToAction("Index", "Home");
             return View(datas);
         }
 
@@ -65,10 +69,20 @@ namespace HotelOrderFinal.Controllers
                 cust.DiscountDirections = p.DiscountDirections;
                 cust.DiscountStart = p.DiscountStart;
                 cust.DiscountEnd = p.DiscountEnd;
-                cust.DiscountUse = p.DiscountUse;               
+                cust.DiscountUse = p.DiscountUse;
                 db.SaveChanges();
             }
             return RedirectToAction("List");
+        }
+
+        public IActionResult DiscountByMember()
+        {
+            var userId = _contextAccessor.HttpContext.Session.GetString("UserID");
+            HotelOrderContext db = new HotelOrderContext();
+            DateTime now = DateTime.Now;
+            IEnumerable<Discount> usesid = db.Discount.Where(x => x.MemberId == userId && x.DiscountStart <= now && x.DiscountEnd >= now);
+            //IEnumerable<Discount> usesid = db.Discount.Where(x => x.MemberId == userId);
+            return View(usesid);            
         }
     }
 }
