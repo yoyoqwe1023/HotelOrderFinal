@@ -26,7 +26,6 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
             <div class="form-group">
                 <label asp-for="MemberName" class="control-label"></label>
                 <input asp-for="MemberName" class="form-control" />
@@ -68,8 +67,8 @@
                 <span asp-validation-for="MemberPassword" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="註冊" class="btn btn-primary" />             
-
+                <input type="submit" value="註冊" class="btn btn-primary" />
+                    @*<button type="button" onclick="location.href='@Url.Action("List")'" class="btn btn-secondary">取消</button>*@
             </div>
         </form>
     </div>

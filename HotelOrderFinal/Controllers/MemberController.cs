@@ -68,8 +68,8 @@ namespace HotelOrderFinal.Controllers
             string memberID_ = string.Empty;
             int maxMemberID = 0;
             model.AdminId = "AD00010";
-            try
-            {
+            //try
+            //{
                 db = new HotelOrderContext();
 
                 //自動產生MemberID
@@ -80,14 +80,33 @@ namespace HotelOrderFinal.Controllers
                 model.MemberId = memberID_;
 
                 db.Add(model);
+                //-fufu
+                //db.SaveChanges();
+                //return RedirectToAction("Index", "Home");
+                //-fufu
+                db.SaveChanges();
+
+                //新增會員折扣
+                RoomMember newmember = db.RoomMember.FirstOrDefault(x => x.MemberId == model.MemberId);
+                Discount discount = new Discount();
+                discount.MemberId = newmember.MemberId;
+                discount.DiscountName = "新會員優惠";
+                discount.DiscountStart = DateTime.Now;
+                discount.DiscountEnd = DateTime.Now.AddYears(1); // 一年後到期
+                discount.DiscountDiscount = (decimal)0.7; // 七折優惠
+                db.Discount.Add(discount);
+
                 db.SaveChanges();
                 return RedirectToAction("Index", "Home");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-                return View();
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.ToString());
+            //    return View();
+                
+            //}
+
+            
         }
 
         // GET: MemberController/Edit/5

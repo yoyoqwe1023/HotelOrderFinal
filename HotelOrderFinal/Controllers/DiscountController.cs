@@ -21,8 +21,8 @@ namespace HotelOrderFinal.Controllers
             if (string.IsNullOrEmpty(vm.txtKeyword))
                 datas = from c in db.Discount
                         select c;
-            else              
-            return RedirectToAction("Index", "Home");
+            else
+                return RedirectToAction("Index", "Home");
             return View(datas);
         }
 
@@ -33,11 +33,47 @@ namespace HotelOrderFinal.Controllers
         [HttpPost]
         public IActionResult Create(Discount p)
         {
-            HotelOrderContext db = new HotelOrderContext();
-            db.Discount.Add(p);
-            db.SaveChanges();
-            return RedirectToAction("List");
+            try
+            {
+                HotelOrderContext db = new HotelOrderContext();
+
+                // 取得當時的會員數量
+                int memberCount = db.RoomMember.Count();
+                // 取得優惠開始時間
+                var discountStart = db.Discount.Where(x => x.DiscountName == "新會員優惠").Select(x => x.DiscountStart).FirstOrDefault();
+
+                // 判斷是否有符合條件的會員，若無則直接回傳
+                if (memberCount == 0 || discountStart > DateTime.Now)
+                {
+                    return RedirectToAction("List");
+                }
+
+                // 取得符合條件的會員，並加入優惠資料
+                //var members = db.RoomMember.ToList();
+                //foreach (var member in members)
+                //{
+                //    if (member.CreateTime <= discountStart)
+                //    {
+                //        MemberDiscount memberDiscount = new MemberDiscount()
+                //        {
+                //            MemberId = member.MemberId,
+                //            DiscountId = p.DiscountId
+                //        };
+                //        db.MemberDiscount.Add(memberDiscount);
+                //    }
+                //}
+
+                db.Discount.Add(p);
+                db.SaveChanges();
+                return RedirectToAction("List");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return View();
+            }
         }
+    
         public IActionResult Delete(int? id)
         {
             HotelOrderContext db = new HotelOrderContext();

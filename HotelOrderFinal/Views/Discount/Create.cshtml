@@ -26,6 +26,8 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input type="hidden" name="DiscountId" value="@Model.DiscountId" />
           @*  <div class="form-group">
                 <label asp-for="DiscountId" class="control-label"></label>
                 <input asp-for="DiscountId" class="form-control" />
