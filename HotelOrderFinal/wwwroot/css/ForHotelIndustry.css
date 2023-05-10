@@ -18,4 +18,7 @@
     padding: 31px 80px 37px;
     color: #fff;
 }
-
+.bgimg {
+    background: url(../../image/Nordic.jpg) no-repeat scroll center 0/cover;
+    opacity: 0.50;
+}
