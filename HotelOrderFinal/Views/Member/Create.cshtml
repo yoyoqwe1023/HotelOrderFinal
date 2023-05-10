@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Create";
 }
-<section class="breadcrumb_area">
+@*<section class="breadcrumb_area">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
         <div class="page-cover text-center">
@@ -14,17 +14,20 @@
             </ol>
         </div>
     </div>
-</section>
+</section>*@
   <style>
     .wrapper {
       width: 80%; /* 設定容器寬度 */
       margin: 0 auto; /* 將容器置中對齊 */
     }
+    .form-control{
+        width: 800px;
+    }
   </style>
 <div class="wrapper ">
-<h1>會員註冊</h1>
+<h4>會員註冊</h4>
 
-<h4>會員資訊</h4>
+@*<h4>會員資訊</h4>*@
 <hr />
 @using (Html.BeginForm("Create", "Member", FormMethod.Post))
 {
