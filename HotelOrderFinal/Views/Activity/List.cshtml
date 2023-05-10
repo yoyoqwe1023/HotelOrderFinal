@@ -23,6 +23,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>*@
     <style>
+        div{
+            
+        }
     .card-text {
             display: -webkit-box;
             -webkit-box-orient: vertical;
@@ -58,29 +61,30 @@
                             foreach (var item in Model)
                             {
                                 
-                                    <div class="col-4 col-2-sm-5">
-                                        <div>
-                                            <input type="hidden" value="@Html.DisplayFor(modelItem => item.ActivityId)" />
-                                        </div>
-                                    <div class="card" style="width: 21rem;margin-bottom: 20px;">
-                                        <img class="card-img" src="~/image/@item.ActivityImage" width="320" height="240" />
-                                            <br>
-                                            
-                                            <div class="card-body">
-                                            <p>@Html.DisplayFor(modelItem => item.ActivityTime)</p>
-                                                <h5 class="card-title"> @Html.DisplayFor(modelItem => item.ActivityName)</h5>
-                                                <div class="card-text">@Html.DisplayFor(modelItem => item.ActivityDirections)</div>
-                                                <a href="#" class="btn btn-primary">前往詳細內容</a>
+                                        <div class="col-4 col-2-sm-5">
+                                            <div>
+                                                <input type="hidden" value="@Html.DisplayFor(modelItem => item.ActivityId)" />
                                             </div>
-                                        </div>
-                         
+                                        <div class="card" style="width: 21rem;margin-bottom: 20px;">
+                                            <img class="card-img" src="~/image/@item.ActivityImage" width="320" height="240" />
+                                                <br>
+                                                
+                                                <div class="card-body">
+                                                <p>@Html.DisplayFor(modelItem => item.ActivityTime)</p>
+                                                    <h5 class="card-title"> @Html.DisplayFor(modelItem => item.ActivityName)</h5>
+                                                    <div class="card-text">@Html.DisplayFor(modelItem => item.ActivityDirections)</div>
+                                                    @*<a href="#" class="btn btn-primary">前往詳細內容</a>*@
+                                                <a href="@Url.Action("ActivityByDetails", "Activity", new { id = item.ActivityId })" class="btn btn-primary">前往詳細內容</a>
+                                                </div>
+                                            </div>
+                             
 
-                                        @*<td>
+                                            @*<td>
                             @Html.ActionLink("修改", "Edit", new {  id=item.ActivityId  }) |
                             @Html.ActionLink("刪除", "Delete","Customer", new {  id=item.ActivityId },new {onclick="return confirm('確定刪除嗎?')"})
                             </td>*@
 
-                            </div>
+                                </div>
                     }
                         }
                </div>

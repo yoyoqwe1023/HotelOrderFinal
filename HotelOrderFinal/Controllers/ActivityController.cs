@@ -1,15 +1,32 @@
 ﻿using HotelOrderFinal.Models;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 namespace HotelOrderFinal.Controllers
 {
     public class ActivityController : Controller
     {
         private IWebHostEnvironment _enviro;
+        
+        
         public ActivityController(IWebHostEnvironment p)
         {
             _enviro = p;
+        }
+        public ActionResult ActivityByDetails(int? id)
+        {
+            //    if (id == null)
+            //    {
+            //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //    }
+            //    Activity activity = _context.Activities.Find(id);
+            //    if (activity == null)
+            //    {
+            //        return HttpNotFound();
+            //    }
+            return View();
         }
         public IActionResult List()
         {
