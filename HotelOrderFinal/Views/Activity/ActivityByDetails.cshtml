@@ -1,4 +1,5 @@
-﻿@model IEnumerable<HotelOrderFinal.Models.Activity>
+﻿@*@model IEnumerable<HotelOrderFinal.Models.Activity>*@
+    @model HotelOrderFinal.Models.Activity
 @{
     ViewData["Title"] = "ActivityByDetails";
 }
@@ -28,10 +29,10 @@
         <div class="d-flex flex-wrap">
            
                     <div class="text-black about_content" style="width: 50rem;">
-                       @* <img class="card-img" src="~/image/@item.ActivityImage" width="320" height="240" />*@
+                <img class="card-img" src="~/image/@Model.ActivityImage" width="320" height="240" />
                         <div class="card-body">
                             <h5 class="card-title">Card title</h5>
-                           @* <p class="card-text">@Html.DisplayFor(modelItem => item.ActivityDirections)</p>*@
+                            <p class="card-text">@Html.DisplayFor(modelItem => Model.ActivityDirections)</p>
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">An item</li>

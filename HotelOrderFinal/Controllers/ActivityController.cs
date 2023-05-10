@@ -17,6 +17,11 @@ namespace HotelOrderFinal.Controllers
         }
         public ActionResult ActivityByDetails(int? id)
         {
+            HotelOrderContext db = new HotelOrderContext();
+            Activity cust = db.Activity.FirstOrDefault(t => t.ActivityId == id);
+            if (cust == null)
+                return RedirectToAction("List");
+            return View(cust);
             //    if (id == null)
             //    {
             //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
