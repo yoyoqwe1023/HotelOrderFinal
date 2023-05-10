@@ -10,3 +10,12 @@
 .buttonwidthL{
     width: 40%;
 }
+
+.newcontainer {
+    border: 2px solid #4F4F4F;
+    border-radius: 10px;
+    background-color: rgba(249, 249, 255, 0.102);
+    padding: 31px 80px 37px;
+    color: #fff;
+}
+
