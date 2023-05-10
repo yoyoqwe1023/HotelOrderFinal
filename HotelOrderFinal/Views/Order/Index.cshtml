@@ -1,4 +1,7 @@
 ﻿
+@model HotelOrderFinal.Models.Room
+
+
 <section class="breadcrumb_area">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
@@ -87,8 +90,8 @@
                         </div>
                         <div class="col-md-8 ">
                             @*房間資訊*@
-                            <h4>RoomClaseName 雙人房</h4>
-                            <p> RoomClassDetail 精緻的空間設計，讓風格、造型獲得全然的釋放，呈現出清爽的質感以及讓人心情愉悅的無壓空間氣氛。 </p>
+                                <h4>@Html.DisplayNameFor(model => model.RoomClass) </h4>
+                                <p> RoomClassDetail 精緻的空間設計，讓風格、造型獲得全然的釋放，呈現出清爽的質感以及讓人心情愉悅的無壓空間氣氛。 </p>
                             <p> 住宿人數：2</p>
                             <p> 坪數：RoomSize 13</p>
                         </div>
