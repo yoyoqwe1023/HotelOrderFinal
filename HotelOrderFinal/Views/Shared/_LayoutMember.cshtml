@@ -202,6 +202,10 @@
     <script src="~/js/stellar.js"></script>
     <script src="~/vendors/lightbox/simpleLightbox.min.js"></script>
     <script src="~/js/custom.js"></script>
-    @await RenderSectionAsync("Scripts",required:false)
+    <script src="~/js/bootstrap.js"></script>
+    <script src="~/js/datetimepicker.js"></script>
+    @*@await RenderSectionAsync("Scripts",required:false)*@
+
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
