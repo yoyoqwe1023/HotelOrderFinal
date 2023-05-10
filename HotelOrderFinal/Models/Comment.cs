@@ -2,16 +2,23 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace HotelOrderFinal.Models
 {
     public partial class Comment
     {
         public int CommentId { get; set; }
+        [DisplayName("日期")]
         public DateTime? CommentDate { get; set; }
         public string MemberId { get; set; }
+        [DisplayName("房型")]
         public string RoomClassId { get; set; }
+        [DisplayName("評點")]
+        [Required(ErrorMessage = "評點是必填欄位")]
         public int? CommentPoint { get; set; }
+        [DisplayName("評論")]
         public string CommentDetail { get; set; }
 
         public virtual RoomMember Member { get; set; }
