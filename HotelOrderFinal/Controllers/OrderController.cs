@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 
 namespace HotelOrderFinal.Controllers
 {
@@ -6,6 +7,26 @@ namespace HotelOrderFinal.Controllers
     {
         public IActionResult Index()
         {
+            string checkInDateStr = HttpContext.Session.GetString("CHECKINDATE");
+            string checkOutDateStr = HttpContext.Session.GetString("CHECKOUTDATE");
+
+            DateTime checkIn;
+            DateTime checkOut;
+
+            if (!string.IsNullOrEmpty(checkInDateStr) && !string.IsNullOrEmpty(checkOutDateStr))
+            {
+                checkIn = DateTime.ParseExact(checkInDateStr, "yyyy-MM-dd", CultureInfo.InvariantCulture).Date;
+                checkOut = DateTime.ParseExact(checkOutDateStr, "yyyy-MM-dd", CultureInfo.InvariantCulture).Date;
+            }
+            else
+            {
+                checkIn = DateTime.Now;
+                checkOut = DateTime.Now.AddDays(1);
+            }
+
+            ViewBag.CheckInDate = checkIn;
+            ViewBag.CheckOutDate = checkOut;
+
             return View();
         }
 

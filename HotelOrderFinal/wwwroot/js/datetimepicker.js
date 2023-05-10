@@ -5,14 +5,16 @@ tomorrow.setDate(tomorrow.getDate() + 1); // 設定退房日為明天
 
 // 設定入住日期欄位的屬性
 var checkInDateInput = document.getElementById("checkInDate");
-checkInDateInput.value = formatDate(today); // 設定起始日為今天
-checkInDateInput.min = formatDate(today);
-
+if (!checkInDateInput.value) {
+    checkInDateInput.value = formatDate(today); // 設定起始日為今天
+    checkInDateInput.min = formatDate(today); // 設定最小可選日期
+}
 // 設定退房日期欄位的屬性
 var checkOutDateInput = document.getElementById("checkOutDate");
-checkOutDateInput.value = formatDate(tomorrow)
-checkOutDateInput.min = formatDate(tomorrow); // 設定最小可選日期
-
+if (!checkOutDateInput.value) {
+    checkOutDateInput.value = formatDate(tomorrow)
+    checkOutDateInput.min = formatDate(tomorrow); // 設定最小可選日期
+}
 // 當入住日期發生變化時觸發
 checkInDateInput.addEventListener("change", function () {
     var checkInDate = new Date(this.value);
