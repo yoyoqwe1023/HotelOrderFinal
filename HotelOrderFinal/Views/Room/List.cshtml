@@ -97,7 +97,8 @@
         </div>
         <div class="row accomodation_two">
             
-            @foreach (var item in Model)
+            @if(Model !=null){
+            foreach (var item in Model)
             {
                 <div class="col-lg-3 col-sm-6">
                     <div class="accomodation_item text-center">
@@ -110,6 +111,7 @@
                         <h5>@Html.DisplayFor(modelItem => item.HolidayPrice)<small>/night</small></h5>
                     </div>
                 </div>
+            }
             }
             
             </div>

@@ -1,4 +1,4 @@
-﻿@model HotelOrderFinal.Models.RoomClass
+﻿@model HotelOrderFinal.ViewModels.CRoomClassViewModel
 
 @{
     ViewData["Title"] = "Detail";
@@ -17,7 +17,7 @@
 </section>
 
 <div class="container">
-    <h2>@Html.DisplayFor(model => model.RoomClassName)</h2>
+    <h2>房型介紹</h2>
     <hr>
     <div class="row">
         <div class="col-md-4">
@@ -25,24 +25,23 @@
             @*<img src="https://via.placeholder.com/300x200.png?text=Room+Image" class="img-fluid" alt="Room Image">*@
         </div>
         <div class="col-md-8">
-            <h2>房型介紹</h2>
-            <p>@Html.DisplayFor(model => model.RoomClassDetail)</p>
-            <h4>Room Amenities:</h4>
+            <h2>@Html.DisplayFor(model => model.RoomClass.RoomClassName)</h2>
+            <p>@Html.DisplayFor(model => model.RoomClass.RoomClassDetail)</p>
+            <h4>房間設備</h4>
             <ul>
-                <li>King-size bed</li>
-                <li>Work desk</li>
-                <li>Sofa</li>
-                <li>Flat-screen TV</li>
-                <li>Air conditioning</li>
-                <li>Minibar</li>
-                <li>Shower</li>
-                <li>Hairdryer</li>
-                <li>Free toiletries</li>
+                @foreach (var facility in Model.Facility)
+                {
+                    <li>
+                        <img src="~/image/facility/@facility.FacilityImage" alt="@facility.FacilityName" />
+                        @facility.FacilityName
+                    </li>
+                }
+              
             </ul>
             <a href="#"><h5 class="sec_h4">價格:</h5></a>
             <ul style="list-style-type:none" >
-                <li><h5>平日：NT$@Html.DisplayFor(model => model.WeekdayPrice)</h5></li>
-                <li><h5>假日：NT$@Html.DisplayFor(model => model.HolidayPrice)</h5></li>
+                <li><h5>平日：NT$@Html.DisplayFor(model => model.RoomClass.WeekdayPrice)</h5></li>
+                <li><h5>假日：NT$@Html.DisplayFor(model => model.RoomClass.HolidayPrice)</h5></li>
             </ul>            
         </div>
     </div>

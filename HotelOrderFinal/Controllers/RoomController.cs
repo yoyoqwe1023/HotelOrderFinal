@@ -1,4 +1,5 @@
 ﻿using HotelOrderFinal.Models;
+using HotelOrderFinal.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,15 +25,26 @@ namespace HotelOrderFinal.Controllers
        
         public IActionResult Detail(string id)
         {
+
             HotelOrderContext db = new HotelOrderContext();
             var room = db.RoomClass.FirstOrDefault(r => r.RoomClassId == id);
             if (room == null)
             {
-                return View("ListTest");
+                return View("List");
             }
 
-            return View(room);
+            var facilities = db.MultipleRoomFacility
+                .Where(mrf => mrf.RoomClassId == id)
+                .Select(mrf => mrf.Facility)
+                .ToList();
 
+            var viewModel = new CRoomClassViewModel
+            {
+                RoomClass = room,
+                Facility = facilities
+            };
+
+            return View(viewModel);
         }
         public IActionResult SearchRooms()
         {
@@ -42,5 +54,6 @@ namespace HotelOrderFinal.Controllers
             return View(datas);
 
         }
+
     }
 }
