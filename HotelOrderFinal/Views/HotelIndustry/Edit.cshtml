@@ -57,7 +57,12 @@
             </div>
             <br />
             <div class="form-group col-md-10">
-                <input type="submit" value="送出" class="btn btn-primary" />
+                <input type="submit" value="送出" class="btn btn-primary" style="margin-right:10px; margin-bottom:10px;" />
+                <button class="btn btn-secondary" style="margin-right:10px; margin-bottom:10px;" asp-action="List">回到飯店一覽</button>
+                <br />
+                <button class="btn btn-danger" style="margin-right:10px; margin-bottom:10px;">@Html.ActionLink("刪除", "Delete", "HotelIndustry", new {id=Model.HotelId}, new { @style="color:white" ,onclick = "return confirm('確定刪除?')"})</button>
+                <br />
+                <button class="btn btn-secondary" asp-action="Index" asp-controller="Home">回到首頁</button>
             </div>
         </form>
     </div>

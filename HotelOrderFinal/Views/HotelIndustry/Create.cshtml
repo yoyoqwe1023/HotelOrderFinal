@@ -1,0 +1,71 @@
+﻿@model HotelOrderFinal.Models.HotelIndustry
+
+@{
+    ViewData["Title"] = "Create";
+}
+<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle">About Us</h2>
+            <ol class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">About</li>
+            </ol>
+        </div>
+    </div>
+</section>
+
+
+<h1>新增飯店資料</h1>
+
+<h4 >飯店資料</h4>
+<hr />
+<div class="row" style="margin:50px;">
+    <div class="col-md-4">
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="HotelName" class="control-label"></label>
+                <input asp-for="HotelName" class="form-control" />
+                <span asp-validation-for="HotelName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HotelPhone" class="control-label"></label>
+                <input asp-for="HotelPhone" class="form-control" />
+                <span asp-validation-for="HotelPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HotelRegionId" class="control-label"></label>
+                <input asp-for="HotelRegionId" class="form-control" />
+                <span asp-validation-for="HotelRegionId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HotelAddress" class="control-label"></label>
+                <input asp-for="HotelAddress" class="form-control" />
+                <span asp-validation-for="HotelAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HotelImageDiscription" class="control-label"></label>
+                <input asp-for="HotelImageDiscription" class="form-control" />
+                <span asp-validation-for="HotelImageDiscription" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-10">
+                <label class="control-label">飯店照片</label>
+                <input type="file" name="photo" class="form-control" />
+            </div>
+            <br />
+            <div class="form-group col-md-10">
+                <input type="submit" value="送出" class="btn btn-primary" style="margin-right:10px; margin-bottom:10px;" />
+                <button class="btn btn-secondary" style="margin-right:10px; margin-bottom:10px;"  asp-action="List">回到飯店一覽</button>
+                <br />
+                <button class="btn btn-danger" asp-action="Index" asp-controller="Home">回到首頁</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

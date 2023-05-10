@@ -1,8 +1,10 @@
 ﻿using HotelOrderFinal.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Win32;
 using System.Diagnostics.Metrics;
+using System.Xml.Linq;
 
 
 namespace HotelOrderFinal.Controllers
@@ -14,10 +16,18 @@ namespace HotelOrderFinal.Controllers
         // GET: MemberController
         public IActionResult Index()
         {
-
-            return View();
+            return PartialView("_MyAccount");
         }
 
+
+        public IActionResult MyAccount()
+        {
+            return PartialView("_MyAccount");
+        }
+
+
+
+        //【登入】==========================================================================================
         public IActionResult Login()
         {
             return View();
@@ -44,12 +54,49 @@ namespace HotelOrderFinal.Controllers
             HttpContext.Session.SetString("LayoutMessage", "_LayoutMember");
             return RedirectToAction("Index", "Home");
         }
-        // GET: MemberController/Details/5
-        public IActionResult Details(int id)
-        {
-            return View();
-        }
 
+
+        //【　　】==========================================================================================
+        // GET: MemberController/Details/5
+//        public IActionResult Details(int id)
+//        {
+//            if (Request.IsAjaxRequest())
+//            {
+//                this.GetClientes();
+//                var cliente = Clientes.FirstOrDefault(x => x.Id == id) ?? new Cliente();
+//                if (cliente != null)
+//                    return PartialView(cliente);
+//                else
+//                {
+//                    Response.StatusCode - 403;
+//                    return PartialView("Error");
+//                }
+//            }
+
+//            Response.StatusCode = 500;
+//            return PartialView("Error");
+//            //return View();
+//        }
+
+//        private void GetClientes()
+//        {
+//            if (Session["clientes"] == null)
+//            {
+//                Clientes = new List<Cliente>()
+//{
+//new Cliente() ( Id = 1, Name = "Paco", Number = "111" ),
+//new Cliente() ( Id = 2, Name = "Lucia", Number = "2222" )
+//};
+//                Session["clientes"] = Clientes;
+//            }
+//            Clientes = Session["clientes"] as List<Cliente>;
+//        }
+
+
+
+
+
+        //【新增】==========================================================================================
         // GET: MemberController/Create
         public IActionResult Create()
         {
@@ -86,6 +133,7 @@ namespace HotelOrderFinal.Controllers
             }
         }
 
+        //【修改】==========================================================================================
         // GET: MemberController/Edit/5
         public IActionResult Edit(string id)
         {
@@ -100,6 +148,8 @@ namespace HotelOrderFinal.Controllers
                 return RedirectToAction("Index", "Home");
             return View(cust);
         }
+
+
 
         // POST: MemberController/Edit/5
         [HttpPost]
@@ -126,7 +176,7 @@ namespace HotelOrderFinal.Controllers
             }
         }
 
-
+        //【登出】==========================================================================================
         public IActionResult Logout()
         {
             // 登出
@@ -138,6 +188,7 @@ namespace HotelOrderFinal.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        //【刪除】==========================================================================================
         // GET: MemberController/Delete/5
         public IActionResult Delete(int id)
         {
@@ -158,5 +209,14 @@ namespace HotelOrderFinal.Controllers
                 return View();
             }
         }
+        //public IActionResult MyAction()
+        //{
+        //    // 這裡返回一個包含數據的Partial View
+        //    return PartialView("_MyPartialView", myData);
+        //}
+
+
+
+
     }
 }

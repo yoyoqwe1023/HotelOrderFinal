@@ -19,8 +19,8 @@ namespace HotelOrderFinal.Models
         public string MemberName { get; set; }
         public DateTime? MemberBirthday { get; set; }
         public string MemberGender { get; set; }
-        public string MemberIdentity { get; set; } 
-        public string MemberPhone { get; set; }  //登入帳號
+        public string MemberIdentity { get; set; }
+        public string MemberPhone { get; set; }
         public string MemberEmail { get; set; }
         public string MemberPhoto { get; set; }
         public string MemberPassword { get; set; }

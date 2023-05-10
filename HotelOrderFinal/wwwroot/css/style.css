@@ -83,11 +83,11 @@ a:hover, a:focus {
 }
 
 body {
-  line-height: 24px;
-  font-size: 14px;
-  font-family: "Poppins", sans-serif;
-  font-weight: 300;
-  color: #777777;
+    line-height: 24px;
+    font-size: 14px;
+    font-family: "Poppins", sans-serif;
+    font-weight: 300;
+    color: #777777;
 }
 
 section {
@@ -471,7 +471,7 @@ button:focus {
     position: fixed;
     width: 100%;
     left: 0;
-    background: #436c976b;
+    background: #7AA5D2;
     top: 0;
     top: -50px;
     -webkit-transform: translateY(50px);
@@ -677,7 +677,7 @@ button:focus {
 }
 
 .breadcrumb_area .bg-parallax {
-  background: url("../../image/about_banner.jpg") no-repeat scroll center 0/cover;
+  background: url("../../image/about_banner2.jpg") no-repeat scroll center 0/cover;
   opacity: 0.50;
   z-index: -1;
 }
