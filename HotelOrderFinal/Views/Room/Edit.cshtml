@@ -1,0 +1,84 @@
+﻿@model HotelOrderFinal.Models.RoomClass
+
+@{
+    ViewData["Title"] = "Edit";
+}
+<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle">About Us</h2>
+            <ol class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">Room</li>
+            </ol>
+        </div>
+    </div>
+</section>
+
+<h1>Edit</h1>
+
+<h4>RoomClass</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="RoomClassId" class="control-label"></label>
+                <input asp-for="RoomClassId" class="form-control" />
+                <span asp-validation-for="RoomClassId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RoomClassName" class="control-label"></label>
+                <input asp-for="RoomClassName" class="form-control" />
+                <span asp-validation-for="RoomClassName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RoomClassDetail" class="control-label"></label>
+                <input asp-for="RoomClassDetail" class="form-control" />
+                <span asp-validation-for="RoomClassDetail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">房間照片</label>
+                <input type="file" name="photo" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="RoomClassPhoto2" class="control-label"></label>
+                <input asp-for="RoomClassPhoto2" class="form-control" />
+                <span asp-validation-for="RoomClassPhoto2" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RoomClassPhoto3" class="control-label"></label>
+                <input asp-for="RoomClassPhoto3" class="form-control" />
+                <span asp-validation-for="RoomClassPhoto3" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WeekdayPrice" class="control-label"></label>
+                <input asp-for="WeekdayPrice" class="form-control" />
+                <span asp-validation-for="WeekdayPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HolidayPrice" class="control-label"></label>
+                <input asp-for="HolidayPrice" class="form-control" />
+                <span asp-validation-for="HolidayPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AddPrice" class="control-label"></label>
+                <input asp-for="AddPrice" class="form-control" />
+                <span asp-validation-for="AddPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

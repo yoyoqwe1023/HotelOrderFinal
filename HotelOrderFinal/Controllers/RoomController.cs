@@ -7,6 +7,11 @@ namespace HotelOrderFinal.Controllers
 {
     public class RoomController : Controller
     {
+        private IWebHostEnvironment _enviro;
+        public RoomController(IWebHostEnvironment p)
+        {
+            _enviro = p;
+        }
         public IActionResult List()
         {
             HotelOrderContext db = new HotelOrderContext();
@@ -39,6 +44,41 @@ namespace HotelOrderFinal.Controllers
 
             return View(viewModel);
         }
+
+        public IActionResult Edit(string id)
+        {
+            HotelOrderContext db = new HotelOrderContext();
+            RoomClass room = db.RoomClass.FirstOrDefault(t => t.RoomClassId == id);
+            if (room == null)
+                return RedirectToAction("List");
+            return View(room);
+        }
+        [HttpPost]
+        public IActionResult Edit(CRoomClassWrap p)
+        {
+            HotelOrderContext db = new HotelOrderContext();
+            RoomClass room = db.RoomClass.FirstOrDefault(t => t.RoomClassId == p.RoomClassId);
+            if (room != null)
+            {
+                if (p.photo != null)
+                {
+                    string photoName = Guid.NewGuid().ToString() + ".jpg";
+                    string path = _enviro.WebRootPath + "/image/" + photoName;
+                    p.photo.CopyTo(new FileStream(path, FileMode.Create));
+                    room.RoomClassPhoto1 = photoName;
+                }
+
+                room.RoomClassName = p.RoomClassName;
+                room.RoomClassDetail = p.RoomClassDetail;
+                room.WeekdayPrice = p.WeekdayPrice;
+                room.HolidayPrice = p.HolidayPrice;
+                room.AddPrice = p.AddPrice;
+                
+                db.SaveChanges();
+            }
+            return RedirectToAction("List");
+        }
+
         public IActionResult SearchRooms()
         {
             HotelOrderContext db = new HotelOrderContext();

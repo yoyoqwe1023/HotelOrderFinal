@@ -15,6 +15,8 @@
             max-width: calc(100% / 6);
             margin-bottom: 10px;
         }
+
+
 </style>
 
 <section class="breadcrumb_area">
@@ -30,44 +32,39 @@
     </div>
 </section>
 
-<div class="container">
-    <h2>房型介紹</h2>
-    <hr>
-    <div class="row">
-        <div class="col-md-4">
-            <img src="~/image/room1.jpg" alt="" width="360px">
-            @*<img src="https://via.placeholder.com/300x200.png?text=Room+Image" class="img-fluid" alt="Room Image">*@
-        </div>
-        <div class="col-md-8">
-            <h2>@Html.DisplayFor(model => model.RoomClass.RoomClassName)</h2>
-            <p>房型介紹詳細待補 @Html.DisplayFor(model => model.RoomClass.RoomClassDetail)</p>
-            <h4>房間設備</h4>
-            <ul class="facility-list">
-                @foreach (var facility in Model.Facility)
-                {
-                    <li>
-                        <img src="~/image/facility/@facility.FacilityImage" alt="@facility.FacilityName" />
-                        @facility.FacilityName
-                    </li>
-                }
-            </ul>
-          @*      @foreach (var facility in Model.Facility)
-                {
-                    <li>
-                        <img src="~/image/facility/@facility.FacilityImage" alt="@facility.FacilityName" />
-                        @facility.FacilityName
-                    </li>
-                }*@
-              
-           @* </ul>*@
-            <a href="#"><h5 class="sec_h4">價格:</h5></a>
-            <ul style="list-style-type:none" >
-                <li><h5>平日：NT$@Html.DisplayFor(model => model.RoomClass.WeekdayPrice)</h5></li>
-                <li><h5>假日：NT$@Html.DisplayFor(model => model.RoomClass.HolidayPrice)</h5></li>
-            </ul>            
-        </div>
+
+<h2>房型介紹</h2>
+<hr>
+<div class="row">
+    <div class="col-md-4">
+        <img class="enlarge-image" src="~/image/@Model.RoomClass.RoomClassPhoto1" width="320" height="240" />
     </div>
-    @Html.ActionLink("立即預約", "Index", "Order", null, new { @class = "book_now_btn button_hover" })
-    @*<a href="#">@Html.ActionLink("立即預約", "Index", "Order", null, new { @class = "book_now_btn button_hover" })</a>*@
+    <div class="col-md-8">
+        <h2>@Html.DisplayFor(model => model.RoomClass.RoomClassName)</h2>
+        <p>房型介紹詳細待補 @Html.DisplayFor(model => model.RoomClass.RoomClassDetail)</p>
+        <h4>房間設備</h4>
+        <ul class="facility-list">
+            @foreach (var facility in Model.Facility)
+            {
+                <li>
+                    <img src="~/image/facility/@facility.FacilityImage" alt="@facility.FacilityName" />
+                    @facility.FacilityName
+                </li>
+            }
+        </ul>
+
+        <a href="#"><h5 class="sec_h4">價格:</h5></a>
+        <ul style="list-style-type:none">
+            <li><h5>平日：NT$@Html.DisplayFor(model => model.RoomClass.WeekdayPrice)</h5></li>
+            <li><h5>假日：NT$@Html.DisplayFor(model => model.RoomClass.HolidayPrice)</h5></li>
+        </ul>
+    </div>
 </div>
 
+@Html.ActionLink("立即預約", "Index", "Order", null, new { @class = "book_now_btn button_hover" })
+
+
+
+@section Scripts{
+
+}
