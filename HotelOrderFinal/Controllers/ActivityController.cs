@@ -1,12 +1,16 @@
 ﻿using HotelOrderFinal.Models;
 
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Net;
 
 namespace HotelOrderFinal.Controllers
 {
     public class ActivityController : Controller
     {
         private IWebHostEnvironment _enviro;
+        
+        
         public ActivityController(IWebHostEnvironment p)
         {
             _enviro = p;
