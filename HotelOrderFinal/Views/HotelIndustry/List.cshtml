@@ -2,7 +2,7 @@
 
 @{
     Layout = "_Layout";
-    ViewData ["Title"] = "List";
+    ViewData["Title"] = "List";
 }
 
 <!--================Breadcrumb Area =================-->
@@ -21,7 +21,7 @@
 <!--================ Facilities Area  =================-->
 @*<section class="facilities_area section_gap">
 *@<section class="accomodation_area section" style="background-color:#f2f2f2">
-@*<section class="testimonial_area section_gap">*@    
+    @*<section class="testimonial_area section_gap">*@
     @*背景圖*@
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background="">
     </div>
@@ -29,7 +29,7 @@
     @*在class中nav應該是有flex標籤 用於啟動justify-content-center置中 *@
     <nav>
         <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist" style="border-block-color:#343A40">
-            <button class="nav-link active" id="nav-home-tab" style="width:20%;" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true" >由地圖尋找</button>
+            <button class="nav-link active" id="nav-home-tab" style="width:20%;" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">由地圖尋找</button>
             <button class="nav-link " id="nav-profile-tab" style="width:20%;" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">由地區篩選</button>
         </div>
     </nav>
@@ -54,7 +54,7 @@
                 <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body">
                         @*容器 排版未處理完*@
-                        <div id="hoteldata1" class="mx-auto" style=" width:1000px; background-color:#E0E0E0	">
+                        <div id="hoteldata1" class="mx-auto row d-flex justify-content-center" style=" width:1000px; background-color:#E0E0E0	">
                         </div>
                         @*容器*@
                     </div>
@@ -72,7 +72,7 @@
             <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
                 <div class="accordion-body">
                     @*容器*@
-                    <div id="hoteldata2" class="mx-auto" style=" width:1000px; background-color:#E0E0E0">
+                    <div id="hoteldata2" class="mx-auto row d-flex justify-content-center" style=" width:1000px; background-color:#E0E0E0">
                     </div>
                     @*容器*@
                 </div>
@@ -89,7 +89,7 @@
             <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
                 <div class="accordion-body">
                     @*容器*@
-                    <div id="hoteldata3" class="mx-auto" style=" width:1000px; background-color:#E0E0E0	">
+                    <div id="hoteldata3" class="mx-auto row d-flex justify-content-center" style=" width:1000px; background-color:#E0E0E0	">
                     </div>
                     @*容器*@
                 </div>
@@ -195,20 +195,16 @@
                         $("#hoteldata1").empty(); //清空之前的資料
                         for (var i = 0; i < data.length; i++) {
                             $("#hoteldata1").append(
+                                '<div class="mycol">' +
                                 '<div class="container" >' +
-                                '<div class= "row">' +
-                                '<div>' +
-                                '</div>' +
-                                '<div class="col-lg-6 col-md-6" >' +
-                                '<div id = "hotelupload1" class= "newcontainer col-md-12 text-center" >' +
+                                '<div id = "hotelupload1" class= "newcontainer  text-center" >' +
                                 '<h1 style="color:black;">' + data[i].hotelName + '</h1>' +
-                                '<img src="/image/' + data[i].hotelImage + ' "  width = "280" height = "210" />' +
-                                '<br>' + '<p style="color:black;">'+ 
-                                data[i].hotelImageDiscription + '</p>'+
+                                '<img src="/image/' + data[i].hotelImage + ' "  width = "160" height = "120" />' +
+                                '<br>' + '<p style="color:black;">' +
+                                data[i].hotelImageDiscription + '</p>' +
                                 '</div>' +
                                 '</div>' +
-                                '</div>' +
-                                '</div>'
+                                '</div>' 
                             );
                         }
                     }
@@ -230,19 +226,15 @@
                         $("#hoteldata2").empty(); //清空之前的資料
                         for (var i = 0; i < data.length; i++) {
                             $("#hoteldata2").append(
+                                '<div class="mycol">' +
                                 '<div class="container" >' +
-                                '<div class= "row" >' +
-                                '<div>' +
-                                '</div>' +
-                                '<div class="col-lg-6 col-md-6" >' +
-                                '<div id = "hotelupload2" class= "newcontainer col-md-12 text-center">' +
-                                '<h1>' + data[i].hotelName + '</h1>' +
-                                '<img src="/image/' + data[i].hotelImage + ' "  width = "280" height = "210" />' +
-                                '<br>' + data[i].hotelImageDiscription +
+                                '<div id = "hotelupload2" class= "newcontainer  text-center">' +
+                                '<h1 style="color:black;">' + data[i].hotelName + '</h1>' +
+                                '<img src="/image/' + data[i].hotelImage + ' "  width = "160" height = "120" />' +
+                                '<br>' + '<p style="color:black;">'+ data[i].hotelImageDiscription + '</p>' +
                                 '</div>' +
                                 '</div>' +
-                                '</div>' +
-                                '</div>'
+                                '</div>' 
                             );
                         }
                     }
@@ -263,19 +255,15 @@
                         $("#hoteldata3").empty(); //清空之前的資料
                         for (var i = 0; i < data.length; i++) {
                             $("#hoteldata3").append(
+                                '<div class="mycol">' +
                                 '<div class="container" >' +
-                                '<div class= "row" >' +
-                                '<div>' +
-                                '</div>' +
-                                '<div class="col-lg-6 col-md-6" >' +
-                                '<div id="hotelupload3"class= "newcontainer col-md-12 text-center">' +
-                                '<h1>' + data[i].hotelName + '</h1>' +
-                                '<img src="/image/' + data[i].hotelImage + ' "  width = "280" height = "210" />' +
-                                '<br>' +data[i].hotelImageDiscription +
+                                '<div id="hotelupload3"class= "newcontainer text-center">' +
+                                '<h1 style="color:black;">' + data[i].hotelName + '</h1>' +
+                                '<img src="/image/' + data[i].hotelImage + ' "  width = "160" height = "120" />' +
+                                '<br>' +'<p style="color:black;">'+ data[i].hotelImageDiscription +'</p>'+
                                 '</div>' +
                                 '</div>' +
-                                '</div>' +
-                                '</div>'
+                                '</div>' 
                             );
                         }
                     }
