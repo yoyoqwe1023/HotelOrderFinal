@@ -1,6 +1,7 @@
 ﻿using HotelOrderFinal.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Frameworks;
 using System.Globalization;
 
 namespace HotelOrderFinal.Controllers
@@ -32,30 +33,51 @@ namespace HotelOrderFinal.Controllers
             ViewBag.CheckInDate = checkIn;
             ViewBag.CheckOutDate = checkOut;
 
-            //HotelOrderContext db = new HotelOrderContext();
+            HotelOrderContext db = new HotelOrderContext();
 
-            ////查詢空閒房間方法
-            //// 查詢指定時間區間內已被預訂的房間
-            //var reservedRooms = from od in db.OrderDetail
-            //                    where !(od.CheckOutDate <= checkIn || od.CheckInDate >= checkOut)
-            //                    select od.RoomId;
+            //查詢空閒房間方法
+            //IEnumerable<Room> freeRooms;
+            // 查詢指定時間區間內已被預訂的房間
+            var reservedRooms = from od in db.OrderDetail
+                                where !(od.CheckOutDate <= checkIn || od.CheckInDate >= checkOut)
+                                select od.RoomId;
 
-            ////所有房間扣掉已預訂房間
+            //所有房間扣掉已預訂房間
+
+            var freeRooms = from r in db.Room.Include(r => r.RoomClass)
+                            where !reservedRooms.Contains(r.RoomId)
+                            group r by r.RoomClassId into g
+                            select g.ToList();
+
+            //var query = from r in db.Room
+            //            where !reservedRooms.Contains(r.RoomId)
+            //            select r.GroupBy(r.RoomClassId);
+            //query.Distinct();
+
+            //var q = reservedRooms.Where(x=>x.RoomId)
+
             //var freeRooms = from r in db.Room
             //                where !reservedRooms.Contains(r.RoomId)
-            //                select r;
+            //                select new Room()
+            //                {    RoomId = r.RoomId,
+            //                     RoomClassId=r.RoomClassId,
+            //                    //r.RoomSize,
+            //                    //r.RoomClass.RoomClassName
+            //                };
 
-            //if (freeRooms == null)
-            //{
-            //    //html不顯示列表顯示沒有房間文字;
-            //    return View();
-            //}
-            //else
-            //{
-            //    return View(freeRooms);
-            //}
+            //freeRooms = freeRooms.Include(r => r.RoomClass);
 
-            return View();
+            if (freeRooms == null)
+            {
+                return View();
+            }
+            else
+            {
+                return View(freeRooms);
+            }
+
+
+
         }
 
         public IActionResult Detail()
