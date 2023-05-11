@@ -3,6 +3,20 @@
 @{
     ViewData["Title"] = "Detail";
 }
+<style>
+    .facility-list {
+        display: flex;
+        flex-wrap: wrap;
+        list-style: none;
+    }
+
+        .facility-list li {
+            flex-basis: calc(100% / 6);
+            max-width: calc(100% / 6);
+            margin-bottom: 10px;
+        }
+</style>
+
 <section class="breadcrumb_area">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
@@ -26,9 +40,9 @@
         </div>
         <div class="col-md-8">
             <h2>@Html.DisplayFor(model => model.RoomClass.RoomClassName)</h2>
-            <p>@Html.DisplayFor(model => model.RoomClass.RoomClassDetail)</p>
+            <p>房型介紹詳細待補 @Html.DisplayFor(model => model.RoomClass.RoomClassDetail)</p>
             <h4>房間設備</h4>
-            <ul>
+            <ul class="facility-list">
                 @foreach (var facility in Model.Facility)
                 {
                     <li>
@@ -36,8 +50,16 @@
                         @facility.FacilityName
                     </li>
                 }
-              
             </ul>
+          @*      @foreach (var facility in Model.Facility)
+                {
+                    <li>
+                        <img src="~/image/facility/@facility.FacilityImage" alt="@facility.FacilityName" />
+                        @facility.FacilityName
+                    </li>
+                }*@
+              
+           @* </ul>*@
             <a href="#"><h5 class="sec_h4">價格:</h5></a>
             <ul style="list-style-type:none" >
                 <li><h5>平日：NT$@Html.DisplayFor(model => model.RoomClass.WeekdayPrice)</h5></li>
