@@ -37,7 +37,17 @@
                     <a asp-action="Create">前往訂房</a>
                 </p>
             </div>
+
             <div class="col-md-10">
+                <p>
+@*                    @using (Html.BeginForm())
+                    {
+                        @:關鍵字 @Html.TextBox("txtKeyword") <input type="submit" value="查詢">
+                    }*@
+                </p>
+                <p>
+                    <a asp-action="Create" class="btn btn-success">新增評論</a>
+                </p>
                 <div class="d-flex flex-wrap">
                     @foreach (var item in Model)
                     {
