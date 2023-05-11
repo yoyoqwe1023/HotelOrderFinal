@@ -13,5 +13,21 @@ namespace HotelOrderFinal.Controllers
             //var datas = db.Comments.Include("RoomMembers");
             return View(datas);
         }
+        public IActionResult Create()
+        {
+            if (HttpContext.Session.GetString("UserID") == null)
+            {
+                return RedirectToAction("Login", "Member");
+            }
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create(Comment p)
+        {
+            HotelOrderContext db = new HotelOrderContext();
+            db.Comment.Add(p);
+            db.SaveChanges();
+            return RedirectToAction("List");
+        }
     }
 }

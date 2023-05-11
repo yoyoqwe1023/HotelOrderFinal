@@ -64,7 +64,7 @@
                     <ul class="nav navbar-nav menu_nav ml-auto">
                         
                         <li class="nav-item active; nav-item">@Html.ActionLink("關於", "About", "Home", null, new { @class = "nav-link" })</li>
-                        <li class="nav-item active; nav-item">@Html.ActionLink("房型", "ListTest", "Room", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item active; nav-item">@Html.ActionLink("房型", "List", "Room", null, new { @class = "nav-link" })</li>
                         <li class="nav-item active; nav-item">@Html.ActionLink("活動", "List", "Activity", null, new { @class = "nav-link" })</li>
                         <li class="nav-item active; nav-item">@Html.ActionLink("評論", "List", "Comment", null, new { @class = "nav-link" })</li>
                         <li class="nav-item active; nav-item">@Html.ActionLink("交通資訊", "Index", "Home", null, new { @class = "nav-link" })</li>
@@ -75,6 +75,7 @@
 
                             <li class="nav-item active; nav-item">歡迎，@userName</li>
                         }
+                        <li class="nav-item active; nav-item">@Html.ActionLink("優惠折扣", "DiscountByMember", "Discount", null, new { @class = "nav-link" })</li>
                         <li class="nav-item active; nav-item">@Html.ActionLink("會員修改", "Edit", "Member", null, new { @class = "nav-link" })</li>
                         <li class="nav-item active; nav-item">@Html.ActionLink("登出", "Logout", "Member", null, new { @class = "nav-link" })</li>
             @*            <li>@Html.ActionLink("登出", "Logout", "Member")</li>
@@ -202,6 +203,10 @@
     <script src="~/js/stellar.js"></script>
     <script src="~/vendors/lightbox/simpleLightbox.min.js"></script>
     <script src="~/js/custom.js"></script>
-    @await RenderSectionAsync("Scripts",required:false)
+    <script src="~/js/bootstrap.js"></script>
+    <script src="~/js/datetimepicker.js"></script>
+    @*@await RenderSectionAsync("Scripts",required:false)*@
+
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

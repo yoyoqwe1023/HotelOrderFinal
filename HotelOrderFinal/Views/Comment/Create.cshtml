@@ -1,0 +1,138 @@
+﻿@model HotelOrderFinal.Models.Comment
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle">About Us</h2>
+            <ol class="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li class="active">About</li>
+            </ol>
+        </div>
+    </div>
+</section>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @*    <title>評點&評論</title>*@
+    <link rel="stylesheet" href="../css/start.css" />
+    <style>
+        .card-text {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            overflow: hidden;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* .類別名 可套用在不同標籤上*/
+        .left {
+            width: 400px;
+            float: left;
+            margin-left: 50px;
+        }
+
+        .t1 {
+            /* float: left; 文繞圖浮動到左邊*/
+            float: left;
+        }
+
+        .t2 {
+            width: 400px;
+            text-align: center;
+        }
+
+        .sub {
+            width: 400px;
+            /* 捲軸:視需要自動啟動 */
+            overflow: auto;
+            margin-left: 10px;
+            text-align: start;
+        }
+        /* 不能任意調整文字框大小 */
+        textarea {
+            margin-left: 10px;
+            resize: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-2" style="background-color: #f2f2f2;">
+                <h2>左欄內容</h2>
+                <p>
+                    <a asp-action="Create">前往訂房</a>
+                </p>
+            </div>
+            <div class="row">
+                <div class="col-5 col-1-sm-6">
+                    <div class="d-flex flex-wrap">
+
+                        <form asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                            <div class="form-group">
+                                <input type="hidden" asp-for="CommentDate" value=getdate() />
+                                <span asp-validation-for="CommentDate" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" asp-for="MemberId" value="MB00001" />
+                                <span asp-validation-for="MemberId" class="text-danger"></span>
+                            </div>
+                            @*<div class="form-group">
+                                <label asp-for="RoomClassId" class="control-label"></label>
+                                <input asp-for="RoomClassId" />
+                                <span asp-validation-for="RoomClassId" class="text-danger"></span>
+                            </div>*@
+
+                            <div id="stars" class="left">
+                                <img src="../image/comment/empty.png" title="非常失望" alt="">
+                                <img src="../image/comment/empty.png" title="不滿意" alt="">
+                                <img src="../image/comment/empty.png" title="普通" alt="">
+                                <img src="../image/comment/empty.png" title="滿意" alt="">
+                                <img src="../image/comment/empty.png" title="非常滿意" alt="">
+                            </div>
+                            <p>評點: <span id="score"></span></p>
+
+                            <script src="../js/comment/start.js"></script>
+
+                            <input type="hidden" asp-for="CommentPoint" value=5 />
+                            <span asp-validation-for="CommentPoint"></span>
+
+                            <br>
+
+                            <div class="sub">
+                                <label asp-for="CommentDetail" class="control-label"></label>
+                                <textarea asp-for="CommentDetail" cols="40" rows="5"></textarea>
+                                <span asp-validation-for="CommentDetail" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="submit" value="送出" class="btn btn-primary" />
+                                <input type="reset" value="清除" class="btn btn-secondary" />
+                                <a asp-action="List" class="btn btn-warning">取消</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    }

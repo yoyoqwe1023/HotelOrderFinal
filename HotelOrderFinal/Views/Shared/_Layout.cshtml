@@ -41,8 +41,8 @@
     @Scripts.Render("~/Scripts/vendors/lightbox/simpleLightbox.min.js")
     @Scripts.Render("~/Scripts/vendors/owl-carousel/owl.carousel.min.js")*@
 
-
-
+    @*AJAX老師說這個要留*@
+    @RenderSection("Styles", required: false)
 
 </head>
 <body>
@@ -73,6 +73,25 @@
                         <li class="nav-item active; nav-item">@Html.ActionLink("交通資訊", "Index", "Home", null, new { @class = "nav-link" })</li>
                         <li class="nav-item active; nav-item">@Html.ActionLink("會員登入", "Login", "Member", null, new { @class = "nav-link" })</li>
                         <li class="nav-item active; nav-item">@Html.ActionLink("會員註冊", "Create", "Member", null, new { @class = "nav-link" })</li>
+                      @*  <li class="nav-item active; nav-item">@Html.ActionLink("我的帳戶", "Index", "Member", null, new { @class = "nav-link" })</li>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myAccountModal">
+                            我的帳戶
+                        </button>*@
+@*
+                        <li class="nav-item active">
+                            @Ajax.ActionLink("我的帳戶", "MyAccount", "Member", null, new AjaxOptions { UpdateTargetId = "my-account-modal", HttpMethod = "GET", InsertionMode = InsertionMode.Replace, OnSuccess = "showMyAccountModal" }, new { @class = "nav-link", data_toggle = "modal", data_target = "#my-account-modal" })
+                        </li>
+
+                        <div id="my-account-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-account-modal-label" aria-hidden="true"></div>
+
+                        @section scripts {
+                            <script type="text/javascript">
+                                function showMyAccountModal() {
+                                    $("#my-account-modal").modal("show");
+                                }
+                            </script>
+                        }*@
+
 
 
                     </ul>
@@ -197,7 +216,11 @@
     <script src="~/js/custom.js"></script>
     <script src="~/js/bootstrap.js"></script>
     <script src="~/js/datetimepicker.js"></script>
-    @await RenderSectionAsync("Scripts",required:false)
+    @*@await RenderSectionAsync("Scripts",required:false)*@
+
+    
+    @*AJAX老師說這個要留*@
+    @RenderSection("Scripts", required: false)
 
 </body>
 </html>
