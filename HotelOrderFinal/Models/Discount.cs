@@ -9,6 +9,7 @@ namespace HotelOrderFinal.Models
     {
         public Discount()
         {
+            DiscountDetail = new HashSet<DiscountDetail>();
             Order = new HashSet<Order>();
         }
 
@@ -16,13 +17,10 @@ namespace HotelOrderFinal.Models
         public string DiscountName { get; set; }
         public byte[] DiscountImage { get; set; }
         public string DiscountDirections { get; set; }
-        public DateTime? DiscountStart { get; set; }
-        public DateTime? DiscountEnd { get; set; }
         public decimal? DiscountDiscount { get; set; }
-        public string MemberId { get; set; }
-        public int? DiscountUse { get; set; }
+        public bool? DiscountExist { get; set; }
 
-        public virtual RoomMember Member { get; set; }
+        public virtual ICollection<DiscountDetail> DiscountDetail { get; set; }
         public virtual ICollection<Order> Order { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace HotelOrderFinal.Models
         public RoomMember()
         {
             Comment = new HashSet<Comment>();
-            Discount = new HashSet<Discount>();
+            DiscountDetail = new HashSet<DiscountDetail>();
             Order = new HashSet<Order>();
         }
 
@@ -29,7 +29,7 @@ namespace HotelOrderFinal.Models
 
         public virtual RoomAdmin Admin { get; set; }
         public virtual ICollection<Comment> Comment { get; set; }
-        public virtual ICollection<Discount> Discount { get; set; }
+        public virtual ICollection<DiscountDetail> DiscountDetail { get; set; }
         public virtual ICollection<Order> Order { get; set; }
     }
 }

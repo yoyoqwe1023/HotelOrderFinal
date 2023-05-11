@@ -1,6 +1,7 @@
 ﻿using HotelOrderFinal.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Win32;
 using System.Diagnostics.Metrics;
@@ -86,17 +87,18 @@ namespace HotelOrderFinal.Controllers
                 //-fufu
                 db.SaveChanges();
 
-                //新增會員折扣
-                RoomMember newmember = db.RoomMember.FirstOrDefault(x => x.MemberId == model.MemberId);
-                Discount discount = new Discount();
-                discount.MemberId = newmember.MemberId;
-                discount.DiscountName = "新會員優惠";
-                discount.DiscountStart = DateTime.Now;
-                discount.DiscountEnd = DateTime.Now.AddYears(1); // 一年後到期
-                discount.DiscountDiscount = (decimal)0.7; // 七折優惠
-                db.Discount.Add(discount);
+            //新增會員折扣
 
-                db.SaveChanges();
+            DiscountDetail discountDetail = new DiscountDetail();
+            discountDetail.MemberId = memberID_;
+            discountDetail.DiscountId =1;
+            discountDetail.DiscountStart = DateTime.Now;
+            discountDetail.DiscountEnd = DateTime.Now.AddYears(1);
+            discountDetail.DiscountUse = 0;
+
+            db.DiscountDetail.Add(discountDetail);
+
+            db.SaveChanges();
                 return RedirectToAction("Index", "Home");
             //}
             //catch (Exception ex)
