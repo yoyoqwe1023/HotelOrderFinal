@@ -3,74 +3,89 @@
 @{
     ViewData["Title"] = "Create";
 }
-@*<section class="breadcrumb_area">
-    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
-    <div class="container">
-        <div class="page-cover text-center">
-            <h2 class="page-cover-tittle">About Us</h2>
-            <ol class="breadcrumb">
-                <li><a href="index.html">Home</a></li>
-                <li class="active">About</li>
-            </ol>
-        </div>
-    </div>
-</section>*@
-  <style>
-    .wrapper {
-      width: 80%; /* 設定容器寬度 */
-      margin: 0 auto; /* 將容器置中對齊 */
-    }
-    .form-control{
-        width: 800px;
-    }
-  </style>
-<div class="wrapper ">
-<h4>會員註冊</h4>
+
+<style>
+    .row {
+       width:1200px;
+   }
+</style>
+
+@*<div class="wrapper ">*@
+@*<h4>會員註冊</h4>*@
 
 @*<h4>會員資訊</h4>*@
 <hr />
 @using (Html.BeginForm("Create", "Member", FormMethod.Post))
 {
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="MemberName" class="control-label"></label>
-                <input asp-for="MemberName" class="form-control" />
-                <span asp-validation-for="MemberName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MemberIdentity" class="control-label"></label>
-                <input asp-for="MemberIdentity" class="form-control" />
-                <span asp-validation-for="MemberIdentity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MemberPhone" class="control-label"></label>
-                <input asp-for="MemberPhone" class="form-control" />
-                <span asp-validation-for="MemberPhone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MemberEmail" class="control-label"></label>
-                <input asp-for="MemberEmail" class="form-control" />
-                <span asp-validation-for="MemberEmail" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MemberPassword" class="control-label"></label>
-                <input asp-for="MemberPassword" class="form-control" />
-                <span asp-validation-for="MemberPassword" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="註冊" class="btn btn-primary" />
-            </div>
-        </form>
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="MemberName" class="control-label"></label>
+                    <input asp-for="MemberName" class="form-control" placeholder="請輸入使用者名稱" />
+                    @*@Html.ValidationMessageFor(Model =>Model.MemberName)*@
+                    <span asp-validation-for="MemberName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MemberIdentity" class="control-label"></label>
+                    <input asp-for="MemberIdentity" class="form-control" placeholder="請輸入身分證字號" />
+                    @Html.ValidationMessageFor(Model =>Model.MemberIdentity)
+                    <span asp-validation-for="MemberIdentity" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MemberPhone" class="control-label"></label>
+                    <input asp-for="MemberPhone" class="form-control" />
+                    @Html.ValidationMessageFor(Model =>Model.MemberPhone)
+                    <span asp-validation-for="MemberPhone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="MemberEmail" class="control-label"></label>
+                    <input asp-for="MemberEmail" class="form-control" />
+                    @Html.ValidationMessageFor(Model =>Model.MemberEmail)
+                    <span asp-validation-for="MemberEmail" class="text-danger"></span>
+                </div>
+                @*<div class="form-group">*@
+                    <div data-v-77690bc2="" class="form-group athInput">
+                    @*<label asp-for="MemberPassword" class="control-label"></label>*@
+                    <label data-v-77690bc2="" class="control-label athInput__label">
+                        *密碼
+                        <span data-v-77690bc2="">(須至少8碼以上且包含數字、英文大小寫)</span>
+                    </label>
+                   @* <input asp-for="MemberPassword" class="form-control" />*@
+                    <input data-v-77690bc2="" type="password" autocomplete="off" name="密碼" maxlength="20" class="form-control w-100" aria-required="true" aria-invalid="true" aria-autocomplete="list">
+                    <p data-v-77690bc2="" class="athInput__feedback--iserror" style="">密碼不能留空。</p>
+
+                    @Html.ValidationMessageFor(Model =>Model.MemberPassword)
+                    <span asp-validation-for="MemberPassword" class="text-danger"></span>
+                                     
+
+                        
+                    
+
+
+                </div>
+                <div class="form-group">
+                    <input type="submit" onclick="valcheck()" value="註冊" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 }
 
-    <div class="col-3"></div>
+<div class="col-3"></div>
 <div>
     <a asp-controller="Home" asp-action="Index">取消</a>
 </div>
 
-                </div>
+<script type="text/javascript">
+    function valcheck() {
+        alert("test");
+        return;
+    }
+
+</script>
+
+
+
+@*</div>*@

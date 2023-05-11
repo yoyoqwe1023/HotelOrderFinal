@@ -108,6 +108,10 @@ namespace HotelOrderFinal.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(RoomMember model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
             string memberID_ = string.Empty;
             int maxMemberID = 0;
             model.AdminId = "AD00010";
