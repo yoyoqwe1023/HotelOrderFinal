@@ -11,6 +11,24 @@ namespace HotelOrderFinal.Controllers
         {
             _enviro = p;
         }
+        public ActionResult ActivityByDetails(int? id)
+        {
+            HotelOrderContext db = new HotelOrderContext();
+            Activity cust = db.Activity.FirstOrDefault(t => t.ActivityId == id);
+            if (cust == null)
+                return RedirectToAction("List");
+            return View(cust);
+            //    if (id == null)
+            //    {
+            //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //    }
+            //    Activity activity = _context.Activities.Find(id);
+            //    if (activity == null)
+            //    {
+            //        return HttpNotFound();
+            //    }
+            return View();
+        }
         public IActionResult List()
         {
             HotelOrderContext db = new HotelOrderContext();

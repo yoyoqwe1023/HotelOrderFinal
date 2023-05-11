@@ -37,21 +37,14 @@
             <th>
                 @Html.DisplayNameFor(model => model.DiscountDirections)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DiscountStart)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DiscountEnd)
-            </th>
+            
             <th>
                 @Html.DisplayNameFor(model => model.DiscountDiscount)
             </th>
             @*<th>
                 @Html.DisplayNameFor(model => model.MemberId)
             </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.DiscountUse)
-            </th>
+            
             <th></th>
         </tr>
     </thead>
@@ -70,21 +63,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.DiscountDirections)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiscountStart)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiscountEnd)
-            </td>
+           
             <td>
                 @Html.DisplayFor(modelItem => item.DiscountDiscount)
             </td>
             @*<td>
                 @Html.DisplayFor(modelItem => item.MemberId)
             </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.DiscountUse)
-            </td>
+           
 
                 <td>
                     @Html.ActionLink("修改", "Edit", new {  id=item.DiscountId  }) |
