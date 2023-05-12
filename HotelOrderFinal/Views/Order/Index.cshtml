@@ -1,6 +1,8 @@
-﻿@model IQueryable<List< HotelOrderFinal.Models.Room>>
-
-
+﻿@*@model IQueryable<List< HotelOrderFinal.Models.Room>>
+@
+model IEnumerable<String>
+*@
+model IEnumerable< HotelOrderFinal.Models.Room>
 <section class="breadcrumb_area">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
@@ -90,7 +92,8 @@
                     @*list*@
                     <div style="margin-bottom:3px;">
                         @*roomall*@
-                        @if (Model == null || !Model.Any())
+                @*    @if (Model == null || !Model.Any())*@
+                            @if (Model == null )
                         {
                             <div class="stNotroom">該時段已沒有空間，請重新選擇時段。</div>
                         }
@@ -110,6 +113,7 @@
                                         <img src="~/image/room1.jpg" width="250" height="150" />
                                     </div>
                                     <div class="col-md-8 ">
+                                        <h4>@item.RoomClassName</h4>
                                         @*房間資訊*@
                                        @* <h4>@Html.DisplayNameFor(model => item.RoomClass) </h4>
                                         <p> @Html.DisplayNameFor(model => item.RoomClass.RoomClassDetail)</p>

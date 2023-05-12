@@ -44,28 +44,21 @@ namespace HotelOrderFinal.Controllers
 
             //所有房間扣掉已預訂房間
 
-            var freeRooms = from r in db.Room.Include(r => r.RoomClass)
-                            where !reservedRooms.Contains(r.RoomId)
-                            group r by r.RoomClassId into g
-                            select g.ToList();
 
-            //var query = from r in db.Room
-            //            where !reservedRooms.Contains(r.RoomId)
-            //            select r.GroupBy(r.RoomClassId);
-            //query.Distinct();
+            //var freeRooms = (from r in db.Room.Include(r => r.RoomClass)
+            //               where !reservedRooms.Contains(r.RoomId)
+            //               select r.RoomClassId).Distinct();
 
-            //var q = reservedRooms.Where(x=>x.RoomId)
+            var freeRooms = (from r in db.Room.Include(r => r.RoomClass)
+                             where !reservedRooms.Contains(r.RoomId)
+                             select r)
+                             .Select(rs => new {rs.RoomClass.RoomClassId, rs.RoomClass.RoomClassName }).Distinct();
+         
 
-            //var freeRooms = from r in db.Room
+            //var freeRooms = from r in db.Room.Include(r => r.RoomClass)
             //                where !reservedRooms.Contains(r.RoomId)
-            //                select new Room()
-            //                {    RoomId = r.RoomId,
-            //                     RoomClassId=r.RoomClassId,
-            //                    //r.RoomSize,
-            //                    //r.RoomClass.RoomClassName
-            //                };
-
-            //freeRooms = freeRooms.Include(r => r.RoomClass);
+            //                group r by r.RoomClassId into g
+            //                select g.ToList();
 
             if (freeRooms == null)
             {
