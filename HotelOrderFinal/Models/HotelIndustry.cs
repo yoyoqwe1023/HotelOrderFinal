@@ -5,10 +5,10 @@ namespace HotelOrderFinal.Models
 {
     public partial class HotelIndustry
     {
-        public HotelIndustry()
+        public HotelIndustry ( )
         {
-            MultipleHotelFacilities = new HashSet<MultipleHotelFacility>();
-            Rooms = new HashSet<Room>();
+            MultipleHotelFacilities = new HashSet<MultipleHotelFacility> ( );
+            Rooms = new HashSet<Room> ( );
         }
 
         public int HotelId { get; set; }
@@ -22,5 +22,6 @@ namespace HotelOrderFinal.Models
         public virtual HotelRegionName? HotelRegion { get; set; }
         public virtual ICollection<MultipleHotelFacility> MultipleHotelFacilities { get; set; }
         public virtual ICollection<Room> Rooms { get; set; }
+
     }
 }
