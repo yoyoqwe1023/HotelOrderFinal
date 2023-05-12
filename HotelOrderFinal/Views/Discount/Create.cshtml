@@ -27,7 +27,7 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            <input type="hidden" name="DiscountId" value="@Model.DiscountId" />
+           
           @*  <div class="form-group">
                 <label asp-for="DiscountId" class="control-label"></label>
                 <input asp-for="DiscountId" class="form-control" />
@@ -48,31 +48,19 @@
                 <input asp-for="DiscountDirections" class="form-control" />
                 <span asp-validation-for="DiscountDirections" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="DiscountStart" class="control-label"></label>
-                <input asp-for="DiscountStart" class="form-control" />
-                <span asp-validation-for="DiscountStart" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DiscountEnd" class="control-label"></label>
-                <input asp-for="DiscountEnd" class="form-control" />
-                <span asp-validation-for="DiscountEnd" class="text-danger"></span>
-            </div>
+
             <div class="form-group">
                 <label asp-for="DiscountDiscount" class="control-label"></label>
                 <input asp-for="DiscountDiscount" class="form-control" />
                 <span asp-validation-for="DiscountDiscount" class="text-danger"></span>
             </div>
+
 @*            <div class="form-group">
                 <label asp-for="MemberId" class="control-label"></label>
                 <input asp-for="MemberId" class="form-control" />
                 <span asp-validation-for="MemberId" class="text-danger"></span>
             </div>*@
-            <div class="form-group">
-                <label asp-for="DiscountUse" class="control-label"></label>
-                <input asp-for="DiscountUse" class="form-control" value="0"/>
-                <span asp-validation-for="DiscountUse" class="text-danger"></span>
-            </div>
+         
             <div class="form-group">
                 <input type="submit" value="送出" class="btn btn-primary" />
                 <button type="button" onclick="location.href='@Url.Action("List")'" class="btn btn-secondary">取消</button>              

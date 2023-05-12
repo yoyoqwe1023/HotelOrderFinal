@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HotelOrderFinal.Models.Discount>
+﻿@model IEnumerable<HotelOrderFinal.Models.DiscountDetail>
 
 @{
     ViewData["Title"] = "List";
@@ -21,16 +21,10 @@
     <thead>
         <tr>
             @* <th>
-            @Html.DisplayNameFor(model => model.DiscountId)
+            @Html.DisplayNameFor(model => model.DiscountDetailId)
             </th>*@
             <th>
-                @Html.DisplayNameFor(model => model.DiscountName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DiscountImage)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DiscountDirections)
+                @Html.DisplayNameFor(model => model.DiscountId)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DiscountStart)
@@ -38,15 +32,14 @@
             <th>
                 @Html.DisplayNameFor(model => model.DiscountEnd)
             </th>
+                      
             <th>
-                @Html.DisplayNameFor(model => model.DiscountDiscount)
+                @Html.DisplayNameFor(model => model.DiscountUse)
             </th>
             @*<th>
             @Html.DisplayNameFor(model => model.MemberId)
             </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.DiscountUse)
-            </th>
+            
             <th></th>
         </tr>
     </thead>
@@ -58,13 +51,7 @@
             @Html.DisplayFor(modelItem => item.DiscountId)
             </td>*@
                 <td>
-                    @Html.DisplayFor(modelItem => item.DiscountName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DiscountImage)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DiscountDirections)
+                    @Html.DisplayFor(modelItem => item.DiscountId)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.DiscountStart)
@@ -72,16 +59,14 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.DiscountEnd)
                 </td>
+                
                 <td>
-                    @Html.DisplayFor(modelItem => item.DiscountDiscount)
+                    @Html.DisplayFor(modelItem => item.DiscountUse)
                 </td>
                 @*<td>
             @Html.DisplayFor(modelItem => item.MemberId)
             </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.DiscountUse)
-                </td>
-
+                
                 <td>
                     @Html.ActionLink("修改", "Edit", new {  id=item.DiscountId  }) |
                     @Html.ActionLink("刪除", "Delete","Discount", new {  id=item.DiscountId },new {onclick="return confirm('確定刪除嗎?')"})
