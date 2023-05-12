@@ -2,7 +2,7 @@
 
 @{
     Layout = "_Layout";
-    ViewData["Title"] = "List";
+    ViewData ["Title"] = "List";
 }
 
 <!--================Breadcrumb Area =================-->
@@ -180,6 +180,7 @@
         catchid1()
         catchid2()
         catchid3()
+
         function catchid1() {
             //抓hotelregionid
             $('#btn1').on('click', function (event) {
@@ -201,14 +202,16 @@
                                 '<h1 style="color:black;">' + data[i].hotelName + '</h1>' +
                                 '<img src="/image/' + data[i].hotelImage + ' "  width = "160" height = "120" />' +
                                 '<br>' + '<p style="color:black;">' +
-                                data[i].hotelImageDiscription + '</p>' +
+                                data[i].hotelAddress + '</p>' +
+                                '<a href="@Url.Action("create", "HotelIndustry")" class="btn btn-primary" role="button">Click me!</a>' +
                                 '</div>' +
                                 '</div>' +
-                                '</div>' 
+                                '</div>'
                             );
                         }
                     }
                 });
+
             });
         }
         function catchid2() {
@@ -231,10 +234,11 @@
                                 '<div id = "hotelupload2" class= "newcontainer  text-center">' +
                                 '<h1 style="color:black;">' + data[i].hotelName + '</h1>' +
                                 '<img src="/image/' + data[i].hotelImage + ' "  width = "160" height = "120" />' +
-                                '<br>' + '<p style="color:black;">'+ data[i].hotelImageDiscription + '</p>' +
+                                '<br>' + '<p style="color:black;">' + data[i].hotelAddress + '</p>' +
+                                '<a href="@Url.Action("create", "HotelIndustry")" class="btn btn-primary" role="button">Click me!</a>' +
                                 '</div>' +
                                 '</div>' +
-                                '</div>' 
+                                '</div>'
                             );
                         }
                     }
@@ -260,10 +264,11 @@
                                 '<div id="hotelupload3"class= "newcontainer text-center">' +
                                 '<h1 style="color:black;">' + data[i].hotelName + '</h1>' +
                                 '<img src="/image/' + data[i].hotelImage + ' "  width = "160" height = "120" />' +
-                                '<br>' +'<p style="color:black;">'+ data[i].hotelImageDiscription +'</p>'+
+                                '<br>' + '<p style="color:black;">' + data[i].hotelAddress + '</p>' +
+                                '<a href="@Url.Action("create", "HotelIndustry")" class="btn btn-primary" role="button">Click me!</a>' +
                                 '</div>' +
                                 '</div>' +
-                                '</div>' 
+                                '</div>'
                             );
                         }
                     }
