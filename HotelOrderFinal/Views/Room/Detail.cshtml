@@ -17,6 +17,39 @@
         }
 
 
+    .overlay2 {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1000;
+    }
+
+    .modal2 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+    .modal-image {
+        max-width: 90%;
+        max-height: 90%;
+    }
+
+    .close {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        font-size: 30px;
+        color: white;
+        cursor: pointer;
+    }
+
 </style>
 
 <section class="breadcrumb_area">
@@ -37,7 +70,17 @@
 <hr>
 <div class="row">
     <div class="col-md-4">
-        <img class="enlarge-image" src="~/image/@Model.RoomClass.RoomClassPhoto1" width="320" height="240" />
+        <div class="container">
+            <img class="image enlarge-image" src="~/image/@Model.RoomClass.RoomClassPhoto1" width="320" height="240" />
+
+            <div class="overlay2" id="overlay2">
+                <div class="modal2">
+                    <span class="close" id="close">&times;</span>
+                    <img src="" class="modal-image" alt="Modal Image">
+                </div>
+            </div>
+        </div>
+
     </div>
     <div class="col-md-8">
         <h2>@Html.DisplayFor(model => model.RoomClass.RoomClassName)</h2>
@@ -66,5 +109,38 @@
 
 
 @section Scripts{
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const images = document.querySelectorAll('.enlarge-image');
+            const overlay2 = document.getElementById('overlay2');
+            const modalImage = document.querySelector('.modal-image');
+            const closeButton = document.getElementById('close');
 
+            images.forEach(function (image) {
+                image.addEventListener('click', function () {
+                    console.log('Image clicked'); // 檢查圖片點擊事件是否正確觸發
+
+                    overlay2.style.display = 'flex';
+                    var imagePath = image.getAttribute('src').replace('~', '');
+                    modalImage.src = imagePath;
+                    console.log('Image path:', imagePath); // 檢查圖片路徑是否正確設置
+                });
+            });
+
+            closeButton.addEventListener('click', function () {
+                console.log('Close button clicked'); // 檢查關閉按鈕點擊事件是否正確觸發
+
+                overlay2.style.display = 'none';
+            });
+
+            overlay2.addEventListener('click', function (event) {
+                console.log('Overlay clicked'); // 檢查覆蓋層點擊事件是否正確觸發
+
+                if (event.target === overlay2) {
+                    overlay2.style.display = 'none';
+                }
+            });
+        });
+
+    </script>
 }
