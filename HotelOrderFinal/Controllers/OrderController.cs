@@ -1,4 +1,5 @@
 ﻿using HotelOrderFinal.Models;
+using HotelOrderFinal.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Frameworks;
@@ -8,7 +9,7 @@ namespace HotelOrderFinal.Controllers
 {
     public class OrderController : Controller
     {
-        public IActionResult Index()
+        public IActionResult List()
         {
             //讀取與設定入住退房日
             string checkInDateStr = HttpContext.Session.GetString("CHECKINDATE");
@@ -41,24 +42,44 @@ namespace HotelOrderFinal.Controllers
             var reservedRooms = from od in db.OrderDetail
                                 where !(od.CheckOutDate <= checkIn || od.CheckInDate >= checkOut)
                                 select od.RoomId;
+            var reservedRoomList = reservedRooms.ToList();
 
             //所有房間扣掉已預訂房間
 
+            //var freeRooms = (from r in db.Room.Include(r => r.RoomClass)
+            //                 where !reservedRooms.Contains(r.RoomId)
+            //                 select r).Distinct();
 
             //var freeRooms = (from r in db.Room.Include(r => r.RoomClass)
-            //               where !reservedRooms.Contains(r.RoomId)
-            //               select r.RoomClassId).Distinct();
+            //                 where !reservedRooms.Contains(r.RoomId)
+            //                 select r)
+            //                 .Select(rs => new {rs.RoomClass.RoomClassId, rs.RoomClass.RoomClassName }).Distinct();
 
-            var freeRooms = (from r in db.Room.Include(r => r.RoomClass)
-                             where !reservedRooms.Contains(r.RoomId)
-                             select r)
-                             .Select(rs => new {rs.RoomClass.RoomClassId, rs.RoomClass.RoomClassName }).Distinct();
-         
-
-            //var freeRooms = from r in db.Room.Include(r => r.RoomClass)
+            //var freeRooms = from r in db.Room.Include(r => r.RoomClass).AsEnumerable()
             //                where !reservedRooms.Contains(r.RoomId)
-            //                group r by r.RoomClassId into g
-            //                select g.ToList();
+            //                group r by r.RoomClass.RoomClassName into g
+            //                select new { g.Key, g };
+
+            var freeRooms = db.Room.Include(r => r.RoomClass).AsEnumerable().Where(r => !reservedRoomList.Contains(r.RoomId)).GroupBy(r => r.RoomClass.RoomClassName)
+                .Select(g => new { g.Key, g }).ToList();
+
+
+            List<CSearchRoomViewModel> vmList = new List<CSearchRoomViewModel>();
+            foreach (var room in freeRooms)
+            {
+                var f = room.g.First();
+
+                CSearchRoomViewModel vm = new CSearchRoomViewModel();
+                vm.RoomClassPhoto1 = f.RoomClass.RoomClassPhoto1;
+                vm.RoomClassDetail = f.RoomClass.RoomClassDetail;
+                vm.WeekdayPrice = f.RoomClass.WeekdayPrice;
+                vm.HolidayPrice = f.RoomClass.HolidayPrice;
+                vm.AddPrice = f.RoomClass.AddPrice;
+                vm.RoomClassName = f.RoomClass.RoomClassName;
+                vm.RoomPeople = f.RoomPeople;
+                vm.RoomSize = f.RoomSize;
+                vmList.Add(vm);
+            }
 
             if (freeRooms == null)
             {
@@ -66,11 +87,8 @@ namespace HotelOrderFinal.Controllers
             }
             else
             {
-                return View(freeRooms);
+                return View(vmList);
             }
-
-
-
         }
 
         public IActionResult Detail()
@@ -84,7 +102,7 @@ namespace HotelOrderFinal.Controllers
 
         public IActionResult Create()
         {
-            
+
             return View();
         }
 
