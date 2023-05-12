@@ -65,7 +65,7 @@ namespace HotelOrderFinal.Controllers
                     string photoName = Guid.NewGuid().ToString() + ".jpg";
                     string path = _enviro.WebRootPath + "/image/" + photoName;
                     p.photo.CopyTo(new FileStream(path, FileMode.Create));
-                    room.RoomClassPhoto1 = photoName;
+                    room.RoomClassPhoto3 = photoName;
                 }
 
                 room.RoomClassName = p.RoomClassName;

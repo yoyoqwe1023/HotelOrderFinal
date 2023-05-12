@@ -17,7 +17,7 @@
         }
 
 
-    .overlay2 {
+    .myoverlay {
         display: none;
         position: fixed;
         top: 0;
@@ -28,7 +28,7 @@
         z-index: 1000;
     }
 
-    .modal2 {
+    .my-modal {
         position: absolute;
         top: 50%;
         left: 50%;
@@ -49,6 +49,27 @@
         color: white;
         cursor: pointer;
     }
+
+    .mythumbnail {
+        width: 100px; /* 設置小圖片的寬度 */
+        height: auto; /* 根據寬度自動調整高度，保持圖片比例 */
+    }
+
+        .mythumbnail:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.5); /* 半白覆蓋的顏色和透明度 */
+            opacity: 0; /* 初始時透明度為0 */
+            transition: opacity 0.3s ease; /* 過渡效果，讓透明度變化平滑 */
+        }
+
+        .mythumbnail:hover:before {
+            opacity: 1; /* 滑鼠懸停時透明度為1，顯示半白覆蓋 */
+        }
 
 </style>
 
@@ -71,10 +92,17 @@
 <div class="row">
     <div class="col-md-4">
         <div class="container">
-            <img class="image enlarge-image" src="~/image/@Model.RoomClass.RoomClassPhoto1" width="320" height="240" />
+            <img class="image enlarge-image" src="~/image/@Model.RoomClass.RoomClassPhoto1" width="320" height="240" />          
+               
+            <div id="thumbnail-container">
+                <img class="mythumbnail" src="~/image/@Model.RoomClass.RoomClassPhoto1">
+                <img class="mythumbnail" src="~/image/@Model.RoomClass.RoomClassPhoto2">
+                <img class="mythumbnail" src="~/image/@Model.RoomClass.RoomClassPhoto3" >
+            </div>
 
-            <div class="overlay2" id="overlay2">
-                <div class="modal2">
+
+            <div class="myoverlay" id="myoverlay">
+                <div class="my-modal">
                     <span class="close" id="close">&times;</span>
                     <img src="" class="modal-image" alt="Modal Image">
                 </div>
@@ -112,7 +140,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const images = document.querySelectorAll('.enlarge-image');
-            const overlay2 = document.getElementById('overlay2');
+            const myoverlay = document.getElementById('myoverlay');
             const modalImage = document.querySelector('.modal-image');
             const closeButton = document.getElementById('close');
 
@@ -120,7 +148,7 @@
                 image.addEventListener('click', function () {
                     console.log('Image clicked'); // 檢查圖片點擊事件是否正確觸發
 
-                    overlay2.style.display = 'flex';
+                    myoverlay.style.display = 'flex';
                     var imagePath = image.getAttribute('src').replace('~', '');
                     modalImage.src = imagePath;
                     console.log('Image path:', imagePath); // 檢查圖片路徑是否正確設置
@@ -130,17 +158,31 @@
             closeButton.addEventListener('click', function () {
                 console.log('Close button clicked'); // 檢查關閉按鈕點擊事件是否正確觸發
 
-                overlay2.style.display = 'none';
+                myoverlay.style.display = 'none';
             });
 
-            overlay2.addEventListener('click', function (event) {
+            myoverlay.addEventListener('click', function (event) {
                 console.log('Overlay clicked'); // 檢查覆蓋層點擊事件是否正確觸發
 
-                if (event.target === overlay2) {
-                    overlay2.style.display = 'none';
+                if (event.target === myoverlay) {
+                    myoverlay.style.display = 'none';
                 }
             });
         });
+
+        window.onload = function () {
+            // 獲取所有小圖片元素
+            const thumbnails = document.querySelectorAll('.mythumbnail');
+
+            // 為每個小圖片元素添加點擊事件監聽器
+            thumbnails.forEach((thumbnail) => {
+                thumbnail.addEventListener('click', () => {
+                    // 當小圖片被點擊時，將大圖片的src屬性設置為點擊的小圖片的src屬性
+                    const bigImage = document.querySelector('.enlarge-image');
+                    bigImage.src = thumbnail.src;
+                });
+            });
+        };
 
     </script>
 }
