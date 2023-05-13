@@ -9,8 +9,6 @@ namespace HotelOrderFinal.Models
     {
         public string RoomId { get; set; }
         public string RoomClassId { get; set; }
-        public int? RoomSize { get; set; }
-        public int? RoomPeople { get; set; }
         public int? HotelId { get; set; }
         public string AdminId { get; set; }
 

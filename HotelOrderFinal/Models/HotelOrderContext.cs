@@ -21,6 +21,7 @@ namespace HotelOrderFinal.Models
         public virtual DbSet<Activity> Activity { get; set; }
         public virtual DbSet<Comment> Comment { get; set; }
         public virtual DbSet<Discount> Discount { get; set; }
+        public virtual DbSet<DiscountDetail> DiscountDetail { get; set; }
         public virtual DbSet<HotelFacility> HotelFacility { get; set; }
         public virtual DbSet<HotelIndustry> HotelIndustry { get; set; }
         public virtual DbSet<HotelRegionName> HotelRegionName { get; set; }
@@ -95,11 +96,16 @@ namespace HotelOrderFinal.Models
 
                 entity.Property(e => e.DiscountDiscount).HasColumnType("numeric(10, 2)");
 
+                entity.Property(e => e.DiscountName).HasMaxLength(20);
+            });
+
+            modelBuilder.Entity<DiscountDetail>(entity =>
+            {
+                entity.Property(e => e.DiscountDetailId).HasColumnName("DiscountDetailID");
+
                 entity.Property(e => e.DiscountEnd).HasColumnType("datetime");
 
-                entity.Property(e => e.DiscountName)
-                    .IsRequired()
-                    .HasMaxLength(20);
+                entity.Property(e => e.DiscountId).HasColumnName("DiscountID");
 
                 entity.Property(e => e.DiscountStart).HasColumnType("datetime");
 
@@ -107,10 +113,15 @@ namespace HotelOrderFinal.Models
                     .HasMaxLength(20)
                     .HasColumnName("MemberID");
 
+                entity.HasOne(d => d.Discount)
+                    .WithMany(p => p.DiscountDetail)
+                    .HasForeignKey(d => d.DiscountId)
+                    .HasConstraintName("FK_DiscountDetail_Discount");
+
                 entity.HasOne(d => d.Member)
-                    .WithMany(p => p.Discount)
+                    .WithMany(p => p.DiscountDetail)
                     .HasForeignKey(d => d.MemberId)
-                    .HasConstraintName("FK_Discount_RoomMember");
+                    .HasConstraintName("FK_DiscountDetail_RoomMember");
             });
 
             modelBuilder.Entity<HotelFacility>(entity =>
@@ -176,9 +187,11 @@ namespace HotelOrderFinal.Models
             modelBuilder.Entity<MultipleRoomFacility>(entity =>
             {
                 entity.HasKey(e => e.MultipleRoomFacilitiyId)
-                    .HasName("PK_MultipleFacilities");
+                    .HasName("PK_MultipleRoomFacility1");
 
-                entity.Property(e => e.MultipleRoomFacilitiyId).HasColumnName("MultipleRoomFacilitiyID");
+                entity.Property(e => e.MultipleRoomFacilitiyId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("MultipleRoomFacilitiyID");
 
                 entity.Property(e => e.FacilityId).HasColumnName("FacilityID");
 
@@ -189,12 +202,12 @@ namespace HotelOrderFinal.Models
                 entity.HasOne(d => d.Facility)
                     .WithMany(p => p.MultipleRoomFacility)
                     .HasForeignKey(d => d.FacilityId)
-                    .HasConstraintName("FK_MultipleRoomFacility_RoomFacility");
+                    .HasConstraintName("FK_MultipleRoomFacility1_RoomFacility");
 
                 entity.HasOne(d => d.RoomClass)
                     .WithMany(p => p.MultipleRoomFacility)
                     .HasForeignKey(d => d.RoomClassId)
-                    .HasConstraintName("FK_MultipleRoomFacility_RoomClass");
+                    .HasConstraintName("FK_MultipleRoomFacility1_RoomClass");
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -227,7 +240,7 @@ namespace HotelOrderFinal.Models
                 entity.HasOne(d => d.Discount)
                     .WithMany(p => p.Order)
                     .HasForeignKey(d => d.DiscountId)
-                    .HasConstraintName("FK_Orders_Discount");
+                    .HasConstraintName("FK_Order_Discount");
 
                 entity.HasOne(d => d.Member)
                     .WithMany(p => p.Order)
@@ -342,7 +355,7 @@ namespace HotelOrderFinal.Models
                 entity.HasOne(d => d.Hotel)
                     .WithMany(p => p.Room)
                     .HasForeignKey(d => d.HotelId)
-                    .HasConstraintName("FK_Room_HotelIndustries");
+                    .HasConstraintName("FK_Room_HotelIndustry");
 
                 entity.HasOne(d => d.RoomClass)
                     .WithMany(p => p.Room)
