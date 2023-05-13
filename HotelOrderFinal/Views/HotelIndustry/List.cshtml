@@ -37,15 +37,15 @@
     <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
             <div class="d-flex justify-content-center">
-                <iframe width="800" height="600" src="https://zh.wikipedia.org/wiki/Wikipedia:%E9%A6%96%E9%A1%B5" allowfullscreen></iframe>
+                <iframe src="https://www.google.com/maps/d/embed?mid=1J4qA06_2AVU2zKFMINRSFG-f-CQhIGA&ehbc=2E312F" width="640" height="480"></iframe>
             </div>
         </div>
         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-            @*手風琴 0506:改用accordion-flush 記得要有d-flex justify-content-center、buttonwidthL、拔掉h2*@
+            @*手風琴*@
             <div class="accordion" id="accordionExample">
                 <div class="accordion-item">
                     <div class="d-flex justify-content-center">
-                        <button id="btn1" class="accordion-button collapsed" type="button" style="width:40%" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne" data-hotelregionid="1">
+                        <button id="btn1" class="accordion-button collapsed" type="button" style="width:56%" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne" data-hotelregionid="1">
                             北部
                         </button>
                     </div>
@@ -54,7 +54,7 @@
                 <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body">
                         @*容器 排版未處理完*@
-                        <div id="hoteldata1" class="mx-auto row d-flex justify-content-center" style=" width:1000px; background-color:#E0E0E0	">
+                        <div id="hoteldata1" class="mx-auto row d-flex justify-content-center" style=" width:1000px; background-color:#efefef">
                         </div>
                         @*容器*@
                     </div>
@@ -63,7 +63,7 @@
 
             <div class="accordion-item">
                 <div class="d-flex justify-content-center">
-                    <button id="btn2" class="accordion-button collapsed" type="button" style="width:40%" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo" data-hotelregionid="2">
+                    <button id="btn2" class="accordion-button collapsed" type="button" style="width:56%" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo" data-hotelregionid="2">
                         中部
                     </button>
                 </div>
@@ -72,7 +72,7 @@
             <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
                 <div class="accordion-body">
                     @*容器*@
-                    <div id="hoteldata2" class="mx-auto row d-flex justify-content-center" style=" width:1000px; background-color:#E0E0E0">
+                    <div id="hoteldata2" class="mx-auto row d-flex justify-content-center" style=" width:1000px; background-color:#efefef">
                     </div>
                     @*容器*@
                 </div>
@@ -80,7 +80,7 @@
 
             <div class="accordion-item">
                 <div class="d-flex justify-content-center" id="headingThree">
-                    <button id="btn3" class="accordion-button collapsed" type="button" style="width:40%" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree" data-hotelregionid="3">
+                    <button id="btn3" class="accordion-button collapsed" type="button" style="width:56%" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree" data-hotelregionid="3">
                         南部
                     </button>
                 </div>
@@ -89,7 +89,7 @@
             <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
                 <div class="accordion-body">
                     @*容器*@
-                    <div id="hoteldata3" class="mx-auto row d-flex justify-content-center" style=" width:1000px; background-color:#E0E0E0	">
+                    <div id="hoteldata3" class="mx-auto row d-flex justify-content-center" style=" width:1000px; background-color:#efefef	">
                     </div>
                     @*容器*@
                 </div>
@@ -200,7 +200,7 @@
                                 '<div class="container" >' +
                                 '<div id = "hotelupload1" class= "newcontainer  text-center" >' +
                                 '<h1 style="color:black;">' + data[i].hotelName + '</h1>' +
-                                '<img src="/image/' + data[i].hotelImage + ' "  width = "160" height = "120" />' +
+                                '<img src="/image/' + data[i].hotelImage + ' "  width = "320" height = "240" />' +
                                 '<br>' + '<p style="color:black;">' +
                                 data[i].hotelAddress + '</p>' +
                                 '<a href="@Url.Action("create", "HotelIndustry")" class="btn btn-dark" role="button">我要訂房!</a>' +
@@ -233,7 +233,7 @@
                                 '<div class="container" >' +
                                 '<div id = "hotelupload2" class= "newcontainer  text-center">' +
                                 '<h1 style="color:black;">' + data[i].hotelName + '</h1>' +
-                                '<img src="/image/' + data[i].hotelImage + ' "  width = "160" height = "120" />' +
+                                '<img src="/image/' + data[i].hotelImage + ' "  width = "320" height = "240" />' +
                                 '<br>' + '<p style="color:black;">' + data[i].hotelAddress + '</p>' +
                                 '<a href="@Url.Action("create", "HotelIndustry")" class="btn btn-dark" role="button">我要訂房!</a>' +
                                 '</div>' +
@@ -263,7 +263,7 @@
                                 '<div class="container" >' +
                                 '<div id="hotelupload3"class= "newcontainer text-center">' +
                                 '<h1 style="color:black;">' + data[i].hotelName + '</h1>' +
-                                '<img src="/image/' + data[i].hotelImage + ' "  width = "160" height = "120" />' +
+                                '<img src="/image/' + data[i].hotelImage + ' "  width = "320" height = "240" />' +
                                 '<br>' + '<p style="color:black;">' + data[i].hotelAddress + '</p>' +
                                 '<a href="@Url.Action("create", "HotelIndustry")" class="btn btn-dark" role="button">我要訂房!</a>' +
                                 '</div>' +

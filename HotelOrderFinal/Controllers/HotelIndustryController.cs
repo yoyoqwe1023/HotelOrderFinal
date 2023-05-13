@@ -66,7 +66,7 @@ namespace HotelOrderFinal.Controllers
             db.SaveChanges ( );
             return RedirectToAction ( "List" );
         }
-        public IActionResult Delete (int? id )
+        public IActionResult Delete ( int? id )
         {
             HotelOrderContext db = new HotelOrderContext ( );
             HotelIndustry cust = db.HotelIndustry.FirstOrDefault ( t => t.HotelId == id );
