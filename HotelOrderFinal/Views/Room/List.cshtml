@@ -94,8 +94,26 @@
         <div class="section_title text-center">
             <h2 class="title_color">Normal Accomodation</h2>
             <p>We all live in an age that belongs to the young at heart. Life that is becoming extremely fast,</p>
-        </div>
-        <div class="row accomodation_two">
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#allRooms">所有房型</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#doubleRoom">雙人房</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#quadrupleRoom">四人房</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#familyRoom">親子房</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#presidentialSuite">總統套房</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="allRooms" class="tab-pane fade show active">
+    <div class="row accomodation_two">
             
             @if(Model !=null){
             foreach (var item in Model)
@@ -118,8 +136,26 @@
                 </div>
             }
             }
-            
+                    </div>
+                </div>
+                <div id="doubleRoom" class="tab-pane fade">
+                    <h3>雙人房</h3>
+                    <p>這裡顯示雙人房的詳細訊息。</p>
+                </div>
+                <div id="quadrupleRoom" class="tab-pane fade">
+                    <h3>四人房</h3>
+                    <p>這裡顯示四人房的詳細訊息。</p>
+                </div>
+                <div id="familyRoom" class="tab-pane fade">
+                    <h3>親子房</h3>
+                    <p>這裡顯示親子房的詳細訊息。</p>
+                </div>
+                <div id="presidentialSuite" class="tab-pane fade">
+                    <h3>總統套房</h3>
+                    <p>這裡顯示總統套房的詳細訊息。</p>
+                </div>
             </div>
-            </div>
+        </div>
+    </div>
 </section>
 <!--================ Accomodation Area  =================-->
