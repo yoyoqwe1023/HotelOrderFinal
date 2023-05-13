@@ -50,7 +50,8 @@
         cursor: pointer;
     }
 
-    .mythumbnail {
+@*    .mythumbnail {
+        position: relative; /* 添加相對定位 */
         width: 100px; /* 設置小圖片的寬度 */
         height: auto; /* 根據寬度自動調整高度，保持圖片比例 */
     }
@@ -70,7 +71,28 @@
         .mythumbnail:hover:before {
             opacity: 1; /* 滑鼠懸停時透明度為1，顯示半白覆蓋 */
         }
+*@
+.mythumbnail {
+  position: relative;
+  width: 100px;
+  height: auto;
+}
 
+.mythumbnail:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.mythumbnail:hover:before {
+  opacity: 0;
+}
 </style>
 
 <section class="breadcrumb_area">
@@ -168,7 +190,6 @@
                 }
             });
         });
-
         window.onload = function () {
             // 獲取所有小圖片元素
             const thumbnails = document.querySelectorAll('.mythumbnail');
@@ -182,6 +203,21 @@
                 });
             });
         };
+        window.addEventListener('DOMContentLoaded', function() {
+  const thumbnails = document.querySelectorAll('.mythumbnail');
+  
+  thumbnails.forEach(function(thumbnail) {
+    thumbnail.addEventListener('mouseenter', function() {
+      this.style.opacity = '1';
+    });
+    
+    thumbnail.addEventListener('mouseleave', function() {
+      this.style.opacity = '0.5';
+    });
+    thumbnail.style.opacity = '0.5'; // 設置初始透明度為0.5
+  });
+});
+
 
     </script>
 }
