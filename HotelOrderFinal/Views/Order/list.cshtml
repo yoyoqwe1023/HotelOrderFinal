@@ -135,7 +135,7 @@ model IEnumerable<String>
                                             <th>NT$ @item.WeekdayPrice</th>
                                             <th>1</th>
                                             <th>
-                                                <button class="btn btn-primary btn-block" @*data-roomclassid="@item.RoomClassName"*@>加入購物車</button>
+                                                <button class="btn btn-primary btn-block AddToCart" data-roomclassid="@item.RoomClassName">加入購物車</button>
                                             </th>
                                         </tr>
                                     </table>
@@ -247,6 +247,22 @@ model IEnumerable<String>
         };
         xhr.send("checkInDate=" + encodeURIComponent(checkInDate) + "&checkOutDate=" + encodeURIComponent(checkOutDate));
     }
+
+    $('.AddToCart').click(function () {
+        var RoomClassName = $(this).data('RoomClassName');
+        $.ajax({
+            type: 'POST',
+            url: '/Order/AddShopCart',
+            data: { 'RoomClassName': RoomClassName },
+            success: function (data) {
+                // 在此更新 UI，例如顯示訊息或更新購物車數量等
+            },
+            error: function () {
+                // 在此顯示錯誤訊息
+            }
+        });
+    });
+
 
     
 </script>

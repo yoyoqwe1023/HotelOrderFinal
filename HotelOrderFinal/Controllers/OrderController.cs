@@ -145,11 +145,20 @@ namespace HotelOrderFinal.Controllers
 
         }
 
-        public IActionResult AddShopCart()
+        public IActionResult AddShopCart(int RoomClassName)
         {
-            
-
-            return View();
+            //var roomClass = db.RoomClass.Find(roomClassId);
+            //if (roomClass != null)
+            //{
+            //    CartItem cartItem = new CartItem
+            //    {
+            //        RoomClass = roomClass,
+            //        Quantity = 1
+            //    };
+            //    cart.AddToCart(cartItem);
+            //}
+            // 回傳結果
+            return Json(new { success = true });
         }
 
 
