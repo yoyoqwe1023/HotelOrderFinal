@@ -63,7 +63,7 @@ namespace HotelOrderFinal.Controllers
                 if (p.photo != null)
                 {
                     string photoName = Guid.NewGuid().ToString() + ".jpg";
-                    string path = _enviro.WebRootPath + "/image/" + photoName;
+                    string path = _enviro.WebRootPath + "/image/room/" + photoName;
                     p.photo.CopyTo(new FileStream(path, FileMode.Create));
                     room.RoomClassPhoto3 = photoName;
                 }

@@ -92,12 +92,12 @@
 <div class="row">
     <div class="col-md-4">
         <div class="container">
-            <img class="image enlarge-image" src="~/image/@Model.RoomClass.RoomClassPhoto1" width="320" height="240" />          
+            <img class="image enlarge-image" src="~/image/room/@Model.RoomClass.RoomClassPhoto1" width="320" height="240" />          
                
             <div id="thumbnail-container">
-                <img class="mythumbnail" src="~/image/@Model.RoomClass.RoomClassPhoto1">
-                <img class="mythumbnail" src="~/image/@Model.RoomClass.RoomClassPhoto2">
-                <img class="mythumbnail" src="~/image/@Model.RoomClass.RoomClassPhoto3" >
+                <img class="mythumbnail" src="~/image/room/@Model.RoomClass.RoomClassPhoto1">
+                <img class="mythumbnail" src="~/image/room/@Model.RoomClass.RoomClassPhoto2">
+                <img class="mythumbnail" src="~/image/room/@Model.RoomClass.RoomClassPhoto3">
             </div>
 
 
@@ -112,7 +112,7 @@
     </div>
     <div class="col-md-8">
         <h2>@Html.DisplayFor(model => model.RoomClass.RoomClassName)</h2>
-        <p>房型介紹詳細待補 @Html.DisplayFor(model => model.RoomClass.RoomClassDetail)</p>
+        <p>@Html.DisplayFor(model => model.RoomClass.RoomClassDetail)</p>
         <h4>房間設備</h4>
         <ul class="facility-list">
             @foreach (var facility in Model.Facility)
@@ -175,11 +175,11 @@
             const thumbnails = document.querySelectorAll('.mythumbnail');
 
             // 為每個小圖片元素添加點擊事件監聽器
-            thumbnails.forEach((thumbnail) => {
-                thumbnail.addEventListener('click', () => {
+            thumbnails.forEach((mythumbnail) => {
+                mythumbnail.addEventListener('click', () => {
                     // 當小圖片被點擊時，將大圖片的src屬性設置為點擊的小圖片的src屬性
                     const bigImage = document.querySelector('.enlarge-image');
-                    bigImage.src = thumbnail.src;
+                    bigImage.src = mythumbnail.src;
                 });
             });
         };

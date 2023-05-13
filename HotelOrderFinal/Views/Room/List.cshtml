@@ -104,7 +104,7 @@
                     <div class="accomodation_item text-center">
                         <div class="hotel_img">
                            @* <img src="~/image/room1.jpg" alt="">*@
-                                <img src="~/image/@item.RoomClassPhoto1" width="320" height="240" />
+                                <img src="~/image/room/@item.RoomClassPhoto1" width="320" height="240" />
                             @*<a href="#" class="btn theme_btn button_hover">Book Now</a>*@
                             @Html.ActionLink("Book Now", "Detail", "Room",new {  id=item.RoomClassId}, new { @class = "btn theme_btn button_hover" })
                         </div>
