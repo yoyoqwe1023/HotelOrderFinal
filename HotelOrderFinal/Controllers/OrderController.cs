@@ -37,8 +37,7 @@ namespace HotelOrderFinal.Controllers
             HotelOrderContext db = new HotelOrderContext();
 
             //查詢空閒房間方法
-            //IEnumerable<Room> freeRooms;
-            // 查詢指定時間區間內已被預訂的房間
+            //查詢指定時間區間內已被預訂的房間
             var reservedRooms = from od in db.OrderDetail
                                 where !(od.CheckOutDate <= checkIn || od.CheckInDate >= checkOut)
                                 select od.RoomId;
@@ -60,9 +59,10 @@ namespace HotelOrderFinal.Controllers
             //                group r by r.RoomClass.RoomClassName into g
             //                select new { g.Key, g };
 
-            var freeRooms = db.Room.Include(r => r.RoomClass).AsEnumerable().Where(r => !reservedRoomList.Contains(r.RoomId)).GroupBy(r => r.RoomClass.RoomClassName)
+            var freeRooms = db.Room.Include(r => r.RoomClass).AsEnumerable()
+                .Where(r => !reservedRoomList.Contains(r.RoomId))
+                .GroupBy(r => r.RoomClass.RoomClassName)
                 .Select(g => new { g.Key, g }).ToList();
-
 
             List<CSearchRoomViewModel> vmList = new List<CSearchRoomViewModel>();
             foreach (var room in freeRooms)
@@ -90,6 +90,45 @@ namespace HotelOrderFinal.Controllers
                 return View(vmList);
             }
         }
+
+        [HttpPost]
+        public IActionResult setSession(string checkInDate, string checkOutDate)
+        {
+
+            DateTime checkIn = DateTime.ParseExact(checkInDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            DateTime checkOut = DateTime.ParseExact(checkOutDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+
+            HttpContext.Session.SetString("CHECKINDATE", checkIn.ToString("yyyy-MM-dd"));
+            HttpContext.Session.SetString("CHECKOUTDATE", checkOut.ToString("yyyy-MM-dd"));
+
+            return Ok();
+        }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> SearchRoom(string checkInDate, string checkOutDate)
+        //{
+        //    //讀取與設定入住退房日
+        //    string checkInDateStr = HttpContext.Session.GetString("CHECKINDATE");
+        //    string checkOutDateStr = HttpContext.Session.GetString("CHECKOUTDATE");
+
+        //    DateTime checkIn;
+        //    DateTime checkOut;
+
+        //    if (!string.IsNullOrEmpty(checkInDateStr) && !string.IsNullOrEmpty(checkOutDateStr))
+        //    {
+        //        checkIn = DateTime.ParseExact(checkInDateStr, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+        //        checkOut = DateTime.ParseExact(checkOutDateStr, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+        //    }
+        //    else
+        //    {
+               
+        //    }
+
+
+        //}
+
+
 
         public IActionResult Detail()
         {

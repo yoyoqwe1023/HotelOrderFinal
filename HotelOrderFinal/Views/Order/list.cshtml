@@ -80,7 +80,7 @@ model IEnumerable<String>
             <div class="col-md-1">
                 <!-- 調整搜尋按鈕的位置和寬度 -->
                 <div class="book_tabel_item">
-                    <a href="#" class="btn btn-primary btn-block">搜尋</a>
+                    <a href="#" onclick="return setSession();" class="btn btn-primary btn-block">搜尋</a>
                 </div>
             </div>
         </div>
@@ -159,7 +159,7 @@ model IEnumerable<String>
                         <table>
                             <tr>
                                 <th width="40%">房間類型</th>
-                                <td>@ .RoomClaseName 雙人房</td>
+                                <td>RoomClaseName 雙人房</td>
                             </tr>
                             <tr>
                                 <th>入住地區</th>
@@ -230,3 +230,22 @@ model IEnumerable<String>
         </div>
     </header>
 </body>
+
+<script>
+    function setSession() {
+        var checkInDate = document.getElementById("checkInDate").value;
+        var checkOutDate = document.getElementById("checkOutDate").value;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/Home/setSession", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // 成功更新 session 的回應
+                console.log("已更新 session");
+            }
+        };
+        xhr.send("checkInDate=" + encodeURIComponent(checkInDate) + "&checkOutDate=" + encodeURIComponent(checkOutDate));
+    }
+</script>
