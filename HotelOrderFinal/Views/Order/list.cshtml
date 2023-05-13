@@ -80,7 +80,7 @@ model IEnumerable<String>
             <div class="col-md-1">
                 <!-- 調整搜尋按鈕的位置和寬度 -->
                 <div class="book_tabel_item">
-                    <a href="#" onclick="return setSession();" class="btn btn-primary btn-block">搜尋</a>
+                    <a href="#" onclick="return SearchRoom();" class="btn btn-primary btn-block">搜尋</a>
                 </div>
             </div>
         </div>
@@ -110,10 +110,9 @@ model IEnumerable<String>
                                     @*room*@
                                     <div class="col-md-4">
                                         @*圖片*@
-                                        <img src="~/image/room1.jpg" width="250" height="150" />
+                                       <img src="~/image/@item.RoomClassPhoto1" width="250" height="150" />
                                     </div>
                                     <div class="col-md-8 ">
-
                                         @*房間資訊*@
                                         <h4>@item.RoomClassName </h4>
                                         <p>@item.RoomClassDetail</p>
@@ -136,7 +135,7 @@ model IEnumerable<String>
                                             <th>NT$ @item.WeekdayPrice</th>
                                             <th>1</th>
                                             <th>
-                                                <button class="btn btn-primary btn-block">加入購物車</button>
+                                                <button class="btn btn-primary btn-block" @*data-roomclassid="@item.RoomClassName"*@>加入購物車</button>
                                             </th>
                                         </tr>
                                     </table>
@@ -232,12 +231,12 @@ model IEnumerable<String>
 </body>
 
 <script>
-    function setSession() {
+    function SearchRoom() {
         var checkInDate = document.getElementById("checkInDate").value;
         var checkOutDate = document.getElementById("checkOutDate").value;
 
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/Home/setSession", true);
+        xhr.open("POST", "/Order/SearchRoom", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
         xhr.onreadystatechange = function () {
@@ -248,4 +247,6 @@ model IEnumerable<String>
         };
         xhr.send("checkInDate=" + encodeURIComponent(checkInDate) + "&checkOutDate=" + encodeURIComponent(checkOutDate));
     }
+
+    
 </script>
