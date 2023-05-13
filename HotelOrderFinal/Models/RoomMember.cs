@@ -2,6 +2,9 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace HotelOrderFinal.Models
 {
@@ -16,9 +19,13 @@ namespace HotelOrderFinal.Models
 
         public string AdminId { get; set; }
         public string MemberId { get; set; }
+
         public string MemberName { get; set; }
+
         public DateTime? MemberBirthday { get; set; }
+
         public string MemberGender { get; set; }
+
         public string MemberIdentity { get; set; }
         public string MemberPhone { get; set; }
         public string MemberEmail { get; set; }

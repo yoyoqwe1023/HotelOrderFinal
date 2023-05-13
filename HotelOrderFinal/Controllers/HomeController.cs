@@ -16,9 +16,15 @@ namespace HotelOrderFinal.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
-        {
-        
+        public IActionResult Index(string message = null)
+        {/*string message = null*/
+            if (!string.IsNullOrEmpty(message))
+            {
+                TempData["Message"] = message;
+            }
+
+
+            //ViewBag.Message = message;
             return View();
         }
 
