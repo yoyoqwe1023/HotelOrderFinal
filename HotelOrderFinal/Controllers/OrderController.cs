@@ -76,8 +76,8 @@ namespace HotelOrderFinal.Controllers
                 vm.HolidayPrice = f.RoomClass.HolidayPrice;
                 vm.AddPrice = f.RoomClass.AddPrice;
                 vm.RoomClassName = f.RoomClass.RoomClassName;
-                vm.RoomPeople = f.RoomPeople;
-                vm.RoomSize = f.RoomSize;
+                vm.RoomPeople = f.RoomClass.RoomClassPeople;
+                vm.RoomSize = f.RoomClass.RoomClassSize;
                 vmList.Add(vm);
             }
 
