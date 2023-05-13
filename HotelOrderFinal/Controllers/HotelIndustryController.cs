@@ -15,7 +15,6 @@ namespace HotelOrderFinal.Controllers
 
         public IActionResult List ( )
         {
-
             return View ( );
         }
 

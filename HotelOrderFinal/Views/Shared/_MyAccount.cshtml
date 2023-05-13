@@ -1,7 +1,7 @@
 ﻿<style>
 
 
-</style> 
+</style>
 
 
 <!-- Modal -->
@@ -16,62 +16,63 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <ul class="nav nav-tabs" id="myAccountTabs" role="tablist">
-                    @*<li class="nav-item" >*@
-                    <li data-v-77690bc2="" class="athTabpage__tab active">
-                        <a class="nav-link" id="loginTab" data-toggle="tab" href="#login" role="tab" aria-controls="login" aria-selected="true">會員登入</a>
-                    </li>
-                    @*<li class="nav-item">*@
-                    <li data-v-77690bc2="" class="athTabpage__tab">
-                        <a class="nav-link" id="createTab" data-toggle="tab" href="#create" role="tab" aria-controls="create" aria-selected="false">會員註冊</a>
-                    </li>
-                </ul>
-                <div class="tab-content" id="myAccountTabContent">
-                    <div class="tab-pane active" id="login" role="tabpanel" aria-labelledby="loginTab">
-                        @await Html.PartialAsync("~/Views/Member/Login.cshtml")           
-                    </div>
-                    <div class="tab-pane" id="create" role="tabpanel" aria-labelledby="createTab">
-                        @await Html.PartialAsync("~/Views/Member/Create.cshtml")            
+            <nav>
+                <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist" style="border-block-color:#343A40">
+                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">會員登入</button>
+                    <button class="nav-link " id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">會員註冊</button>
+                </div>
+            </nav>
+            @*分頁下的內容*@
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <div class="d-flex justify-content-center">
+                        @await Html.PartialAsync("~/Views/Member/Login.cshtml")
                     </div>
                 </div>
+                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    @await Html.PartialAsync("~/Views/Member/Create.cshtml")
+                </div>
+
+
+
+
+
             </div>
         </div>
     </div>
-</div>
-@*
-<script>
+    @*
+    <script>
     $(document).ready(function () {
-        $('#submit-form').click(function (e) {
-            e.preventDefault();
+    $('#submit-form').click(function (e) {
+    e.preventDefault();
 
-            $.ajax({
-                type: "POST",
-                url: "/Member/Create",
-                data: $('#my-form').serialize(),
-                success: function () {
-                    // 請求成功後的處理程序
-                    alert("註冊成功！");
-                },
-                error: function () {
-                    // 請求失敗後的處理程序
-                    alert("註冊失敗！");
-                }
-            });
-        });
+    $.ajax({
+    type: "POST",
+    url: "/Member/Create",
+    data: $('#my-form').serialize(),
+    success: function () {
+    // 請求成功後的處理程序
+    alert("註冊成功！");
+    },
+    error: function () {
+    // 請求失敗後的處理程序
+    alert("註冊失敗！");
+    }
     });
-</script>*@
+    });
+    });
+    </script>*@
 
-@*@if (TempData["ErrorMessage"] != null)
-{
+    @*@if (TempData["ErrorMessage"] != null)
+    {
     <div class="alert alert-danger" role="alert">
-        @TempData["ErrorMessage"]
+    @TempData["ErrorMessage"]
     </div>
-}
+    }
 
-@if (TempData["SuccessMessage"] != null)
-{
+    @if (TempData["SuccessMessage"] != null)
+    {
     <div class="alert alert-success" role="alert">
-        @TempData["SuccessMessage"]
+    @TempData["SuccessMessage"]
     </div>
-}*@
+    }*@
