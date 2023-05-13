@@ -187,9 +187,11 @@ namespace HotelOrderFinal.Models
             modelBuilder.Entity<MultipleRoomFacility>(entity =>
             {
                 entity.HasKey(e => e.MultipleRoomFacilitiyId)
-                    .HasName("PK_MultipleFacilities");
+                    .HasName("PK_MultipleRoomFacility1");
 
-                entity.Property(e => e.MultipleRoomFacilitiyId).HasColumnName("MultipleRoomFacilitiyID");
+                entity.Property(e => e.MultipleRoomFacilitiyId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("MultipleRoomFacilitiyID");
 
                 entity.Property(e => e.FacilityId).HasColumnName("FacilityID");
 
@@ -200,12 +202,12 @@ namespace HotelOrderFinal.Models
                 entity.HasOne(d => d.Facility)
                     .WithMany(p => p.MultipleRoomFacility)
                     .HasForeignKey(d => d.FacilityId)
-                    .HasConstraintName("FK_MultipleRoomFacility_RoomFacility");
+                    .HasConstraintName("FK_MultipleRoomFacility1_RoomFacility");
 
                 entity.HasOne(d => d.RoomClass)
                     .WithMany(p => p.MultipleRoomFacility)
                     .HasForeignKey(d => d.RoomClassId)
-                    .HasConstraintName("FK_MultipleRoomFacility_RoomClass");
+                    .HasConstraintName("FK_MultipleRoomFacility1_RoomClass");
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -353,7 +355,7 @@ namespace HotelOrderFinal.Models
                 entity.HasOne(d => d.Hotel)
                     .WithMany(p => p.Room)
                     .HasForeignKey(d => d.HotelId)
-                    .HasConstraintName("FK_Room_HotelIndustries");
+                    .HasConstraintName("FK_Room_HotelIndustry");
 
                 entity.HasOne(d => d.RoomClass)
                     .WithMany(p => p.Room)
