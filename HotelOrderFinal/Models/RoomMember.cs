@@ -19,29 +19,17 @@ namespace HotelOrderFinal.Models
 
         public string AdminId { get; set; }
         public string MemberId { get; set; }
-        [DisplayName("姓名")]
-        [Required(ErrorMessage ="姓名不可空白")]
+
         public string MemberName { get; set; }
-        [DisplayName("生日")]
-        [Required(ErrorMessage = "生日不可空白")]
+
         public DateTime? MemberBirthday { get; set; }
-        [DisplayName("性別")]
-        [Required(ErrorMessage = "性別不可空白")]
+
         public string MemberGender { get; set; }
-        [DisplayName("身分證字號")]
-        [Required(ErrorMessage = "身分證字號不可空白")]
+
         public string MemberIdentity { get; set; }
-        [DisplayName("電話號碼")]
-        [Required(ErrorMessage = "電話號碼不可空白")]
         public string MemberPhone { get; set; }
-        [DisplayName("電子信箱")]
-        [Required(ErrorMessage = "電子信箱不可空白")]
-        [EmailAddress(ErrorMessage ="電子信箱格式錯誤")]
         public string MemberEmail { get; set; }
-        [DisplayName("個人")]
         public string MemberPhoto { get; set; }
-        [DisplayName("密碼")]
-        [Required(ErrorMessage = "密碼不可空白")]
         public string MemberPassword { get; set; }
         public string MemberLavel { get; set; }
         public string MemberOrderTotal { get; set; }

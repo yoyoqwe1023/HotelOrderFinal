@@ -1,4 +1,6 @@
-﻿@{
+﻿<meta charset="utf-8">
+
+@{
     ViewData["Title"] = "Home Page";
 }
 <!--================Banner Area =================-->
@@ -376,3 +378,10 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>*@
+
+@if (TempData.ContainsKey("Message"))
+{
+    <script>
+        alert('@TempData["Message"]');
+    </script>
+}

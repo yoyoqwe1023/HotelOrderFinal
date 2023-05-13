@@ -1,27 +1,6 @@
 ﻿<style>
 
-        .wrapper {
-      width: 80%; /* 設定容器寬度 */
-      margin: 0 auto; /* 將容器置中對齊 */
-    }
-    .form-control{
-        width:420px;
-        
-    }
 
-    .modal-body {
-        width: 420px;
-    }
-
-    tab-content {
-        width: 420px;
-    }
-
-/*    .tab-content {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }*/
 </style> 
 
 
@@ -45,20 +24,54 @@
                     </li>
                     @*<li class="nav-item">*@
                     <li data-v-77690bc2="" class="athTabpage__tab">
-                        <a class="nav-link" id="registerTab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">會員註冊</a>
+                        <a class="nav-link" id="createTab" data-toggle="tab" href="#create" role="tab" aria-controls="create" aria-selected="false">會員註冊</a>
                     </li>
                 </ul>
                 <div class="tab-content" id="myAccountTabContent">
                     <div class="tab-pane active" id="login" role="tabpanel" aria-labelledby="loginTab">
-                        @Html.Partial("~/Views/Member/Login.cshtml")
-
+                        @await Html.PartialAsync("~/Views/Member/Login.cshtml")           
                     </div>
-                    <div class="tab-pane" id="register" role="tabpanel" aria-labelledby="registerTab">
-                        @Html.Partial("~/Views/Member/Create.cshtml")
+                    <div class="tab-pane" id="create" role="tabpanel" aria-labelledby="createTab">
+                        @await Html.PartialAsync("~/Views/Member/Create.cshtml")            
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@*
+<script>
+    $(document).ready(function () {
+        $('#submit-form').click(function (e) {
+            e.preventDefault();
 
+            $.ajax({
+                type: "POST",
+                url: "/Member/Create",
+                data: $('#my-form').serialize(),
+                success: function () {
+                    // 請求成功後的處理程序
+                    alert("註冊成功！");
+                },
+                error: function () {
+                    // 請求失敗後的處理程序
+                    alert("註冊失敗！");
+                }
+            });
+        });
+    });
+</script>*@
+
+@*@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}*@
