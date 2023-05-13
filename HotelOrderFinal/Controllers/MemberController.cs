@@ -1,6 +1,7 @@
 ﻿using HotelOrderFinal.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Win32;
 using System.Diagnostics.Metrics;
@@ -111,8 +112,8 @@ namespace HotelOrderFinal.Controllers
             string memberID_ = string.Empty;
             int maxMemberID = 0;
             model.AdminId = "AD00010";
-            try
-            {
+            //try
+            //{
                 db = new HotelOrderContext();
 
                 //自動產生MemberID
@@ -123,14 +124,34 @@ namespace HotelOrderFinal.Controllers
                 model.MemberId = memberID_;
 
                 db.Add(model);
+                //-fufu
+                //db.SaveChanges();
+                //return RedirectToAction("Index", "Home");
+                //-fufu
                 db.SaveChanges();
+
+            //新增會員折扣
+
+            DiscountDetail discountDetail = new DiscountDetail();
+            discountDetail.MemberId = memberID_;
+            discountDetail.DiscountId =1;
+            discountDetail.DiscountStart = DateTime.Now;
+            discountDetail.DiscountEnd = DateTime.Now.AddYears(1);
+            discountDetail.DiscountUse = 0;
+
+            db.DiscountDetail.Add(discountDetail);
+
+            db.SaveChanges();
                 return RedirectToAction("Index", "Home");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-                return View();
-            }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.ToString());
+            //    return View();
+                
+            //}
+
+            
         }
 
         //【修改】==========================================================================================

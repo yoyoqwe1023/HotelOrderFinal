@@ -16,6 +16,8 @@ namespace HotelOrderFinal.Models
 
         public string RoomClassId { get; set; }
         public string RoomClassName { get; set; }
+        public int? RoomClassSize { get; set; }
+        public int? RoomClassPeople { get; set; }
         public string RoomClassDetail { get; set; }
         public string RoomClassPhoto1 { get; set; }
         public string RoomClassPhoto2 { get; set; }
