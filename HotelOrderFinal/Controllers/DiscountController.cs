@@ -1,6 +1,7 @@
 ﻿using HotelOrderFinal.Models;
 using HotelOrderFinal.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace HotelOrderFinal.Controllers
@@ -33,47 +34,49 @@ namespace HotelOrderFinal.Controllers
         [HttpPost]
         public IActionResult Create(Discount p)
         {
-            try
+            //try
+            //{
+            HotelOrderContext db = new HotelOrderContext();
+            // 取得優惠是否存在
+            p.DiscountExist = true;
+
+            db.Discount.Add(p);
+            db.SaveChanges();
+
+
+            // 取得當時的會員數量
+            int memberCount = db.RoomMember.Count();
+
+            if (p.DiscountExist == true && memberCount > 0)
             {
-                HotelOrderContext db = new HotelOrderContext();
-
-                // 取得當時的會員數量
-                int memberCount = db.RoomMember.Count();
-                // 取得優惠開始時間
-                var discountStart = db.Discount.Where(x => x.DiscountName == "新會員優惠").Select(x => x.DiscountStart).FirstOrDefault();
-
-                // 判斷是否有符合條件的會員，若無則直接回傳
-                if (memberCount == 0 || discountStart > DateTime.Now)
+                //所有的會員ID
+                var members = db.RoomMember.Select(x => x.MemberId);
+                int lastID = db.Discount.OrderByDescending(x => x.DiscountId).FirstOrDefault().DiscountId;
+                foreach (var itme in members)
                 {
-                    return RedirectToAction("List");
+
+                    DiscountDetail detail = new DiscountDetail();
+                    detail.DiscountId = lastID;
+                    detail.DiscountStart = DateTime.Now;
+                    detail.DiscountEnd = DateTime.Now.AddMonths(3);
+                    detail.DiscountUse = 0;
+                    detail.MemberId = itme;
+                    db.DiscountDetail.Add(detail);
+                    
                 }
-
-                // 取得符合條件的會員，並加入優惠資料
-                //var members = db.RoomMember.ToList();
-                //foreach (var member in members)
-                //{
-                //    if (member.CreateTime <= discountStart)
-                //    {
-                //        MemberDiscount memberDiscount = new MemberDiscount()
-                //        {
-                //            MemberId = member.MemberId,
-                //            DiscountId = p.DiscountId
-                //        };
-                //        db.MemberDiscount.Add(memberDiscount);
-                //    }
-                //}
-
-                db.Discount.Add(p);
                 db.SaveChanges();
                 return RedirectToAction("List");
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-                return View();
-            }
+
+            return RedirectToAction("List");
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.ToString());
+            //    return View();
+            //}
         }
-    
+
         public IActionResult Delete(int? id)
         {
             HotelOrderContext db = new HotelOrderContext();
@@ -103,9 +106,7 @@ namespace HotelOrderFinal.Controllers
                 cust.DiscountName = p.DiscountName;
                 cust.DiscountImage = p.DiscountImage;
                 cust.DiscountDirections = p.DiscountDirections;
-                cust.DiscountStart = p.DiscountStart;
-                cust.DiscountEnd = p.DiscountEnd;
-                cust.DiscountUse = p.DiscountUse;
+                cust.DiscountDiscount = p.DiscountDiscount;
                 db.SaveChanges();
             }
             return RedirectToAction("List");
@@ -115,10 +116,10 @@ namespace HotelOrderFinal.Controllers
         {
             var userId = _contextAccessor.HttpContext.Session.GetString("UserID");
             HotelOrderContext db = new HotelOrderContext();
-            DateTime now = DateTime.Now;
-            IEnumerable<Discount> usesid = db.Discount.Where(x => x.MemberId == userId && x.DiscountStart <= now && x.DiscountEnd >= now);
+            IEnumerable<DiscountDetail> usesid = db.DiscountDetail.Where(x => x.MemberId == userId);
+
             //IEnumerable<Discount> usesid = db.Discount.Where(x => x.MemberId == userId);
-            return View(usesid);            
+            return View(usesid);
         }
     }
 }
