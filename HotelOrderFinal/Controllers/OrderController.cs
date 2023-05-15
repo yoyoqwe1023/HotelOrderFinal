@@ -4,11 +4,18 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Frameworks;
 using System.Globalization;
+using System.Text.Json;
 
 namespace HotelOrderFinal.Controllers
 {
     public class OrderController : Controller
     {
+        public IHttpContextAccessor _contextAccessor;
+
+        public OrderController ( IHttpContextAccessor contextAccessor )
+        {
+            this._contextAccessor = contextAccessor;
+        }
         public IActionResult List()
         {
             //讀取與設定入住退房日
@@ -174,8 +181,14 @@ namespace HotelOrderFinal.Controllers
 
         public IActionResult Create()
         {
-
-            return View();
+            var userId = _contextAccessor.HttpContext.Session.GetString ( "UserID" );
+            HotelOrderContext db = new HotelOrderContext ( );
+            IEnumerable<RoomMember> usersid = db.RoomMember.Where ( x => x.MemberId == userId );
+            //string json;
+            //List<Order> detail = null;
+            //json = HttpContext.Session.GetString ( CDictionary.SK_PURCHASED_PRODUCTS_LIST );
+            //detail = JsonSerializer.Deserialize<List<Order>> ( json );
+            return View( usersid );
         }
 
         public IActionResult ShowOrder()
