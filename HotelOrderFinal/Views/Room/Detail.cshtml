@@ -50,10 +50,53 @@
         cursor: pointer;
     }
 
-    .mythumbnail {
-        width: 100px; /* 設置小圖片的寬度 */
-        height: auto; /* 根據寬度自動調整高度，保持圖片比例 */
+/*.mythumbnail {
+  position: relative;
+  width: 100px;
+  height: auto;
+}
+
+.mythumbnail:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.mythumbnail:hover:before {
+  opacity: 0;
+}*/
+    #thumbnail-container {
+        display: flex;
+    
     }
+
+    .mythumbnail {
+        display: inline-block;       
+        padding: 4px;
+        line-height: 1.5;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        -webkit-transition: all 0.2s ease-in-out;
+        transition: all 0.2s ease-in-out;      
+
+        position: relative;
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-right: 5px;
+    }
+
+        .mythumbnail:last-child {
+            margin-right: 0; 
+        }
 
         .mythumbnail:before {
             content: "";
@@ -62,14 +105,31 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(255, 255, 255, 0.5); /* 半白覆蓋的顏色和透明度 */
-            opacity: 0; /* 初始時透明度為0 */
-            transition: opacity 0.3s ease; /* 過渡效果，讓透明度變化平滑 */
+            background-color: rgba(128, 128, 128, 0.5);
+            border-radius: 8px;
+            opacity: 1;
+            transition: opacity 0.3s ease;
         }
 
         .mythumbnail:hover:before {
-            opacity: 1; /* 滑鼠懸停時透明度為1，顯示半白覆蓋 */
+            opacity: 0;
         }
+
+    .myenlarge-image {
+/*        width: 320px;
+        height: 320px;
+        object-fit: cover;
+        border: 2px solid #fff;  添加边框样式 
+        border-radius: 8px;
+        background-color: rgba(128, 128, 128, 0.5);
+        box-sizing: border-box;  确保边框宽度不会改变元素尺寸 */
+        width: 320px;
+        height: 240px;
+        object-fit: cover;
+        border: 2px solid #fff;
+        border-radius: 8px;
+        background-color: rgba(128, 128, 128, 0.5);
+    }
 
 </style>
 
@@ -77,22 +137,31 @@
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
         <div class="page-cover text-center">
-            <h2 class="page-cover-tittle">About Us</h2>
-            <ol class="breadcrumb">
-                <li><a href="index.html">Home</a></li>
-                <li class="active">Detail</li>
-            </ol>
+            <h2 class="page-cover-tittle">房型介紹</h2>
+           @* <ol class="breadcrumb">
+                <li><a href="index.html">首頁</a></li>
+                <li class="active">房型一覽</li>
+                <li class="active">@Html.DisplayFor(model => model.RoomClass.RoomClassName)</li>
+            </ol>*@
         </div>
     </div>
 </section>
 
+<div class="bread">
+    <a href="../../">首頁</a>
+    <span>/</span>
+    <a href=#>房型一覽</a>
+    <span>/</span>
+    @Html.DisplayFor(model => model.RoomClass.RoomClassName)
+</div>
 
+<div class="container">
 <h2>房型介紹</h2>
 <hr>
 <div class="row">
     <div class="col-md-4">
         <div class="container">
-            <img class="image enlarge-image" src="~/image/room/@Model.RoomClass.RoomClassPhoto1" width="320" height="240" />          
+            <img class="image myenlarge-image" src="~/image/room/@Model.RoomClass.RoomClassPhoto1" width="320" height="240" />          
                
             <div id="thumbnail-container">
                 <img class="mythumbnail" src="~/image/room/@Model.RoomClass.RoomClassPhoto1">
@@ -132,14 +201,13 @@
     </div>
 </div>
 
-@Html.ActionLink("立即預約", "Index", "Order", null, new { @class = "book_now_btn button_hover" })
-
-
+@Html.ActionLink("立即預約", "list", "Order", null, new { @class = "book_now_btn button_hover" })
+</div>
 
 @section Scripts{
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const images = document.querySelectorAll('.enlarge-image');
+            const images = document.querySelectorAll('.myenlarge-image');
             const myoverlay = document.getElementById('myoverlay');
             const modalImage = document.querySelector('.modal-image');
             const closeButton = document.getElementById('close');
@@ -169,7 +237,6 @@
                 }
             });
         });
-
         window.onload = function () {
             // 獲取所有小圖片元素
             const thumbnails = document.querySelectorAll('.mythumbnail');
@@ -178,11 +245,26 @@
             thumbnails.forEach((mythumbnail) => {
                 mythumbnail.addEventListener('click', () => {
                     // 當小圖片被點擊時，將大圖片的src屬性設置為點擊的小圖片的src屬性
-                    const bigImage = document.querySelector('.enlarge-image');
+                    const bigImage = document.querySelector('.myenlarge-image');
                     bigImage.src = mythumbnail.src;
                 });
             });
         };
+        window.addEventListener('DOMContentLoaded', function() {
+  const thumbnails = document.querySelectorAll('.mythumbnail');
+  
+  thumbnails.forEach(function(thumbnail) {
+    thumbnail.addEventListener('mouseenter', function() {
+      this.style.opacity = '1';
+    });
+    
+    thumbnail.addEventListener('mouseleave', function() {
+      this.style.opacity = '0.5';
+    });
+    thumbnail.style.opacity = '0.5'; // 設置初始透明度為0.5
+  });
+});
+
 
     </script>
 }
