@@ -11,6 +11,7 @@ namespace HotelOrderFinal.Controllers
     {
         public IActionResult List()
         {
+            HotelOrderContext db = new HotelOrderContext();
             //讀取與設定入住退房日
             string checkInDateStr = HttpContext.Session.GetString("CHECKINDATE");
             string checkOutDateStr = HttpContext.Session.GetString("CHECKOUTDATE");
@@ -18,12 +19,25 @@ namespace HotelOrderFinal.Controllers
             DateTime checkIn;
             DateTime checkOut;
 
+            //if (!string.IsNullOrEmpty(selectedActivityId))
+            //{
+            //    // 如果選取了 Activity，則以 Activity 的開始時間為入住日期
+            //    var ActivityId = db.Activity.FirstOrDefault(a => a.ActivityId == int.Parse(selectedActivityId));
+            //    if (ActivityId != null)
+            //    {
+            //        checkIn = (DateTime)ActivityId.ActivityTime;
+            //        checkOut = checkIn.AddDays(1);
+            //        HttpContext.Session.SetString("CHECKINDATE", checkIn.ToString("yyyy-MM-dd"));
+            //        HttpContext.Session.SetString("CHECKOUTDATE", checkOut.ToString("yyyy-MM-dd"));
+            //    }
+            //}
             if (!string.IsNullOrEmpty(checkInDateStr) && !string.IsNullOrEmpty(checkOutDateStr))
             {
                 checkIn = DateTime.ParseExact(checkInDateStr, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                 checkOut = DateTime.ParseExact(checkOutDateStr, "yyyy-MM-dd", CultureInfo.InvariantCulture);
             }
-            else
+
+            else 
             {
                 checkIn = DateTime.Today;
                 checkOut = DateTime.Today.AddDays(1);
@@ -34,7 +48,7 @@ namespace HotelOrderFinal.Controllers
             ViewBag.CheckInDate = checkIn;
             ViewBag.CheckOutDate = checkOut;
 
-            HotelOrderContext db = new HotelOrderContext();
+            
 
             //查詢空閒房間方法
             //查詢指定時間區間內已被預訂的房間
@@ -89,6 +103,23 @@ namespace HotelOrderFinal.Controllers
             {
                 return View(vmList);
             }
+        }
+
+        public IActionResult getActivitySession()
+        {
+            //讀取與設定入住日期
+            string selectedActivityId = HttpContext.Session.GetString("SelectedActivityId");
+            string selectedActivityTime = HttpContext.Session.GetString("ActivityTime");
+            if (selectedActivityId != null && selectedActivityTime != null)
+            {
+                var jsonObject = new
+                {
+                    id = selectedActivityId,
+                    time = selectedActivityTime
+                };
+                return Json(jsonObject);
+            }
+            return RedirectToAction("List");
         }
 
         [HttpPost]

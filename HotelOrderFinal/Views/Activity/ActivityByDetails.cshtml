@@ -3,7 +3,6 @@
     ViewData["Title"] = "ActivityByDetails";
 }
 
-
 <section class="breadcrumb_area">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
@@ -23,32 +22,35 @@
 
 
 <div class="d-flex justify-content-center align-items-center" style="background-color:#dcebfd">
-        
-        <div class="page-cover text-center">
-            <div class="d-flex flex-wrap">
 
-                <div class="text-black about_content" style="width: 50rem;">
-                    <img class="card-img" src="~/image/@Model.ActivityImage" width="300" height="400" />
-                    <div class="card-body">
-                        <h5 class="card-title">@Html.DisplayFor(modelItem => Model.ActivityName)</h5>
-                        <p class="card-text">@Html.DisplayFor(modelItem => Model.ActivityDirections)</p>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">地址：@Html.DisplayFor(modelItem => Model.ActivityPlace)</li>
-                        <li class="list-group-item">時間：@Html.DisplayFor(modelItem => Model.ActivityTime)</li>
-                        <li class="list-group-item">費用：@Html.DisplayFor(modelItem => Model.ActivityCost)</li>
-                        <li class="list-group-item">限制人數：@Html.DisplayFor(modelItem => Model.ActivityPeople)</li>
-                    </ul>
-                    <div class="card-body">
+    <div class="page-cover text-center">
+        <div class="d-flex flex-wrap">
 
-                        <a href="#" class="card-link">前往訂房</a>
-                        <a href="javascript:window.history.back()" class="card-link">回上一層</a>
-                    </div>
+            <div class="text-black about_content" style="width: 50rem;">
+                <img class="card-img" src="~/image/@Model.ActivityImage" width="300" height="400" />
+                <div class="card-body">
+                    <h5 class="card-title">@Html.DisplayFor(modelItem => Model.ActivityName)</h5>
+                    <p class="card-text">@Html.DisplayFor(modelItem => Model.ActivityDirections)</p>
                 </div>
-
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">地址：@Html.DisplayFor(modelItem => Model.ActivityPlace)</li>
+                    <li class="list-group-item">時間：@Html.DisplayFor(modelItem => Model.ActivityTime)</li>
+                    <li class="list-group-item">費用：@Html.DisplayFor(modelItem => Model.ActivityCost)</li>
+                    <li class="list-group-item">限制人數：@Html.DisplayFor(modelItem => Model.ActivityPeople)</li>
+                </ul>
+                <div class="card-body">
+                    <a role="button" href="@Url.Action("List", "Order")" class="card-link" onclick="setSessionByActivity(@Model.ActivityId)">前往訂房</a>
+                    <a href="javascript:window.history.back()" class="card-link">回上一層</a>
+                </div>
             </div>
         </div>
-    
-
-
+    </div>
 </div>
+<script>
+    async function setSessionByActivity(acId) {
+        var url = '@Url.Action("setSessionByActivity","Activity")?id=' + acId;
+        await fetch(url, {
+            method: 'POST'
+        });
+    }
+</script>
