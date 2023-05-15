@@ -45,6 +45,7 @@
     .modal-image {
         max-width: 90%;
         max-height: 90%;
+        
     }
 
     .close {
@@ -161,6 +162,7 @@
     <div class="col-md-8">
         <h2>@Html.DisplayFor(model => model.RoomClass.RoomClassName)</h2>
         <p>@Html.DisplayFor(model => model.RoomClass.RoomClassDetail)</p>
+          
         <h4>房間設備</h4>
         <ul class="facility-list">
             @foreach (var facility in Model.Facility)
@@ -171,7 +173,8 @@
                 </li>
             }
         </ul>
-
+            <h5>坪數：@Html.DisplayFor(model => model.RoomClass.RoomClassSize)坪</h5>
+            <h5>入住人數：@Html.DisplayFor(model => model.RoomClass.RoomClassPeople)人</h5>
         <a href="#"><h5 class="sec_h4">價格:</h5></a>
         <ul style="list-style-type:none">
             <li><h5>平日：NT$@Html.DisplayFor(model => model.RoomClass.WeekdayPrice)</h5></li>
@@ -199,6 +202,7 @@
                     var imagePath = image.getAttribute('src').replace('~', '');
                     modalImage.src = imagePath;
                     console.log('Image path:', imagePath);
+
                 });
             });
 
