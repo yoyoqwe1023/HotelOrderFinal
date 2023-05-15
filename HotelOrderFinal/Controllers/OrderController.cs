@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Frameworks;
 using System.Globalization;
+using System.Linq;
 
 namespace HotelOrderFinal.Controllers
 {
@@ -76,8 +77,8 @@ namespace HotelOrderFinal.Controllers
                 vm.HolidayPrice = f.RoomClass.HolidayPrice;
                 vm.AddPrice = f.RoomClass.AddPrice;
                 vm.RoomClassName = f.RoomClass.RoomClassName;
-                vm.RoomPeople = f.RoomClass.RoomClassPeople;
-                vm.RoomSize = f.RoomClass.RoomClassSize;
+                vm.RoomClassPeople = f.RoomClass.RoomClassPeople;
+                vm.RoomClassSize = f.RoomClass.RoomClassSize;
                 vmList.Add(vm);
             }
 
@@ -92,7 +93,7 @@ namespace HotelOrderFinal.Controllers
         }
 
         [HttpPost]
-        public IActionResult setSession(string checkInDate, string checkOutDate)
+        public IActionResult SearchRoom(string checkInDate, string checkOutDate)
         {
 
             DateTime checkIn = DateTime.ParseExact(checkInDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
@@ -101,32 +102,81 @@ namespace HotelOrderFinal.Controllers
             HttpContext.Session.SetString("CHECKINDATE", checkIn.ToString("yyyy-MM-dd"));
             HttpContext.Session.SetString("CHECKOUTDATE", checkOut.ToString("yyyy-MM-dd"));
 
-            return Ok();
+            HotelOrderContext db = new HotelOrderContext();
+
+            //查詢空閒房間方法
+            //查詢指定時間區間內已被預訂的房間
+            var reservedRooms = from od in db.OrderDetail
+                                where !(od.CheckOutDate <= checkIn || od.CheckInDate >= checkOut)
+                                select od.RoomId;
+            var reservedRoomList = reservedRooms.ToList();
+
+            //所有房間扣掉已預訂房間
+
+            var freeRooms = db.Room.Include(r => r.RoomClass).AsEnumerable()
+                .Where(r => !reservedRoomList.Contains(r.RoomId))
+                .GroupBy(r => r.RoomClass.RoomClassName)
+                .Select(g => new { g.Key, g }).ToList();
+
+            List<CSearchRoomViewModel> vmList = new List<CSearchRoomViewModel>();
+            foreach (var room in freeRooms)
+            {
+                var f = room.g.First();
+
+                CSearchRoomViewModel vm = new CSearchRoomViewModel();
+                vm.RoomClassPhoto1 = f.RoomClass.RoomClassPhoto1;
+                vm.RoomClassDetail = f.RoomClass.RoomClassDetail;
+                vm.WeekdayPrice = f.RoomClass.WeekdayPrice;
+                vm.HolidayPrice = f.RoomClass.HolidayPrice;
+                vm.AddPrice = f.RoomClass.AddPrice;
+                vm.RoomClassName = f.RoomClass.RoomClassName;
+                vm.RoomClassPeople = f.RoomClass.RoomClassPeople;
+                vm.RoomClassSize = f.RoomClass.RoomClassSize;
+                vmList.Add(vm);
+            }
+
+            if (freeRooms != null)
+            {
+                return View();
+            }
+            else
+            {
+                return View(vmList);
+            }
+
         }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> SearchRoom(string checkInDate, string checkOutDate)
-        //{
-        //    //讀取與設定入住退房日
-        //    string checkInDateStr = HttpContext.Session.GetString("CHECKINDATE");
-        //    string checkOutDateStr = HttpContext.Session.GetString("CHECKOUTDATE");
+        public ActionResult AddShopCart(string? roomclassname)
+        {
+            HotelOrderContext db = new HotelOrderContext();
+            var roomClass = db.RoomClass.Find(roomclassname);
 
-        //    DateTime checkIn;
-        //    DateTime checkOut;
+            string checkInDateStr = HttpContext.Session.GetString("CHECKINDATE");
+            string checkOutDateStr = HttpContext.Session.GetString("CHECKOUTDATE");
 
-        //    if (!string.IsNullOrEmpty(checkInDateStr) && !string.IsNullOrEmpty(checkOutDateStr))
-        //    {
-        //        checkIn = DateTime.ParseExact(checkInDateStr, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-        //        checkOut = DateTime.ParseExact(checkOutDateStr, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-        //    }
-        //    else
-        //    {
-               
-        //    }
+            string json = "";
+            //List<CShoppingCartItem> cart = null;
 
-
-        //}
+            if (roomClass != null)
+            {
+                CSearchRoomViewModel cartItem = new CSearchRoomViewModel();
+                {
+                    cartItem.RoomClassName = roomClass.RoomClassName;
+                    cartItem.RoomClassPhoto1 = roomClass.RoomClassPhoto1;
+                    cartItem.RoomClassSize = roomClass.RoomClassSize;
+                    cartItem.RoomClassId= roomClass.RoomClassId;
+                    cartItem.RoomClassPeople = roomClass.RoomClassPeople;
+                    cartItem.HolidayPrice= roomClass.HolidayPrice;
+                    cartItem.WeekdayPrice = roomClass.WeekdayPrice;
+                    cartItem.AddPrice = roomClass.AddPrice;
+                    //cartItem.CheckInDate = checkInDateStr;
+                    //cartItem.CheckOutDate = checkOutDateStr;
+                };
+                //cart.AddToCart(cartItem);
+            }
+            
+            return Json(new { success = true });
+        }
 
 
 
