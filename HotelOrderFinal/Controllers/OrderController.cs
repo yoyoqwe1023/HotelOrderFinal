@@ -168,15 +168,20 @@ namespace HotelOrderFinal.Controllers
             return Json(new { success = true });
         }
 
-
-
         public IActionResult Detail()
         {
             if (HttpContext.Session.GetString("UserID") == null)
             {
                 return RedirectToAction("Login", "Member");
             }
-            return View();
+            var userId = _contextAccessor.HttpContext.Session.GetString ( "UserID" );
+            HotelOrderContext db = new HotelOrderContext ( );
+            IEnumerable<DiscountDetail> usesid = db.DiscountDetail.Where ( x => x.MemberId == userId );
+
+            var MemberDiscount = db.DiscountDetail.Include ( x => x.Discount ).FirstOrDefault ( x => x.MemberId == userId );
+            //var NewMemberDiscount = HttpContext.Session.SetString( "key" , MemberDiscount );
+            //var theater = movieContext.TSessions.Include(s => s.FTheater).FirstOrDefault(s => s.FSessionId == sessionID).FTheater;
+            return View ( MemberDiscount );
         }
 
         public IActionResult Create()
@@ -184,13 +189,18 @@ namespace HotelOrderFinal.Controllers
             var userId = _contextAccessor.HttpContext.Session.GetString ( "UserID" );
             HotelOrderContext db = new HotelOrderContext ( );
             IEnumerable<RoomMember> usersid = db.RoomMember.Where ( x => x.MemberId == userId );
-            //string json;
-            //List<Order> detail = null;
-            //json = HttpContext.Session.GetString ( CDictionary.SK_PURCHASED_PRODUCTS_LIST );
-            //detail = JsonSerializer.Deserialize<List<Order>> ( json );
+
             return View( usersid );
         }
-
+        //[HttpPost]
+        //public IActionResult Create(Order p)
+        //{
+        //    string json;
+        //    List<Order> detail = null;
+        //    json = HttpContext.Session.GetString ( CDictionary.SK_PURCHASED_PRODUCTS_LIST );
+        //    detail = JsonSerializer.Deserialize<List<Order>> ( json );
+        //    return View ( );
+        //}
         public IActionResult ShowOrder()
         {
             return View();

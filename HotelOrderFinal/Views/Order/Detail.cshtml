@@ -1,4 +1,6 @@
-﻿<section class="breadcrumb_area">
+﻿@model IEnumerable<HotelOrderFinal.Models.DiscountDetail>
+
+<section class="breadcrumb_area">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
         <div class="page-cover text-center">
@@ -13,6 +15,15 @@
         }
     </style>
 </head>
+
+
+<table class="table">
+    <thead>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
 <body>
     <div class="col-md-10 offset-md-1 ">
         <div style="background-color:bisque; margin-bottom:10px;margin-top:10px; height:80px;">
@@ -68,13 +79,25 @@
             </div>
 
         </div>
+
         <div style="border:solid green;margin-bottom:10px;margin-top:10px;">
             <div>
                 <h2>優惠卷</h2>
             </div>
-            <div>
-                折價卷預留位置
-            </div>
+
+            @foreach ( var item in Model )
+            {
+                <div class="form-group">
+                    折價卷預留位置
+                </div>
+                <br />
+                <div>
+                    <select>
+                        <option value="@Html.DisplayFor(modelItem => item.DiscountId)">@Html.DisplayFor(modelItem => item.DiscountId)</option>
+                    </select>
+                </div>
+            }
+
             <hr />
             <div class="row">
                 <div class="col-md-4"></div>
