@@ -84,19 +84,16 @@
             <div>
                 <h2>優惠卷</h2>
             </div>
-
+            <div class="form-group col-md-2">
+                <select>
             @foreach ( var item in Model )
             {
-                <div class="form-group">
-                    折價卷預留位置
-                </div>
-                <br />
-                <div>
-                    <select>
-                        <option value="@Html.DisplayFor(modelItem => item.DiscountId)">@Html.DisplayFor(modelItem => item.DiscountId)</option>
-                    </select>
-                </div>
+
+              <option value="@Html.DisplayFor(modelItem => item.Discount.DiscountName)">@Html.DisplayFor(modelItem => item.Discount.DiscountName)</option>
+
             }
+                </select>
+            </div>
 
             <hr />
             <div class="row">

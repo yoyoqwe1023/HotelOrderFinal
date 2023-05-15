@@ -178,10 +178,9 @@ namespace HotelOrderFinal.Controllers
             HotelOrderContext db = new HotelOrderContext ( );
             IEnumerable<DiscountDetail> usesid = db.DiscountDetail.Where ( x => x.MemberId == userId );
 
-            var MemberDiscount = db.DiscountDetail.Include ( x => x.Discount ).FirstOrDefault ( x => x.MemberId == userId );
-            //var NewMemberDiscount = HttpContext.Session.SetString( "key" , MemberDiscount );
+            var MemberDiscount = db.DiscountDetail.Include ( x => x.Discount).Where(x => x.MemberId == userId).ToList();
             //var theater = movieContext.TSessions.Include(s => s.FTheater).FirstOrDefault(s => s.FSessionId == sessionID).FTheater;
-            return View ( MemberDiscount );
+            return View (MemberDiscount);
         }
 
         public IActionResult Create()
