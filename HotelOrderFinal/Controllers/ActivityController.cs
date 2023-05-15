@@ -8,7 +8,7 @@ namespace HotelOrderFinal.Controllers
 {
     public class ActivityController : Controller
     {
-        private HotelOrderContext db;
+        private HotelOrderContext db = new HotelOrderContext();
         private IWebHostEnvironment _enviro;
         
         
@@ -18,7 +18,7 @@ namespace HotelOrderFinal.Controllers
         }
         public ActionResult ActivityByDetails(int? id)
         {
-             db = new HotelOrderContext();
+             
             Activity cust = db.Activity.FirstOrDefault(t => t.ActivityId == id);
             if (cust == null)
                 return RedirectToAction("List");
@@ -27,7 +27,7 @@ namespace HotelOrderFinal.Controllers
         [HttpPost]
         public ActionResult setSessionByActivity(int id)
         {
-            db = new HotelOrderContext();
+            
             var a = db.Activity.FirstOrDefault(t => t.ActivityId == id);
             if (a== null)
             {
@@ -40,7 +40,7 @@ namespace HotelOrderFinal.Controllers
         public IActionResult List()
         {            
 
-            db = new HotelOrderContext();
+            
             var datas = from c in db.Activity
                         select c;
             return View(datas);
@@ -56,7 +56,7 @@ namespace HotelOrderFinal.Controllers
         [HttpPost]
         public IActionResult Edit(CActivityWrap p)
         {
-            db = new HotelOrderContext();
+            
             Activity cust = db.Activity.FirstOrDefault(t => t.ActivityId == p.ActivityId);
             if (cust != null)
             {
