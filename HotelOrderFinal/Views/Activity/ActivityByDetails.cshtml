@@ -1,5 +1,4 @@
-﻿@*@model IEnumerable<HotelOrderFinal.Models.Activity>*@
-    @model HotelOrderFinal.Models.Activity
+﻿@model HotelOrderFinal.Models.Activity
 @{
     ViewData["Title"] = "ActivityByDetails";
 }
@@ -19,35 +18,37 @@
 </section>
 
 
-<h1>ActivityByDetails</h1>
+<h1 class="text-center">ActivityByDetails</h1>
 <br />
 
 
-<div class="col-md-2"></div>
-<div class="col-md-8">
-    <div class="page-cover text-center">
-        <div class="d-flex flex-wrap">
-           
-                    <div class="text-black about_content" style="width: 50rem;">
-                <img class="card-img" src="~/image/@Model.ActivityImage" width="320" height="240" />
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                            <p class="card-text">@Html.DisplayFor(modelItem => Model.ActivityDirections)</p>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">An item</li>
-                            <li class="list-group-item">A second item</li>
-                            <li class="list-group-item">A third item</li>
-                        </ul>
-                        <div class="card-body">
-                            <a href="#" class="card-link">Card link</a>
-                            <a href="#" class="card-link">Another link</a>
-                        </div>
+<div class="d-flex justify-content-center align-items-center" style="background-color:#dcebfd">
+        
+        <div class="page-cover text-center">
+            <div class="d-flex flex-wrap">
+
+                <div class="text-black about_content" style="width: 50rem;">
+                    <img class="card-img" src="~/image/@Model.ActivityImage" width="300" height="400" />
+                    <div class="card-body">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => Model.ActivityName)</h5>
+                        <p class="card-text">@Html.DisplayFor(modelItem => Model.ActivityDirections)</p>
                     </div>
-                
-            
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">地址：@Html.DisplayFor(modelItem => Model.ActivityPlace)</li>
+                        <li class="list-group-item">時間：@Html.DisplayFor(modelItem => Model.ActivityTime)</li>
+                        <li class="list-group-item">費用：@Html.DisplayFor(modelItem => Model.ActivityCost)</li>
+                        <li class="list-group-item">限制人數：@Html.DisplayFor(modelItem => Model.ActivityPeople)</li>
+                    </ul>
+                    <div class="card-body">
 
+                        <a href="#" class="card-link">前往訂房</a>
+                        <a href="javascript:window.history.back()" class="card-link">回上一層</a>
+                    </div>
+                </div>
 
+            </div>
         </div>
-    </div>
+    
+
+
 </div>
