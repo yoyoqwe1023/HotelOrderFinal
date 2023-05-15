@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Frameworks;
 using System.Globalization;
+using System.Linq;
 
 namespace HotelOrderFinal.Controllers
 {
@@ -76,8 +77,8 @@ namespace HotelOrderFinal.Controllers
                 vm.HolidayPrice = f.RoomClass.HolidayPrice;
                 vm.AddPrice = f.RoomClass.AddPrice;
                 vm.RoomClassName = f.RoomClass.RoomClassName;
-                vm.RoomPeople = f.RoomClass.RoomClassPeople;
-                vm.RoomSize = f.RoomClass.RoomClassSize;
+                vm.RoomClassPeople = f.RoomClass.RoomClassPeople;
+                vm.RoomClassSize = f.RoomClass.RoomClassSize;
                 vmList.Add(vm);
             }
 
@@ -129,12 +130,12 @@ namespace HotelOrderFinal.Controllers
                 vm.HolidayPrice = f.RoomClass.HolidayPrice;
                 vm.AddPrice = f.RoomClass.AddPrice;
                 vm.RoomClassName = f.RoomClass.RoomClassName;
-                vm.RoomPeople = f.RoomClass.RoomClassPeople;
-                vm.RoomSize = f.RoomClass.RoomClassSize;
+                vm.RoomClassPeople = f.RoomClass.RoomClassPeople;
+                vm.RoomClassSize = f.RoomClass.RoomClassSize;
                 vmList.Add(vm);
             }
 
-            if (freeRooms == null)
+            if (freeRooms != null)
             {
                 return View();
             }
@@ -145,19 +146,35 @@ namespace HotelOrderFinal.Controllers
 
         }
 
-        public IActionResult AddShopCart(int RoomClassName)
+        public ActionResult AddShopCart(string? roomclassname)
         {
-            //var roomClass = db.RoomClass.Find(roomClassId);
-            //if (roomClass != null)
-            //{
-            //    CartItem cartItem = new CartItem
-            //    {
-            //        RoomClass = roomClass,
-            //        Quantity = 1
-            //    };
-            //    cart.AddToCart(cartItem);
-            //}
-            // 回傳結果
+            HotelOrderContext db = new HotelOrderContext();
+            var roomClass = db.RoomClass.Find(roomclassname);
+
+            string checkInDateStr = HttpContext.Session.GetString("CHECKINDATE");
+            string checkOutDateStr = HttpContext.Session.GetString("CHECKOUTDATE");
+
+            string json = "";
+            //List<CShoppingCartItem> cart = null;
+
+            if (roomClass != null)
+            {
+                CSearchRoomViewModel cartItem = new CSearchRoomViewModel();
+                {
+                    cartItem.RoomClassName = roomClass.RoomClassName;
+                    cartItem.RoomClassPhoto1 = roomClass.RoomClassPhoto1;
+                    cartItem.RoomClassSize = roomClass.RoomClassSize;
+                    cartItem.RoomClassId= roomClass.RoomClassId;
+                    cartItem.RoomClassPeople = roomClass.RoomClassPeople;
+                    cartItem.HolidayPrice= roomClass.HolidayPrice;
+                    cartItem.WeekdayPrice = roomClass.WeekdayPrice;
+                    cartItem.AddPrice = roomClass.AddPrice;
+                    //cartItem.CheckInDate = checkInDateStr;
+                    //cartItem.CheckOutDate = checkOutDateStr;
+                };
+                //cart.AddToCart(cartItem);
+            }
+            
             return Json(new { success = true });
         }
 

@@ -39,7 +39,7 @@ namespace HotelOrderFinal.Controllers
             else
                 HttpContext.Session.SetString("CHECKOUTDATE", checkOut.ToString("yyyy-MM-dd"));
 
-            return RedirectToAction("Index", "Order");
+            return RedirectToAction("List", "Order");
         }
 
        
