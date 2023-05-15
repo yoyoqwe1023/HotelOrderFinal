@@ -54,7 +54,7 @@ namespace HotelOrderFinal.Controllers
             HotelOrderContext db = new HotelOrderContext();
             db.Comment.Add(p);
             db.SaveChanges();
-            return RedirectToAction("List");
+            return RedirectToAction("ListByMember");
         }
         public IActionResult Edit(int? id)
         {

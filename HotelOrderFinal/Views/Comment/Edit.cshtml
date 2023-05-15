@@ -76,8 +76,7 @@
                             <br>
 
                             <div class="form-group">
-                                <label asp-for="CommentPoint" class="control-label"></label>
-                                <input asp-for="CommentPoint" class="form-control" readonly />
+                                <input type="hidden" asp-for="CommentPoint" />
                                 <span asp-validation-for="CommentPoint" class="text-danger"></span>
                             </div>
 
@@ -94,13 +93,10 @@
                             </div>*@
                             <div class="form-group">
                                 <input type="submit" value="儲存" class="btn btn-primary" />
+                                <a asp-action="ListByMember" class="btn btn-warning">取消</a>
                             </div>
                         </form>
                     </div>
-                </div>
-
-                <div>
-                    <a asp-action="ListByMember" class="btn btn-warning">取消</a>
                 </div>
             </div>
         </div>
