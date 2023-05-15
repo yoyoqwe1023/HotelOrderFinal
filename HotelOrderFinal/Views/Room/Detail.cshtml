@@ -34,7 +34,13 @@
         left: 50%;
         transform: translate(-50%, -50%);
         text-align: center;
+        border-radius: 8px;
+        padding: 10px;
+        background-color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     }
+
+
 
     .modal-image {
         max-width: 90%;
@@ -46,31 +52,10 @@
         top: 20px;
         right: 20px;
         font-size: 30px;
-        color: white;
+        color: #7B7B7B;
         cursor: pointer;
     }
 
-/*.mythumbnail {
-  position: relative;
-  width: 100px;
-  height: auto;
-}
-
-.mythumbnail:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.5);
-  opacity: 0.5;
-  transition: opacity 0.3s ease;
-}
-
-.mythumbnail:hover:before {
-  opacity: 0;
-}*/
     #thumbnail-container {
         display: flex;
     
@@ -116,13 +101,7 @@
         }
 
     .myenlarge-image {
-/*        width: 320px;
-        height: 320px;
-        object-fit: cover;
-        border: 2px solid #fff;  添加边框样式 
-        border-radius: 8px;
-        background-color: rgba(128, 128, 128, 0.5);
-        box-sizing: border-box;  确保边框宽度不会改变元素尺寸 */
+
         width: 320px;
         height: 240px;
         object-fit: cover;
@@ -211,45 +190,52 @@
             const myoverlay = document.getElementById('myoverlay');
             const modalImage = document.querySelector('.modal-image');
             const closeButton = document.getElementById('close');
+            const thumbnails = document.querySelectorAll('.mythumbnail');
 
             images.forEach(function (image) {
                 image.addEventListener('click', function () {
-                    console.log('Image clicked'); // 檢查圖片點擊事件是否正確觸發
-
+                    console.log('Image clicked');
                     myoverlay.style.display = 'flex';
                     var imagePath = image.getAttribute('src').replace('~', '');
                     modalImage.src = imagePath;
-                    console.log('Image path:', imagePath); // 檢查圖片路徑是否正確設置
+                    console.log('Image path:', imagePath);
                 });
             });
 
             closeButton.addEventListener('click', function () {
-                console.log('Close button clicked'); // 檢查關閉按鈕點擊事件是否正確觸發
-
+                console.log('Close button clicked');
                 myoverlay.style.display = 'none';
             });
 
             myoverlay.addEventListener('click', function (event) {
-                console.log('Overlay clicked'); // 檢查覆蓋層點擊事件是否正確觸發
-
+                console.log('Overlay clicked');
                 if (event.target === myoverlay) {
                     myoverlay.style.display = 'none';
                 }
             });
-        });
-        window.onload = function () {
-            // 獲取所有小圖片元素
-            const thumbnails = document.querySelectorAll('.mythumbnail');
 
-            // 為每個小圖片元素添加點擊事件監聽器
             thumbnails.forEach((mythumbnail) => {
                 mythumbnail.addEventListener('click', () => {
-                    // 當小圖片被點擊時，將大圖片的src屬性設置為點擊的小圖片的src屬性
-                    const bigImage = document.querySelector('.myenlarge-image');
-                    bigImage.src = mythumbnail.src;
+                    console.log('Thumbnail clicked');
+                    myoverlay.style.display = 'flex';
+                    var imagePath = mythumbnail.getAttribute('src').replace('~', '');
+                    modalImage.src = imagePath;
+                    console.log('Image path:', imagePath);
                 });
             });
-        };
+        });
+
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const thumbnails = document.querySelectorAll('.mythumbnail');
+            const bigImage = document.querySelector('.myenlarge-image');
+
+            thumbnails.forEach(function (thumbnail) {
+                thumbnail.addEventListener('mouseover', function () {
+                    bigImage.src = thumbnail.src;
+                });
+            });
+        });
         window.addEventListener('DOMContentLoaded', function() {
   const thumbnails = document.querySelectorAll('.mythumbnail');
   
