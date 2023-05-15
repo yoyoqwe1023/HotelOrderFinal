@@ -2,7 +2,9 @@
 using HotelOrderFinal.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using NuGet.Frameworks;
+using NuGet.Protocol;
 using System.Globalization;
 using System.Linq;
 
@@ -10,6 +12,11 @@ namespace HotelOrderFinal.Controllers
 {
     public class OrderController : Controller
     {
+
+        
+
+        List<CShopCartViewModel> _cart = new List<CShopCartViewModel>();
+
         public IActionResult List()
         {
             //讀取與設定入住退房日
@@ -66,11 +73,13 @@ namespace HotelOrderFinal.Controllers
                 .Select(g => new { g.Key, g }).ToList();
 
             List<CSearchRoomViewModel> vmList = new List<CSearchRoomViewModel>();
+
             foreach (var room in freeRooms)
             {
                 var f = room.g.First();
 
                 CSearchRoomViewModel vm = new CSearchRoomViewModel();
+                vm.RoomClassId = f.RoomClass.RoomClassId;
                 vm.RoomClassPhoto1 = f.RoomClass.RoomClassPhoto1;
                 vm.RoomClassDetail = f.RoomClass.RoomClassDetail;
                 vm.WeekdayPrice = f.RoomClass.WeekdayPrice;
@@ -91,6 +100,8 @@ namespace HotelOrderFinal.Controllers
                 return View(vmList);
             }
         }
+
+        
 
         [HttpPost]
         public IActionResult SearchRoom(string checkInDate, string checkOutDate)
@@ -119,11 +130,13 @@ namespace HotelOrderFinal.Controllers
                 .Select(g => new { g.Key, g }).ToList();
 
             List<CSearchRoomViewModel> vmList = new List<CSearchRoomViewModel>();
+
             foreach (var room in freeRooms)
             {
                 var f = room.g.First();
 
                 CSearchRoomViewModel vm = new CSearchRoomViewModel();
+                vm.RoomClassId = f.RoomClassId;
                 vm.RoomClassPhoto1 = f.RoomClass.RoomClassPhoto1;
                 vm.RoomClassDetail = f.RoomClass.RoomClassDetail;
                 vm.WeekdayPrice = f.RoomClass.WeekdayPrice;
@@ -146,20 +159,21 @@ namespace HotelOrderFinal.Controllers
 
         }
 
-        public ActionResult AddShopCart(string? roomclassname)
+
+
+        public ActionResult AddShopCart(string RoomClassId)
         {
             HotelOrderContext db = new HotelOrderContext();
-            var roomClass = db.RoomClass.Find(roomclassname);
+            var roomClass = db.RoomClass.Find(RoomClassId);
 
             string checkInDateStr = HttpContext.Session.GetString("CHECKINDATE");
             string checkOutDateStr = HttpContext.Session.GetString("CHECKOUTDATE");
 
             string json = "";
-            //List<CShoppingCartItem> cart = null;
 
             if (roomClass != null)
             {
-                CSearchRoomViewModel cartItem = new CSearchRoomViewModel();
+                CShopCartViewModel cartItem = new CShopCartViewModel();
                 {
                     cartItem.RoomClassName = roomClass.RoomClassName;
                     cartItem.RoomClassPhoto1 = roomClass.RoomClassPhoto1;
@@ -172,10 +186,11 @@ namespace HotelOrderFinal.Controllers
                     //cartItem.CheckInDate = checkInDateStr;
                     //cartItem.CheckOutDate = checkOutDateStr;
                 };
-                //cart.AddToCart(cartItem);
+                _cart.Add(cartItem);
             }
-            
-            return Json(new { success = true });
+            json = JsonConvert.SerializeObject(_cart);
+
+            return Json(json);
         }
 
 
