@@ -109,7 +109,6 @@ model IEnumerable<String>
                                     </div>
                                     <div class="col-md-8 ">
                                         @*房間資訊*@
-                                         <h4>@item.RoomClassId </h4>
                                         <h4>@item.RoomClassName </h4>
                                         <p>@item.RoomClassDetail</p>
                                         <p> 住宿人數：@item.RoomClassPeople</p>
@@ -225,19 +224,26 @@ model IEnumerable<String>
     .then(response => response.json())
     .then(cartData => {
         const cartItemsDiv = $('#ShopCart');
-        cartItemsDiv.empty();
 
-        cartData.forEach(item => {
-  const itemRow = $('<tr></tr>');
-  itemRow.append('<th width="40%">房間類型</th><td>' + item.RoomClassName + '</td>');
-  itemRow.append('<th>入住地區</th><td>北部</td>');
-  itemRow.append('<th>入住日期</th><td>' + '@ViewBag.CheckInDate.ToString("yyyy-MM-dd")' + '</td>');
-  itemRow.append('<th>退房日期</th><td>' + '@ViewBag.CheckOutDate.ToString("yyyy-MM-dd")' + '</td>');
-  itemRow.append('<th>數量</th><td>1</td>');
-  itemRow.append('<th>小計</th><td>NT$ ' + item.WeekdayPrice + '</td>');
+        const cartArray = JSON.parse(cartData);
 
-  cartItemsDiv.append(itemRow);
-});
-    });
-}
+                cartArray.forEach((item) => {
+          const     itemRow = $('<tr></tr>');
+                    itemRow.append($('<th></th>').text('房間類型'));
+                    itemRow.append($('<td></td>').text(item["RoomClassName"]));
+                    itemRow.append($('<th></th>').text('入住地區'));
+                    itemRow.append($('<td></td>').text('北部'));
+                    itemRow.append($('<th></th>').text('入住日期'));
+                    itemRow.append($('<td></td>').text(item.CheckInDate));
+                    itemRow.append($('<th></th>').text('退房日期'));
+                    itemRow.append($('<td></td>').text(item.CheckOutDate));
+                    itemRow.append($('<th></th>').text('數量'));
+                    itemRow.append($('<td></td>').text('1'));
+                    itemRow.append($('<th></th>').text('小計'));
+                    itemRow.append($('<td></td>').text('NT$ ' + item.WeekdayPrice));
+
+                cartItemsDiv.append(itemRow);
+                });
+            });
+    }
 </script>
