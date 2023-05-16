@@ -169,26 +169,32 @@ namespace HotelOrderFinal.Controllers
             string checkInDateStr = HttpContext.Session.GetString("CHECKINDATE");
             string checkOutDateStr = HttpContext.Session.GetString("CHECKOUTDATE");
 
+
             string json = "";
 
             if (roomClass != null)
             {
-                CShopCartViewModel cartItem = new CShopCartViewModel();
+                DateTime checkInDate;
+                DateTime checkOutDate;
+                if (DateTime.TryParse(checkInDateStr, out checkInDate) && DateTime.TryParse(checkOutDateStr, out checkOutDate))
                 {
-                    cartItem.RoomClassName = roomClass.RoomClassName;
-                    cartItem.RoomClassPhoto1 = roomClass.RoomClassPhoto1;
-                    cartItem.RoomClassSize = roomClass.RoomClassSize;
-                    cartItem.RoomClassId= roomClass.RoomClassId;
-                    cartItem.RoomClassPeople = roomClass.RoomClassPeople;
-                    cartItem.HolidayPrice= roomClass.HolidayPrice;
-                    cartItem.WeekdayPrice = roomClass.WeekdayPrice;
-                    cartItem.AddPrice = roomClass.AddPrice;
-                    //cartItem.CheckInDate = checkInDateStr;
-                    //cartItem.CheckOutDate = checkOutDateStr;
-                };
-                _cart.Add(cartItem);
-            }
-            json = JsonConvert.SerializeObject(_cart);
+                    CShopCartViewModel cartItem = new CShopCartViewModel();
+                    {
+                        cartItem.RoomClassName = roomClass.RoomClassName;
+                        cartItem.RoomClassPhoto1 = roomClass.RoomClassPhoto1;
+                        cartItem.RoomClassSize = roomClass.RoomClassSize;
+                        cartItem.RoomClassId = roomClass.RoomClassId;
+                        cartItem.RoomClassPeople = roomClass.RoomClassPeople;
+                        cartItem.HolidayPrice = roomClass.HolidayPrice;
+                        cartItem.WeekdayPrice = roomClass.WeekdayPrice;
+                        cartItem.AddPrice = roomClass.AddPrice;
+                        cartItem.CheckInDate = checkInDate;
+                        cartItem.CheckOutDate = checkOutDate;
+                    };
+                    _cart.Add(cartItem);
+                }
+                }
+                json = JsonConvert.SerializeObject(_cart);
 
             return Json(json);
         }
