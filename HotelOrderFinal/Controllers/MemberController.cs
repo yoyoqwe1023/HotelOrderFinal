@@ -49,6 +49,7 @@ namespace HotelOrderFinal.Controllers
 
             HttpContext.Session.SetString("UserName", member.MemberName);
             HttpContext.Session.SetString("UserID", member.MemberId);
+            HttpContext.Session.SetString("UserPhone", member.MemberPhone);
             HttpContext.Session.SetString("LayoutMessage", "_LayoutMember");
             return RedirectToAction("Index", "Home");
         }
@@ -151,10 +152,12 @@ namespace HotelOrderFinal.Controllers
         // GET: MemberController/Edit/5
         public IActionResult Edit(string id)
         {
+  
             if (HttpContext.Session.GetString("UserID") == null)
             {
                 return RedirectToAction("Index", "Home");
             }
+         
             id = HttpContext.Session.GetString("UserID");
             db = new HotelOrderContext();
             RoomMember cust = db.RoomMember.FirstOrDefault(t => t.MemberId == id);
@@ -163,8 +166,6 @@ namespace HotelOrderFinal.Controllers
             return View(cust);
         }
 
-
-
         // POST: MemberController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -172,18 +173,21 @@ namespace HotelOrderFinal.Controllers
         {
             try
             {
-                db = new HotelOrderContext();
-                RoomMember cust = db.RoomMember.FirstOrDefault(t => t.MemberId == model.MemberId);
-                if (cust != null)
+                if (ModelState.IsValid)
                 {
-                    cust.MemberName = model.MemberName;
-                    cust.MemberPhone = model.MemberPhone;
-                    cust.MemberEmail = model.MemberEmail;                    
-                    cust.MemberPassword = model.MemberPassword;
-                    db.SaveChanges();
+                    db = new HotelOrderContext();
+                    RoomMember cust = db.RoomMember.FirstOrDefault(t => t.MemberId == model.MemberId);
+                    if (cust != null)
+                    {
+                        cust.MemberName = model.MemberName;
+                        cust.MemberPhone = model.MemberPhone;
+                        cust.MemberEmail = model.MemberEmail;
+                        cust.MemberPassword = model.MemberPassword;
+                        db.SaveChanges();
+                    }
                 }
                 return RedirectToAction("Index", "Home");
-            }
+            }                
             catch
             {
                 return View();
@@ -223,14 +227,11 @@ namespace HotelOrderFinal.Controllers
                 return View();
             }
         }
-        //public IActionResult MyAction()
-        //{
-        //    // 這裡返回一個包含數據的Partial View
-        //    return PartialView("_MyPartialView", myData);
-        //}
 
-
-
+        public IActionResult EditPassword(int id)
+        {
+            return View();
+        }
 
     }
 }
