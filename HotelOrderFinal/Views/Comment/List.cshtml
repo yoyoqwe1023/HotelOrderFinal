@@ -41,7 +41,8 @@
                         }
                     </p>
                     <p>
-                        <a asp-action="Create" class="btn btn-info">請寫下您寶貴的意見</a>
+@*                        <a asp-action="Create" class="btn btn-info">請寫下您寶貴的意見</a>
+*@                        <a href="#" class="btn btn-info" data-toggle="modal" data-target="#myAccountModal" data-backdrop="false">請寫下您寶貴的意見</a>
                     </p>
                     <div class="d-flex flex-wrap">
                         @foreach (var item in Model)
