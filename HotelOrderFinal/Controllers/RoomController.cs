@@ -19,8 +19,40 @@ namespace HotelOrderFinal.Controllers
                         select c;
             return View(datas);
         }
-      
-       
+        public IActionResult doubleRoom()
+        {
+            HotelOrderContext db = new HotelOrderContext();
+            var datas = from c in db.RoomClass
+                        where c.RoomClassSize == 13
+                        select c;
+            return View(datas);
+        }
+        public IActionResult quadrupleRoom()
+        {
+            HotelOrderContext db = new HotelOrderContext();
+            var datas = from c in db.RoomClass
+                        where c.RoomClassSize == 18
+                        select c;
+            return View(datas);
+        }
+        public IActionResult familyRoom()
+        {
+            HotelOrderContext db = new HotelOrderContext();
+            var datas = from c in db.RoomClass
+                        where c.RoomClassSize == 20
+                        select c;
+            return View(datas);
+        }
+        public IActionResult presidentialSuite()
+        {
+            HotelOrderContext db = new HotelOrderContext();
+            var datas = from c in db.RoomClass
+                        where c.RoomClassSize == 128
+                        select c;
+            return View(datas);
+        }
+
+
         public IActionResult Detail(string id)
         {
 
