@@ -18,7 +18,6 @@
 <aside>
 
 
-
 </aside>
 
 <style>
@@ -91,10 +90,14 @@
         @*///-----------------------------------------------------------------------------------------*@
         <div class="col-md-4">
 
+            
 
-            @foreach (var item in Model)
+            @for(var i = 0; i < Model.Count; i++)
             {
-                <div>@item.OrderId/ @item.MemberId</div>
+                <div>@Model[i].OrderId</div>
+                <div>@Model[i].MemberId</div>
+
+
             }
         </div>
     </div>

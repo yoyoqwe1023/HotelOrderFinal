@@ -1,8 +1,6 @@
-
 ﻿
 @{
-
-    ViewData["Title"] = "會員密碼修改";
+    ViewData["Title"] = "MemberCard";
 }
 
 <section class="breadcrumb_area">
@@ -17,7 +15,10 @@
         </div>
     </div>
 </section>
+
 <aside>
+
+
 
 </aside>
 
@@ -29,7 +30,7 @@
 </style>
 <div class="wrapper ">
 
-    <h1>會員密碼修改</h1>
+    <h1>電子會員卡</h1>
     <h4>RoomMember</h4>
     <hr />
     <div class="row">
@@ -56,20 +57,18 @@
                         <li class="athMember__menu__isactive">
                             @Html.ActionLink("修改密碼", "EditPassword", "Member", null, new { @class = "nav-link" })
                         </li>
-
                         <li class="athMember__menu__isactive">
                             @Html.ActionLink("您的訂單", "ShoppingCar", "Member", null, new { @class = "nav-link" })
                         </li>
-                        <li class="athMember__menu__isactive" hidden>
+                        <li class="athMember__menu__isactive">
                             @Html.ActionLink("最新消息", "News", "Member", null, new { @class = "nav-link" })
                         </li>
                         <li class="athMember__menu__isactive">
                             @Html.ActionLink("會員條款", "MemberTerms", "Member", null, new { @class = "nav-link" })
                         </li>
-                        <li class="athMember__menu__isactive" hidden>
+                        <li class="athMember__menu__isactive">
                             @Html.ActionLink("電子會員卡", "MemberCard", "Member", null, new { @class = "nav-link" })
                         </li>
-
                     </ul>
                     <div class="d-md-none">
                         <p class="athMember__menu__select mt-20 mb-10">會員資料選單</p>
@@ -90,48 +89,11 @@
         </div>
 
         @*///-----------------------------------------------------------------------------------------*@
-
-        @using (Html.BeginForm("EditPassword", "Member", FormMethod.Post))
-        {
-            <form asp-action="EditPassword" method="post">
-                <div class="d-flex justify-content-center">
-                    <div class="col-lg-9 col-md-9 col-9">      
-                        <div class="form-group">
-                            <label for="OldPassword">舊密碼</label>
-                            <input type="password" id="OldPassword" name="OldPassword" class="form-control" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
-                            @*<input type="password" id="OldPassword" name="OldPassword" class="form-control">*@
-                            <span class="text-danger" data-valmsg-for="OldPassword" data-valmsg-replace="true"></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="NewPassword">新密碼</label>
-                            <input type="password" id="NewPassword" name="NewPassword" class="form-control" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
-                            @*<input type="password" id="NewPassword" name="NewPassword" class="form-control">*@
-                            <span class="text-danger" data-valmsg-for="NewPassword" data-valmsg-replace="true"></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="ReNewPassword">請再輸入一次新密碼</label>
-                            <input type="password" id="ReNewPassword" name="ReNewPassword" class="form-control" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
-                            @*<input type="password" id="ReNewPassword" name="ReNewPassword" class="form-control">*@
-                            <span class="text-danger" data-valmsg-for="ReNewPassword" data-valmsg-replace="true"></span>
-                            <input type="hidden" name="UserId" value="@userId">
-                        </div>
-                        html
-@*                        <input type="password" id="OldPassword" name="OldPassword" class="form-control" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">*@
-
-                        <div class="form-group">
-                            <input type="submit" value="確定儲存" class="btn btn-primary" />
-
-                        </div>
-                    </div>
-                </div>
-            </form>
-        }
-
-
-        <div>
-            <a asp-action="Index">Back to List</a>
+        <div class="col-md-4">
         </div>
+    </div>
 
-
+    <div>
+        <a asp-action="Index">Back to List</a>
     </div>
 </div>

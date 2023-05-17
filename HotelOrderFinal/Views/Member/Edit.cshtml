@@ -59,10 +59,19 @@
                         <li class="athMember__menu__isactive">
                             @Html.ActionLink("修改密碼", "EditPassword", "Member", null, new { @class = "nav-link" })
                         </li>
-                        <li class=""><a href="#">您的訂單</a></li>
-                        <li class=""><a href="#">最新消息</a></li>
-                        <li class=""><a href="#">會員條款</a></li> <!----> <!----> <!---->
-                        <li class=""><a href="#">電子會員卡</a></li> <!----> <!---->
+                        <li class="athMember__menu__isactive">
+                            @Html.ActionLink("您的訂單", "ShoppingCar", "Member", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="athMember__menu__isactive" hidden>
+                            @Html.ActionLink("最新消息", "News", "Member", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="athMember__menu__isactive">
+                            @Html.ActionLink("會員條款", "MemberTerms", "Member", null, new { @class = "nav-link" })
+                        </li>
+                        <li class="athMember__menu__isactive" hidden>
+                            @Html.ActionLink("電子會員卡", "MemberCard", "Member", null, new { @class = "nav-link" })
+                        </li>
+
                     </ul>
                     <div class="d-md-none">
                         <p class="athMember__menu__select mt-20 mb-10">會員資料選單</p>
@@ -120,7 +129,9 @@
                 </div>*@
                 <div class="form-group">
                     <label asp-for="MemberPhone" class="control-label"></label>
-                    <input asp-for="MemberPhone" class="form-control" />
+
+                    <input asp-for="MemberPhone" class="form-control" disabled />
+
                     <span asp-validation-for="MemberPhone" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -129,22 +140,30 @@
                     <span asp-validation-for="MemberEmail" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="MemberPhoto" class="control-label"></label>
+
+                    <label asp-for="MemberPhoto" class="control-label" style="display: none;></label>
+
                     <input asp-for="MemberPhoto" class="form-control" />
                     <span asp-validation-for="MemberPhoto" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="MemberPassword" class="control-label"></label>
+
+                    <label asp-for="MemberPassword" class="control-label" style="display: none;></label>
+
                     <input asp-for="MemberPassword" class="form-control" />
                     <span asp-validation-for="MemberPassword" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="MemberLavel" class="control-label"></label>
+
+                    <label asp-for="MemberLavel" class="control-label" style="display: none;></label>
+
                     <input asp-for="MemberLavel" class="form-control" />
                     <span asp-validation-for="MemberLavel" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="MemberOrderTotal" class="control-label"></label>
+
+                    <label asp-for="MemberOrderTotal" class="control-label" style="display: none;></label>
+
                     <input asp-for="MemberOrderTotal" class="form-control" />
                     <span asp-validation-for="MemberOrderTotal" class="text-danger"></span>
                 </div>
