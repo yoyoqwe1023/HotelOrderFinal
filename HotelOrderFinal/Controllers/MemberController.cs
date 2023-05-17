@@ -278,10 +278,6 @@ namespace HotelOrderFinal.Controllers
         }
 
 
-        public IActionResult EditPassword(int id)
-        {
-            return View();
-        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
