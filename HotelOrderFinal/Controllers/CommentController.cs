@@ -37,13 +37,14 @@ namespace HotelOrderFinal.Controllers
                 return RedirectToAction("List");
             return View(member);
         }
-        public IActionResult Create()
-        //public IActionResult Create(int? userid)
+        public IActionResult Create(string? UserID)
         {
             if (HttpContext.Session.GetString("UserID") == null)
             {
                 return RedirectToAction("Login", "Member");
             }
+            var userId = _contextAccessor.HttpContext.Session.GetString("UserID");
+            ViewBag.UserID = userId;
             return View();
             //ViewBag.MemberId = userid;
             //return View(userid);
@@ -54,7 +55,7 @@ namespace HotelOrderFinal.Controllers
             HotelOrderContext db = new HotelOrderContext();
             db.Comment.Add(p);
             db.SaveChanges();
-            return RedirectToAction("List");
+            return RedirectToAction("ListByMember");
         }
         public IActionResult Edit(int? id)
         {
