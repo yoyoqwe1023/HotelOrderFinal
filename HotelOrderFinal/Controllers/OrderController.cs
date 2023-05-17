@@ -164,7 +164,22 @@ namespace HotelOrderFinal.Controllers
             }
 
         }
-
+        public IActionResult getActivitySession()
+        {
+            //讀取與設定入住日期
+            string selectedActivityId = HttpContext.Session.GetString("SelectedActivityId");
+            string selectedActivityTime = HttpContext.Session.GetString("ActivityTime");
+            if (selectedActivityId != null && selectedActivityTime != null)
+            {
+                var jsonObject = new
+                {
+                    id = selectedActivityId,
+                    time = selectedActivityTime
+                };
+                return Json(jsonObject);
+            }
+            return RedirectToAction("List");
+        }
 
 
         public ActionResult AddShopCart(string RoomClassId)
