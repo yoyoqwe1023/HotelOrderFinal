@@ -46,8 +46,7 @@ namespace HotelOrderFinal.Controllers
             var userId = _contextAccessor.HttpContext.Session.GetString("UserID");
             ViewBag.UserID = userId;
             return View();
-            //ViewBag.MemberId = userid;
-            //return View(userid);
+            //return RedirectToAction("ListByMember");
         }
         [HttpPost]
         public IActionResult Create(Comment p)
