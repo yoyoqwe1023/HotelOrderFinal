@@ -37,13 +37,14 @@ namespace HotelOrderFinal.Controllers
                 return RedirectToAction("List");
             return View(member);
         }
-        public IActionResult Create()
-        //public IActionResult Create(int? userid)
+        public IActionResult Create(string? UserID)
         {
             if (HttpContext.Session.GetString("UserID") == null)
             {
                 return RedirectToAction("Login", "Member");
             }
+            var userId = _contextAccessor.HttpContext.Session.GetString("UserID");
+            ViewBag.UserID = userId;
             return View();
             //ViewBag.MemberId = userid;
             //return View(userid);
