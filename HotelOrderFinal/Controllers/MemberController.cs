@@ -210,8 +210,10 @@ namespace HotelOrderFinal.Controllers
         {
             try
             {
+
                 //if (ModelState.IsValid)
                 //{
+
                     db = new HotelOrderContext();
                     RoomMember cust = db.RoomMember.FirstOrDefault(t => t.MemberId == model.MemberId);
                     if (cust != null)
@@ -222,9 +224,11 @@ namespace HotelOrderFinal.Controllers
                         cust.MemberPassword = model.MemberPassword;
                         db.SaveChanges();
                     }
+
                 //}
+
                 return RedirectToAction("Index", "Home");
-            }
+            }                
             catch
             {
                 return View();
@@ -266,12 +270,18 @@ namespace HotelOrderFinal.Controllers
         }
 
 
+
         //【修改密碼】==========================================================================================
         public IActionResult EditPassword(int id)
         {
             return View();
         }
 
+
+        public IActionResult EditPassword(int id)
+        {
+            return View();
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]

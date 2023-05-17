@@ -34,7 +34,9 @@ namespace HotelOrderFinal.Models
         [DisplayName("身分證字號")]
         [Required(ErrorMessage = "身分證字號不可以空白")]
         public string MemberIdentity { get; set; }
+
         [DisplayName("電話(註冊時設為帳號)")]
+
         [Required(ErrorMessage = "電話不可以空白")]
         public string MemberPhone { get; set; }
         [DisplayName("電子信箱")]

@@ -17,6 +17,7 @@
 
 <aside>
 
+
 </aside>
 
 <style>
@@ -65,6 +66,7 @@
                         </li>
                         <li class="athMember__menu__isactive">
                             @Html.ActionLink("電子會員卡", "MemberCard", "Member", null, new { @class = "nav-link" })
+
                         </li>
                     </ul>
                     <div class="d-md-none">
@@ -87,12 +89,15 @@
 
         @*///-----------------------------------------------------------------------------------------*@
         <div class="col-md-4">
+
             
 
             @for(var i = 0; i < Model.Count; i++)
             {
                 <div>@Model[i].OrderId</div>
                 <div>@Model[i].MemberId</div>
+
+
             }
         </div>
     </div>
