@@ -13,71 +13,47 @@
                 <li class="active">Room</li>
             </ol>
         </div>
-        <div class="hotel_booking_area position">
-            <div class="container">
-                <div class="hotel_booking_table">
-                    <div class="col-md-3">
-                        <h2>預約<br> 您的房間</h2>
-                    </div>
-                    <div class="col-md-9">
-                        <div class="boking_table">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="book_tabel_item">
+       
+    </div>>
+    <div class="hotel_booking_area position">
+        <div class="container">
+            <div class="hotel_booking_table">
+                <div class="col-md-12">
+                    <div class="boking_table" style="width:100%">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="book_tabel_item">
+                                    <select class="wide">
+                                        <option data-display="入住地區">選擇地區</option>
+                                        <option value="1">北區</option>
+                                        <option value="2">中區</option>
+                                        <option value="3">南區</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="book_tabel_item">
+                                    <div class="form-group">
                                         <div class="form-group">
-                                            <div class='input-group date' id='datetimepicker11'>
-                                                <input type='text' class="form-control" placeholder="入住日" />
-                                                <span class="input-group-addon">
-                                                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class='input-group date' id='datetimepicker1'>
-                                                <input type='text' class="form-control" placeholder="退房日" />
-                                                <span class="input-group-addon">
-                                                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                                                </span>
-                                            </div>
+                                            <input type="date" id="checkInDate" name="checkInDate" class="form-control" placeholder="入住日" />
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="book_tabel_item">
-                                        <div class="input-group">
-                                            <select class="wide">
-                                                <option data-display="成人">成人</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                            </select>
-                                        </div>
-                                        <div class="input-group">
-                                            <select class="wide">
-                                                <option data-display="兒童">兒童</option>
-                                                <option value="1">1</option>
-                                                <option value="2">2</option>
-                                                <option value="3">3</option>
-                                                <option value="4">4</option>
-                                            </select>
-                                        </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="book_tabel_item">
+                                    <div class="form-group">
+                                        <input type="date" id="checkOutDate" name="checkOutDate" class="form-control" placeholder="退房日" />
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="book_tabel_item">
-                                        <div class="input-group">
-                                            <select class="wide">
-                                                <option data-display="入住房型">房型</option>
-                                                <option value="1">精緻商務房</option>
-                                                <option value="2">豪華雙人房</option>
-                                                <option value="3">商務四人房</option>
-                                                <option value="4">親子家庭房</option>
-                                                <option value="5">總統套房</option>
-                                            </select>
-                                        </div>
-                                        <a href="#">@Html.ActionLink("立即預約", "Index", "Order", null, new { @class = "book_now_btn button_hover" })</a>
-                                    </div>
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="book_tabel_item">
+                                    @* <a href="#">@Html.ActionLink("立即預約", "Index", "Order", null, new { @class = "book_now_btn button_hover" })</a>*@
+                                    <a href="#" onclick="return setSession();" class="book_now_btn button_hover">立即預約</a>
+
                                 </div>
                             </div>
                         </div>
@@ -85,7 +61,7 @@
                 </div>
             </div>
         </div>
-    </div>>
+    </div>
 </section>
 <!--================Breadcrumb Area =================-->
 <!--================ Accomodation Area  =================-->
@@ -94,25 +70,91 @@
         <div class="section_title text-center">
             <h2 class="title_color">Normal Accomodation</h2>
             <p>We all live in an age that belongs to the young at heart. Life that is becoming extremely fast,</p>
-        </div>
-        <div class="row accomodation_two">
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#allRooms">所有房型</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#doubleRoom">雙人房</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#quadrupleRoom">四人房</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#familyRoom">親子房</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#presidentialSuite">總統套房</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div id="allRooms" class="tab-pane fade show active">
+    <div class="row accomodation_two">
             
-            @foreach (var item in Model)
+            @if(Model !=null){
+            foreach (var item in Model)
             {
                 <div class="col-lg-3 col-sm-6">
                     <div class="accomodation_item text-center">
                         <div class="hotel_img">
-                            <img src="~/image/room1.jpg" alt="">
+                           @* <img src="~/image/room1.jpg" alt="">*@
+                                <img src="~/image/room/@item.RoomClassPhoto1" width="320" height="240" />
                             @*<a href="#" class="btn theme_btn button_hover">Book Now</a>*@
                             @Html.ActionLink("Book Now", "Detail", "Room",new {  id=item.RoomClassId}, new { @class = "btn theme_btn button_hover" })
-                        </div>                       
-                        <a href="#"><h4 class="sec_h4">@Html.DisplayFor(modelItem => item.RoomClassName)</h4></a>
+                        </div>
+                            <a href="@Url.Action("Detail", "Room", new { id = item.RoomClassId })">
+                                <h4 class="sec_h4">@Html.DisplayFor(modelItem => item.RoomClassName)</h4>
+                            </a>
+                       @* <a href="#"><h4 class="sec_h4">@Html.DisplayFor(modelItem => item.RoomClassName)</h4></a>*@
                         <h5>@Html.DisplayFor(modelItem => item.HolidayPrice)<small>/night</small></h5>
                     </div>
+                        @Html.ActionLink("Edit", "Edit", "Room",new {  id=item.RoomClassId})
                 </div>
             }
-            
+            }
+                    </div>
+                </div>
+                <div id="doubleRoom" class="tab-pane fade">
+                    <h3>雙人房</h3>
+                    <p>這裡顯示雙人房的詳細訊息。</p>
+                </div>
+                <div id="quadrupleRoom" class="tab-pane fade">
+                    <h3>四人房</h3>
+                    <p>這裡顯示四人房的詳細訊息。</p>
+                </div>
+                <div id="familyRoom" class="tab-pane fade">
+                    <h3>親子房</h3>
+                    <p>這裡顯示親子房的詳細訊息。</p>
+                </div>
+                <div id="presidentialSuite" class="tab-pane fade">
+                    <h3>總統套房</h3>
+                    <p>這裡顯示總統套房的詳細訊息。</p>
+                </div>
             </div>
-            </div>
+        </div>
+    </div>
 </section>
 <!--================ Accomodation Area  =================-->
+<script>
+    function setSession() {
+        var checkInDate = document.getElementById("checkInDate").value;
+        var checkOutDate = document.getElementById("checkOutDate").value;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/Home/setSession", true);
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // alert("session的CHECKINDATE值：" + HttpContext.Session.GetString("CHECKINDATE") + "\n session的CHECKOUTDATE值：" + HttpContext.Session.GetString("CHECKOUTDATE"));
+            }
+            window.location.href = "/Order/List";
+
+        };
+
+        xhr.send("checkInDate=" + encodeURIComponent(checkInDate) + "&checkOutDate=" + encodeURIComponent(checkOutDate));
+
+        //防止表單自動提交
+        return false;
+    }
+</script>

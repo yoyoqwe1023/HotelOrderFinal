@@ -61,27 +61,19 @@
                 </button>
                 <!--Collect the nav links, forms, and other content for toggling-->
                 <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-                    <ul class="nav navbar-nav menu_nav ml-auto">
-                        
+                    <ul class="nav navbar-nav menu_nav ml-auto">                        
                         <li class="nav-item active; nav-item">@Html.ActionLink("關於", "About", "Home", null, new { @class = "nav-link" })</li>
                         <li class="nav-item active; nav-item">@Html.ActionLink("房型", "List", "Room", null, new { @class = "nav-link" })</li>
                         <li class="nav-item active; nav-item">@Html.ActionLink("活動", "List", "Activity", null, new { @class = "nav-link" })</li>
                         <li class="nav-item active; nav-item">@Html.ActionLink("評論", "List", "Comment", null, new { @class = "nav-link" })</li>
-                        <li class="nav-item active; nav-item">@Html.ActionLink("交通資訊", "Index", "Home", null, new { @class = "nav-link" })</li>
-                        
+                        <li class="nav-item active; nav-item">@Html.ActionLink("交通資訊", "Index", "Home", null, new { @class = "nav-link" })</li>                        
                         @{
                             var userName = Context.Session.GetString("UserName");
                             var userId = Context.Session.GetString("UserID");
-
-                            <li class="nav-item active; nav-item">歡迎，@userName</li>
                         }
-                        <li class="nav-item active; nav-item">@Html.ActionLink("會員修改", "Edit", "Member", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item active; nav-item">@Html.ActionLink(@"歡迎，"+userName, "Edit", "Member", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item active; nav-item">@Html.ActionLink("優惠折扣", "DiscountByMember", "Discount", null, new { @class = "nav-link" })</li>
                         <li class="nav-item active; nav-item">@Html.ActionLink("登出", "Logout", "Member", null, new { @class = "nav-link" })</li>
-            @*            <li>@Html.ActionLink("登出", "Logout", "Member")</li>
-                        <li><a href="#">@Context.Session.GetString("WelCome")</a></li>*@
-
-
-
                     </ul>
                 </div>
             </nav>
@@ -102,7 +94,7 @@
                         <p>The world has become so fast paced that people don’t want to stand by reading a page of information, they would much rather look at a presentation and understand the message. It has come to a point </p>
                     </div>
                 </div>*@
-                <div class="col-lg-3 col-md-6 col-sm-6">
+              @*  <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="single-footer-widget">
                         <h6 class="footer_title">關於香格里拉</h6>
                         <div class="row">
@@ -110,15 +102,13 @@
                                 <ul class="list_style">
                                     <li><a href="#">關於我們</a></li>
                                     <li><a href="#">資展品牌</a></li>
-                                    <li><a href="#">資展中心</a></li>
-                                    
+                                    <li><a href="#">資展中心</a></li>                                    
                                 </ul>
                             </div>
                             <div class="col-4">
                                 <ul class="list_style">
                             <li><a href="#">資展公寓</a></li>
-                            <li><a href="#">聯絡我們</a></li>
-                                    
+                            <li><a href="#">聯絡我們</a></li>                                    
                                 </ul>
                             </div>
                         </div>
@@ -151,7 +141,7 @@
                             </form>
                         </div>
                     </div>*@
-                </div>
+@*                </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="single-footer-widget instafeed">
                         <h6 class="footer_title">InstaFeed</h6>
@@ -170,19 +160,19 @@
             </div>
 
             <div class="border_line"></div>
-            <div class="row footer-bottom d-flex justify-content-between align-items-center">
+            <div class="row footer-bottom d-flex justify-content-between align-items-center">*@
  @*               <p class="col-lg-8 col-sm-12 footer-text m-0">
                     Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
                     Copyright &copy;
                     <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
                     Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
                 </p>*@
-                <div class="col-lg-4 col-sm-12 footer-social">
+            @*    <div class="col-lg-4 col-sm-12 footer-social">
                     <a href="#"><i class="fa fa-facebook"></i></a>
                     <a href="#"><i class="fa fa-twitter"></i></a>
                     <a href="#"><i class="fa fa-dribbble"></i></a>
                     <a href="#"><i class="fa fa-behance"></i></a>
-                </div>
+                </div>*@
             </div>
         </div>
     </footer>
@@ -202,6 +192,10 @@
     <script src="~/js/stellar.js"></script>
     <script src="~/vendors/lightbox/simpleLightbox.min.js"></script>
     <script src="~/js/custom.js"></script>
-    @await RenderSectionAsync("Scripts",required:false)
+    <script src="~/js/bootstrap.js"></script>
+    <script src="~/js/datetimepicker.js"></script>
+    @*@await RenderSectionAsync("Scripts",required:false)*@
+
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

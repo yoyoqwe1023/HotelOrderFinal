@@ -1,11 +1,9 @@
-﻿<meta charset="utf-8">
-
-@{
+﻿@{
     ViewData["Title"] = "Home Page";
 }
 <!--================Banner Area =================-->
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">*@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -66,7 +64,9 @@
 
                             <div class="col-md-3">
                                 <div class="book_tabel_item">
-                                    <a href="#">@Html.ActionLink("立即預約", "Index", "Order", null, new { @class = "book_now_btn button_hover" })</a>
+                                    @* <a href="#">@Html.ActionLink("立即預約", "Index", "Order", null, new { @class = "book_now_btn button_hover" })</a>*@
+                                    <a href="#" onclick="return setSession();" class="book_now_btn button_hover">立即預約</a>
+
                                 </div>
                             </div>
                         </div>
@@ -218,6 +218,7 @@
             <h2 class="title_color">房型評論區</h2>
             <p>The French Revolution constituted for the conscience of the dominant aristocratic class a fall from </p>
         </div>
+
         <div class="testimonial_slider owl-carousel">
             <div class="media testimonial_item">
                 <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
@@ -379,9 +380,33 @@
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>*@
 
-@if (TempData.ContainsKey("Message"))
-{
-    <script>
-        alert('@TempData["Message"]');
-    </script>
-}
+<script>
+    function setSession() {
+    var checkInDate = document.getElementById("checkInDate").value;
+    var checkOutDate = document.getElementById("checkOutDate").value;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "/Home/setSession", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+         // alert("session的CHECKINDATE值：" + HttpContext.Session.GetString("CHECKINDATE") + "\n session的CHECKOUTDATE值：" + HttpContext.Session.GetString("CHECKOUTDATE"));
+      }
+            window.location.href = "/Order/List";
+     
+    };
+
+    xhr.send("checkInDate=" + encodeURIComponent(checkInDate) + "&checkOutDate=" + encodeURIComponent(checkOutDate));
+
+    //防止表單自動提交
+    return false;
+  }
+</script>
+
+
+
+
+
+
+

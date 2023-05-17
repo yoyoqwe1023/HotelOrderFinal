@@ -1,12 +1,20 @@
 ﻿using HotelOrderFinal.Models;
 using HotelOrderFinal.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace HotelOrderFinal.Controllers
 {
     public class DiscountController : Controller
     {
+        public IHttpContextAccessor _contextAccessor;
+
+        public DiscountController(IHttpContextAccessor contextAccessor)
+        {
+            this._contextAccessor = contextAccessor;
+        }
+
         public IActionResult List(CKeywordViewModel vm)
         {
             HotelOrderContext db = new HotelOrderContext();
@@ -15,10 +23,7 @@ namespace HotelOrderFinal.Controllers
                 datas = from c in db.Discount
                         select c;
             else
-                datas = db.Discount.Where(p => p.DiscountName.Contains(vm.txtKeyword) ||
-                p.DiscountName.Contains(vm.txtKeyword) ||
-                p.DiscountImage.ToString().Contains(vm.txtKeyword) ||
-                p.DiscountUse.ToString().Contains(vm.txtKeyword));
+                return RedirectToAction("Index", "Home");
             return View(datas);
         }
 
@@ -29,11 +34,49 @@ namespace HotelOrderFinal.Controllers
         [HttpPost]
         public IActionResult Create(Discount p)
         {
+            //try
+            //{
             HotelOrderContext db = new HotelOrderContext();
+            // 取得優惠是否存在
+            p.DiscountExist = true;
+
             db.Discount.Add(p);
             db.SaveChanges();
+
+
+            // 取得當時的會員數量
+            int memberCount = db.RoomMember.Count();
+
+            if (p.DiscountExist == true && memberCount > 0)
+            {
+                //所有的會員ID
+                var members = db.RoomMember.Select(x => x.MemberId);
+                int lastID = db.Discount.OrderByDescending(x => x.DiscountId).FirstOrDefault().DiscountId;
+                foreach (var itme in members)
+                {
+
+                    DiscountDetail detail = new DiscountDetail();
+                    detail.DiscountId = lastID;
+                    detail.DiscountStart = DateTime.Now;
+                    detail.DiscountEnd = DateTime.Now.AddMonths(3);
+                    detail.DiscountUse = 0;
+                    detail.MemberId = itme;
+                    db.DiscountDetail.Add(detail);
+                    
+                }
+                db.SaveChanges();
+                return RedirectToAction("List");
+            }
+
             return RedirectToAction("List");
+            //}
+            //catch (Exception ex)
+            //{
+            //    Console.WriteLine(ex.ToString());
+            //    return View();
+            //}
         }
+
         public IActionResult Delete(int? id)
         {
             HotelOrderContext db = new HotelOrderContext();
@@ -63,12 +106,20 @@ namespace HotelOrderFinal.Controllers
                 cust.DiscountName = p.DiscountName;
                 cust.DiscountImage = p.DiscountImage;
                 cust.DiscountDirections = p.DiscountDirections;
-                cust.DiscountStart = p.DiscountStart;
-                cust.DiscountEnd = p.DiscountEnd;
-                cust.DiscountUse = p.DiscountUse;               
+                cust.DiscountDiscount = p.DiscountDiscount;
                 db.SaveChanges();
             }
             return RedirectToAction("List");
+        }
+
+        public IActionResult DiscountByMember()
+        {
+            var userId = _contextAccessor.HttpContext.Session.GetString("UserID");
+            HotelOrderContext db = new HotelOrderContext();
+            IEnumerable<DiscountDetail> usesid = db.DiscountDetail.Where(x => x.MemberId == userId);
+
+            //IEnumerable<Discount> usesid = db.Discount.Where(x => x.MemberId == userId);
+            return View(usesid);
         }
     }
 }
