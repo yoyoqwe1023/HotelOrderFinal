@@ -51,6 +51,9 @@
 
 </head>
 <body>
+    <div class="wrapper ">
+        @await Html.PartialAsync("_MyAccount")
+    </div>
     <!-- ================Header Area =================-->
     <header class="header_area">
         <div class="container">
@@ -81,12 +84,11 @@
                             <a href="#" class="nav-link text-white" data-toggle="modal" data-target="#myAccountModal" data-backdrop="false">我的帳戶</a>
                         </li>               
                     </ul>
-                    <div class="wrapper ">
-                        @await Html.PartialAsync("_MyAccount")
-                    </div>
+                   
                 </div>
             </nav>
         </div>
+      
     </header>
     @RenderBody()
     <!--================ Recent Area  =================
