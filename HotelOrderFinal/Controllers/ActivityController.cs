@@ -26,8 +26,7 @@ namespace HotelOrderFinal.Controllers
         }
         [HttpPost]
         public ActionResult setSessionByActivity(int id)
-        {
-            
+        {          
             var a = db.Activity.FirstOrDefault(t => t.ActivityId == id);
             if (a== null)
             {
