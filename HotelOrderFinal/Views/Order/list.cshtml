@@ -150,7 +150,7 @@ model IEnumerable<String>
                     <div>
                         @*房間資訊*@
                         <table id="ShopCart">
-                          @*  <tr>
+                         @*   <tr>
                                                       <th width="40%" > 房間類型 </th>
                                                         <td>RoomClassName </td>
                                                     </tr>
@@ -229,34 +229,34 @@ model IEnumerable<String>
 
                 cartArray.forEach((item) => {
                     const itemRow = $('<tr></tr>');
-                    itemRow.append($('<th width="40%"></th>').text('房間類型'));
+                    itemRow.append($('<th></th>').attr('width', '100px').text('房間類型'));
                     itemRow.append($('<td></td>').text(item.RoomClassName));
                     cartItemsDiv.append(itemRow);
 
                     const itemRow2 = $('<tr></tr>');
-                    itemRow2.append($('<th width="40%"></th>').text('入住地區'));
+                    itemRow2.append($('<th></th>').attr('width', '100px').text('入住地區'));
                     itemRow2.append($('<td></td>').text('北部'));
                     cartItemsDiv.append(itemRow2);
 
-                    const formattedCheckInDate = new Date(item.CheckInDate).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
+                    const formattedCheckInDate = new Date(item.CheckInDate).toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' });
                     const itemRow3 = $('<tr></tr>');
-                    itemRow3.append($('<th width="40%"></th>').text('入住日期'));
+                    itemRow3.append($('<th></th>').attr('width', '100px').text('入住日期'));
                     itemRow3.append($('<td></td>').text(formattedCheckInDate));
                     cartItemsDiv.append(itemRow3);
 
-                    const formattedCheckOutDate = new Date(item.CheckOutDate).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
+                    const formattedCheckOutDate = new Date(item.CheckOutDate).toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' });
                     const itemRow4 = $('<tr></tr>');
-                    itemRow4.append($('<th width="40%"></th>').text('退房日期'));
+                    itemRow4.append($('<th></th>').attr('width', '100px').text('退房日期'));
                     itemRow4.append($('<td></td>').text(formattedCheckOutDate));
                     cartItemsDiv.append(itemRow4);
 
                     const itemRow5 = $('<tr></tr>');
-                    itemRow5.append($('<th width="40%"></th>').text('數量'));
+                    itemRow5.append($('<th></th>').attr('width', '100px').text('數量'));
                     itemRow5.append($('<td></td>').text('1'));
                     cartItemsDiv.append(itemRow5);
 
                     const itemRow6 = $('<tr></tr>');
-                    itemRow6.append($('<th width="40%"></th>').text('小計'));
+                    itemRow6.append($('<th></th>').attr('width', '100px').text('小計'));
                     itemRow6.append($('<td></td>').text('NT$ ' + item.WeekdayPrice));
                     cartItemsDiv.append(itemRow6);
                 });
