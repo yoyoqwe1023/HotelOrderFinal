@@ -6,12 +6,18 @@ using Newtonsoft.Json;
 using NuGet.Frameworks;
 using NuGet.Protocol;
 using System.Globalization;
-using System.Linq;
+using System.Text.Json;
 
 namespace HotelOrderFinal.Controllers
 {
     public class OrderController : Controller
     {
+        public IHttpContextAccessor _contextAccessor;
+
+        public OrderController ( IHttpContextAccessor contextAccessor )
+        {
+            this._contextAccessor = contextAccessor;
+        }
 
         
 
@@ -199,23 +205,38 @@ namespace HotelOrderFinal.Controllers
             return Json(json);
         }
 
-
-
         public IActionResult Detail()
         {
             if (HttpContext.Session.GetString("UserID") == null)
             {
                 return RedirectToAction("Login", "Member");
             }
-            return View();
+            var userId = _contextAccessor.HttpContext.Session.GetString ( "UserID" );
+            HotelOrderContext db = new HotelOrderContext ( );
+            IEnumerable<DiscountDetail> usesid = db.DiscountDetail.Where ( x => x.MemberId == userId );
+
+            var MemberDiscount = db.DiscountDetail.Include ( x => x.Discount).Where(x => x.MemberId == userId).ToList();
+            //var theater = movieContext.TSessions.Include(s => s.FTheater).FirstOrDefault(s => s.FSessionId == sessionID).FTheater;
+            return View (MemberDiscount);
         }
 
         public IActionResult Create()
         {
+            var userId = _contextAccessor.HttpContext.Session.GetString ( "UserID" );
+            HotelOrderContext db = new HotelOrderContext ( );
+            IEnumerable<RoomMember> usersid = db.RoomMember.Where ( x => x.MemberId == userId );
 
-            return View();
+            return View( usersid );
         }
-
+        //[HttpPost]
+        //public IActionResult Create(Order p)
+        //{
+        //    string json;
+        //    List<Order> detail = null;
+        //    json = HttpContext.Session.GetString ( CDictionary.SK_PURCHASED_PRODUCTS_LIST );
+        //    detail = JsonSerializer.Deserialize<List<Order>> ( json );
+        //    return View ( );
+        //}
         public IActionResult ShowOrder()
         {
             return View();
