@@ -1,4 +1,5 @@
 ﻿using HotelOrderFinal.Models;
+using HotelOrderFinal.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -9,8 +10,9 @@ namespace HotelOrderFinal.Controllers
 {
     public class HomeController : Controller
     {
+        private HotelOrderContext db = new HotelOrderContext();
         private readonly ILogger<HomeController> _logger;
-
+        
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -18,6 +20,9 @@ namespace HotelOrderFinal.Controllers
 
         public IActionResult Index(string message = null)
         {/*string message = null*/
+            //
+            CindexActivityViewModels cavm = new CindexActivityViewModels();
+            cavm.ActivityImage = db.Activity.Select(x=>x.ActivityImage).ToList();
             if (!string.IsNullOrEmpty(message))
             {
                 TempData["Message"] = message;
@@ -25,7 +30,7 @@ namespace HotelOrderFinal.Controllers
 
 
             //ViewBag.Message = message;
-            return View();
+            return View(cavm);
         }
 
         [HttpPost]
