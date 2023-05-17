@@ -10,6 +10,7 @@ using System.Web;
 using HotelOrderFinal.ViewModels;
 using System.Net.Mail;
 using System.Net;
+using Microsoft.EntityFrameworkCore;
 
 namespace HotelOrderFinal.Controllers
 {
@@ -64,6 +65,7 @@ namespace HotelOrderFinal.Controllers
             HttpContext.Session.SetString("UserName", member.MemberName);
             HttpContext.Session.SetString("UserID", member.MemberId);
             HttpContext.Session.SetString("UserPhone", member.MemberPhone);
+            HttpContext.Session.SetString("UserPassword", member.MemberPassword);
             HttpContext.Session.SetString("LayoutMessage", "_LayoutMember");
 
             return RedirectToAction("Index", "Home");
@@ -210,30 +212,72 @@ namespace HotelOrderFinal.Controllers
         {
             try
             {
-
-                //if (ModelState.IsValid)
-                //{
-
-                    db = new HotelOrderContext();
-                    RoomMember cust = db.RoomMember.FirstOrDefault(t => t.MemberId == model.MemberId);
-                    if (cust != null)
-                    {
-                        cust.MemberName = model.MemberName;
-                        cust.MemberPhone = model.MemberPhone;
-                        cust.MemberEmail = model.MemberEmail;
-                        cust.MemberPassword = model.MemberPassword;
-                        db.SaveChanges();
-                    }
-
-                //}
-
+                db = new HotelOrderContext();
+                RoomMember cust = db.RoomMember.FirstOrDefault(t => t.MemberId == model.MemberId);
+                if (cust != null)
+                {
+                    cust.MemberName = model.MemberName;
+                    cust.MemberPhone = model.MemberPhone;
+                    cust.MemberEmail = model.MemberEmail;
+                    cust.MemberPassword = model.MemberPassword;
+                    db.SaveChanges();
+                }
                 return RedirectToAction("Index", "Home");
-            }                
+            }
             catch
             {
                 return View();
             }
         }
+
+        //【修改密碼】==========================================================================================
+
+
+        public IActionResult EditPassword(string Password)
+        {
+ 
+            if (HttpContext.Session.GetString("UserPassword") == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            Password = HttpContext.Session.GetString("UserPassword");
+
+            db = new HotelOrderContext();
+            RoomMember cust = db.RoomMember.FirstOrDefault(t => t.MemberPassword == Password);
+            if (cust == null)
+                return RedirectToAction("Index", "Home");
+            return View(cust);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditPassword(RoomMember model,ChangePasswordViewModel change)
+        {
+            db = new HotelOrderContext();
+               RoomMember cust = db.RoomMember.FirstOrDefault(o => o.MemberPassword == model.MemberPassword);
+            if (cust == null )
+            {                
+                ModelState.AddModelError("OldPassword", "舊密碼不正確");
+                return View("EditPassword", "model");
+            }
+            if (change.NewPassword != change.ReNewPassword)
+            {
+                ModelState.AddModelError("ReNewPassword", "新密碼兩次輸入不一致");
+                return View("EditPassword", "model");
+            }
+                else
+            {
+                change.NewPassword = change.ReNewPassword;
+                db.SaveChanges();
+                // 在ViewBag中设置密码重置成功的消息
+                ViewBag.ResetSuccessMessage = "您的密碼已重設。";
+                // 重定向到显示成功消息的页面
+                return RedirectToAction("Index", "Member");
+            }
+        }      
+
+
 
         //【登出】==========================================================================================
         public IActionResult Logout()
@@ -270,55 +314,9 @@ namespace HotelOrderFinal.Controllers
         }
 
 
+//【歷史訂單】==========================================================================================
 
-        //【修改密碼】==========================================================================================
-        public IActionResult EditPassword(int id)
-        {
-            return View();
-        }
-
-
-        public IActionResult EditPassword(int id)
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult EditPassword(ChangePasswordViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                // 在這裡進行舊密碼的驗證
-                // 比對舊密碼是否與資料庫中的密碼匹配
-                //bool isOldPasswordCorrect = ValidateOldPassword(model.OldPassword, model.UserId);
-                bool isOldPasswordCorrect = true;
-
-                if (isOldPasswordCorrect)
-                {
-                    if (model.NewPassword == model.ReNewPassword)
-                    {
-                        // 在這裡更新資料庫中的密碼
-                        // 根據 model.UserId 找到對應的用戶，並將密碼更新為 model.NewPassword
-                        //UpdatePasswordInDatabase(model.UserId, model.NewPassword);
-
-                        return RedirectToAction("Success");
-                    }
-                    else
-                    {
-                        ModelState.AddModelError("ReNewPassword", "新密碼與確認密碼不一致");
-                    }
-                }
-                else
-                {
-                    ModelState.AddModelError("OldPassword", "舊密碼不正確");
-                }
-            }
-
-            return RedirectToAction("Index", "Home");
-        }
-
-        public IActionResult ShoppingCar(int id)
+public IActionResult ShoppingCar(int id)
         {
             //沒有資料庫的時候測試用
             //List<Order> orders = new List<Order>();
