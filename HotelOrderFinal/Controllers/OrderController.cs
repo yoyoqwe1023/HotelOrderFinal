@@ -21,8 +21,6 @@ namespace HotelOrderFinal.Controllers
             this._contextAccessor = contextAccessor;
         }
 
-
-
         List<CShopCartViewModel> _cart = new List<CShopCartViewModel>();
 
         public IActionResult List()
@@ -109,8 +107,6 @@ namespace HotelOrderFinal.Controllers
             }
         }
 
-
-
         [HttpPost]
         public IActionResult SearchRoom(string checkInDate, string checkOutDate)
         {
@@ -167,8 +163,6 @@ namespace HotelOrderFinal.Controllers
 
         }
 
-
-
         public ActionResult AddShopCart(string RoomClassId)
         {
             HotelOrderContext db = new HotelOrderContext();
@@ -177,10 +171,7 @@ namespace HotelOrderFinal.Controllers
             string checkInDateStr = HttpContext.Session.GetString("CHECKINDATE");
             string checkOutDateStr = HttpContext.Session.GetString("CHECKOUTDATE");
 
-            string json = "";
-            List<CShopCartViewModel> _cart = null;
-            json = HttpContext.Session.GetString("CartData");
-            _cart = JsonSerializer.Deserialize<List<CShopCartViewModel>>(json);
+         
             if (roomClass != null)
             {
                 DateTime checkInDate;
@@ -188,7 +179,17 @@ namespace HotelOrderFinal.Controllers
 
                 if (DateTime.TryParse(checkInDateStr, out checkInDate) && DateTime.TryParse(checkOutDateStr, out checkOutDate))
                 {
-
+                    string json = "";
+                    List<CShopCartViewModel> cartList = null;
+                    if (HttpContext.Session.Keys.Contains("CartData"))
+                    { 
+                        json = HttpContext.Session.GetString("CartData");
+                        cartList = JsonSerializer.Deserialize<List<CShopCartViewModel>>(json);
+                    }
+                    else
+                    {
+                        cartList = new List<CShopCartViewModel>();
+                    }
 
                     CShopCartViewModel cartItem = new CShopCartViewModel();
                     {
@@ -203,24 +204,28 @@ namespace HotelOrderFinal.Controllers
                         cartItem.CheckInDate = checkInDate;
                         cartItem.CheckOutDate = checkOutDate;
                     };
-                    _cart.Add(cartItem);
+                    cartList.Add(cartItem);
+                    json = JsonSerializer.Serialize(cartList);
+                    HttpContext.Session.SetString("CartData", json);
+
+                    return Json(json);
                 }
-                json = JsonSerializer.Serialize(_cart);
-
-                //購物車資訊存進Session
-
             }
-            //HttpContext.Session.SetString(CDictionary.SK_PURCHASED_PRODUCTS_LIST, json);
-            HttpContext.Session.SetString("CartData", json);
-            return Json(json);
+            return Json(null);
         }
 
         //網頁更新時顯示購物車session內容
         public ActionResult GetShopCartFromSession()
         {
-            //    var cartData = HttpContext.Session.Get<List<CShopCartViewModel>>("CartData");
-            //    string json = JsonConvert.SerializeObject(cartData);
-            return View();
+            string json = HttpContext.Session.GetString("CartData");
+            List<CShopCartViewModel> cartList = null;
+
+            if (!string.IsNullOrEmpty(json))
+            {
+                cartList = JsonSerializer.Deserialize<List<CShopCartViewModel>>(json);
+            }
+
+            return Json(cartList);
         }
 
 
