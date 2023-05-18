@@ -160,7 +160,6 @@ namespace HotelOrderFinal.Controllers
             {
                 return View(vmList);
             }
-
         }
 
         //房間加入購物車
@@ -268,7 +267,6 @@ namespace HotelOrderFinal.Controllers
                 string updatedJson = JsonSerializer.Serialize(cartList);
                 HttpContext.Session.SetString("CartData", updatedJson);
             }
-            
         }
 
         //訂房明細頁面
@@ -278,7 +276,6 @@ namespace HotelOrderFinal.Controllers
             {
                 return RedirectToAction("Login", "Member");
             }
-
 
             var userId = _contextAccessor.HttpContext.Session.GetString("UserID");
             HotelOrderContext db = new HotelOrderContext();
@@ -297,6 +294,7 @@ namespace HotelOrderFinal.Controllers
 
             return View(usersid);
         }
+
         //[HttpPost]
         //public IActionResult Create(Order p)
         //{

@@ -184,7 +184,7 @@ model IEnumerable<String>
                                 <th class="h5" width="30%">
                                     應付金額:
                                 </th>
-                                <td class="text-right">
+                                <td id="ShopCartTotalPrice"  class="text-right">
                                     NT$ 0
                                 </td>
                             </tr>
@@ -229,6 +229,7 @@ model IEnumerable<String>
                 cartItemsDiv.empty();
 
         const cartArray = JSON.parse(cartData);
+                let totalPrice = 0;
 
                 cartArray.forEach((item) => {
                     const itemRow = $('<tr></tr>');
@@ -262,7 +263,15 @@ model IEnumerable<String>
                     itemRow6.append($('<th></th>').attr('width', '100px').text('小計'));
                     itemRow6.append($('<td></td>').text('NT$ ' + item.WeekdayPrice));
                     cartItemsDiv.append(itemRow6);
+
+                    
+                    totalPrice += item.WeekdayPrice;
+
                 });
+
+                const totalPriceCell = $('<td></td>').addClass('text-right').text('NT$ ' + totalPrice);
+                $('#ShopCartTotalPrice').empty().append(totalPriceCell);
+
             });
     }
 
@@ -281,12 +290,12 @@ function loadCartFromSession() {
                    
                     cartData.forEach((item) => {
                 const itemRow = $('<tr></tr>');
-                itemRow.append($('<th></th>').attr('width', '100px').text('房間類型'));
+                itemRow.append($('<th></th>').attr('width', '40%').text('房間類型'));
                 itemRow.append($('<td></td>').text(item.roomClassName));
                 cartItemsDiv.append(itemRow);
 
                 const itemRow2 = $('<tr></tr>');
-                itemRow2.append($('<th></th>').attr('width', '100px').text('入住地區'));
+                itemRow2.append($('<th></th>').attr('width', '40%').text('入住地區'));
                 itemRow2.append($('<td></td>').text('北部'));
                 cartItemsDiv.append(itemRow2);
 

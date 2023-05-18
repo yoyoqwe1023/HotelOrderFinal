@@ -1,4 +1,4 @@
-﻿@*@model IEnumerable<HotelOrderFinal.Models.DiscountDetail>*@
+﻿@model IEnumerable<HotelOrderFinal.Models.DiscountDetail>
 @*@model IEnumerable<HotelOrderFinal.ViewModels.COrderDetailViewModel>*@
 
 <section class="breadcrumb_area">
@@ -58,31 +58,30 @@
             <div style="margin:10px;">
                 <table id="SessionRoomList" style="box-sizing: border-box ; width:100% ;text-align:center;">
                     @*<tbody>
-                        <tr style="background-color: #f0f0f0;">
-                            <th width="25%">住宿時間</th>
-                            <th width="25%">房間類型</th>
-                            <th width="10%">數量</th>
-                            <th width="15%">人數</th>
-                            <th width="15%">小計</th>
-                            <th width="10%">刪除</th>
-                        </tr>
-                        <tr>
-                            <td><p>入住日期</p><p>2023/5/7</p><p>退房日期</p><p>2023/5/8</p></td>
-                            <td>雙人房</td>
-                            <td>1</td>
-                            <td>0</td>
-                            <td>NT$ 4000</td>
-                            <td>刪除</td>
-                        </tr>                       
+                    <tr style="background-color: #f0f0f0;">
+                    <th width="25%">住宿時間</th>
+                    <th width="25%">房間類型</th>
+                    <th width="10%">數量</th>
+                    <th width="15%">人數</th>
+                    <th width="15%">小計</th>
+                    <th width="10%">刪除</th>
+                    </tr>
+                    <tr>
+                    <td><p>入住日期</p><p>2023/5/7</p><p>退房日期</p><p>2023/5/8</p></td>
+                    <td>雙人房</td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>NT$ 4000</td>
+                    <td>刪除</td>
+                    </tr>
                     </tbody>*@
                 </table>
-                <hr />
-             @*   <div>
-                    <h4>備注</h4>
-                    <textarea width=100% rows="1"></textarea>
+                @*<hr />
+                  <div>
+                <h4>備注</h4>
+                <textarea width=100% rows="1"></textarea>
                 </div>*@
             </div>
-            @*     <input type="text" style="border:dashed 	#D3D3D3; width:100%" />*@
         </div>
 
         <div style="border:solid green;margin-bottom:10px;margin-top:10px;">
@@ -91,12 +90,10 @@
             </div>
             <div class="form-group col-md-2">
                 <select>
-            @*@foreach ( var item in Model )
-            {
-
-              <option value="@Html.DisplayFor(modelItem => item.Discount.DiscountName)">@Html.DisplayFor(modelItem => item.Discount.DiscountName)</option>
-
-            }*@
+                    @foreach (var item in Model)
+                    {
+                        <option value="@Html.DisplayFor(modelItem => item.Discount.DiscountName)">@Html.DisplayFor(modelItem => item.Discount.DiscountName)</option>
+                    }
                 </select>
             </div>
 
@@ -131,12 +128,10 @@
 
 <script>
 
-
-     //頁面載入時載入購物車內容
+    //頁面載入時載入購物車內容
     $(document).ready(function () {
         loadCartFromSession();
     });
-
 
     function loadCartFromSession() {
         fetch('/Order/GetShopCartOrderDetailSession', {
@@ -175,7 +170,7 @@
                         itemRow.append($('<td></td>').text('0'));
                         itemRow.append($('<td></td>').text('NT$ ' + item.weekdayPrice));
 
-                        // 为偶数行添加不同的底色
+                        //偶數列底色變色
                         if (index % 2 === 1) {
                             itemRow.addClass('even-row');
                         }
@@ -183,16 +178,19 @@
                         const deleteCell = $('<td></td>');
                         const deleteButton = $('<button></button>').text('刪除').addClass('delete-button');
                         const itemId = 'item-' + item.fId;
-                        itemRow.attr('data-item-id', itemId); // 设置正确的 data-item-id 属性
+                        itemRow.attr('data-item-id', itemId);
+                        
+                        //點擊刪除按鈕
                         deleteButton.click(() => {
 
-                            // 在按钮点击时弹出删除确认框
+                            //跳出確認框
                             if (confirm('確定要刪除此項目嗎？')) {
-                                // 执行删除操作
-                                const rowToDelete = cartItemsDiv.find('[data-item-id="' + itemId + '"]'); // 查找要删除的行
-                                rowToDelete.remove(); // 从表格中删除对应的行
+                                
+                                //抓取刪除列的FId
+                                const rowToDelete = cartItemsDiv.find('[data-item-id="' + itemId + '"]');
+                                rowToDelete.remove(); 
 
-                                // 使用 itemId 作为参数调用删除会话数据的函数
+                                //執行刪除function
                                 deleteSessionData(itemId);
                             }
                         });
