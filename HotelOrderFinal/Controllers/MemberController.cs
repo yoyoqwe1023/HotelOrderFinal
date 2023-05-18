@@ -233,18 +233,19 @@ namespace HotelOrderFinal.Controllers
         //【修改密碼】==========================================================================================
 
 
-        public IActionResult EditPassword(string Password)
+        public IActionResult EditPassword(string UserID)
         {
  
-            if (HttpContext.Session.GetString("UserPassword") == null)
+            if (HttpContext.Session.GetString("UserID") == null)
             {
                 return RedirectToAction("Index", "Home");
             }
 
-            Password = HttpContext.Session.GetString("UserPassword");
+            UserID = HttpContext.Session.GetString("UserID");
 
             db = new HotelOrderContext();
-            RoomMember cust = db.RoomMember.FirstOrDefault(t => t.MemberPassword == Password);
+            RoomMember cust = db.RoomMember.Where(t => t.MemberId == UserID).FirstOrDefault();
+   
             if (cust == null)
                 return RedirectToAction("Index", "Home");
             return View(cust);
@@ -252,10 +253,10 @@ namespace HotelOrderFinal.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditPassword(RoomMember model,ChangePasswordViewModel change)
+        public IActionResult EditPassword(ChangePasswordViewModel change)
         {
             db = new HotelOrderContext();
-               RoomMember cust = db.RoomMember.FirstOrDefault(o => o.MemberPassword == model.MemberPassword);
+               RoomMember cust = db.RoomMember.Where(o => o.MemberId == change.UserId).FirstOrDefault();
             if (cust == null )
             {                
                 ModelState.AddModelError("OldPassword", "舊密碼不正確");
@@ -266,15 +267,14 @@ namespace HotelOrderFinal.Controllers
                 ModelState.AddModelError("ReNewPassword", "新密碼兩次輸入不一致");
                 return View("EditPassword", "model");
             }
-                else
-            {
-                change.NewPassword = change.ReNewPassword;
+           
+                cust.MemberPassword = change.NewPassword;             
                 db.SaveChanges();
                 // 在ViewBag中设置密码重置成功的消息
                 ViewBag.ResetSuccessMessage = "您的密碼已重設。";
                 // 重定向到显示成功消息的页面
                 return RedirectToAction("Index", "Member");
-            }
+
         }      
 
 
