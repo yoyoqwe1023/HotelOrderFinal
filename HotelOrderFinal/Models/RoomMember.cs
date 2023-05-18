@@ -18,69 +18,42 @@ namespace HotelOrderFinal.Models
             DiscountDetail = new HashSet<DiscountDetail>();
             Order = new HashSet<Order>();
         }
-
+        [DisplayName("管理者ID")]
         public string AdminId { get; set; }
-
+        [DisplayName("會員ID")]
         public string MemberId { get; set; }
-
+        [DisplayName("姓名")]
+        //[Required(ErrorMessage ="姓名不可以空白")]
         public string MemberName { get; set; }
-
+        [DisplayName("生日")]
+        //[Required(ErrorMessage = "生日不可以空白")]
         public DateTime? MemberBirthday { get; set; }
-
+        [DisplayName("性別")]
+        //[Required(ErrorMessage = "性別不可以空白")]
         public string MemberGender { get; set; }
-
+        [DisplayName("身分證字號")]
+        //[Required(ErrorMessage = "身分證字號不可以空白")]
         public string MemberIdentity { get; set; }
 
+        [DisplayName("電話(註冊時設為帳號)")]
+
+        //[Required(ErrorMessage = "電話不可以空白")]
         public string MemberPhone { get; set; }
-
+        [DisplayName("電子信箱")]
+        //[Required(ErrorMessage = "電子信箱不可以空白")]
+        [EmailAddress]
         public string MemberEmail { get; set; }
-
+        [DisplayName("照片")]
         public string MemberPhoto { get; set; }
-
+        [DisplayName("密碼")]
+        //[Required(ErrorMessage = "密碼不可以空白")]
 
         public string MemberPassword { get; set; }
 
- 
+        [DisplayName("會員等級")]
         public string MemberLavel { get; set; }
-    
+        [DisplayName("累積消費金額")]
         public string MemberOrderTotal { get; set; }
-
-        //[DisplayName("管理者ID")]
-        //public string AdminId { get; set; }
-        //[DisplayName("會員ID")]
-        //public string MemberId { get; set; }
-        //[DisplayName("姓名")]
-        //[Required(ErrorMessage = "姓名不可以空白")]
-        //public string MemberName { get; set; }
-        //[DisplayName("生日")]
-        //[Required(ErrorMessage = "生日不可以空白")]
-        //public DateTime? MemberBirthday { get; set; }
-        //[DisplayName("性別")]
-        //[Required(ErrorMessage = "性別不可以空白")]
-        //public string MemberGender { get; set; }
-        //[DisplayName("身分證字號")]
-        //[Required(ErrorMessage = "身分證字號不可以空白")]
-        //public string MemberIdentity { get; set; }
-
-        //[DisplayName("電話(註冊時設為帳號)")]
-
-        //[Required(ErrorMessage = "電話不可以空白")]
-        //public string MemberPhone { get; set; }
-        //[DisplayName("電子信箱")]
-        //[Required(ErrorMessage = "電子信箱不可以空白")]
-        //[EmailAddress]
-        //public string MemberEmail { get; set; }
-        //[DisplayName("照片")]
-        //public string MemberPhoto { get; set; }
-        //[DisplayName("密碼")]
-        //[Required(ErrorMessage = "密碼不可以空白")]
-
-        //public string MemberPassword { get; set; }
-
-        //[DisplayName("會員等級")]
-        //public string MemberLavel { get; set; }
-        //[DisplayName("累積消費金額")]
-        //public string MemberOrderTotal { get; set; }
 
         public virtual RoomAdmin Admin { get; set; }
         public virtual ICollection<Comment> Comment { get; set; }
