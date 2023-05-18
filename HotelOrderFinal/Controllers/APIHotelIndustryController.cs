@@ -9,7 +9,7 @@ namespace HotelOrderFinal.Controllers
     [ApiController]
     public class APIHotelIndustryController : ControllerBase
     {
-        // GET: api/<APIHotelIndustryController>
+        // GET: api/<APIHotelIndustryController >
         [HttpGet]
         public IEnumerable<HotelIndustry> Get ( int hotelRegionId )
         {
