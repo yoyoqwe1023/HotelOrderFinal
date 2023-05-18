@@ -385,8 +385,13 @@ namespace HotelOrderFinal.Controllers
                 TempData["ErrorMessage"] = "新密碼兩次輸入不一致";
                 return View("EditPassword", "model");
             }
-           
-                cust.MemberPassword = change.NewPassword;             
+            if (cust.MemberPassword != change.OldPassword)
+            {
+                ModelState.AddModelError("OldPassword", "舊密碼不正確");
+                TempData["ErrorMessage"] = "舊密碼不正確";
+                return View("EditPassword", "model");
+            }
+            cust.MemberPassword = change.NewPassword;             
                 db.SaveChanges();
                 // 在ViewBag中设置密码重置成功的消息
                 ViewBag.ResetSuccessMessage = "您的密碼已重設。";
