@@ -103,26 +103,24 @@
 
                         @if (Model != null)
                         {
-                            foreach (var item in Model)
+                            var customOrder = new List<string> { "簡奢", "日式", "北歐", "總統" };
+                            @foreach (var item in Model.OrderBy(x => customOrder.FindIndex(c => x.RoomClassName.Contains(c))))
                             {
                                 <div class="col-lg-3 col-sm-6">
                                     <div class="accomodation_item text-center">
                                         <div class="hotel_img">
-                                            @* <img src="~/image/room1.jpg" alt="">*@
-                                            @*<img src="~/image/room/@item.RoomClassPhoto1" width="320" height="240" />*@
+                                            
                                             <a href="@Url.Action("Detail", "Room", new { id = item.RoomClassId })">
                                                 <img src="~/image/room/@item.RoomClassPhoto1" width="320" height="240" />
-                                            </a>
-                                            @*<a href="#" class="btn theme_btn button_hover">Book Now</a>*@
-                                            @*@Html.ActionLink("Book Now", "Detail", "Room",new {  id=item.RoomClassId}, new { @class = "btn theme_btn button_hover" })*@
+                                            </a>                                         
                                         </div>
                                         <a href="@Url.Action("Detail", "Room", new { id = item.RoomClassId })">
                                             <h4 class="sec_h4">@Html.DisplayFor(modelItem => item.RoomClassName)</h4>
                                         </a>
-                                        @* <a href="#"><h4 class="sec_h4">@Html.DisplayFor(modelItem => item.RoomClassName)</h4></a>*@
+                                       
                                         <h5>@Html.DisplayFor(modelItem => item.HolidayPrice)<small>/night</small></h5>
                                     </div>
-                                    @*@Html.ActionLink("Edit", "Edit", "Room",new {  id=item.RoomClassId})*@
+                                   
                                 </div>
                             }
                         }
