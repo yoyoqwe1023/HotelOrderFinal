@@ -1,4 +1,5 @@
-﻿@model IEnumerable<HotelOrderFinal.Models.DiscountDetail>
+﻿@*@model IEnumerable<HotelOrderFinal.Models.DiscountDetail>*@
+@*@model IEnumerable<HotelOrderFinal.ViewModels.COrderDetailViewModel>*@
 
 <section class="breadcrumb_area">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
@@ -13,7 +14,12 @@
         textarea {
             width: 80%;
         }
+
+        .even-row {
+            background-color: #f0f0f0;
+        }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 
@@ -50,8 +56,8 @@
                 <h2>訂房明細</h2>
             </div>
             <div style="margin:10px;">
-                <table style="box-sizing: border-box ; width:100% ;text-align:center;">
-                    <tbody>
+                <table id="SessionRoomList" style="box-sizing: border-box ; width:100% ;text-align:center;">
+                    @*<tbody>
                         <tr style="background-color: #f0f0f0;">
                             <th width="25%">住宿時間</th>
                             <th width="25%">房間類型</th>
@@ -67,17 +73,16 @@
                             <td>0</td>
                             <td>NT$ 4000</td>
                             <td>刪除</td>
-                        </tr>
-                    </tbody>
+                        </tr>                       
+                    </tbody>*@
                 </table>
                 <hr />
-                <div>
+             @*   <div>
                     <h4>備注</h4>
-                    @* <input type="text" style="border:dashed 	#D3D3D3; width:100%" />*@
                     <textarea width=100% rows="1"></textarea>
-                </div>
+                </div>*@
             </div>
-
+            @*     <input type="text" style="border:dashed 	#D3D3D3; width:100%" />*@
         </div>
 
         <div style="border:solid green;margin-bottom:10px;margin-top:10px;">
@@ -86,12 +91,12 @@
             </div>
             <div class="form-group col-md-2">
                 <select>
-            @foreach ( var item in Model )
+            @*@foreach ( var item in Model )
             {
 
               <option value="@Html.DisplayFor(modelItem => item.Discount.DiscountName)">@Html.DisplayFor(modelItem => item.Discount.DiscountName)</option>
 
-            }
+            }*@
                 </select>
             </div>
 
@@ -123,3 +128,91 @@
         </div>
     </div>
 </body>
+
+<script>
+
+
+     //頁面載入時載入購物車內容
+    $(document).ready(function () {
+        loadCartFromSession();
+    });
+
+
+    function loadCartFromSession() {
+        fetch('/Order/GetShopCartOrderDetailSession', {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        })
+            .then(response => response.json())
+            .then(cartData => {
+                const cartItemsDiv = $('#SessionRoomList');
+                cartItemsDiv.empty();
+
+                if (cartData !== null) {
+                    const headerRow = $('<tr></tr>').css('background-color', '#f0f0f0');
+                    headerRow.append($('<th></th>').attr('width', '25%').text('住宿時間'));
+                    headerRow.append($('<th></th>').attr('width', '25%').text('房間類型'));
+                    headerRow.append($('<th></th>').attr('width', '10%').text('數量'));
+                    headerRow.append($('<th></th>').attr('width', '15%').text('人數'));
+                    headerRow.append($('<th></th>').attr('width', '15%').text('小計'));
+                    headerRow.append($('<th></th>').attr('width', '10%').text('刪除'));
+
+                    cartItemsDiv.append(headerRow);
+                    cartData.forEach((item, index) => {
+
+                        const itemRow = $('<tr></tr>');
+                        const dateCell = $('<td></td>');
+                        dateCell.append($('<p></p>').text('入住日期'));
+                        const formattedCheckInDate = new Date(item.checkInDate).toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' });
+                        dateCell.append($('<p></p>').text(formattedCheckInDate));
+                        dateCell.append($('<p></p>').text('退房日期'));
+                        const formattedCheckOutDate = new Date(item.checkOutDate).toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' });
+                        dateCell.append($('<p></p>').text(formattedCheckOutDate));
+                        itemRow.append(dateCell);
+
+                        itemRow.append($('<td></td>').text(item.roomClassName));
+                        itemRow.append($('<td></td>').text('1'));
+                        itemRow.append($('<td></td>').text('0'));
+                        itemRow.append($('<td></td>').text('NT$ ' + item.weekdayPrice));
+
+                        // 为偶数行添加不同的底色
+                        if (index % 2 === 1) {
+                            itemRow.addClass('even-row');
+                        }
+
+                        const deleteCell = $('<td></td>');
+                        const deleteButton = $('<button></button>').text('刪除').addClass('delete-button');
+                        const itemId = 'item-' + item.fId;
+                        itemRow.attr('data-item-id', itemId); // 设置正确的 data-item-id 属性
+                        deleteButton.click(() => {
+
+                            // 在按钮点击时弹出删除确认框
+                            if (confirm('確定要刪除此項目嗎？')) {
+                                // 执行删除操作
+                                const rowToDelete = cartItemsDiv.find('[data-item-id="' + itemId + '"]'); // 查找要删除的行
+                                rowToDelete.remove(); // 从表格中删除对应的行
+
+                                // 使用 itemId 作为参数调用删除会话数据的函数
+                                deleteSessionData(itemId);
+                            }
+                        });
+                        deleteCell.append(deleteButton);
+                        itemRow.append(deleteCell);
+
+                        cartItemsDiv.append(itemRow);
+                    });
+                }
+            });
+    }
+
+    //刪除session內的房間
+    function deleteSessionData(FId) {
+        $.ajax({
+            url: '/Order/DeleteSessionData',
+            method: 'POST',
+            data: { FId: FId },
+        });
+    }
+
+
+</script>

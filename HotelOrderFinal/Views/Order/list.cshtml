@@ -213,6 +213,7 @@ model IEnumerable<String>
         } );
     };
 
+    //加入購物車
     function addRoomToCart(rcId) {
         var checkInDate = document.getElementById("checkInDate").value;
         var checkOutDate = document.getElementById("checkOutDate").value;
@@ -264,6 +265,8 @@ model IEnumerable<String>
                 });
             });
     }
+
+//讀取購物車的session 
 function loadCartFromSession() {
     fetch('/Order/GetShopCartFromSession', {
         method: 'GET',

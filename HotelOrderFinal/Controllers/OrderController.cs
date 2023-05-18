@@ -163,6 +163,7 @@ namespace HotelOrderFinal.Controllers
 
         }
 
+        //房間加入購物車
         public ActionResult AddShopCart(string RoomClassId)
         {
             HotelOrderContext db = new HotelOrderContext();
@@ -170,8 +171,7 @@ namespace HotelOrderFinal.Controllers
 
             string checkInDateStr = HttpContext.Session.GetString("CHECKINDATE");
             string checkOutDateStr = HttpContext.Session.GetString("CHECKOUTDATE");
-
-         
+                     
             if (roomClass != null)
             {
                 DateTime checkInDate;
@@ -191,8 +191,16 @@ namespace HotelOrderFinal.Controllers
                         cartList = new List<CShopCartViewModel>();
                     }
 
+                    int fId = 0;
+
+                    if (cartList.Count > 0)
+                    {
+                        fId = cartList.Max(item => item.FId) + 1;
+                    }
+
                     CShopCartViewModel cartItem = new CShopCartViewModel();
                     {
+                        cartItem.FId = fId;
                         cartItem.RoomClassName = roomClass.RoomClassName;
                         cartItem.RoomClassPhoto1 = roomClass.RoomClassPhoto1;
                         cartItem.RoomClassSize = roomClass.RoomClassSize;
@@ -228,14 +236,50 @@ namespace HotelOrderFinal.Controllers
             return Json(cartList);
         }
 
+        //進入訂單明細顯示顯示購物車session內容
+        public ActionResult GetShopCartOrderDetailSession()
+        {
+            string json = HttpContext.Session.GetString("CartData");
+            List<CShopCartViewModel> cartList = null;
 
+            if (!string.IsNullOrEmpty(json))
+            {
+                cartList = JsonSerializer.Deserialize<List<CShopCartViewModel>>(json);
+            }
 
+            return Json(cartList);
+        }
+
+        //刪除session
+        [HttpPost]
+        public void DeleteSessionData(int FId)
+        {
+            string json = HttpContext.Session.GetString("CartData");
+            List<CShopCartViewModel> cartList = null;
+
+            if (!string.IsNullOrEmpty(json))
+            {
+                cartList = JsonSerializer.Deserialize<List<CShopCartViewModel>>(json);
+
+                // 查找并删除具有相同RoomClassName的项目
+                cartList.RemoveAll(item => item.FId == FId);
+
+                // 将更新后的数据重新存入会话
+                string updatedJson = JsonSerializer.Serialize(cartList);
+                HttpContext.Session.SetString("CartData", updatedJson);
+            }
+            
+        }
+
+        //訂房明細頁面
         public IActionResult Detail()
         {
             if (HttpContext.Session.GetString("UserID") == null)
             {
                 return RedirectToAction("Login", "Member");
             }
+
+
             var userId = _contextAccessor.HttpContext.Session.GetString("UserID");
             HotelOrderContext db = new HotelOrderContext();
             IEnumerable<DiscountDetail> usesid = db.DiscountDetail.Where(x => x.MemberId == userId);
