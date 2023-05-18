@@ -4,12 +4,12 @@
     {
         private Activity _activity;
 
-            public Activity activity
+        public Activity activity
         {
             get { return _activity; }
-            set { _activity = value;}
+            set { _activity = value; }
         }
- 
+
         public CActivityWrap()
         {
             activity = new Activity();
@@ -24,7 +24,7 @@
         {
             get { return _activity.ActivityName; }
             set { _activity.ActivityName = value; }
-        } 
+        }
         public string? ActivityImage
         {
             get { return _activity.ActivityImage; }
@@ -56,7 +56,6 @@
             set { _activity.ActivityCost = value; }
         }
         public IFormFile photo { get; set; }
-        public virtual ICollection<ActivityReference> ActivityReferences { get; set; }
+        
     }
 }
-

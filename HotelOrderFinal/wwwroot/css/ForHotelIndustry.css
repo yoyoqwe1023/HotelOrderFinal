@@ -21,7 +21,7 @@
     color: #fff;
 }
 .bgimg {
-    background: url(../../image/Nordic.jpg) no-repeat scroll center 0/cover;
+    background: url("../../image/Nordic.jpg") no-repeat scroll center 0/cover;
     opacity: 0.50;
 }
 .mycol {
