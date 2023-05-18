@@ -202,8 +202,20 @@ namespace HotelOrderFinal.Controllers
                 }
                 json = JsonConvert.SerializeObject(_cart);
 
+                //購物車資訊存進Session
+                HttpContext.Session.SetString("CartData", json);
+
             return Json(json);
         }
+
+        //網頁更新時顯示購物車session內容
+        public ActionResult GetShopCartFromSession()
+        {
+            string cartData = HttpContext.Session.GetString("CartData");
+            return Json(cartData);
+        }
+
+
 
         public IActionResult Detail()
         {
