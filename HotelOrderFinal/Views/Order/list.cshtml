@@ -190,7 +190,8 @@ model IEnumerable<String>
                             </tr>
                         </table>
                         <div class="mt-3" style="margin-bottom:10px;">
-                            <a href="#">@Html.ActionLink("立即訂購", "Detail", "Order", null, new { @class = "btn btn-primary btn-block" })</a>
+
+                           <a href="#" id="orderButton" class="btn btn-primary btn-block">立即訂購</a>
                         </div>
                     </div>
                 </div>
@@ -335,5 +336,20 @@ function loadCartFromSession() {
     $(document).ready(function () {
         loadCartFromSession();
     });
+
+    $('#orderButton').click(function (event) {
+    event.preventDefault(); // 阻止默認的超連結行為
+
+    // 檢查購物車內容是否為空
+    if ($('#ShopCart').is(':empty')) {
+        // 購物車內容為空，顯示確認提示框
+        alert('購物車內容為空，請先選擇入住房型')         
+    } else {
+        // 購物車內容不為空，直接執行跳轉
+        window.location.href = "/Order/Detail";
+    }
+});
+
+
 
 </script>
