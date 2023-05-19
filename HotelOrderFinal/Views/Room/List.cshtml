@@ -7,10 +7,10 @@
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
         <div class="page-cover text-center">
-            <h2 class="page-cover-tittle">Room</h2>
+            <h2 class="page-cover-tittle">房型一覽</h2>
             <ol class="breadcrumb">
-                <li><a href="index.html">Home</a></li>
-                <li class="active">Room</li>
+                <li><a href="index.html">首頁</a></li>
+                <li class="active">房型</li>
             </ol>
         </div>
 
@@ -68,8 +68,8 @@
 <section class="accomodation_area section_gap">
     <div class="container">
         <div class="section_title text-center">
-            <h2 class="title_color">Normal Accomodation</h2>
-            <p>We all live in an age that belongs to the young at heart. Life that is becoming extremely fast,</p>
+            <h2 class="title_color">品味·風格·選擇</h2>
+            <p>豪華住宿，無與倫比的舒適</p>
             <ul class="nav justify-content-center">
                 <li class="nav-item">
                     <a data-toggle="tab" href="#allRooms">
@@ -103,26 +103,24 @@
 
                         @if (Model != null)
                         {
-                            foreach (var item in Model)
+                            var customOrder = new List<string> { "簡奢", "日式", "北歐", "總統" };
+                            @foreach (var item in Model.OrderBy(x => customOrder.FindIndex(c => x.RoomClassName.Contains(c))))
                             {
                                 <div class="col-lg-3 col-sm-6">
                                     <div class="accomodation_item text-center">
                                         <div class="hotel_img">
-                                            @* <img src="~/image/room1.jpg" alt="">*@
-                                            @*<img src="~/image/room/@item.RoomClassPhoto1" width="320" height="240" />*@
+                                            
                                             <a href="@Url.Action("Detail", "Room", new { id = item.RoomClassId })">
                                                 <img src="~/image/room/@item.RoomClassPhoto1" width="320" height="240" />
-                                            </a>
-                                            @*<a href="#" class="btn theme_btn button_hover">Book Now</a>*@
-                                            @*@Html.ActionLink("Book Now", "Detail", "Room",new {  id=item.RoomClassId}, new { @class = "btn theme_btn button_hover" })*@
+                                            </a>                                         
                                         </div>
                                         <a href="@Url.Action("Detail", "Room", new { id = item.RoomClassId })">
                                             <h4 class="sec_h4">@Html.DisplayFor(modelItem => item.RoomClassName)</h4>
                                         </a>
-                                        @* <a href="#"><h4 class="sec_h4">@Html.DisplayFor(modelItem => item.RoomClassName)</h4></a>*@
+                                       
                                         <h5>@Html.DisplayFor(modelItem => item.HolidayPrice)<small>/night</small></h5>
                                     </div>
-                                    @*@Html.ActionLink("Edit", "Edit", "Room",new {  id=item.RoomClassId})*@
+                                   
                                 </div>
                             }
                         }

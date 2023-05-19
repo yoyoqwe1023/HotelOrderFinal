@@ -8,17 +8,20 @@
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
         <div class="page-cover text-center">
-            <h2 class="page-cover-tittle">About Us</h2>
+            <h2 class="page-cover-tittle">評論一覽</h2>
             <ol class="breadcrumb">
-                <li><a href="index.html">Home</a></li>
-                <li class="active">About</li>
+                <li><a href="index.html">首頁</a></li>
+                <li class="active">評論</li>
             </ol>
         </div>
     </div>
 </section>
 <head>
-    <title>評點&評論</title>
+    <title>評點&評價</title>
     <style>
+        div {
+        }
+
         .card-text {
             display: -webkit-box;
             -webkit-box-orient: vertical;
@@ -26,49 +29,53 @@
             line-clamp: 2;
             overflow: hidden;
         }
+
+        .card-img {
+            display: block;
+            margin: 0 auto;
+        }
     </style>
 </head>
 <body>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-2" style="background-color: #f2f2f2;">
-                <h2>左欄內容</h2>
-                <p>
-                    <a asp-action="Create">前往訂房</a>
-                </p>
-            </div>
-
+        <div class="row" style="background-color: #dcebfd;">
+            <div class="col-md-2"></div>
             <div class="col-md-10">
-                <p>
-                    @using (Html.BeginForm())
-                    {
-                        @:關鍵字 @Html.TextBox("txtKeyword") <input type="submit" value="查詢">
-                    }
-                </p>
-                <p>
-                    <a asp-action="Create" class="btn btn-info">請寫下您寶貴的意見</a>
-                </p>
-                <div class="d-flex flex-wrap">
-                    @foreach (var item in Model)
-                    {
-                        <div class="col-4 col-1-sm-6">
-                            <div class="card" style="width: 20rem;">
-                                <div class="card-body">
-                                    <input type="hidden" value="@Html.DisplayFor(modelItem => item.CommentId)" />
-                                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.CommentDate)</h5>
-                                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.MemberId)</h5>
+                <div class="page-cover text-left">
+                    <p>
+                        @using (Html.BeginForm())
+                        {
+                            @:關鍵字 @Html.TextBox("txtKeyword") <input type="submit" value="查詢">
+                        }
+                    </p>
+                    <p>
+@*                        <a asp-action="Create" class="btn btn-info">請寫下您寶貴的意見</a>
+*@                        <a href="#" class="btn btn-info" data-toggle="modal" data-target="#myAccountModal" data-backdrop="false">請寫下您寶貴的意見</a>
+                    </p>
+                    <div class="d-flex flex-wrap">
+                        @foreach (var item in Model)
+                        {
+                            <div class="col-4 col-1-sm-6">
+                                <div class="card" style="width: 20rem; border-radius:10px">
 
-                                    <h6 class="card-subtitle mb-2 text-body-secondary">
-                                       @for (var i = 0; i < item.CommentPoint; i++)
-                                       {
-                                         <img src="../image/comment/shining.png">
-                                       }
-                                       @Html.DisplayFor(modelItem => item.CommentPoint)</h6>
-                                    <p class="card-text; lnr-highlight:16rem;">@Html.DisplayFor(modelItem => item.CommentDetail)</p>
+                                    <div class="card-body">
+                                        <input type="hidden" value="@Html.DisplayFor(modelItem => item.CommentId)" />
+                                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.CommentDate)</h5>
+                                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.MemberId)</h5>
+                                        <h6 class="card-subtitle mb-2 text-body-secondary">
+                                            @for (var i = 0; i < item.CommentPoint; i++)
+                                            {
+                                                <img src="../image/comment/shining.png">
+                                            }
+                                            @Html.DisplayFor(modelItem => item.CommentPoint)
+                                        </h6>
+                                        <p class="card-text; lnr-highlight:16rem;">@Html.DisplayFor(modelItem => item.CommentDetail)</p>
+                                    </div>
+
                                 </div>
                             </div>
-                        </div>
-                    }
+                        }
+                    </div>
                 </div>
             </div>
         </div>
