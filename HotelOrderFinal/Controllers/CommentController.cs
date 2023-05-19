@@ -25,29 +25,39 @@ namespace HotelOrderFinal.Controllers
                 datas = db.Comment
                     .Where(p => p.CommentDetail.Contains(vm.txtKeyword))
                     .OrderByDescending(p => p.CommentDate);
-            //var datas = db.Comments.Include("RoomMembers");
             return View(datas);
         }
         public IActionResult ListByMember(string? UserID)
         {
             var userId = _contextAccessor.HttpContext.Session.GetString("UserID");
             HotelOrderContext db = new HotelOrderContext();
-            IEnumerable<Comment> member = db.Comment.Where(t => t.MemberId == userId);
+            IEnumerable<Comment> member = db.Comment
+                                          .Where(t => t.MemberId == userId)
+                                          .OrderByDescending(p => p.CommentDate);
             if (member == null)
-                return RedirectToAction("List");
+                return RedirectToAction("ListByMemberAll");
             return View(member);
+        }
+
+        public IActionResult ListByMemberAll(CKeywordViewModel vm)
+        {
+            HotelOrderContext db = new HotelOrderContext();
+            IEnumerable<Comment> datas = null;
+            if (string.IsNullOrEmpty(vm.txtKeyword))
+                datas = from c in db.Comment
+                        orderby c.CommentDate descending
+                        select c;
+            else
+                datas = db.Comment
+                    .Where(p => p.CommentDetail.Contains(vm.txtKeyword))
+                    .OrderByDescending(p => p.CommentDate);
+            return View(datas);
         }
         public IActionResult Create(string? UserID)
         {
-            if (HttpContext.Session.GetString("UserID") == null)
-            {
-                return RedirectToAction("Login", "Member");
-            }
             var userId = _contextAccessor.HttpContext.Session.GetString("UserID");
             ViewBag.UserID = userId;
             return View();
-            //ViewBag.MemberId = userid;
-            //return View(userid);
         }
         [HttpPost]
         public IActionResult Create(Comment p)

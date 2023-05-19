@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<HotelOrderFinal.Models.Comment>
 
 @{
-    ViewData["Title"] = "List";
+    ViewData["Title"] = "ListByMemberAll";
 }
 
 <section class="breadcrumb_area">
@@ -21,7 +21,6 @@
     <style>
         div {
         }
-
         .card-text {
             display: -webkit-box;
             -webkit-box-orient: vertical;
@@ -29,7 +28,6 @@
             line-clamp: 2;
             overflow: hidden;
         }
-
         .card-img {
             display: block;
             margin: 0 auto;
@@ -48,10 +46,9 @@
                             @:關鍵字 @Html.TextBox("txtKeyword") <input type="submit" value="查詢">
                         }
                     </p>
+                    <p></p>
                     <p>
-@*                        <a asp-action="Create" class="btn btn-info">請寫下您寶貴的意見</a>
-*@                        <a href="#" class="btn btn-info" data-toggle="modal" data-target="#myAccountModal" data-backdrop="false">請寫下您寶貴的意見</a>
-                    </p>
+                       <a asp-action="Create" class="btn btn-info">請寫下您寶貴的意見</a>
                     <div class="d-flex flex-wrap">
                         @foreach (var item in Model)
                         {
@@ -71,7 +68,6 @@
                                         </h6>
                                         <p class="card-text; lnr-highlight:16rem;">@Html.DisplayFor(modelItem => item.CommentDetail)</p>
                                     </div>
-
                                 </div>
                             </div>
                         }
