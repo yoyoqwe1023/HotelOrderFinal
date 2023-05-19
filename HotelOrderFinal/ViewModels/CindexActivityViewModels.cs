@@ -2,7 +2,7 @@
 {
     public class CindexActivityViewModels
     {
-        public int ActivityID;
+        public List<int> ActivityID;
         public List<string> ActivityImage;
     }
 }

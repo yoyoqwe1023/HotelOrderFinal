@@ -301,21 +301,37 @@
             {
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-
+                        <a href="@Url.Action("ActivityByDetails", "Activity", new { id = Model.ActivityID[i] })">
                         <img src="~/image/@Model.ActivityImage[i]" style="width:360px;height:360px" alt="Slide 1">
+                        </a>
+                        <a href="@Url.Action("ActivityByDetails", "Activity", new { id = Model.ActivityID[i+1] })">
                         <img src="~/image/@Model.ActivityImage[i+1]" style="width:360px;height:360px" alt="Slide 2">
+                        </a>
+                        <a href="@Url.Action("ActivityByDetails", "Activity", new { id = Model.ActivityID[i+2] })">
                         <img src="~/image/@Model.ActivityImage[i+2]" style="width:360px;height:360px" alt="Slide 3">
+                        </a>
                     </div>
                     <div class="carousel-item">
+                        <a href="@Url.Action("ActivityByDetails", "Activity", new { id = Model.ActivityID[i+3] })">
                         <img src="~/image/@Model.ActivityImage[i+3]" style="width:360px;height:360px" alt="Slide 1">
+                        </a>
+                        <a href="@Url.Action("ActivityByDetails", "Activity", new { id = Model.ActivityID[i+4] })">
                         <img src="~/image/@Model.ActivityImage[i+4]" style="width:360px;height:360px" alt="Slide 2">
+                        </a>
+                        <a href="@Url.Action("ActivityByDetails", "Activity", new { id = Model.ActivityID[i+5] })">
                         <img src="~/image/@Model.ActivityImage[i+5]" style="width:360px;height:360px" alt="Slide 3">
-
+                        </a>
                     </div>
                     <div class="carousel-item">
+                        <a href="@Url.Action("ActivityByDetails", "Activity", new { id = Model.ActivityID[i+6] })">
                         <img src="~/image/@Model.ActivityImage[i+6]" style="width:360px;height:360px" alt="Slide 1">
+                        </a>
+                        <a href="@Url.Action("ActivityByDetails", "Activity", new { id = Model.ActivityID[i+7] })">
                         <img src="~/image/@Model.ActivityImage[i+7]" style="width:360px;height:360px" alt="Slide 2">
+                        </a>
+                        <a href="@Url.Action("ActivityByDetails", "Activity", new { id = Model.ActivityID[i+8] })">
                         <img src="~/image/@Model.ActivityImage[i+8]" style="width:360px;height:360px" alt="Slide 3">
+                        </a>
                     </div>
                 </div>
                 i += 9;
