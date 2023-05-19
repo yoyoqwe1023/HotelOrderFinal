@@ -5,6 +5,10 @@
     {
         Layout = "_LayoutMember";
     }
+    else if ( httpContext.Session.GetString ( "LayoutMessage" ) == "_LayoutAdmin" )
+    {
+        Layout = "_LayoutAdmin";
+    }
     else
     {
         Layout = "_Layout";

@@ -1,0 +1,106 @@
+﻿@model IEnumerable<HotelOrderFinal.Models.Admin>
+
+@{
+    ViewData ["Title"] = "List";
+}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle">後台管理系統</h2>
+        </div>
+    </div>
+</section>
+
+<div class="Adminwrapper">
+
+    <div class="row">
+
+        @*//【側邊欄位】==========================================================================*@
+        <div class="col-xs-12 col-md-3">
+            <div class=" ">
+                <div class=" ">
+                    <div class="">
+                        @{
+                            var AdminId = Context.Session.GetString ( "AdminId" );
+                        }
+                        <h2 class="">@AdminId</h2>
+                    </div>
+                </div>
+                <div class="">
+                    <ul class=" " style="list-style: none;">
+                        <li class="">
+                            @Html.ActionLink("活動管理", "Edit", "Member", null, new { @class = "nav-link Adminbutton d-flex justify-content-center" })
+                        </li>
+                        <li class="">
+                            @Html.ActionLink("訂房管理", "EditPassword", "Member", null, new { @class = "nav-link Adminbutton d-flex justify-content-center" })
+                        </li>
+                        <li class="">
+                            @Html.ActionLink("會員管理", "ShoppingCar", "Member", null, new { @class = "nav-link Adminbutton d-flex justify-content-center" })
+                        </li>
+                        <li class="">
+                            @Html.ActionLink("飯店一覽管理", "MemberTerms", "Member", null, new { @class = "nav-link Adminbutton d-flex justify-content-center" })
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--這個區塊放圖表-->
+        <table class="table  col-md-3">
+            <thead>
+                <canvas id="myChart" class="Admincanvas"></canvas>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <!--這div要有，不然版面會亂-->
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+</div>
+
+<script>
+    const ctx = document.getElementById('myChart');
+    const config = {
+  type: 'pie',
+  data: data,
+};
+const data = {
+  labels: [
+    'Red',
+    'Blue',
+    'Yellow'
+  ],
+  datasets: [{
+    label: 'My First Dataset',
+    data: [300, 50, 100],
+    backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 205, 86)'
+    ],
+    hoverOffset: 4
+  }]
+};
+const data = {
+  labels: [
+    'Red',
+    'Blue',
+    'Yellow'
+  ],
+  datasets: [{
+    label: 'My First Dataset',
+    data: [300, 50, 100],
+    backgroundColor: [
+      'rgb(255, 99, 132)',
+      'rgb(54, 162, 235)',
+      'rgb(255, 205, 86)'
+    ],
+    hoverOffset: 4
+  }]
+};
+</script>

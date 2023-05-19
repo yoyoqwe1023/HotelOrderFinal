@@ -1,0 +1,18 @@
+﻿.Adminwrapper {
+    width: 80%; /* 設定容器寬度 */
+    margin: 0 auto; /* 將容器置中對齊 */
+}
+.Adminbutton {
+    /*color: black;*/
+    color: #E0E0E0;
+    /*background-color: #F0F0F0;*/
+    background-color: #272727;
+    border: 1px solid transparent;
+    border-color: black black black;
+    margin: 5px;
+    font-size:larger
+}
+.Admincanvas{
+    width:600px;
+    height:100px;
+}
