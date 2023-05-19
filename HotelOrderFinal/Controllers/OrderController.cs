@@ -269,6 +269,7 @@ namespace HotelOrderFinal.Controllers
             }
         }
 
+
         //訂房明細頁面
         public IActionResult Detail()
         {

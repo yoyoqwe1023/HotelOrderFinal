@@ -181,7 +181,7 @@ model IEnumerable<String>
                     <div>
                         <table>
                             <tr>
-                                <th class="h5" width="30%">
+                                <th class="h5" width="40%">
                                     應付金額:
                                 </th>
                                 <td id="ShopCartTotalPrice"  class="text-right">
@@ -285,9 +285,9 @@ function loadCartFromSession() {
     .then(cartData => {
         const cartItemsDiv = $('#ShopCart');
         cartItemsDiv.empty();
-             
+               
         if (cartData !== null) {
-                   
+                    let totalPrice = 0;
                     cartData.forEach((item) => {
                 const itemRow = $('<tr></tr>');
                 itemRow.append($('<th></th>').attr('width', '40%').text('房間類型'));
@@ -320,8 +320,13 @@ function loadCartFromSession() {
                 itemRow6.append($('<th></th>').attr('width', '100px').text('小計'));
                 itemRow6.append($('<td></td>').text('NT$ ' + item.weekdayPrice));
                 cartItemsDiv.append(itemRow6);
+
+                        totalPrice += item.weekdayPrice;
             });
+                    const totalPriceCell = $('<td></td>').addClass('text-right').text('NT$ ' + totalPrice);
+                    $('#ShopCartTotalPrice').empty().append(totalPriceCell);
         }
+          
     });
 }
 

@@ -109,7 +109,7 @@
                         </tr>
                         <tr>
                             <th>總金額</th>
-                            <td class="text-center">NT$ 400</td>
+                            <td id="OrderDetailTotalPrice" class="text-center">NT$ 0</td>
                         </tr>
                     </table>
                 </div>
@@ -144,6 +144,7 @@
                 cartItemsDiv.empty();
 
                 if (cartData !== null) {
+                    let totalPrice = 0;
                     const headerRow = $('<tr></tr>').css('background-color', '#f0f0f0');
                     headerRow.append($('<th></th>').attr('width', '25%').text('住宿時間'));
                     headerRow.append($('<th></th>').attr('width', '25%').text('房間類型'));
@@ -188,17 +189,31 @@
                                 
                                 //抓取刪除列的FId
                                 const rowToDelete = cartItemsDiv.find('[data-item-id="' + itemId + '"]');
-                                rowToDelete.remove(); 
 
+                                //刪除價格
+                                const itemPrice = item.weekdayPrice;
+                                totalPrice -= itemPrice;
+
+                                rowToDelete.remove(); 
+                                const extractedFId = itemId.split('-')[1];
                                 //執行刪除function
-                                deleteSessionData(itemId);
+                                deleteSessionData(extractedFId);
+
+                                //更新價格
+                                const totalPriceCell = $('<td></td>').addClass('text-right').text('NT$ ' + totalPrice);
+                                $('#OrderDetailTotalPrice').empty().append(totalPriceCell);
                             }
                         });
                         deleteCell.append(deleteButton);
                         itemRow.append(deleteCell);
 
                         cartItemsDiv.append(itemRow);
+
+                        totalPrice += item.weekdayPrice
+
                     });
+                    const totalPriceCell = $('<td></td>').addClass('text-right').text('NT$ ' + totalPrice);
+                    $('#OrderDetailTotalPrice').empty().append(totalPriceCell);
                 }
             });
     }
