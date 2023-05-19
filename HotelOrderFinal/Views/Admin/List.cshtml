@@ -50,7 +50,9 @@
         <!--這個區塊放圖表-->
         <table class="table  col-md-3">
             <thead>
-                <canvas id="myChart" class="Admincanvas"></canvas>
+                <div class="justify-content-center">
+                <canvas id="myChart"></canvas>
+                </div>
             </thead>
             <tbody>
             </tbody>
@@ -64,12 +66,7 @@
 </div>
 
 <script>
-    const ctx = document.getElementById('myChart');
-    const config = {
-  type: 'pie',
-  data: data,
-};
-const data = {
+    const data = {
   labels: [
     'Red',
     'Blue',
@@ -86,21 +83,17 @@ const data = {
     hoverOffset: 4
   }]
 };
-const data = {
-  labels: [
-    'Red',
-    'Blue',
-    'Yellow'
-  ],
-  datasets: [{
-    label: 'My First Dataset',
-    data: [300, 50, 100],
-    backgroundColor: [
-      'rgb(255, 99, 132)',
-      'rgb(54, 162, 235)',
-      'rgb(255, 205, 86)'
-    ],
-    hoverOffset: 4
-  }]
+const config = {
+    type: 'pie',
+    data: data,
+        options: {
+        responsive: false,
+        maintainAspectRatio: false,
+        // 設置圖表尺寸
+        width: 400,
+        height: 400
+    }
 };
+const chart = new Chart(document.getElementById('myChart'), config);
+
 </script>
