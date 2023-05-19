@@ -7,48 +7,44 @@
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
         @*<div class="page-cover text-center">
-            <h2 class="page-cover-tittle">About Us</h2>
-            <ol class="breadcrumb">
-                <li><a href="index.html">Home</a></li>
-                <li class="active">About</li>
-            </ol>
+        <h2 class="page-cover-tittle">About Us</h2>
+        <ol class="breadcrumb">
+        <li><a href="index.html">Home</a></li>
+        <li class="active">About</li>
+        </ol>
         </div>*@
     </div>
 </section>
 
 <head>
-    <title>分欄網頁</title>
-@*    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>*@
+
     <style>
-        div{
-            
+        div {
         }
-    .card-text {
+
+        .card-text {
             display: -webkit-box;
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 2;
             line-clamp: 2;
             overflow: hidden;
-    }
+        }
 
-    .card-img{
+        .card-img {
             display: block;
             margin: 0 auto;
-    }
+        }
     </style>
 </head>
 <body>
     <div class="container-fluid">
         <div class="row" style="background-color: #dcebfd;">
-          @* -------------------------------------------------------
-              <div class="col-md-2" style="background-color: #f2f2f2;">
-                <h2>左欄內容</h2>
-                <p>
-                    <a asp-action="Create">前往訂房</a>
-                </p>
+            @* -------------------------------------------------------
+            <div class="col-md-2" style="background-color: #f2f2f2;">
+            <h2>左欄內容</h2>
+            <p>
+            <a asp-action="Create">前往訂房</a>
+            </p>
             </div>
             --------------------------------------------------------*@
             <div class="col-md-2"></div>
@@ -60,38 +56,38 @@
                         @{
                             foreach (var item in Model)
                             {
-                                
-                                        <div class="col-4 col-2-sm-5">
-                                            <div>
-                                                <input type="hidden" value="@Html.DisplayFor(modelItem => item.ActivityId)" />
-                                            </div>
-                                        <div class="card" style="width: 21rem;margin-bottom: 20px;">
-                                            <img class="card-img" src="~/image/@item.ActivityImage" width="320" height="240" />
-                                                <br>
-                                                
-                                                <div class="card-body">
-                                                <p>@Html.DisplayFor(modelItem => item.ActivityTime)</p>
-                                                    <h5 class="card-title"> @Html.DisplayFor(modelItem => item.ActivityName)</h5>
-                                                    <div class="card-text">@Html.DisplayFor(modelItem => item.ActivityDirections)</div>
-                                                    @*<a href="#" class="btn btn-primary">前往詳細內容</a>*@
-                                                <a href="@Url.Action("ActivityByDetails", "Activity", new { id = item.ActivityId })" class="btn btn-primary">前往詳細內容</a>
-                                                </div>
-                                            </div>
-                             
 
-                                            @*<td>
+                                <div class="col-4 col-2-sm-5">
+                                    <div>
+                                        <input type="hidden" value="@Html.DisplayFor(modelItem => item.ActivityId)" />
+                                    </div>
+                                    <div class="card" style="width: 21rem;margin-bottom: 20px;">
+                                        <img class="card-img" src="~/image/@item.ActivityImage" width="320" height="240" />
+                                        <br>
+
+                                        <div class="card-body">
+                                            <p>@Html.DisplayFor(modelItem => item.ActivityTime)</p>
+                                            <h5 class="card-title"> @Html.DisplayFor(modelItem => item.ActivityName)</h5>
+                                            <div class="card-text">@Html.DisplayFor(modelItem => item.ActivityDirections)</div>
+                                            @*<a href="#" class="btn btn-primary">前往詳細內容</a>*@
+                                            <a href="@Url.Action("ActivityByDetails", "Activity", new { id = item.ActivityId })" class="btn btn-primary">前往詳細內容</a>
+                                        </div>
+                                    </div>
+
+
+                            @*<td>
                             @Html.ActionLink("修改", "Edit", new {  id=item.ActivityId  }) |
                             @Html.ActionLink("刪除", "Delete","Customer", new {  id=item.ActivityId },new {onclick="return confirm('確定刪除嗎?')"})
                             </td>*@
 
                                 </div>
-                    }
+                            }
                         }
-               </div>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
             </div>
-            <div class="col-md-2"></div>
         </div>
-    </div>
     </div>
 </body>
 

@@ -39,7 +39,7 @@
         .left {
             width: 400px;
             float: left;
-            margin-left: 50px;
+            margin-left: 100px;
         }
 
         .t1 {
@@ -86,43 +86,48 @@
                                 <input type="hidden" asp-for="CommentDate" value=getdate() />
                                 <span asp-validation-for="CommentDate" class="text-danger"></span>
                             </div>
+
                             <div class="form-group">
-                                <input type="hidden" asp-for="MemberId" value="MB00001" />
+                                <input type="hidden" asp-for="MemberId" value="@ViewBag.UserID" />
                                 <span asp-validation-for="MemberId" class="text-danger"></span>
                             </div>
+
                             @*<div class="form-group">
                                 <label asp-for="RoomClassId" class="control-label"></label>
                                 <input asp-for="RoomClassId" />
                                 <span asp-validation-for="RoomClassId" class="text-danger"></span>
                             </div>*@
-
+@*                            <label>請先給予評點:</label>*@
                             <div id="stars" class="left">
                                 <img src="../image/comment/empty.png" title="非常失望" alt="">
                                 <img src="../image/comment/empty.png" title="不滿意" alt="">
                                 <img src="../image/comment/empty.png" title="普通" alt="">
                                 <img src="../image/comment/empty.png" title="滿意" alt="">
                                 <img src="../image/comment/empty.png" title="非常滿意" alt="">
+                                <span id="score" ></span>
                             </div>
-                            <p>評點: <span id="score"></span></p>
-
-                            <script src="../js/comment/start.js"></script>
-
-                            <input type="hidden" asp-for="CommentPoint" value=5 />
+                            <p></p>
+                            <input type="hidden" asp-for="CommentPoint" value="-1"/>
                             <span asp-validation-for="CommentPoint"></span>
-
-                            <br>
-
+                            <br></br>
                             <div class="sub">
                                 <label asp-for="CommentDetail" class="control-label"></label>
-                                <textarea asp-for="CommentDetail" cols="40" rows="5"></textarea>
+                                <textarea asp-for="CommentDetail" cols="40" rows="5" autofocus placeholder="請讓我們了解您的感受"></textarea>
                                 <span asp-validation-for="CommentDetail" class="text-danger"></span>
                             </div>
 
                             <div class="form-group">
-                                <input type="submit" value="送出" class="btn btn-primary" />
+                                <input type="submit" value="儲存" class="btn btn-primary" />
                                 <input type="reset" value="清除" class="btn btn-secondary" />
-                                <a asp-action="List" class="btn btn-warning">取消</a>
+                                <a asp-action="ListByMember" class="btn btn-warning">取消</a>
                             </div>
+                            <div class="form-group">
+                                 @using (Html.BeginForm("Create", "Comment",  new { id = "my-form-id" }))
+                                 {
+                                  <button type="button" class="btn btn-dark" onclick="demoComment()">Demo</button>
+                                 }
+                                 @ViewBag.Message
+                           </div>
                         </form>
                     </div>
                 </div>
@@ -131,8 +136,20 @@
         </div>
     </div>
 </body>
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+@section Scripts
+{
+    <script src="~/js/comment/commentpoint.js"></script>
+
+    <script type="text/javascript">
+        function demoComment() {
+            // 取得表單元素和欄位元素
+            var CommentDetail = document.getElementById("CommentDetail");
+            // 設定 Demo 評價
+            CommentDetail.value = "很舒適的住房體驗，浴室乾濕分離，獨立浴缸不會有邊角發霉問題，整體乾淨整潔。";
+            // 提交表單
+            form.submit();
+        }
+    </script>
+}
+}
     }

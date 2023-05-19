@@ -161,6 +161,22 @@ namespace HotelOrderFinal.Controllers
                 return View(vmList);
             }
         }
+        public IActionResult getActivitySession()
+        {
+            //讀取與設定入住日期
+            string selectedActivityId = HttpContext.Session.GetString("SelectedActivityId");
+            string selectedActivityTime = HttpContext.Session.GetString("ActivityTime");
+            if (selectedActivityId != null && selectedActivityTime != null)
+            {
+                var jsonObject = new
+                {
+                    id = selectedActivityId,
+                    time = selectedActivityTime
+                };
+                return Json(jsonObject);
+            }
+            return RedirectToAction("List");
+        }
 
         //房間加入購物車
         public ActionResult AddShopCart(string RoomClassId)

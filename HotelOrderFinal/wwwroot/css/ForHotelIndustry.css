@@ -13,7 +13,7 @@
 
 .newcontainer {
     width:400px;
-    /*height:250px;*/
+    /*height:250px; */
     border: 2px solid #4F4F4F;
     border-radius: 10px;
     background-color: rgba(249, 249, 255, 0.102);
@@ -21,7 +21,7 @@
     color: #fff;
 }
 .bgimg {
-    background: url(../../image/Nordic.jpg) no-repeat scroll center 0/cover;
+    background: url("../../image/Nordic.jpg") no-repeat scroll center 0/cover;
     opacity: 0.50;
 }
 .mycol {

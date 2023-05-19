@@ -20,6 +20,11 @@
     <link rel="stylesheet" href="~/css/responsive.css">
     <link rel="stylesheet" href="~/css/ForHotelIndustry.css" >
 
+    <style>
+
+
+    </style>
+
     @*Bootstrap CSS*@
 @*    @Styles.Render("~/Content/css/bootstrap.css")
     @Styles.Render("~/Content/css/font-awesome.min.css")
@@ -46,6 +51,9 @@
 
 </head>
 <body>
+    <div class="wrapper ">
+        @await Html.PartialAsync("_MyAccount")
+    </div>
     <!-- ================Header Area =================-->
     <header class="header_area">
         <div class="container">
@@ -64,41 +72,22 @@
                 <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                     <ul class="nav navbar-nav menu_nav ml-auto">
                         
-                        <li class="nav-item active; nav-item">@Html.ActionLink("關於", "About", "Home", null, new { @class = "nav-link" })</li>
-                        @*<li class="nav-item active; nav-item">@Html.ActionLink("訂房", "Index", "Order", null, new { @class = "nav-link" })</li>*@
+
+                           <li class="nav-item active; nav-item">@Html.ActionLink("關於", "About", "Home", null, new { @class = "nav-link" })</li>
                         <li class="nav-item active; nav-item">@Html.ActionLink("飯店一覽", "List", "HotelIndustry", null, new { @class = "nav-link" })</li>
                         <li class="nav-item active; nav-item">@Html.ActionLink("房型", "List", "Room", null, new { @class = "nav-link" })</li>
                         <li class="nav-item active; nav-item">@Html.ActionLink("活動", "List", "Activity", null, new { @class = "nav-link" })</li>
                         <li class="nav-item active; nav-item">@Html.ActionLink("評論", "List", "Comment", null, new { @class = "nav-link" })</li>
-                        <li class="nav-item active; nav-item">@Html.ActionLink("交通資訊", "Index", "Home", null, new { @class = "nav-link" })</li>
-                        <li class="nav-item active; nav-item">@Html.ActionLink("會員登入", "Login", "Member", null, new { @class = "nav-link" })</li>
-                        <li class="nav-item active; nav-item">@Html.ActionLink("會員註冊", "Create", "Member", null, new { @class = "nav-link" })</li>
-                        <li class="nav-item active; nav-item">@Html.ActionLink("優惠折扣", "List", "Discount", null, new { @class = "nav-link" })</li>
-                        @*  <li class="nav-item active; nav-item">@Html.ActionLink("我的帳戶", "Index", "Member", null, new { @class = "nav-link" })</li>
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myAccountModal">
-                            我的帳戶
-                        </button>*@
-@*
+
                         <li class="nav-item active">
-                            @Ajax.ActionLink("我的帳戶", "MyAccount", "Member", null, new AjaxOptions { UpdateTargetId = "my-account-modal", HttpMethod = "GET", InsertionMode = InsertionMode.Replace, OnSuccess = "showMyAccountModal" }, new { @class = "nav-link", data_toggle = "modal", data_target = "#my-account-modal" })
-                        </li>
-
-                        <div id="my-account-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-account-modal-label" aria-hidden="true"></div>
-
-                        @section scripts {
-                            <script type="text/javascript">
-                                function showMyAccountModal() {
-                                    $("#my-account-modal").modal("show");
-                                }
-                            </script>
-                        }*@
-
-
-
+                            <a href="#" class="nav-link text-white" data-toggle="modal" data-target="#myAccountModal" data-backdrop="false">我的帳戶</a>
+                        </li>               
                     </ul>
+                   
                 </div>
             </nav>
         </div>
+      
     </header>
     @RenderBody()
     <!--================ Recent Area  =================
@@ -123,15 +112,13 @@
                                 <ul class="list_style">
                                     <li><a href="#">關於我們</a></li>
                                     <li><a href="#">資展品牌</a></li>
-                                    <li><a href="#">資展中心</a></li>
-                                    
+                                    <li><a href="#">資展中心</a></li>                                    
                                 </ul>
                             </div>
                             <div class="col-4">
                                 <ul class="list_style">
                             <li><a href="#">資展公寓</a></li>
-                            <li><a href="#">聯絡我們</a></li>
-                                    
+                            <li><a href="#">聯絡我們</a></li>                                    
                                 </ul>
                             </div>
                         </div>
@@ -217,6 +204,8 @@
     <script src="~/js/custom.js"></script>
     <script src="~/js/bootstrap.js"></script>
     <script src="~/js/datetimepicker.js"></script>
+
+
     @*@await RenderSectionAsync("Scripts",required:false)*@
 
     

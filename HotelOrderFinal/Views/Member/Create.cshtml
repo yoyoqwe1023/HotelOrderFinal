@@ -1,74 +1,92 @@
-﻿@model HotelOrderFinal.Models.RoomMember
+﻿
 
 @{
     ViewData["Title"] = "Create";
 }
-<section class="breadcrumb_area">
-    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
-    <div class="container">
-        <div class="page-cover text-center">
-            <h2 class="page-cover-tittle">About Us</h2>
-            <ol class="breadcrumb">
-                <li><a href="index.html">Home</a></li>
-                <li class="active">About</li>
-            </ol>
-        </div>
-    </div>
-</section>
-  <style>
-    .wrapper {
-      width: 80%; /* 設定容器寬度 */
-      margin: 0 auto; /* 將容器置中對齊 */
-    }
-  </style>
-<div class="wrapper ">
-<h1>會員註冊</h1>
 
-<h4>會員資訊</h4>
-<hr />
+<style>
+
+</style>
+
+
+<p></p>
 @using (Html.BeginForm("Create", "Member", FormMethod.Post))
 {
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="MemberName" class="control-label"></label>
-                <input asp-for="MemberName" class="form-control" />
-                <span asp-validation-for="MemberName" class="text-danger"></span>
+    <form asp-action="Create" method="post">
+        <div class="d-flex justify-content-center">
+            <div class="col-lg-9 col-md-9 col-9">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label for="MemberName">姓名</label>
+                    <input type="text" id="MemberName" name="MemberName" class="form-control" required>
+                    <span class="text-danger" data-valmsg-for="MemberName" data-valmsg-replace="true"></span>
+                </div>                
+                <div class="form-group">
+                    <label for="MemberIdentity">身份證字號</label>
+                    <input type="text" id="MemberIdentity" name="MemberIdentity" class="form-control" required pattern="[A-Z][12][0-9]{8}">
+                    <span class="text-danger" data-valmsg-for="MemberIdentity" data-valmsg-replace="true"></span>
+                </div>
+                <div class="form-group">
+                    <label for="CMemberPhone">電話</label>
+                    <input type="tel" id="CMemberPhone" name="CMemberPhone" class="form-control" required pattern="09\d{8}">
+                    <span class="text-danger" data-valmsg-for="CMemberPhone" data-valmsg-replace="true"></span>
+                </div>
+                <div class="form-group">
+                    <label for="MemberEmail">Email</label>
+                    <input type="email" id="MemberEmail" name="MemberEmail" class="form-control" required>
+                    <span class="text-danger" data-valmsg-for="MemberEmail" data-valmsg-replace="true"></span>
+                </div>
+                <div class="form-group">
+                    <label for="CMemberPassword">密碼</label>
+                    <input type="password" id="CMemberPassword" name="CMemberPassword" class="form-control" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                    <span class="text-danger" data-valmsg-for="CMemberPassword" data-valmsg-replace="true"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" onclick="valcheck()" value="註冊" class="btn btn-primary" />
+
+                    <button type="button" onclick="autofill()" class="btn btn-primary" >Demo</button>
+                    @*<input type="submit" value="註冊" class="btn btn-default">*@
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="MemberIdentity" class="control-label"></label>
-                <input asp-for="MemberIdentity" class="form-control" />
-                <span asp-validation-for="MemberIdentity" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MemberPhone" class="control-label"></label>
-                <input asp-for="MemberPhone" class="form-control" />
-                <span asp-validation-for="MemberPhone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MemberEmail" class="control-label"></label>
-                <input asp-for="MemberEmail" class="form-control" />
-                <span asp-validation-for="MemberEmail" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MemberPassword" class="control-label"></label>
-                <input asp-for="MemberPassword" class="form-control" />
-                <span asp-validation-for="MemberPassword" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="註冊" class="btn btn-primary" />
-                    @*<button type="button" onclick="location.href='@Url.Action("List")'" class="btn btn-secondary">取消</button>*@
-            </div>
-        </form>
-    </div>
-</div>
+        </div>
+    </form>
 }
 
-    <div class="col-3"></div>
-<div>
+<div class="col-3"></div>
+@*<div>
     <a asp-controller="Home" asp-action="Index">取消</a>
-</div>
+</div>*@
 
-                </div>
+@*<script type="text/javascript">
+    function valcheck() {
+        alert("test");
+        return;
+    }
+
+</script>
+
+*@
+
+@*</div>*@
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <script>
+        $(function () {
+            alert("@TempData["SuccessMessage"]");
+        });
+    </script>
+}
+
+
+
+
+<script>
+    function autofill() {
+        document.getElementById("MemberName").value = "林哈娜";
+        document.getElementById("MemberIdentity").value = "A221144467";
+        document.getElementById("CMemberPhone").value = "0978999999";
+        document.getElementById("MemberEmail").value = "hana@gmail.com";
+        document.getElementById("CMemberPassword").value = "AAaa1122";
+    }
+</script>

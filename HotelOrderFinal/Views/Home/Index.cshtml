@@ -1,9 +1,10 @@
-﻿@{
+﻿@model HotelOrderFinal.ViewModels.CindexActivityViewModels
+@{
     ViewData["Title"] = "Home Page";
 }
 <!--================Banner Area =================-->
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+@*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">*@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -97,7 +98,7 @@
                         </a>
 
                     </div>
-                    <a href="#"><h4 class="sec_h4">日式風格 Japan</h4></a>
+                    <a href="#"><h4 class="sec_h4">簡奢風格</h4></a>
                 </div>
             </div>
             <div class="col-lg-3 col-sm-6">
@@ -110,7 +111,7 @@
                         @*<img src="image/room2.jpg" alt="">
                         <a href="#" class="btn theme_btn button_hover">Book Now</a>*@
                     </div>
-                    <a href="#"><h4 class="sec_h4">北歐風格 Nordic</h4></a>
+                    <a href="#"><h4 class="sec_h4">日式風格</h4></a>
                 </div>
             </div>
             <div class="col-lg-3 col-sm-6">
@@ -123,7 +124,7 @@
                         @*<img src="image/room3.jpg" alt="">
                         <a href="#" class="btn theme_btn button_hover">Book Now</a>*@
                     </div>
-                    <a href="#"><h4 class="sec_h4">波希米亞 Bohemian</h4></a>
+                    <a href="#"><h4 class="sec_h4">北歐風格</h4></a>
                 </div>
             </div>
             <div class="col-lg-3 col-sm-6">
@@ -136,7 +137,7 @@
                         @*<img src="image/room4.jpg" alt="">
                         <a href="#" class="btn theme_btn button_hover">Book Now</a>*@
                     </div>
-                    <a href="#"><h4 class="sec_h4">地中海 Mediterranean</h4></a>
+                    <a href="#"><h4 class="sec_h4">總統套房</h4></a>
                 </div>
             </div>
         </div>
@@ -144,14 +145,14 @@
 </section>
 <!--================ Accomodation Area  =================-->
 <!--================ About History Area  =================-->
-<section class="about_history_area section_gap">
+@*<section class="about_history_area section_gap">
     <div class="container">
         <div class="row">
             <div class="col-md-6 d_flex align-items-center">
                 <div class="about_content ">
-                    <h2 class="title title_color">關於我們 <br>飯店簡史<br>目標</h2>
-                    <p>介紹欄位代填</p>
-                    <a href="#" class="button_hover theme_btn_two">Request Custom Price</a>
+                    <h2 class="title title_color">關於我們 </h2>
+                    <p>我們飯店是一家位於城市中心的高級酒店，提供全方位的住宿體驗。我們的團隊致力於以最優質的服務和設施，為每一位客人打造一個難忘的入住體驗。無論是商務旅客、家庭遊客還是情侶度假者，我們都以熱情、專業和細緻的待客之道，讓每位客人感受到家的溫暖和舒適。</p>
+                    <a href="#" class="button_hover theme_btn_two">取得價格</a>
                 </div>
             </div>
             <div class="col-md-6">
@@ -159,7 +160,7 @@
             </div>
         </div>
     </div>
-</section>
+</section>*@
 <!--================ About History Area  =================-->
 <!--================ Facilities Area  =================-->
 <section class="facilities_area section_gap">
@@ -215,7 +216,10 @@
 <section class="testimonial_area section_gap">
     <div class="container">
         <div class="section_title text-center">
-            <h2 class="title_color">房型評論區</h2>
+            <h2 class="title_color">
+
+
+            </h2>
             <p>The French Revolution constituted for the conscience of the dominant aristocratic class a fall from </p>
         </div>
 
@@ -287,30 +291,37 @@
             <h2 class="title_color">體驗活動</h2>
             <p>The French Revolution constituted for the conscience of the dominant aristocratic class a fall from </p>
         </div>
-
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                 <li data-target="#myCarousel" data-slide-to="1"></li>
                 <li data-target="#myCarousel" data-slide-to="2"></li>
             </ol>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="~/image/blog/blog-1.jpg" alt="Slide 1">
-                    <img src="~/image/blog/blog-2.jpg" alt="Slide 2">
-                    <img src="~/image/blog/blog-3.jpg" alt="Slide 3">
+            @for (int i = 0; i < Model.ActivityImage.Count;)
+            {
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+
+                        <img src="~/image/@Model.ActivityImage[i]" style="width:360px;height:360px" alt="Slide 1">
+                        <img src="~/image/@Model.ActivityImage[i+1]" style="width:360px;height:360px" alt="Slide 2">
+                        <img src="~/image/@Model.ActivityImage[i+2]" style="width:360px;height:360px" alt="Slide 3">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="~/image/@Model.ActivityImage[i+3]" style="width:360px;height:360px" alt="Slide 1">
+                        <img src="~/image/@Model.ActivityImage[i+4]" style="width:360px;height:360px" alt="Slide 2">
+                        <img src="~/image/@Model.ActivityImage[i+5]" style="width:360px;height:360px" alt="Slide 3">
+
+                    </div>
+                    <div class="carousel-item">
+                        <img src="~/image/@Model.ActivityImage[i+6]" style="width:360px;height:360px" alt="Slide 1">
+                        <img src="~/image/@Model.ActivityImage[i+7]" style="width:360px;height:360px" alt="Slide 2">
+                        <img src="~/image/@Model.ActivityImage[i+8]" style="width:360px;height:360px" alt="Slide 3">
+                    </div>
                 </div>
-                <div class="carousel-item">
-                    <img src="~/image/blog/blog-1.jpg" alt="Slide 1">
-                    <img src="~/image/blog/blog-2.jpg" alt="Slide 2">
-                    <img src="~/image/blog/blog-3.jpg" alt="Slide 3">
-                </div>
-                <div class="carousel-item">
-                    <img src="~/image/blog/blog-1.jpg" alt="Slide 1">
-                    <img src="~/image/blog/blog-2.jpg" alt="Slide 2">
-                    <img src="~/image/blog/blog-3.jpg" alt="Slide 3">
-                </div>
-            </div>
+                i += 9;
+            }
+       
+           
             <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="sr-only">Previous</span>

@@ -353,3 +353,13 @@ function loadCartFromSession() {
 
 
 </script>
+<script>
+    var a = document.getElementById('checkInDate');
+    console.log(a.value);
+    window.onload = async () => {
+        const response = await fetch('@Url.Action("getActivitySession", "Order")');
+        const data = await response.json();
+        a.value = data.time;
+        console.log(data);
+    };
+</script>

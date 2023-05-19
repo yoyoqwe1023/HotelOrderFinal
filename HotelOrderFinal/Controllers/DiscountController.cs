@@ -8,6 +8,7 @@ namespace HotelOrderFinal.Controllers
 {
     public class DiscountController : Controller
     {
+        private HotelOrderContext db = new HotelOrderContext();
         public IHttpContextAccessor _contextAccessor;
 
         public DiscountController(IHttpContextAccessor contextAccessor)
@@ -17,7 +18,7 @@ namespace HotelOrderFinal.Controllers
 
         public IActionResult List(CKeywordViewModel vm)
         {
-            HotelOrderContext db = new HotelOrderContext();
+
             IEnumerable<Discount> datas = null;
             if (string.IsNullOrEmpty(vm.txtKeyword))
                 datas = from c in db.Discount
@@ -34,52 +35,52 @@ namespace HotelOrderFinal.Controllers
         [HttpPost]
         public IActionResult Create(Discount p)
         {
-            //try
-            //{
-            HotelOrderContext db = new HotelOrderContext();
-            // 取得優惠是否存在
-            p.DiscountExist = true;
-
-            db.Discount.Add(p);
-            db.SaveChanges();
-
-
-            // 取得當時的會員數量
-            int memberCount = db.RoomMember.Count();
-
-            if (p.DiscountExist == true && memberCount > 0)
+            try
             {
-                //所有的會員ID
-                var members = db.RoomMember.Select(x => x.MemberId);
-                int lastID = db.Discount.OrderByDescending(x => x.DiscountId).FirstOrDefault().DiscountId;
-                foreach (var itme in members)
-                {
 
-                    DiscountDetail detail = new DiscountDetail();
-                    detail.DiscountId = lastID;
-                    detail.DiscountStart = DateTime.Now;
-                    detail.DiscountEnd = DateTime.Now.AddMonths(3);
-                    detail.DiscountUse = 0;
-                    detail.MemberId = itme;
-                    db.DiscountDetail.Add(detail);
-                    
-                }
+                // 取得優惠是否存在
+                p.DiscountExist = true;
+
+                db.Discount.Add(p);
                 db.SaveChanges();
+
+
+                // 取得當時的會員數量
+                int memberCount = db.RoomMember.Count();
+
+                if (p.DiscountExist == true && memberCount > 0)
+                {
+                    //所有的會員ID
+                    var members = db.RoomMember.Select(x => x.MemberId);
+                    int lastID = db.Discount.OrderByDescending(x => x.DiscountId).FirstOrDefault().DiscountId;
+                    foreach (var itme in members)
+                    {
+
+                        DiscountDetail detail = new DiscountDetail();
+                        detail.DiscountId = lastID;
+                        detail.DiscountStart = DateTime.Now;
+                        detail.DiscountEnd = DateTime.Now.AddMonths(3);
+                        detail.DiscountUse = 0;
+                        detail.MemberId = itme;
+                        db.DiscountDetail.Add(detail);
+
+                    }
+                    db.SaveChanges();
+                    return RedirectToAction("List");
+                }
+
                 return RedirectToAction("List");
             }
-
-            return RedirectToAction("List");
-            //}
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine(ex.ToString());
-            //    return View();
-            //}
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return View();
+            }
         }
 
         public IActionResult Delete(int? id)
         {
-            HotelOrderContext db = new HotelOrderContext();
+            
             Discount cust = db.Discount.FirstOrDefault(t => t.DiscountId == id);
             if (cust != null)
             {
@@ -89,8 +90,7 @@ namespace HotelOrderFinal.Controllers
             return RedirectToAction("List");
         }
         public IActionResult Edit(int? id)
-        {
-            HotelOrderContext db = new HotelOrderContext();
+        {           
             Discount cust = db.Discount.FirstOrDefault(t => t.DiscountId == id);
             if (cust == null)
                 return RedirectToAction("List");
@@ -98,8 +98,7 @@ namespace HotelOrderFinal.Controllers
         }
         [HttpPost]
         public IActionResult Edit(Discount p)
-        {
-            HotelOrderContext db = new HotelOrderContext();
+        {           
             Discount cust = db.Discount.FirstOrDefault(t => t.DiscountId == p.DiscountId);
             if (cust != null)
             {
@@ -115,7 +114,7 @@ namespace HotelOrderFinal.Controllers
         public IActionResult DiscountByMember()
         {
             var userId = _contextAccessor.HttpContext.Session.GetString("UserID");
-            HotelOrderContext db = new HotelOrderContext();
+            
             IEnumerable<DiscountDetail> usesid = db.DiscountDetail.Where(x => x.MemberId == userId);
 
             //IEnumerable<Discount> usesid = db.Discount.Where(x => x.MemberId == userId);
