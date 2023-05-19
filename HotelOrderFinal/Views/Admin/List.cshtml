@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<HotelOrderFinal.Models.Admin>
 
 @{
-    ViewData ["Title"] = "List";
+    ViewData["Title"] = "List";
 }
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -24,7 +24,7 @@
                 <div class=" ">
                     <div class="">
                         @{
-                            var AdminId = Context.Session.GetString ( "AdminId" );
+                            var AdminId = Context.Session.GetString("AdminId");
                         }
                         <h2 class="">@AdminId</h2>
                     </div>
@@ -33,16 +33,16 @@
                     <ul class=" " style="list-style: none;">
                         <!--改成手風琴下拉式-->
                         <li class="">
-                            @Html.ActionLink("活動管理", "Edit", "Member", null, new { @class = "nav-link Adminbutton d-flex justify-content-center" })
+                            @Html.ActionLink("活動管理", "Edit", "Member", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
                         </li>
                         <li class="">
-                            @Html.ActionLink("訂房管理", "EditPassword", "Member", null, new { @class = "nav-link Adminbutton d-flex justify-content-center" })
+                            @Html.ActionLink("訂房管理", "EditPassword", "Member", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
                         </li>
                         <li class="">
-                            @Html.ActionLink("會員管理", "ShoppingCar", "Member", null, new { @class = "nav-link Adminbutton d-flex justify-content-center" })
+                            @Html.ActionLink("會員管理", "ShoppingCar", "Member", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
                         </li>
                         <li class="">
-                            @Html.ActionLink("飯店一覽管理", "MemberTerms", "Member", null, new { @class = "nav-link Adminbutton d-flex justify-content-center" })
+                            @Html.ActionLink("飯店一覽管理", "MemberTerms", "Member", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
                         </li>
                     </ul>
                 </div>
@@ -53,7 +53,12 @@
             <thead>
                 <div class="Admincanvas">
                     <canvas id="circle"></canvas>
+                </div>
+                <div class="Admincanvas">
                     <canvas id="bar"></canvas>
+                </div>
+                <div class="Admincanvas">
+                    <canvas id="line"></canvas>
                 </div>
             </thead>
             <tbody>
@@ -98,9 +103,9 @@
         }
     };
     const chart = new Chart(document.getElementById('circle'), circleconfig);
-    
+
     //長條圖
-    const data2={
+    const data2 = {
         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
         datasets: [{
             label: '# of Votes',
@@ -108,13 +113,34 @@
             borderWidth: 1
         }]
     };
-    const barconfig ={
-        type:'bar',
+    const barconfig = {
+        type: 'bar',
         data: data2,
-        options:{
+        options: {
             responsive: false, // 設置圖表為響應式
             aspectRatio: 1 // 不保持固定的寬高比
         }
     };
-    const chart = new Chart(document.getElementById('bar'), barconfig);
+    const barchart = new Chart(document.getElementById('bar'), barconfig);
+    //折線圖
+    const labels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'];
+    const data3 = {
+        labels: labels,
+        datasets: [{
+            label: 'My First Dataset',
+            data: [65, 59, 80, 81, 56, 55, 40],
+            fill: false,
+            borderColor: 'rgb(75, 192, 192)',
+            tension: 0.1
+        }]
+    };
+    const lineconfig = {
+        type: 'line',
+        data: data3,
+        options: {
+            responsive: false,
+            aspectRatio: 1
+        }
+    };
+    const linechart = new Chart(document.getElementById('line'), lineconfig);
 </script>
