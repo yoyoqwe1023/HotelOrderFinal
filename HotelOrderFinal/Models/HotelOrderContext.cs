@@ -19,6 +19,7 @@ namespace HotelOrderFinal.Models
         }
 
         public virtual DbSet<Activity> Activity { get; set; }
+        public virtual DbSet<Admin> Admin { get; set; }
         public virtual DbSet<Comment> Comment { get; set; }
         public virtual DbSet<Discount> Discount { get; set; }
         public virtual DbSet<DiscountDetail> DiscountDetail { get; set; }
@@ -63,6 +64,15 @@ namespace HotelOrderFinal.Models
                 entity.Property(e => e.ActivityPlace).HasMaxLength(50);
 
                 entity.Property(e => e.ActivityTime).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<Admin>(entity =>
+            {
+                entity.Property(e => e.AdminId).HasMaxLength(50);
+
+                entity.Property(e => e.AdminAccount).HasMaxLength(50);
+
+                entity.Property(e => e.AdminPassword).HasMaxLength(50);
             });
 
             modelBuilder.Entity<Comment>(entity =>
