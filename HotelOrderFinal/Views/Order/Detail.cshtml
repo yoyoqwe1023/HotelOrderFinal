@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<HotelOrderFinal.Models.DiscountDetail>
+@*@model IEnumerable<HotelOrderFinal.ViewModels.COrderDetailViewModel>*@
 
 <section class="breadcrumb_area">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
@@ -13,7 +14,12 @@
         textarea {
             width: 80%;
         }
+
+        .even-row {
+            background-color: #f0f0f0;
+        }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 
@@ -50,34 +56,32 @@
                 <h2>訂房明細</h2>
             </div>
             <div style="margin:10px;">
-                <table style="box-sizing: border-box ; width:100% ;text-align:center;">
-                    <tbody>
-                        <tr style="background-color: #f0f0f0;">
-                            <th width="25%">住宿時間</th>
-                            <th width="25%">房間類型</th>
-                            <th width="10%">數量</th>
-                            <th width="15%">人數</th>
-                            <th width="15%">小計</th>
-                            <th width="10%">刪除</th>
-                        </tr>
-                        <tr>
-                            <td><p>入住日期</p><p>2023/5/7</p><p>退房日期</p><p>2023/5/8</p></td>
-                            <td>雙人房</td>
-                            <td>1</td>
-                            <td>0</td>
-                            <td>NT$ 4000</td>
-                            <td>刪除</td>
-                        </tr>
-                    </tbody>
+                <table id="SessionRoomList" style="box-sizing: border-box ; width:100% ;text-align:center;">
+                    @*<tbody>
+                    <tr style="background-color: #f0f0f0;">
+                    <th width="25%">住宿時間</th>
+                    <th width="25%">房間類型</th>
+                    <th width="10%">數量</th>
+                    <th width="15%">人數</th>
+                    <th width="15%">小計</th>
+                    <th width="10%">刪除</th>
+                    </tr>
+                    <tr>
+                    <td><p>入住日期</p><p>2023/5/7</p><p>退房日期</p><p>2023/5/8</p></td>
+                    <td>雙人房</td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>NT$ 4000</td>
+                    <td>刪除</td>
+                    </tr>
+                    </tbody>*@
                 </table>
-                <hr />
-                <div>
-                    <h4>備注</h4>
-                    @* <input type="text" style="border:dashed 	#D3D3D3; width:100%" />*@
-                    <textarea width=100% rows="1"></textarea>
-                </div>
+                @*<hr />
+                  <div>
+                <h4>備注</h4>
+                <textarea width=100% rows="1"></textarea>
+                </div>*@
             </div>
-
         </div>
 
         <div style="border:solid green;margin-bottom:10px;margin-top:10px;">
@@ -86,12 +90,10 @@
             </div>
             <div class="form-group col-md-2">
                 <select>
-            @foreach ( var item in Model )
-            {
-
-              <option value="@Html.DisplayFor(modelItem => item.Discount.DiscountName)">@Html.DisplayFor(modelItem => item.Discount.DiscountName)</option>
-
-            }
+                    @foreach (var item in Model)
+                    {
+                        <option value="@Html.DisplayFor(modelItem => item.Discount.DiscountName)">@Html.DisplayFor(modelItem => item.Discount.DiscountName)</option>
+                    }
                 </select>
             </div>
 
@@ -107,7 +109,7 @@
                         </tr>
                         <tr>
                             <th>總金額</th>
-                            <td class="text-center">NT$ 400</td>
+                            <td id="OrderDetailTotalPrice" class="text-center">NT$ 0</td>
                         </tr>
                     </table>
                 </div>
@@ -123,3 +125,174 @@
         </div>
     </div>
 </body>
+
+<script>
+
+    let cartItemsDiv;
+
+    //頁面載入時載入購物車內容
+    $(document).ready(function () {
+        loadCartFromSession();
+    });
+
+    function loadCartFromSession() {
+        fetch('/Order/GetShopCartOrderDetailSession', {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        })
+            .then(response => response.json())
+            .then(cartData => {
+                const cartItemsDiv = $('#SessionRoomList');
+                cartItemsDiv.empty();
+
+                if (cartData !== null) {
+                    let totalPrice = 0;
+                    const headerRow = $('<tr></tr>').css('background-color', '#f0f0f0');
+                    headerRow.append($('<th></th>').attr('width', '25%').text('住宿時間'));
+                    headerRow.append($('<th></th>').attr('width', '25%').text('房間類型'));
+                    headerRow.append($('<th></th>').attr('width', '10%').text('數量'));
+                    headerRow.append($('<th></th>').attr('width', '15%').text('住房人數'));
+                    headerRow.append($('<th></th>').attr('width', '15%').text('小計'));
+                    headerRow.append($('<th></th>').attr('width', '10%').text('刪除'));
+
+                    cartItemsDiv.append(headerRow);
+                    cartData.forEach((item, index) => {
+
+                        const itemRow = $('<tr></tr>');
+                        const dateCell = $('<td></td>');
+                        dateCell.append($('<p></p>').text('入住日期'));
+                        const formattedCheckInDate = new Date(item.checkInDate).toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' });
+                        dateCell.append($('<p></p>').text(formattedCheckInDate));
+                        dateCell.append($('<p></p>').text('退房日期'));
+                        const formattedCheckOutDate = new Date(item.checkOutDate).toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' });
+                        dateCell.append($('<p></p>').text(formattedCheckOutDate));
+                        itemRow.append(dateCell);
+
+                        itemRow.append($('<td></td>').text(item.roomClassName));
+                        itemRow.append($('<td></td>').text('1'));
+                        //住宿人數為下拉選單, 上限+2
+                        const selectroomPeople = $('<td></td>');
+                        const select = $('<select></select>');
+
+                        // 建立下拉式選單選項
+                        for (let i = 1; i <= item.roomClassPeople + 2; i++) {
+                            const option = $('<option></option>').text(i);
+
+                            // 設定預設選項
+                            if (i === item.roomClassPeople) {
+                                option.attr('selected', 'selected');
+                            }
+
+                            select.append(option);
+                        }
+
+                        // 監聽下拉選單變更事件
+                        select.change(() => {
+                            const selectedPeople = parseInt(select.val());
+                            let price;
+
+                            if (selectedPeople <= item.roomClassPeople) {
+                                price = item.weekdayPrice;
+                            } else {
+                                const additionalPeople = selectedPeople - item.roomClassPeople;
+                                price = item.weekdayPrice + item.addPrice * additionalPeople;
+                            }
+
+                            priceCell.text('NT$ ' + price);
+
+                            //更新總金額
+                            calculateTotalPrice();
+                        });
+                        //顯示入住人數
+                        selectroomPeople.append(select);
+                        itemRow.append(selectroomPeople);
+
+                        //顯示房間金額
+                        const priceCell = $('<td></td>').text('NT$ ' + item.weekdayPrice);
+                        itemRow.append(priceCell);
+
+
+                        //偶數列底色變色
+                        if (index % 2 === 1) {
+                            itemRow.addClass('even-row');
+                        }
+
+                        const deleteCell = $('<td></td>');
+                        const deleteButton = $('<button></button>').text('刪除').addClass('delete-button');
+                        const itemId = 'item-' + item.fId;
+                        itemRow.attr('data-item-id', itemId);
+                        
+                        //點擊刪除按鈕
+                        deleteButton.click(() => {
+
+                            //跳出確認框
+                            if (confirm('確定要刪除此項目嗎？')) {
+                                
+                                //抓取刪除列的FId
+                                const rowToDelete = cartItemsDiv.find('[data-item-id="' + itemId + '"]');
+
+                                //刪除價格
+                                const itemPrice = item.weekdayPrice;
+                                totalPrice -= itemPrice;
+
+                                rowToDelete.remove(); 
+                                const extractedFId = itemId.split('-')[1];
+                                //執行刪除function
+                                deleteSessionData(extractedFId);
+
+                                //更新價格
+                                const totalPriceCell = $('<td></td>').addClass('text-right').text('NT$ ' + totalPrice);
+                                $('#OrderDetailTotalPrice').empty().append(totalPriceCell);
+                                // 購物車內容為空，回到訂房首頁(目前無作用)
+                                if (totalPriceCell ===0) {
+                                    window.location.href = "/Order/List";
+                                    return;
+                                }
+                            }
+                        });
+                        deleteCell.append(deleteButton);
+                        itemRow.append(deleteCell);
+
+                        cartItemsDiv.append(itemRow);
+
+                        totalPrice += item.weekdayPrice
+
+                    });
+                    const totalPriceCell = $('<td></td>').addClass('text-right').text('NT$ ' + totalPrice);
+                    $('#OrderDetailTotalPrice').empty().append(totalPriceCell);
+                }
+               
+            });
+    }
+
+    //刪除session內的房間
+    function deleteSessionData(FId) {
+        $.ajax({
+            url: '/Order/DeleteSessionData',
+            method: 'POST',
+            data: { FId: FId },
+        });
+    }
+
+    // 計算總金額函數
+    function calculateTotalPrice() {
+        const prices = []; // 用于存储价格的数组
+        $('#SessionRoomList').find('tr').each((index, row) => {
+            const priceText = $(row).find('td:nth-child(5)').value(); //text();
+            const itemPrice = parseInt(priceText.substring(4)); // 去除 "NT$ " 字串前綴
+            prices.push(itemPrice); // 将价格添加到数组中
+        });
+
+        console.log('Price Text:', priceText);
+        console.log('Item Price:', itemPrice);
+
+        // 计算总和
+        const totalPrice = prices.reduce((sum, price) => sum + price, 0);
+
+        // 更新總金額元素
+        const totalPriceCell = $('#OrderDetailTotalPrice');
+        totalPriceCell.text('NT$ ' + totalPrice);
+
+    }
+
+</script>
