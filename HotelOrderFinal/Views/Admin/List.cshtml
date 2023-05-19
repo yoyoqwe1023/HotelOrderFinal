@@ -31,6 +31,7 @@
                 </div>
                 <div class="">
                     <ul class=" " style="list-style: none;">
+                        <!--改成手風琴下拉式-->
                         <li class="">
                             @Html.ActionLink("活動管理", "Edit", "Member", null, new { @class = "nav-link Adminbutton d-flex justify-content-center" })
                         </li>
@@ -50,8 +51,9 @@
         <!--這個區塊放圖表-->
         <table class="table  col-md-3">
             <thead>
-                <div class="justify-content-center">
-                <canvas id="myChart"></canvas>
+                <div class="Admincanvas">
+                    <canvas id="circle"></canvas>
+                    <canvas id="bar"></canvas>
                 </div>
             </thead>
             <tbody>
@@ -66,34 +68,53 @@
 </div>
 
 <script>
-    const data = {
-  labels: [
-    'Red',
-    'Blue',
-    'Yellow'
-  ],
-  datasets: [{
-    label: 'My First Dataset',
-    data: [300, 50, 100],
-    backgroundColor: [
-      'rgb(255, 99, 132)',
-      'rgb(54, 162, 235)',
-      'rgb(255, 205, 86)'
-    ],
-    hoverOffset: 4
-  }]
-};
-const config = {
-    type: 'pie',
-    data: data,
+    //圓餅圖
+    const data1 = {
+        labels: [
+            'Red',
+            'Blue',
+            'Yellow'
+        ],
+        datasets: [{
+            label: 'My First Dataset',
+            data: [300, 50, 100],
+            backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(255, 205, 86)'
+            ],
+            hoverOffset: 4
+        }]
+    };
+    const circleconfig = {
+        type: 'pie',
+        data: data1,
         options: {
-        responsive: false,
-        maintainAspectRatio: false,
-        // 設置圖表尺寸
-        width: 400,
-        height: 400
-    }
-};
-const chart = new Chart(document.getElementById('myChart'), config);
-
+            responsive: false, // 設置圖表為響應式
+            aspectRatio: 1 // 不保持固定的寬高比
+            // 設置圖表尺寸
+            //width: 800,
+            //height: 800
+        }
+    };
+    const chart = new Chart(document.getElementById('circle'), circleconfig);
+    
+    //長條圖
+    const data2={
+        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        datasets: [{
+            label: '# of Votes',
+            data: [12, 19, 3, 5, 2, 3],
+            borderWidth: 1
+        }]
+    };
+    const barconfig ={
+        type:'bar',
+        data: data2,
+        options:{
+            responsive: false, // 設置圖表為響應式
+            aspectRatio: 1 // 不保持固定的寬高比
+        }
+    };
+    const chart = new Chart(document.getElementById('bar'), barconfig);
 </script>

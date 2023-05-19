@@ -12,7 +12,6 @@
     margin: 5px;
     font-size:larger
 }
-.Admincanvas{
-    width:600px;
-    height:100px;
+.Admincanvas {
+    margin: 0 auto;
 }
