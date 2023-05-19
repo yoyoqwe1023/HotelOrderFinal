@@ -5,55 +5,70 @@
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
         <div class="page-cover text-center">
-            <h2 class="page-cover-tittle">訂房明細</h2>
+            <h1 class="page-cover-tittle">訂房明細</h1>
         </div>
     </div>
 </section>
 <head>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .area{
+            padding: 5px;
+            margin: 10px;
+            border: solid green;
+            border-radius: 20px;
+        }
+
+        .row{
+            display: flex;
+            margin: 5px;
+            padding: 5px;
+        }
+
+        h2{
+            margin: 10px;
+             text-decoration: underline;
+            /*  text-decoration-style: dotted;
+              text-decoration-color: red;*/
+        }
+
+        ol{
+
+            margin-left:30px;
+            padding: 5px;
+        }
+
         textarea {
-            width: 80%;
+            width: 95%;
+            rows:2;
+            margin: 5px;
+            padding: 5px;
         }
 
         .even-row {
-            background-color: #f0f0f0;
+            background-color: #f8f9fa;
+        }
+
+         .lab1 {
+            width: 200px;
+        }
+
+        .delete-button{
+            btn btn-primary;
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
-
-<table class="table">
-    <thead>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
-
 <body>
     <div class="col-md-10 offset-md-1 ">
-        <div style="background-color:bisque; margin-bottom:10px;margin-top:10px; height:80px;">
-            <!--步驟-->
-            <div class="progress" style="width:100%">
-                <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-            </div>
-            @*<ul >
-            <li>
-            <span class="athTHRS__number">1</span>查詢空房
-
-            </li>
-            <li ><span >2</span>訂房明細
-            </li>
-            <li ><span >3</span>資料確認
-            </li>
-            <li ><span >4</span>訂單完成
-            </li>
-            </ul>
-            </div>*@
-        </div>
-        <div style="border:solid green;margin-bottom:10px;margin-top:10px;">
-            <div style="margin:10px;">
-                <h2>訂房明細</h2>
+        <div class="area">
+            <div>
+                <h2>房間明細</h2>
             </div>
             <div style="margin:10px;">
                 <table id="SessionRoomList" style="box-sizing: border-box ; width:100% ;text-align:center;">
@@ -76,15 +91,19 @@
                     </tr>
                     </tbody>*@
                 </table>
-                @*<hr />
-                  <div>
-                <h4>備注</h4>
-                <textarea width=100% rows="1"></textarea>
-                </div>*@
             </div>
         </div>
 
-        <div style="border:solid green;margin-bottom:10px;margin-top:10px;">
+        <div class="area">
+            <div>
+                <h2>活動列表</h2>
+                <div class="row">
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="area">
             <div>
                 <h2>優惠卷</h2>
             </div>
@@ -96,8 +115,6 @@
                     }
                 </select>
             </div>
-
-            <hr />
             <div class="row">
                 <div class="col-md-4"></div>
                 <div class="col-md-4"></div>
@@ -115,12 +132,41 @@
                 </div>
             </div>
         </div>
+
+        <div class="area">
+            <div>
+                <h2>付款方式</h2>
+                <div class="row">
+                    <label class="lab1">
+                        <input type="radio" name="pay" value="cash" required checked />現金(現場支付)
+                    </label>
+                    <label class="lab1">
+                        <input type="radio" name="pay" value="creditcard" />信用卡
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="area">
+            <div>
+                <h2>注意事項</h2>
+                <ol>
+                    <li>飯店入住時間：下午3點之後；退房時間：中午11點以前。</li>
+                    <li>飯店全館禁止吸菸及謝絕寵物入住(除導盲犬)，謝謝合作。</li>
+                    <li>入住時請出示身分證或護照以便住宿登記。</li>
+                    <li>平、旺、假日之定義，將依飯店規定為主。</li>
+                </ol>
+            </div>
+            <div>
+                <h2>備注</h2>
+                <textarea></textarea>
+            </div>
+        </div>
         <div class="row justify-content-end">
             <div class="col-md-2">
                 <a href="#">@Html.ActionLink("返回上一頁", "List", "Order", null, new { @class = "btn btn-primary btn-block" })</a>
             </div>
             <div class="col-md-2">
-                <a href="#">@Html.ActionLink("訂購", "Create", "Order", null, new { @class = "btn btn-primary btn-block" })</a>
+                <a href="#">@Html.ActionLink("付款", "ShowOrder", "Order", null, new { @class = "btn btn-primary btn-block" })</a>
             </div>
         </div>
     </div>
@@ -221,13 +267,13 @@
                         const deleteButton = $('<button></button>').text('刪除').addClass('delete-button');
                         const itemId = 'item-' + item.fId;
                         itemRow.attr('data-item-id', itemId);
-                        
+
                         //點擊刪除按鈕
                         deleteButton.click(() => {
 
                             //跳出確認框
                             if (confirm('確定要刪除此項目嗎？')) {
-                                
+
                                 //抓取刪除列的FId
                                 const rowToDelete = cartItemsDiv.find('[data-item-id="' + itemId + '"]');
 
@@ -235,7 +281,7 @@
                                 const itemPrice = item.weekdayPrice;
                                 totalPrice -= itemPrice;
 
-                                rowToDelete.remove(); 
+                                rowToDelete.remove();
                                 const extractedFId = itemId.split('-')[1];
                                 //執行刪除function
                                 deleteSessionData(extractedFId);
@@ -244,7 +290,7 @@
                                 const totalPriceCell = $('<td></td>').addClass('text-right').text('NT$ ' + totalPrice);
                                 $('#OrderDetailTotalPrice').empty().append(totalPriceCell);
                                 // 購物車內容為空，回到訂房首頁(目前無作用)
-                                if (totalPriceCell ===0) {
+                                if (totalPriceCell === 0) {
                                     window.location.href = "/Order/List";
                                     return;
                                 }
@@ -261,7 +307,6 @@
                     const totalPriceCell = $('<td></td>').addClass('text-right').text('NT$ ' + totalPrice);
                     $('#OrderDetailTotalPrice').empty().append(totalPriceCell);
                 }
-               
             });
     }
 
@@ -276,11 +321,10 @@
 
     // 計算總金額函數
     function calculateTotalPrice() {
-        const prices = []; // 用于存储价格的数组
         $('#SessionRoomList').find('tr').each((index, row) => {
-            const priceText = $(row).find('td:nth-child(5)').value(); //text();
-            const itemPrice = parseInt(priceText.substring(4)); // 去除 "NT$ " 字串前綴
-            prices.push(itemPrice); // 将价格添加到数组中
+            const priceText = $(row).find('td:nth-child(5)').text();
+             const itemPrice = parseInt(priceText.substring(4)); // 去除 "NT$ " 字串前綴
+            totalPrice += itemPrice;
         });
 
         console.log('Price Text:', priceText);
@@ -292,7 +336,6 @@
         // 更新總金額元素
         const totalPriceCell = $('#OrderDetailTotalPrice');
         totalPriceCell.text('NT$ ' + totalPrice);
-
     }
 
 </script>
