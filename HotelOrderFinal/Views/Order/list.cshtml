@@ -234,6 +234,7 @@ model IEnumerable<String>
 
 
 <script>
+
     function SearchRoom() {
         var checkInDate = document.getElementById("checkInDate").value;
         var checkOutDate = document.getElementById("checkOutDate").value;
@@ -381,6 +382,20 @@ function loadCartFromSession() {
         window.location.href = "/Order/Detail";
     }
 });
+
+
+    document.querySelector('#btnSearchRoom').addEventListener('click', async () => {
+        console.log('SearchRoom!');
+        var hotelId = document.getElementById('hotelDropdown').value;
+        const checkInDate = document.getElementById('checkInDate').value;
+        const checkOutDate = document.getElementById('checkOutDate').value;
+        const response = await fetch(`@Url.Content("~/Order/SearchRoom")?hotelId=${hotelId}&checkInDate=${checkInDate}&checkOutDate=${checkOutDate}`);
+        const data = await response.text();
+
+        document.getElementById('RoomList').innerHTML = data;
+
+    });
+
 
 
 

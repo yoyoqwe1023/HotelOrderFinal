@@ -151,7 +151,7 @@ namespace HotelOrderFinal.Controllers
                 .Select(g => new { g.Key, g }).ToList();
 
             List<CSearchRoomViewModel> vmList = new List<CSearchRoomViewModel>();
-
+            string json = "";
             foreach (var room in freeRooms)
             {
                 var f = room.g.First();
@@ -169,7 +169,19 @@ namespace HotelOrderFinal.Controllers
                 vmList.Add(vm);
             }
 
-                return View(vmList);
+            json = JsonSerializer.Serialize(vmList);
+            HttpContext.Session.SetString("CartData", json);
+            if (freeRooms == null)
+            {
+                return Json(null);
+            }
+            else
+            {
+                return Json(json);
+            }
+            
+
+
         }
 
 
