@@ -2,6 +2,7 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace HotelOrderFinal.Models
 {
@@ -12,6 +13,7 @@ namespace HotelOrderFinal.Models
         public string MemberId { get; set; }
         public string RoomClassId { get; set; }
         public int? CommentPoint { get; set; }
+        [DisplayName("評價摘要：")]
         public string CommentDetail { get; set; }
 
         public virtual RoomMember Member { get; set; }

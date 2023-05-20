@@ -13,6 +13,32 @@ model IEnumerable<String>
 </section>
 <head>
     <style>
+       * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .even-row {
+            background-color: #f8f9fa;
+        }
+
+         .area-search{
+            padding: 5px;
+            margin: 10px;
+        }
+
+        .area{
+            padding: 5px;
+            margin: 10px;
+            border: solid green;
+            border-radius: 20px;
+        }
+
+         .row{
+            display: flex;
+            margin: 5px;
+            padding: 5px;
+        }
 
         .shoppoing-head {
             border: double green;
@@ -41,7 +67,7 @@ model IEnumerable<String>
 </head>
 
 <body>
-    <header style="margin:10px;">
+    <div class="area-search">
         <div class="row" style="width:80% margin: 0 auto">
             <div class="col-md-2 offset-md-2">
                 <!-- 調整地區 -->
@@ -84,11 +110,11 @@ model IEnumerable<String>
                 </div>
             </div>
         </div>
-    </header>
-    <header style="margin-bottom:20px; width:80% margin: 0 auto">
+    </div>
+    <div>
         <div class="row">
             <div class="col-md-6 offset-md-1 roomlist-head " style="margin-right:20px;">
-                <section>
+                <div>
                     @*list*@
                     <div id="RoomList" style="margin-bottom:3px;">
                         @*roomall*@
@@ -140,7 +166,7 @@ model IEnumerable<String>
                             }
                         }
                     </div>
-                </section>
+                </div>
             </div>
             <div class="col-md-3">
                 <div class="shoppoing-head">
@@ -197,7 +223,7 @@ model IEnumerable<String>
                 </div>
             </div>
         </div>
-    </header>
+    </div>
 </body>
 
 
@@ -352,4 +378,14 @@ function loadCartFromSession() {
 
 
 
+</script>
+<script>
+    var a = document.getElementById('checkInDate');
+    console.log(a.value);
+    window.onload = async () => {
+        const response = await fetch('@Url.Action("getActivitySession", "Order")');
+        const data = await response.json();
+        a.value = data.time;
+        console.log(data);
+    };
 </script>
