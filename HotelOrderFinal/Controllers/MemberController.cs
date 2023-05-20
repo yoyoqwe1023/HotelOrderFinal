@@ -295,6 +295,16 @@ namespace HotelOrderFinal.Controllers
                 model.MemberGender = genderText;
                 model.MemberBirthday = birthday;
 
+
+                DiscountDetail discountDetail = new DiscountDetail();
+                discountDetail.MemberId = memberID_;
+                discountDetail.DiscountId = 1;
+                discountDetail.DiscountStart = DateTime.Now;
+                discountDetail.DiscountEnd = DateTime.Now.AddYears(1);
+                discountDetail.DiscountUse = 0;
+
+                db.DiscountDetail.Add(discountDetail);
+
                 db.Add(model);
                 db.SaveChanges();
                 return RedirectToAction("Index", "Home", new { message = HttpUtility.UrlEncode("註冊成功，請重新登入，謝謝 !") });
