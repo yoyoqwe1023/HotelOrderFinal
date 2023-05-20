@@ -78,7 +78,7 @@ model IEnumerable<String>
                             <select id="hotelId">
                                 @{
                                     int count1 = 0;
-                                    foreach (var item in Model)
+                                    foreach (var item in ViewBag.Hotels)
                                     {
                                         <option value=@item.HotelId>@item.HotelName</option>
                                     }
@@ -94,7 +94,7 @@ model IEnumerable<String>
                 <div class="book_tabel_item">
                     <div class="form-group">
                         <label for="checkInDate">入住日期:</label>
-                        <input type="date" id="checkInDate" name="checkInDate" class="form-control" placeholder="入住日" @*value="@ViewBag.CheckInDate.ToString("yyyy-MM-dd")"*@ />
+                        <input type="date" id="checkInDate" name="checkInDate" class="form-control" placeholder="入住日" value="@ViewBag.CheckInDate.ToString("yyyy-MM-dd")" />
                     </div>
                 </div>
             </div>
@@ -104,7 +104,7 @@ model IEnumerable<String>
                 <div class="book_tabel_item">
                     <div class="form-group">
                         <label for="checkOutDate">退房日期:</label>
-                        <input type="date" id="checkOutDate" name="checkOutDate" class="form-control" placeholder="退房日" @*value="@ViewBag.CheckOutDate.ToString("yyyy-MM-dd")"*@ />
+                        <input type="date" id="checkOutDate" name="checkOutDate" class="form-control" placeholder="退房日" value="@ViewBag.CheckOutDate.ToString("yyyy-MM-dd")" />
                     </div>
                 </div>
             </div>
