@@ -90,15 +90,42 @@
         @*///-----------------------------------------------------------------------------------------*@
         <div class="col-md-4">
 
-            
 
-            @for(var i = 0; i < Model.Count; i++)
+
+            @for (var i = 0; i < Model.Count; i++)
             {
                 <div>@Model[i].OrderId</div>
                 <div>@Model[i].MemberId</div>
-
-
             }
+
+            @*// 在這裡可以使用 memberId 去查詢該會員的歷史訂單資訊*@
+            @*// 假設您有一個名為 orders 的資料集合用於儲存訂單資訊*@
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>訂單編號</th>
+                        <th>訂單日期</th>
+                        <th>總金額</th>
+                        <th>詳細資訊</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var i = 0; i < Model.Count; i++)
+                    {
+                        <tr>
+                            <td>@Model[i].OrderId</td>
+                            <td>@Model[i].OrderDate</td>
+                            <td>@Model[i].CheckInPeople</td>
+                            <td>
+                                <a href="/orders/details/@Model[i].OrderId">查看詳情</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+
         </div>
     </div>
 

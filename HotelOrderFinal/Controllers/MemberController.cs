@@ -271,10 +271,16 @@ namespace HotelOrderFinal.Controllers
             {
                 return PartialView(model);
             }
-
+                  
             string memberID_ = string.Empty;
             int maxMemberID = 0;
             model.AdminId = "AD00010";
+            //性別處理
+            string gender = model.MemberGender;
+            string genderText = (gender == "male") ? "男" : "女";
+            //生日處理
+            DateTime birthday = model.MemberBirthday.Value;
+
             try
             {
                 db = new HotelOrderContext();
@@ -285,6 +291,9 @@ namespace HotelOrderFinal.Controllers
                 maxMemberID = (count > 0) ? Convert.ToInt32(q.Max().Substring(2)) : 0;
                 memberID_ = (count == 0) ? "MB00000" : "MB" + (maxMemberID + 1).ToString().PadLeft(5, '0');
                 model.MemberId = memberID_;
+                // 設置性別屬性
+                model.MemberGender = genderText;
+                model.MemberBirthday = birthday;
 
                 db.Add(model);
                 db.SaveChanges();
