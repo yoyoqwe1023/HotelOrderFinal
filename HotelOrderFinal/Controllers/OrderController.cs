@@ -44,6 +44,9 @@ namespace HotelOrderFinal.Controllers
                 checkOut = DateTime.Today.AddDays(1);
             }
 
+            HttpContext.Session.SetString("CHECKINDATE", checkIn.ToString("yyyy-MM-dd"));
+            HttpContext.Session.SetString("CHECKOUTDATE", checkOut.ToString("yyyy-MM-dd"));
+
             //讀取飯店ID
             int hotelid = 0;
 
