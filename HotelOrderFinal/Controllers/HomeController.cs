@@ -23,6 +23,10 @@ namespace HotelOrderFinal.Controllers
             //
             CindexActivityViewModels cavm = new CindexActivityViewModels();
             cavm.ActivityImage = db.Activity.Select(x=>x.ActivityImage).ToList();
+          
+
+            cavm.hotelIndustry = db.HotelIndustry.ToList();
+
             if (!string.IsNullOrEmpty(message))
             {
                 TempData["Message"] = message;
