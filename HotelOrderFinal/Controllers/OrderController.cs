@@ -88,6 +88,9 @@ namespace HotelOrderFinal.Controllers
                 vm.RoomClassName = f.RoomClass.RoomClassName;
                 vm.RoomClassPeople = f.RoomClass.RoomClassPeople;
                 vm.RoomClassSize = f.RoomClass.RoomClassSize;
+                vm.CheckInDate = checkIn;
+                vm.CheckOutDate = checkOut;
+                vm.HotelName = f.Hotel.HotelName;
                 vmList.Add(vm);
             }
 
@@ -110,6 +113,9 @@ namespace HotelOrderFinal.Controllers
         [HttpPost]
         public IActionResult SearchRoom(string checkInDate, string checkOutDate, string hotelId)
         {
+            CSearchRoomViewModel h = new CSearchRoomViewModel();
+            h.hotels = db.HotelIndustry.ToList();
+
             //讀取與設定入退宿時間      
             DateTime checkIn;
             DateTime checkOut;
@@ -125,10 +131,10 @@ namespace HotelOrderFinal.Controllers
                 checkOut = DateTime.Today.AddDays(1);
             }
 
-            //讀取飯店ID
-            int hotelid = 1;
+              //讀取飯店ID
+            int hotelid = 0;
 
-            if (!string.IsNullOrEmpty(hotelId))
+            if (!string.IsNullOrEmpty(hotelId) && int.TryParse(hotelId, out int parsedHotelId))
             {
                 hotelid = int.Parse(hotelId);
             }
@@ -166,11 +172,12 @@ namespace HotelOrderFinal.Controllers
                 vm.RoomClassName = f.RoomClass.RoomClassName;
                 vm.RoomClassPeople = f.RoomClass.RoomClassPeople;
                 vm.RoomClassSize = f.RoomClass.RoomClassSize;
+                //vm.HotelName = f.Hotel.HotelName;
                 vmList.Add(vm);
             }
 
             json = JsonSerializer.Serialize(vmList);
-            HttpContext.Session.SetString("CartData", json);
+            //HttpContext.Session.SetString("CartData", json);
             if (freeRooms == null)
             {
                 return Json(null);
@@ -179,7 +186,43 @@ namespace HotelOrderFinal.Controllers
             {
                 return Json(json);
             }
-            
+
+
+            //if (freeRooms == null)
+            //{
+            //    return View();
+            //}
+            //else
+            //{
+            ////    return View(vmList);
+            //}
+
+            //        var freeRooms = db.Room.Include(r => r.RoomClass)
+            //.Where(r => !reservedRoomList.Contains(r.RoomId) && r.HotelId == hotelid)
+            //.GroupBy(r => r.RoomClass.RoomClassName)
+            //.Select(g => new CSearchRoomViewModel
+            //{
+            //    RoomClassId = g.First().RoomClassId,
+            //    RoomClassPhoto1 = g.First().RoomClass.RoomClassPhoto1,
+            //    RoomClassDetail = g.First().RoomClass.RoomClassDetail,
+            //    WeekdayPrice = (int)Math.Floor(g.First().RoomClass.WeekdayPrice.GetValueOrDefault()),
+            //    HolidayPrice = (int)Math.Floor(g.First().RoomClass.HolidayPrice.GetValueOrDefault()),
+            //    AddPrice = (int)Math.Floor(g.First().RoomClass.AddPrice.GetValueOrDefault()),
+            //    RoomClassName = g.First().RoomClass.RoomClassName,
+            //    RoomClassPeople = g.First().RoomClass.RoomClassPeople,
+            //    RoomClassSize = g.First().RoomClass.RoomClassSize,
+            //    HotelName = g.First().Hotel.HotelName
+            //})
+            //.ToList();
+
+            //        if (freeRooms == null)
+            //        {
+            //            return View();
+            //        }
+            //        else
+            //        {
+            //            return View(freeRooms);
+            //        }
 
 
         }
@@ -203,16 +246,19 @@ namespace HotelOrderFinal.Controllers
         }
 
         //房間加入購物車
-        public ActionResult AddShopCart(string RoomClassId)
+        public ActionResult AddShopCart(string RoomClassId /*, string checkInDate, string checkOutDate*/)
         {
             HotelOrderContext db = new HotelOrderContext();
             var roomClass = db.RoomClass.Find(RoomClassId);
 
             string checkInDateStr = HttpContext.Session.GetString("CHECKINDATE");
             string checkOutDateStr = HttpContext.Session.GetString("CHECKOUTDATE");
-                     
+
             if (roomClass != null)
             {
+                //DateTime checkIn = DateTime.ParseExact(checkInDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                //DateTime checkOut = DateTime.ParseExact(checkOutDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+
                 DateTime checkInDate;
                 DateTime checkOutDate;
 
@@ -250,6 +296,9 @@ namespace HotelOrderFinal.Controllers
                         cartItem.AddPrice = (int)Math.Floor(roomClass.AddPrice.GetValueOrDefault());
                         cartItem.CheckInDate = checkInDate;
                         cartItem.CheckOutDate = checkOutDate;
+                        //cartItem.CheckInDate = checkIn;
+                        //cartItem.CheckOutDate = checkOut;
+                        //cartItem.HotelName = roomClass.HotelName;
                     };
                     cartList.Add(cartItem);
                     json = JsonSerializer.Serialize(cartList);

@@ -37,25 +37,25 @@ namespace HotelOrderFinal.Controllers
             return View(cavm);
         }
 
-        [HttpPost]
-        public IActionResult setSession(string checkInDate, string checkOutDate)
-        {
+        //[HttpPost]
+        //public IActionResult setSession(string checkInDate, string checkOutDate)
+        //{
 
-            DateTime checkIn = DateTime.ParseExact(checkInDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-            DateTime checkOut = DateTime.ParseExact(checkOutDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+        //    DateTime checkIn = DateTime.ParseExact(checkInDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+        //    DateTime checkOut = DateTime.ParseExact(checkOutDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
-            if (HttpContext.Session.GetString("CHECKINDATE") == null)
-                HttpContext.Session.SetString("CHECKINDATE", checkIn.ToString("yyyy-MM-dd"));
-            else
-                HttpContext.Session.SetString("CHECKINDATE", checkIn.ToString("yyyy-MM-dd"));
+        //    if (HttpContext.Session.GetString("CHECKINDATE") == null)
+        //        HttpContext.Session.SetString("CHECKINDATE", checkIn.ToString("yyyy-MM-dd"));
+        //    else
+        //        HttpContext.Session.SetString("CHECKINDATE", checkIn.ToString("yyyy-MM-dd"));
 
-            if (HttpContext.Session.GetString("CHECKOUTDATE") == null)
-                HttpContext.Session.SetString("CHECKOUTDATE", checkOut.ToString("yyyy-MM-dd"));
-            else
-                HttpContext.Session.SetString("CHECKOUTDATE", checkOut.ToString("yyyy-MM-dd"));
+        //    if (HttpContext.Session.GetString("CHECKOUTDATE") == null)
+        //        HttpContext.Session.SetString("CHECKOUTDATE", checkOut.ToString("yyyy-MM-dd"));
+        //    else
+        //        HttpContext.Session.SetString("CHECKOUTDATE", checkOut.ToString("yyyy-MM-dd"));
 
-            return RedirectToAction("List", "Order");
-        }
+        //    return RedirectToAction("List", "Order");
+        //}
 
        
 
