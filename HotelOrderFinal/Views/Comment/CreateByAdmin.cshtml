@@ -1,21 +1,14 @@
 ﻿@model HotelOrderFinal.Models.Comment
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "CreateByAdmin";
 }
 
 <section class="breadcrumb_area">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
-    <div class="container">
-        <div class="page-cover text-center">
-            <h2 class="page-cover-tittle">About Us</h2>
-            <ol class="breadcrumb">
-                <li><a href="index.html">Home</a></li>
-                <li class="active">About</li>
-            </ol>
-        </div>
-    </div>
+    <div class="container"></div>
 </section>
+<p></p>
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -70,86 +63,84 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2" style="background-color: #f2f2f2;">
-@*                <h2>左欄內容</h2>*@
+                @*                <h2>左欄內容</h2>*@
                 <p>
-@*                    <a asp-action="Create">前往訂房</a>*@
+                    @*                    <a asp-action="Create">前往訂房</a>*@
                 </p>
             </div>
+            @*<p></p>
+            <hr />*@
+
             <div class="row">
                 <div class="col-5 col-1-sm-6">
                     <div class="d-flex flex-wrap">
-
-                        <form asp-action="Create">
+                        @*    <div class="col-md-4">*@
+                        <form asp-action="CreateByAdmin">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
                             <div class="form-group">
                                 <input type="hidden" asp-for="CommentDate" value=getdate() />
                                 <span asp-validation-for="CommentDate" class="text-danger"></span>
                             </div>
 
                             <div class="form-group">
-                                <input type="hidden" asp-for="MemberId" value="@ViewBag.UserID" />
+                                <label asp-for="MemberId" class="control-label"></label>
+                                <input asp-for="MemberId" class="form-control" />
                                 <span asp-validation-for="MemberId" class="text-danger"></span>
                             </div>
 
-                            @*<div class="form-group">
+                            <div class="form-group">
                                 <label asp-for="RoomClassId" class="control-label"></label>
-                                <input asp-for="RoomClassId" />
+                                <input asp-for="RoomClassId" class="form-control" />
                                 <span asp-validation-for="RoomClassId" class="text-danger"></span>
-                            </div>*@
-@*                            <label>請先給予評點:</label>*@
-                            <div id="stars" class="left">
-                                <img src="../image/comment/empty.png" title="非常失望" alt="">
-                                <img src="../image/comment/empty.png" title="不滿意" alt="">
-                                <img src="../image/comment/empty.png" title="普通" alt="">
-                                <img src="../image/comment/empty.png" title="滿意" alt="">
-                                <img src="../image/comment/empty.png" title="非常滿意" alt="">
-                                <span id="score" ></span>
-                            </div>
-                            <p></p>
-                            <input type="hidden" asp-for="CommentPoint" value="-1"/>
-                            <span asp-validation-for="CommentPoint"></span>
-                            <br></br>
-                            <div class="sub">
-                                <label asp-for="CommentDetail" class="control-label"></label>
-                                <textarea asp-for="CommentDetail" cols="40" rows="5" autofocus placeholder="請讓我們了解您的感受...."></textarea>
-                                <span asp-validation-for="CommentDetail" class="text-danger"></span>
                             </div>
 
+                            <div class="form-group">
+                                <label asp-for="CommentPoint" class="control-label"></label>
+                                <input asp-for="CommentPoint" class="form-control" />
+                                <span asp-validation-for="CommentPoint" class="text-danger"></span>
+                            </div>
+
+                            <div class="sub">
+                                <label asp-for="CommentDetail" class="control-label"></label>
+                                <textarea asp-for="CommentDetail" cols="40" rows="5" autofocus placeholder="請輸入評論摘要...."></textarea>
+                                <span asp-validation-for="CommentDetail" class="text-danger"></span>
+                            </div>
+@*                            <div class="form-group">
+                                <label asp-for="CommentDetail" class="control-label"></label>
+                                <input asp-for="CommentDetail" class="form-control" />
+                                <span asp-validation-for="CommentDetail" class="text-danger"></span>
+                            </div>
+*@
                             <div class="form-group">
                                 <input type="submit" value="儲存" class="btn btn-primary" />
                                 <input type="reset" value="清除" class="btn btn-secondary" />
-                                <a asp-action="ListByMember" class="btn btn-warning">取消</a>
+                                <a asp-action="ListByAdmin" class="btn btn-warning">取消</a>
                             </div>
                             <div class="form-group">
-                                 @using (Html.BeginForm("Create", "Comment",  new { id = "my-form-id" }))
-                                 {
-                                  <button type="button" class="btn btn-dark" onclick="demoComment()">Demo</button>
-                                 }
-                                 @ViewBag.Message
-                           </div>
+                                @using (Html.BeginForm("CreateByAdmin", "Comment", new { id = "my-form-id" }))
+                                {
+                                    <button type="button" class="btn btn-dark" onclick="demoCommentAdmin()">Demo</button>
+                                }
+                                @ViewBag.Message
+                            </div>
                         </form>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 </body>
-@section Scripts
-{
-    <script src="~/js/comment/commentpoint.js"></script>
 
-    <script type="text/javascript">
-        function demoComment() {
-            // 取得表單元素和欄位元素
-            var CommentDetail = document.getElementById("CommentDetail");
+    @section Scripts {
+    <script>
+        function demoCommentAdmin() {
             // 設定 Demo 評價
-            CommentDetail.value = "很舒適的住房體驗，浴室乾濕分離，獨立浴缸不會有邊角發霉問題，整體乾淨整潔。";
-            // 提交表單
+            // 取得表單元素和欄位元素
+            document.getElementById("MemberId").value = "MB00006";
+            document.getElementById("CommentPoint").value = 4;
+            document.getElementById("CommentDetail").value ="很舒適的住房體驗，浴室乾濕分離，獨立浴缸不會有邊角發霉問題，整體乾淨整潔。";
+            //// 提交表單
             form.submit();
         }
     </script>
-}
-}
     }

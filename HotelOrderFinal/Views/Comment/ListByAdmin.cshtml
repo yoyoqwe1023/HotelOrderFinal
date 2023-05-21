@@ -1,0 +1,85 @@
+﻿@model IEnumerable<HotelOrderFinal.Models.Comment>
+
+@{
+    ViewData["Title"] = "ListByAdmin";
+}
+<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container"></div>
+</section>
+<p></p>
+<p>
+    @using (Html.BeginForm())
+    {
+        @:關鍵字 @Html.TextBox("txtKeyword") <input type="submit" value="查詢">
+    }
+</p>
+<p>
+    <a asp-action="CreateByAdmin" class="btn btn-info">新增評論</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                序
+            </th>
+            <th>
+                <input type="hidden" value="@Html.DisplayNameFor(model => model.CommentId)" />
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CommentDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MemberId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoomClassId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CommentPoint)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CommentDetail)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int count = 0;
+            foreach (var item in Model)
+            {
+                count++;
+                <tr>
+                    <td>
+                        @count
+                    </td>
+
+                    <td>
+                        <input type="hidden" value="@Html.DisplayFor(modelItem => item.CommentId)" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CommentDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MemberId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RoomClassId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CommentPoint)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CommentDetail)
+                    </td>
+                    <td>
+                        @Html.ActionLink("修改", "EditByAdmin", new {id=item.CommentId},new { @class="btn btn-success" }) |
+                        @Html.ActionLink("刪除", "DeleteByAdmin", new {id=item.CommentId},new { @class="btn btn-danger", onclick="return confirm('確定要刪除嗎?')"})
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
