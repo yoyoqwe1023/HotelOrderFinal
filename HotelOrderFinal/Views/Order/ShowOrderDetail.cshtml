@@ -1,4 +1,4 @@
-﻿@model List<HotelOrderFinal.ViewModels.ShowOderData>
+﻿@model HotelOrderFinal.ViewModels.ShowOrderDetailData
 @{
     ViewData["Title"] = "ShoppingCar";
 }
@@ -28,7 +28,7 @@
 </style>
 <div class="wrapper ">
 
-    <h1>您的訂單</h1>
+    <h1>您的訂單明細</h1>
     <h4>RoomMember</h4>
     <hr />
     <div class="row">
@@ -92,64 +92,47 @@
 
         @*// 在這裡可以使用 memberId 去查詢該會員的歷史訂單資訊*@
         @*// 假設您有一個名為 orders 的資料集合用於儲存訂單資訊*@
-        <div class="row">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model[0].OrderId)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model[0].OrderDate)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model[0].OrderTotalPrice)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model[0].CheckInPeople)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model[0].OrderRemark)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @{
-                    int count = 0;
-                    foreach (var item in Model)
-                    {
-                        count++;
-                        <tr>
-                            <td>
-                                @count
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.OrderId)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem =>item.OrderDate)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.OrderTotalPrice)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CheckInPeople)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.OrderRemark)
-                            </td>
-                            <td>
-                                    @Html.ActionLink("查詢", "ShowOrderDetail","Order", new {  id=item.OrderId })
-                            </td>
-                        </tr>
-                    }
-                }
-            </tbody>
-        </table>
+
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" name="FId" value="@Model.orderID" />
+                <div class="form-group">
+                    <label asp-for="@Model.orderID" class="control-label"></label>
+                    <input asp-for="@Model.orderID" class="form-control" disabled />
+                    <span asp-validation-for="@Model.orderID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.CheckInDate" class="control-label"></label>
+                    <input asp-for="@Model.CheckInDate" class="form-control" disabled />
+                    <span asp-validation-for="@Model.CheckInDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.CheckOutDate" class="control-label"></label>
+                    <input asp-for="@Model.CheckOutDate" class="form-control" disabled />
+                    <span asp-validation-for="@Model.CheckOutDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.PaymentDate" class="control-label"></label>
+                    <input asp-for="@Model.PaymentDate" class="form-control" disabled />
+                    <span asp-validation-for="@Model.PaymentDate" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.PaymentPrice" class="control-label"></label>
+                    <input asp-for="@Model.PaymentPrice" class="form-control" disabled />
+                    <span asp-validation-for="@Model.PaymentPrice" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="@Model.OrderDetailRemark" class="control-label"></label>
+                    <input asp-for="@Model.OrderDetailRemark" class="form-control" disabled />
+                    <span asp-validation-for="@Model.OrderDetailRemark" class="text-danger"></span>
+                </div>
+            </form>
+        </div>
+
+
     </div>
-    </div>
-   
+
 
     <div>
         <a asp-action="Index">Back to List</a>
