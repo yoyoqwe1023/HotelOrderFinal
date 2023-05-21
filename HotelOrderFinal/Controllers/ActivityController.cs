@@ -18,8 +18,8 @@ namespace HotelOrderFinal.Controllers
         }
         public ActionResult ActivityByDetails(int? id)
         {
-             
-            Activity cust = db.Activity.FirstOrDefault(t => t.ActivityId == id);
+            var cust = db.Activity.FirstOrDefault(t => t.ActivityId == id);
+            //Activity cust = db.Activity.FirstOrDefault(t => t.ActivityId == id);
             if (cust == null)
                 return RedirectToAction("List");
             return View(cust);

@@ -35,8 +35,23 @@ namespace HotelOrderFinal.Controllers
                                           .Where(t => t.MemberId == userId)
                                           .OrderByDescending(p => p.CommentDate);
             if (member == null)
-                return RedirectToAction("List");
+                return RedirectToAction("ListByMemberAll");
             return View(member);
+        }
+
+        public IActionResult ListByMemberAll(CKeywordViewModel vm)
+        {
+            HotelOrderContext db = new HotelOrderContext();
+            IEnumerable<Comment> datas = null;
+            if (string.IsNullOrEmpty(vm.txtKeyword))
+                datas = from c in db.Comment
+                        orderby c.CommentDate descending
+                        select c;
+            else
+                datas = db.Comment
+                    .Where(p => p.CommentDetail.Contains(vm.txtKeyword))
+                    .OrderByDescending(p => p.CommentDate);
+            return View(datas);
         }
         public IActionResult Create(string? UserID)
         {
