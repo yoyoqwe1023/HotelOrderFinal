@@ -75,13 +75,14 @@ model IEnumerable<String>
                 <div class="book_tabel_item stDate">
                     <div class="form-group">
                         <div>
-                            <select id="hotelId">
+                            <select id="hotelId" >
                                 @{
                                     int count1 = 0;
                                     foreach (var item in ViewBag.Hotels)
-                                    {
-                                        <option value=@item.HotelId>@item.HotelName</option>
-                                    }
+  {
+ var selected = item.HotelId.ToString() == ViewBag.HotelId.ToString() ? "selected" : "";
+        <option value="@item.HotelId" selected="@selected">@item.HotelName</option>
+        }
                                 }
 
                             </select>

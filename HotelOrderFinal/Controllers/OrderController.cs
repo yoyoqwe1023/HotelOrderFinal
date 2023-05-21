@@ -26,8 +26,8 @@ namespace HotelOrderFinal.Controllers
 
         public IActionResult List(string checkInDate, string checkOutDate, string hotelId)
         {
-            CSearchRoomViewModel vm = new CSearchRoomViewModel();
-            vm.hotels = db.HotelIndustry.ToList();
+            CSearchRoomViewModel h = new CSearchRoomViewModel();
+            h.hotels = db.HotelIndustry.ToList();
 
             //讀取與設定入退宿時間      
             DateTime checkIn;
@@ -78,13 +78,13 @@ namespace HotelOrderFinal.Controllers
             {
               
                 var f = room.g.First();
-
+                CSearchRoomViewModel vm = new CSearchRoomViewModel();
                 vm.RoomClassId = f.RoomClassId;
                 vm.RoomClassPhoto1 = f.RoomClass.RoomClassPhoto1;
                 vm.RoomClassDetail = f.RoomClass.RoomClassDetail;
-                vm.WeekdayPrice = f.RoomClass.WeekdayPrice;
-                vm.HolidayPrice = f.RoomClass.HolidayPrice;
-                vm.AddPrice = f.RoomClass.AddPrice;
+                vm.WeekdayPrice = (int)Math.Floor(f.RoomClass.WeekdayPrice.GetValueOrDefault());
+                vm.HolidayPrice = (int)Math.Floor(f.RoomClass.HolidayPrice.GetValueOrDefault());
+                vm.AddPrice = (int)Math.Floor(f.RoomClass.AddPrice.GetValueOrDefault());
                 vm.RoomClassName = f.RoomClass.RoomClassName;
                 vm.RoomClassPeople = f.RoomClass.RoomClassPeople;
                 vm.RoomClassSize = f.RoomClass.RoomClassSize;
@@ -93,8 +93,8 @@ namespace HotelOrderFinal.Controllers
 
             ViewBag.CheckInDate = checkIn;
             ViewBag.CheckOutDate = checkOut;
-            ViewBag.HotelId = hotelId;
-            ViewBag.Hotels = vm.hotels;
+            ViewBag.HotelId = hotelid;
+            ViewBag.Hotels = h.hotels;
 
             if (freeRooms == null)
             {
@@ -160,9 +160,9 @@ namespace HotelOrderFinal.Controllers
                 vm.RoomClassId = f.RoomClassId;
                 vm.RoomClassPhoto1 = f.RoomClass.RoomClassPhoto1;
                 vm.RoomClassDetail = f.RoomClass.RoomClassDetail;
-                vm.WeekdayPrice = f.RoomClass.WeekdayPrice;
-                vm.HolidayPrice = f.RoomClass.HolidayPrice;
-                vm.AddPrice = f.RoomClass.AddPrice;
+                vm.WeekdayPrice = (int)Math.Floor(f.RoomClass.WeekdayPrice.GetValueOrDefault());
+                vm.HolidayPrice = (int)Math.Floor(f.RoomClass.HolidayPrice.GetValueOrDefault());
+                vm.AddPrice = (int)Math.Floor(f.RoomClass.AddPrice.GetValueOrDefault());
                 vm.RoomClassName = f.RoomClass.RoomClassName;
                 vm.RoomClassPeople = f.RoomClass.RoomClassPeople;
                 vm.RoomClassSize = f.RoomClass.RoomClassSize;
@@ -245,9 +245,9 @@ namespace HotelOrderFinal.Controllers
                         cartItem.RoomClassSize = roomClass.RoomClassSize;
                         cartItem.RoomClassId = roomClass.RoomClassId;
                         cartItem.RoomClassPeople = roomClass.RoomClassPeople;
-                        cartItem.HolidayPrice = roomClass.HolidayPrice;
-                        cartItem.WeekdayPrice = roomClass.WeekdayPrice;
-                        cartItem.AddPrice = roomClass.AddPrice;
+                        cartItem.HolidayPrice = (int)Math.Floor(roomClass.HolidayPrice.GetValueOrDefault());
+                        cartItem.WeekdayPrice = (int)Math.Floor(roomClass.WeekdayPrice.GetValueOrDefault());
+                        cartItem.AddPrice = (int)Math.Floor(roomClass.AddPrice.GetValueOrDefault());
                         cartItem.CheckInDate = checkInDate;
                         cartItem.CheckOutDate = checkOutDate;
                     };
