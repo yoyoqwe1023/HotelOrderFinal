@@ -47,6 +47,8 @@ namespace HotelOrderFinal.Controllers
             HttpContext.Session.SetString("CHECKINDATE", checkIn.ToString("yyyy-MM-dd"));
             HttpContext.Session.SetString("CHECKOUTDATE", checkOut.ToString("yyyy-MM-dd"));
 
+            //string tt= HttpContext.Session.GetString("CHECKINDATE");
+
             //讀取飯店ID
             int hotelid = 0;
 
@@ -131,7 +133,10 @@ namespace HotelOrderFinal.Controllers
                 checkOut = DateTime.Today.AddDays(1);
             }
 
-              //讀取飯店ID
+            HttpContext.Session.SetString("CHECKINDATE", checkIn.ToString("yyyy-MM-dd"));
+            HttpContext.Session.SetString("CHECKOUTDATE", checkOut.ToString("yyyy-MM-dd"));
+
+            //讀取飯店ID
             int hotelid = 0;
 
             if (!string.IsNullOrEmpty(hotelId) && int.TryParse(hotelId, out int parsedHotelId))
@@ -172,7 +177,9 @@ namespace HotelOrderFinal.Controllers
                 vm.RoomClassName = f.RoomClass.RoomClassName;
                 vm.RoomClassPeople = f.RoomClass.RoomClassPeople;
                 vm.RoomClassSize = f.RoomClass.RoomClassSize;
-                //vm.HotelName = f.Hotel.HotelName;
+                vm.CheckInDate = checkIn;
+                vm.CheckOutDate = checkOut;
+                vm.HotelName = f.Hotel.HotelName;
                 vmList.Add(vm);
             }
 
@@ -186,45 +193,6 @@ namespace HotelOrderFinal.Controllers
             {
                 return Json(json);
             }
-
-
-            //if (freeRooms == null)
-            //{
-            //    return View();
-            //}
-            //else
-            //{
-            ////    return View(vmList);
-            //}
-
-            //        var freeRooms = db.Room.Include(r => r.RoomClass)
-            //.Where(r => !reservedRoomList.Contains(r.RoomId) && r.HotelId == hotelid)
-            //.GroupBy(r => r.RoomClass.RoomClassName)
-            //.Select(g => new CSearchRoomViewModel
-            //{
-            //    RoomClassId = g.First().RoomClassId,
-            //    RoomClassPhoto1 = g.First().RoomClass.RoomClassPhoto1,
-            //    RoomClassDetail = g.First().RoomClass.RoomClassDetail,
-            //    WeekdayPrice = (int)Math.Floor(g.First().RoomClass.WeekdayPrice.GetValueOrDefault()),
-            //    HolidayPrice = (int)Math.Floor(g.First().RoomClass.HolidayPrice.GetValueOrDefault()),
-            //    AddPrice = (int)Math.Floor(g.First().RoomClass.AddPrice.GetValueOrDefault()),
-            //    RoomClassName = g.First().RoomClass.RoomClassName,
-            //    RoomClassPeople = g.First().RoomClass.RoomClassPeople,
-            //    RoomClassSize = g.First().RoomClass.RoomClassSize,
-            //    HotelName = g.First().Hotel.HotelName
-            //})
-            //.ToList();
-
-            //        if (freeRooms == null)
-            //        {
-            //            return View();
-            //        }
-            //        else
-            //        {
-            //            return View(freeRooms);
-            //        }
-
-
         }
 
 

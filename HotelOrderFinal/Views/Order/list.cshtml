@@ -80,8 +80,7 @@ model IEnumerable<String>
                                     int count1 = 0;
                                     foreach (var item in ViewBag.Hotels)
                                     {
-
-                                                            <option value="@item.HotelId">@item.HotelName</option>
+                                        <option value="@item.HotelId">@item.HotelName</option>
                                     }
                                 }
 
@@ -137,7 +136,6 @@ model IEnumerable<String>
                                 count++;
                                                 <div class="row">
                                                     @*room*@
-                                                    @item.HotelName
                                                     <div class="col-md-4">
                                                         @*圖片*@
                                                         <img src="~/image/@item.RoomClassPhoto1" width="250" height="150" />
@@ -264,6 +262,7 @@ model IEnumerable<String>
                 html += "</div>";
                 html += "<div class='col-md-8'>";
                 html += "<h4>" + item["RoomClassName"] + "</h4>";
+                html += "<p>" + item.RoomClassId + "</p>";
                 html += "<p>" + item.RoomClassDetail + "</p>";
                 html += "<p>住宿人數：" + item.RoomClassPeople + "</p>";
                 html += "<p>坪數：" + item.RoomClassSize + "</p>";

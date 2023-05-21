@@ -287,8 +287,11 @@
                                 deleteSessionData(extractedFId);
 
                                 //更新價格
-                                const totalPriceCell = $('<td></td>').addClass('text-right').text('NT$ ' + totalPrice);
-                                $('#OrderDetailTotalPrice').empty().append(totalPriceCell);
+                                //const totalPriceCell = $('<td></td>').addClass('text-right').text('NT$ ' + totalPrice);
+                                //$('#OrderDetailTotalPrice').empty().append(totalPriceCell);
+                                const totalPriceCell = $('#OrderDetailTotalPrice');
+                                totalPriceCell.text('NT$ ' + totalPrice);
+
                                 // 購物車內容為空，回到訂房首頁(目前無作用)
                                 if (totalPriceCell === 0) {
                                     window.location.href = "/Order/List";
@@ -304,8 +307,11 @@
                         totalPrice += item.weekdayPrice
 
                     });
-                    const totalPriceCell = $('<td></td>').addClass('text-right').text('NT$ ' + totalPrice);
-                    $('#OrderDetailTotalPrice').empty().append(totalPriceCell);
+                    //const totalPriceCell = $('<td></td>').addClass('text-right').text('NT$ ' + totalPrice);
+                    //$('#OrderDetailTotalPrice').empty().append(totalPriceCell);
+
+                    const totalPriceCell = $('#OrderDetailTotalPrice');
+                    totalPriceCell.text('NT$ ' + totalPrice);
                 }
             });
     }
@@ -321,19 +327,17 @@
 
     // 計算總金額函數
     function calculateTotalPrice() {
+        let totalPrice = 0;
+
         $('#SessionRoomList').find('tr').each((index, row) => {
             const priceText = $(row).find('td:nth-child(5)').text();
-             const itemPrice = parseInt(priceText.substring(4)); // 去除 "NT$ " 字串前綴
-            totalPrice += itemPrice;
+            const itemPrice = parseInt(priceText.substring(4)); // 去除 "NT$ " 字串前綴
+            //扣掉標題的內容
+            if (!isNaN(itemPrice)) { 
+                totalPrice += itemPrice;
+            }
         });
 
-        console.log('Price Text:', priceText);
-        console.log('Item Price:', itemPrice);
-
-        // 计算总和
-        const totalPrice = prices.reduce((sum, price) => sum + price, 0);
-
-        // 更新總金額元素
         const totalPriceCell = $('#OrderDetailTotalPrice');
         totalPriceCell.text('NT$ ' + totalPrice);
     }
