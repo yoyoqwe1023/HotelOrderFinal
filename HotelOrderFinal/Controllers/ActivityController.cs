@@ -16,7 +16,7 @@ namespace HotelOrderFinal.Controllers
         {
             _enviro = p;
         }
-        public IActionResult Create()
+        public IActionResult ActivityByCreate()
         {
             return View();
         }
