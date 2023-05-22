@@ -16,6 +16,16 @@ namespace HotelOrderFinal.Controllers
         {
             _enviro = p;
         }
+        public IActionResult ActivityByCreate()
+        {
+            var datas = from c in db.Activity
+                        select c;
+            return View ( datas );
+        }
+        public ActionResult ActivityByAcceding(int? id)
+        {
+            return View();
+        }
         public ActionResult ActivityByDetails(int? id)
         {
             var cust = db.Activity.FirstOrDefault(t => t.ActivityId == id);
@@ -37,9 +47,7 @@ namespace HotelOrderFinal.Controllers
             return RedirectToAction("List", "Order");
         }
         public IActionResult List()
-        {            
-
-            
+        {                        
             var datas = from c in db.Activity
                         select c;
             return View(datas);

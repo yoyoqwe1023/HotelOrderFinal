@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<HotelOrderFinal.Models.Admin>
 
 @{
-    ViewData["Title"] = "List";
+    ViewData ["Title"] = "List";
 }
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
@@ -24,7 +24,7 @@
                 <div class=" ">
                     <div class="">
                         @{
-                            var AdminId = Context.Session.GetString("AdminId");
+                            var AdminId = Context.Session.GetString ( "AdminId" );
                         }
                         <h2 class="">@AdminId</h2>
                     </div>
@@ -33,7 +33,7 @@
                     <ul class="list" style="list-style: none;">
                         <!--改成手風琴下拉式-->
                         <li>
-                            @Html.ActionLink("活動管理", "Edit", "Member", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
+                            @Html.ActionLink("活動管理", "ActivityByCreate", "Activity", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
                         </li>
                         <li>
                             @Html.ActionLink("訂房管理", "EditPassword", "Member", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
@@ -42,7 +42,13 @@
                             @Html.ActionLink("會員管理", "ShoppingCar", "Member", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
                         </li>
                         <li>
-                            @Html.ActionLink("飯店一覽管理", "MemberTerms", "Member", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
+                            @Html.ActionLink("飯店一覽管理", "ListView", "HotelIndustry", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
+                        </li>
+                        <li>
+                            @Html.ActionLink("優惠折扣管理", "List", "Discount", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
+                        </li>
+                        <li>
+                            @Html.ActionLink("評論管理", "ListByAdmin", "Comment", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
                         </li>
                     </ul>
                 </div>
@@ -76,12 +82,12 @@
     //圓餅圖
     const data1 = {
         labels: [
-            'Red',
-            'Blue',
-            'Yellow'
+            '資料1',
+            '資料2',
+            '資料3'
         ],
         datasets: [{
-            label: 'My First Dataset',
+            label: '資料名稱',
             data: [300, 50, 100],
             backgroundColor: [
                 'rgb(255, 99, 132)',
