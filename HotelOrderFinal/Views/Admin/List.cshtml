@@ -184,22 +184,4 @@
         });
     });
     $(function () {
-        // 點擊右側內容區域中的按鈕
-        $('#selectedItemContent').on('click', 'button', function (e) {
-            e.preventDefault();
-
-            var url = $(this).attr('href');
-
-            $.ajax({
-                url: url,
-                type: 'GET',
-                success: function (result) {
-                    $('#selectedItemContent').html(result); // 更新右側內容區域的內容
-                },
-                error: function () {
-                    alert('請求失敗');
-                }
-            });
-        });
-    });
 </script>

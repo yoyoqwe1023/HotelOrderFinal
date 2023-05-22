@@ -121,3 +121,22 @@
         }
     </tbody>
 </table>
+<script>
+                $(document).ready(function() {
+    // 點擊按鈕時觸發事件
+    $('#refreshButton').click(function() {
+        // 使用AJAX載入C頁面的內容
+        $.ajax({
+            url: '/Controller/Action',  // 請將Controller和Action替換為您的實際路徑
+            type: 'GET',
+            success: function(result) {
+                // 將C頁面的內容顯示在適當的區域
+                $('#cPageContent').html(result);
+            },
+            error: function() {
+                console.log('載入失敗');
+            }
+        });
+    });
+    });
+    </script>
