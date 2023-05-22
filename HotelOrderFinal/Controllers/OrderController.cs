@@ -21,34 +21,48 @@ namespace HotelOrderFinal.Controllers
             this._contextAccessor = contextAccessor;
         }
 
+        HotelOrderContext db = new HotelOrderContext();
         List<CShopCartViewModel> _cart = new List<CShopCartViewModel>();
 
-        public IActionResult List()
+        public IActionResult List(string checkInDate, string checkOutDate, string hotelId)
         {
-            //讀取與設定入住退房日
-            string checkInDateStr = HttpContext.Session.GetString("CHECKINDATE");
-            string checkOutDateStr = HttpContext.Session.GetString("CHECKOUTDATE");
-
+            //讀取與設定入退宿時間      
             DateTime checkIn;
             DateTime checkOut;
 
-            if (!string.IsNullOrEmpty(checkInDateStr) && !string.IsNullOrEmpty(checkOutDateStr))
+            if (!string.IsNullOrEmpty(checkInDate) && !string.IsNullOrEmpty(checkOutDate))
             {
-                checkIn = DateTime.ParseExact(checkInDateStr, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                checkOut = DateTime.ParseExact(checkOutDateStr, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                checkIn = DateTime.ParseExact(checkInDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                checkOut = DateTime.ParseExact(checkOutDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
             }
             else
             {
                 checkIn = DateTime.Today;
                 checkOut = DateTime.Today.AddDays(1);
-                HttpContext.Session.SetString("CHECKINDATE", checkIn.ToString("yyyy-MM-dd"));
-                HttpContext.Session.SetString("CHECKOUTDATE", checkOut.ToString("yyyy-MM-dd"));
             }
 
-            ViewBag.CheckInDate = checkIn;
-            ViewBag.CheckOutDate = checkOut;
+            HttpContext.Session.SetString("CHECKINDATE", checkIn.ToString("yyyy-MM-dd"));
+            HttpContext.Session.SetString("CHECKOUTDATE", checkOut.ToString("yyyy-MM-dd"));
 
-            HotelOrderContext db = new HotelOrderContext();
+            CSearchRoomViewModel h = new CSearchRoomViewModel();
+            h.hotels = db.HotelIndustry.ToList();
+
+           
+
+            //讀取飯店ID
+            int hotelid = 0;
+
+            if (!string.IsNullOrEmpty(hotelId) && int.TryParse(hotelId, out int parsedHotelId))
+            {
+                hotelid = int.Parse(hotelId);
+            }
+            else
+            {
+                hotelid = 1;
+            }
+
+            var hotelname = db.HotelIndustry.Where(h => h.HotelId == hotelid).Select(h => h.HotelName);
+            HttpContext.Session.SetString("HOTELNAME", hotelname.ToString());
 
             //查詢空閒房間方法
             //查詢指定時間區間內已被預訂的房間
@@ -57,24 +71,9 @@ namespace HotelOrderFinal.Controllers
                                 select od.RoomId;
             var reservedRoomList = reservedRooms.ToList();
 
-            //所有房間扣掉已預訂房間
-
-            //var freeRooms = (from r in db.Room.Include(r => r.RoomClass)
-            //                 where !reservedRooms.Contains(r.RoomId)
-            //                 select r).Distinct();
-
-            //var freeRooms = (from r in db.Room.Include(r => r.RoomClass)
-            //                 where !reservedRooms.Contains(r.RoomId)
-            //                 select r)
-            //                 .Select(rs => new {rs.RoomClass.RoomClassId, rs.RoomClass.RoomClassName }).Distinct();
-
-            //var freeRooms = from r in db.Room.Include(r => r.RoomClass).AsEnumerable()
-            //                where !reservedRooms.Contains(r.RoomId)
-            //                group r by r.RoomClass.RoomClassName into g
-            //                select new { g.Key, g };
-
+            //所有房間扣掉已預訂房間 , 符合飯店跟
             var freeRooms = db.Room.Include(r => r.RoomClass).AsEnumerable()
-                .Where(r => !reservedRoomList.Contains(r.RoomId))
+                .Where(r => !reservedRoomList.Contains(r.RoomId) && r.HotelId == hotelid)
                 .GroupBy(r => r.RoomClass.RoomClassName)
                 .Select(g => new { g.Key, g }).ToList();
 
@@ -82,20 +81,28 @@ namespace HotelOrderFinal.Controllers
 
             foreach (var room in freeRooms)
             {
-                var f = room.g.First();
 
+                var f = room.g.First();
                 CSearchRoomViewModel vm = new CSearchRoomViewModel();
-                vm.RoomClassId = f.RoomClass.RoomClassId;
+                vm.RoomClassId = f.RoomClassId;
                 vm.RoomClassPhoto1 = f.RoomClass.RoomClassPhoto1;
                 vm.RoomClassDetail = f.RoomClass.RoomClassDetail;
-                vm.WeekdayPrice = f.RoomClass.WeekdayPrice;
-                vm.HolidayPrice = f.RoomClass.HolidayPrice;
-                vm.AddPrice = f.RoomClass.AddPrice;
+                vm.WeekdayPrice = (int)Math.Floor(f.RoomClass.WeekdayPrice.GetValueOrDefault());
+                vm.HolidayPrice = (int)Math.Floor(f.RoomClass.HolidayPrice.GetValueOrDefault());
+                vm.AddPrice = (int)Math.Floor(f.RoomClass.AddPrice.GetValueOrDefault());
                 vm.RoomClassName = f.RoomClass.RoomClassName;
                 vm.RoomClassPeople = f.RoomClass.RoomClassPeople;
                 vm.RoomClassSize = f.RoomClass.RoomClassSize;
+                vm.CheckInDate = checkIn;
+                vm.CheckOutDate = checkOut;
+                vm.HotelName = f.Hotel.HotelName;
                 vmList.Add(vm);
             }
+
+            ViewBag.CheckInDate = checkIn;
+            ViewBag.CheckOutDate = checkOut;
+            ViewBag.HotelId = hotelid;
+            ViewBag.Hotels = h.hotels;
 
             if (freeRooms == null)
             {
@@ -107,17 +114,42 @@ namespace HotelOrderFinal.Controllers
             }
         }
 
+        //搜尋房間(入/退宿時間、飯店ID)
         [HttpPost]
-        public IActionResult SearchRoom(string checkInDate, string checkOutDate)
+        public IActionResult SearchRoom(string checkInDate, string checkOutDate, string hotelId)
         {
+            CSearchRoomViewModel h = new CSearchRoomViewModel();
+            h.hotels = db.HotelIndustry.ToList();
 
-            DateTime checkIn = DateTime.ParseExact(checkInDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-            DateTime checkOut = DateTime.ParseExact(checkOutDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            //讀取與設定入退宿時間      
+            DateTime checkIn;
+            DateTime checkOut;
+
+            if (!string.IsNullOrEmpty(checkInDate) && !string.IsNullOrEmpty(checkOutDate))
+            {
+                checkIn = DateTime.ParseExact(checkInDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                checkOut = DateTime.ParseExact(checkOutDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            }
+            else
+            {
+                checkIn = DateTime.Today;
+                checkOut = DateTime.Today.AddDays(1);
+            }
 
             HttpContext.Session.SetString("CHECKINDATE", checkIn.ToString("yyyy-MM-dd"));
             HttpContext.Session.SetString("CHECKOUTDATE", checkOut.ToString("yyyy-MM-dd"));
 
-            HotelOrderContext db = new HotelOrderContext();
+            //讀取飯店ID
+            int hotelid = 0;
+
+            if (!string.IsNullOrEmpty(hotelId) && int.TryParse(hotelId, out int parsedHotelId))
+            {
+                hotelid = int.Parse(hotelId);
+            }
+            else
+            {
+                hotelid = 1;
+            }
 
             //查詢空閒房間方法
             //查詢指定時間區間內已被預訂的房間
@@ -126,15 +158,14 @@ namespace HotelOrderFinal.Controllers
                                 select od.RoomId;
             var reservedRoomList = reservedRooms.ToList();
 
-            //所有房間扣掉已預訂房間
-
+            //所有房間扣掉已預訂房間 , 符合飯店跟
             var freeRooms = db.Room.Include(r => r.RoomClass).AsEnumerable()
-                .Where(r => !reservedRoomList.Contains(r.RoomId))
+                .Where(r => !reservedRoomList.Contains(r.RoomId) && r.HotelId == hotelid)
                 .GroupBy(r => r.RoomClass.RoomClassName)
                 .Select(g => new { g.Key, g }).ToList();
 
             List<CSearchRoomViewModel> vmList = new List<CSearchRoomViewModel>();
-
+            string json = "";
             foreach (var room in freeRooms)
             {
                 var f = room.g.First();
@@ -143,24 +174,29 @@ namespace HotelOrderFinal.Controllers
                 vm.RoomClassId = f.RoomClassId;
                 vm.RoomClassPhoto1 = f.RoomClass.RoomClassPhoto1;
                 vm.RoomClassDetail = f.RoomClass.RoomClassDetail;
-                vm.WeekdayPrice = f.RoomClass.WeekdayPrice;
-                vm.HolidayPrice = f.RoomClass.HolidayPrice;
-                vm.AddPrice = f.RoomClass.AddPrice;
+                vm.WeekdayPrice = (int)Math.Floor(f.RoomClass.WeekdayPrice.GetValueOrDefault());
+                vm.HolidayPrice = (int)Math.Floor(f.RoomClass.HolidayPrice.GetValueOrDefault());
+                vm.AddPrice = (int)Math.Floor(f.RoomClass.AddPrice.GetValueOrDefault());
                 vm.RoomClassName = f.RoomClass.RoomClassName;
                 vm.RoomClassPeople = f.RoomClass.RoomClassPeople;
                 vm.RoomClassSize = f.RoomClass.RoomClassSize;
+                vm.CheckInDate = checkIn;
+                vm.CheckOutDate = checkOut;
+                vm.HotelName = f.Hotel.HotelName;
                 vmList.Add(vm);
             }
 
-            if (freeRooms != null)
+            json = JsonSerializer.Serialize(vmList);
+            if (freeRooms == null)
             {
-                return View();
+                return Json(null);
             }
             else
             {
                 return View(vmList);
             }
         }
+
         public IActionResult getActivitySession(int activityId)
         {
             HotelOrderContext db = new HotelOrderContext();
@@ -195,9 +231,10 @@ namespace HotelOrderFinal.Controllers
 
             string checkInDateStr = HttpContext.Session.GetString("CHECKINDATE");
             string checkOutDateStr = HttpContext.Session.GetString("CHECKOUTDATE");
-                     
+
             if (roomClass != null)
             {
+               
                 DateTime checkInDate;
                 DateTime checkOutDate;
 
@@ -230,11 +267,14 @@ namespace HotelOrderFinal.Controllers
                         cartItem.RoomClassSize = roomClass.RoomClassSize;
                         cartItem.RoomClassId = roomClass.RoomClassId;
                         cartItem.RoomClassPeople = roomClass.RoomClassPeople;
-                        cartItem.HolidayPrice = roomClass.HolidayPrice;
-                        cartItem.WeekdayPrice = roomClass.WeekdayPrice;
-                        cartItem.AddPrice = roomClass.AddPrice;
+                        cartItem.HolidayPrice = (int)Math.Floor(roomClass.HolidayPrice.GetValueOrDefault());
+                        cartItem.WeekdayPrice = (int)Math.Floor(roomClass.WeekdayPrice.GetValueOrDefault());
+                        cartItem.AddPrice = (int)Math.Floor(roomClass.AddPrice.GetValueOrDefault());
                         cartItem.CheckInDate = checkInDate;
                         cartItem.CheckOutDate = checkOutDate;
+                        var hotelID = db.Room.Where(r => r.RoomClassId == RoomClassId).Select(r => r.HotelId).FirstOrDefault();
+                        cartItem.HotelName = db.HotelIndustry.FirstOrDefault(h => h.HotelId == hotelID)?.HotelName;
+
                     };
                     cartList.Add(cartItem);
                     json = JsonSerializer.Serialize(cartList);
@@ -291,6 +331,19 @@ namespace HotelOrderFinal.Controllers
                 // 将更新后的数据重新存入会话
                 string updatedJson = JsonSerializer.Serialize(cartList);
                 HttpContext.Session.SetString("CartData", updatedJson);
+            }
+        }
+        public IActionResult CheckLoginStatus()
+        {
+            if (HttpContext.Session.GetString("UserID") != null)
+            {
+                // 使用者已登入
+                return Json(new { loggedIn = true });
+            }
+            else
+            {
+                // 使用者未登入
+                return Json(new { loggedIn = false });
             }
         }
 
