@@ -36,7 +36,7 @@
                 區域ID(北區為1，中區為2，南區為3)
             </th>
             <th>
-                    <a asp-action="Create">新增飯店</a>
+                <a asp-action="Create" class="btn btn-primary">新增飯店</a>
             </th>
         </tr>
     </thead>
@@ -62,8 +62,9 @@
                 @Html.DisplayFor(modelItem => item.HotelRegionId)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.HotelId">修改</a> |
-                <a asp-action="Delete" asp-route-id="@item.HotelId">刪除</a>
+                    @Html.ActionLink("修改", "Edit", new {id=item.HotelId},new { @class="btn btn-success" })
+                    <br>
+                    @Html.ActionLink("刪除", "Delete", new {id=item.HotelId},new { @class="btn btn-danger", onclick="return confirm('確定要刪除嗎?')"})
             </td>
         </tr>
 }
