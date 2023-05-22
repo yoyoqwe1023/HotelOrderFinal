@@ -393,27 +393,27 @@
 </div>*@
 
 <script>
-    function setSession() {
-    var checkInDate = document.getElementById("checkInDate").value;
-    var checkOutDate = document.getElementById("checkOutDate").value;
+  //  function setSession() {
+  //  var checkInDate = document.getElementById("checkInDate").value;
+  //  var checkOutDate = document.getElementById("checkOutDate").value;
 
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/Home/setSession", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  //  var xhr = new XMLHttpRequest();
+  //  xhr.open("POST", "/Home/setSession", true);
+  //  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-         // alert("session的CHECKINDATE值：" + HttpContext.Session.GetString("CHECKINDATE") + "\n session的CHECKOUTDATE值：" + HttpContext.Session.GetString("CHECKOUTDATE"));
-      }
-            window.location.href = "/Order/List";
+  //  xhr.onreadystatechange = function () {
+  //    if (xhr.readyState === 4 && xhr.status === 200) {
+  //       // alert("session的CHECKINDATE值：" + HttpContext.Session.GetString("CHECKINDATE") + "\n session的CHECKOUTDATE值：" + HttpContext.Session.GetString("CHECKOUTDATE"));
+  //    }
+  //          window.location.href = "/Order/List";
      
-    };
+  //  };
 
-    xhr.send("checkInDate=" + encodeURIComponent(checkInDate) + "&checkOutDate=" + encodeURIComponent(checkOutDate));
+  //  xhr.send("checkInDate=" + encodeURIComponent(checkInDate) + "&checkOutDate=" + encodeURIComponent(checkOutDate));
 
-    //防止表單自動提交
-    return false;
-  }
+  //  //防止表單自動提交
+  //  return false;
+  //}
 
     function getSearchRoomValue() {
         var checkInDate = document.getElementById("checkInDate").value;
