@@ -27,6 +27,7 @@ namespace HotelOrderFinal.Controllers
 
             cavm.hotelIndustry = db.HotelIndustry.ToList();
 
+            cavm.ActivityID = db.Activity.Select(x => x.ActivityId).ToList();
             if (!string.IsNullOrEmpty(message))
             {
                 TempData["Message"] = message;
