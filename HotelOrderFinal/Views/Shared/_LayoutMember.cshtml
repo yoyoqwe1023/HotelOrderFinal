@@ -73,7 +73,7 @@
                             var userId = Context.Session.GetString ( "UserID" );
                         }
                         <li class="nav-item active; nav-item">@Html.ActionLink(@"歡迎，"+userName, "index", "Member", null, new { @class = "nav-link" })</li>
-                        <li class="nav-item active; nav-item">@Html.ActionLink("優惠折扣", "DiscountByMember", "Discount", null, new { @class = "nav-link" })</li>
+@*                        <li class="nav-item active; nav-item">@Html.ActionLink("優惠折扣", "DiscountByMember", "Discount", null, new { @class = "nav-link" })</li>*@
                         <li class="nav-item active; nav-item">@Html.ActionLink("登出", "Logout", "Member", null, new { @class = "nav-link" })</li>
                     </ul>
                 </div>
