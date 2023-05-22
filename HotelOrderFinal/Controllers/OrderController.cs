@@ -26,9 +26,6 @@ namespace HotelOrderFinal.Controllers
 
         public IActionResult List(string checkInDate, string checkOutDate, string hotelId)
         {
-            CSearchRoomViewModel h = new CSearchRoomViewModel();
-            h.hotels = db.HotelIndustry.ToList();
-
             //讀取與設定入退宿時間      
             DateTime checkIn;
             DateTime checkOut;
@@ -47,7 +44,10 @@ namespace HotelOrderFinal.Controllers
             HttpContext.Session.SetString("CHECKINDATE", checkIn.ToString("yyyy-MM-dd"));
             HttpContext.Session.SetString("CHECKOUTDATE", checkOut.ToString("yyyy-MM-dd"));
 
-            //string tt= HttpContext.Session.GetString("CHECKINDATE");
+            CSearchRoomViewModel h = new CSearchRoomViewModel();
+            h.hotels = db.HotelIndustry.ToList();
+
+           
 
             //讀取飯店ID
             int hotelid = 0;
@@ -60,6 +60,9 @@ namespace HotelOrderFinal.Controllers
             {
                 hotelid = 1;
             }
+
+            var hotelname = db.HotelIndustry.Where(h => h.HotelId == hotelid).Select(h => h.HotelName);
+            HttpContext.Session.SetString("HOTELNAME", hotelname.ToString());
 
             //查詢空閒房間方法
             //查詢指定時間區間內已被預訂的房間
@@ -78,7 +81,7 @@ namespace HotelOrderFinal.Controllers
 
             foreach (var room in freeRooms)
             {
-              
+
                 var f = room.g.First();
                 CSearchRoomViewModel vm = new CSearchRoomViewModel();
                 vm.RoomClassId = f.RoomClassId;
@@ -184,7 +187,6 @@ namespace HotelOrderFinal.Controllers
             }
 
             json = JsonSerializer.Serialize(vmList);
-            //HttpContext.Session.SetString("CartData", json);
             if (freeRooms == null)
             {
                 return Json(null);
@@ -196,22 +198,22 @@ namespace HotelOrderFinal.Controllers
         }
 
 
-        public IActionResult getActivitySession()
-        {
-            //讀取與設定入住日期
-            string selectedActivityId = HttpContext.Session.GetString("SelectedActivityId");
-            string selectedActivityTime = HttpContext.Session.GetString("ActivityTime");
-            if (selectedActivityId != null && selectedActivityTime != null)
-            {
-                var jsonObject = new
-                {
-                    id = selectedActivityId,
-                    time = selectedActivityTime
-                };
-                return Json(jsonObject);
-            }
-            return RedirectToAction("List");
-        }
+        //public IActionResult getActivitySession()
+        //{
+        //    //讀取與設定入住日期
+        //    string selectedActivityId = HttpContext.Session.GetString("SelectedActivityId");
+        //    string selectedActivityTime = HttpContext.Session.GetString("ActivityTime");
+        //    if (selectedActivityId != null && selectedActivityTime != null)
+        //    {
+        //        var jsonObject = new
+        //        {
+        //            id = selectedActivityId,
+        //            time = selectedActivityTime
+        //        };
+        //        return Json(jsonObject);
+        //    }
+        //    return RedirectToAction("List");
+        //}
 
         //房間加入購物車
         public ActionResult AddShopCart(string RoomClassId /*, string checkInDate, string checkOutDate*/)
@@ -264,9 +266,8 @@ namespace HotelOrderFinal.Controllers
                         cartItem.AddPrice = (int)Math.Floor(roomClass.AddPrice.GetValueOrDefault());
                         cartItem.CheckInDate = checkInDate;
                         cartItem.CheckOutDate = checkOutDate;
-                        //cartItem.CheckInDate = checkIn;
-                        //cartItem.CheckOutDate = checkOut;
-                        //cartItem.HotelName = roomClass.HotelName;
+                        //cartItem.HotelName = db.HotelIndustry.Where(h=>h.HotelId == roomClass) roomClass.HotelName;
+                        //cartItem.HotelName = db.HotelIndustry.Where(h => h.HotelId == roomClass.RoomClassId).Select(h => h.HotelName);
                     };
                     cartList.Add(cartItem);
                     json = JsonSerializer.Serialize(cartList);

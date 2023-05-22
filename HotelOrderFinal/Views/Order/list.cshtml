@@ -41,6 +41,10 @@ model IEnumerable<String>
             padding: 5px;
         }
 
+        .aa{
+          margin-left:-30px;
+        }
+
         .shoppoing-head {
             border: double green;
         }
@@ -69,18 +73,19 @@ model IEnumerable<String>
 
 <body>
     <div class="area-search">
-        <div class="row" style="width:80% margin: 0 auto">
+        <div class="row" style="width:100% margin: 0 auto">
             <div class="col-md-2 offset-md-2">
                 <!-- 調整地區 -->
                 <div class="book_tabel_item stDate">
                     <div class="form-group">
                         <div>
-                            <select id="hotelId">
+                            <select id="hotelId" >
                                 @{
                                     int count1 = 0;
                                     foreach (var item in ViewBag.Hotels)
                                     {
-                                        <option value="@item.HotelId">@item.HotelName</option>
+                                        //<option value="@item.HotelId">@item.HotelName</option>
+                                                        <option value="@item.HotelId" selected="@(item.HotelId == ViewBag.HotelId)">@item.HotelName</option>
                                     }
                                 }
 
@@ -112,7 +117,7 @@ model IEnumerable<String>
             <div class="col-md-1">
                 <!-- 調整搜尋按鈕的位置和寬度 -->
                 <div class="book_tabel_item">
-                    <button id="btnSearchRoom" onclick="SearchRoom()" class="btn-primary btn-block">搜尋</button>
+                    <button style="margin-top:30px;" id="btnSearchRoom" onclick="SearchRoom()" class="btn-primary btn-block">搜尋</button>
                 </div>
             </div>
         </div>
@@ -126,7 +131,7 @@ model IEnumerable<String>
                         @*roomall*@
                         @{if (Model == null)
                         {
-                                            <div class="stNotroom">該時段已沒有空間，請重新選擇時段。</div>
+                                                            <div class="stNotroom">該時段已沒有空間，請重新選擇時段。</div>
                         }
                         else
                         {
@@ -134,41 +139,40 @@ model IEnumerable<String>
                             foreach (var item in Model)
                             {
                                 count++;
-                                                <div class="row">
-                                                    @*room*@
-                                                    <div class="col-md-4">
-                                                        @*圖片*@
-                                                        <img src="~/image/@item.RoomClassPhoto1" width="250" height="150" />
-                                                    </div>
-                                                    <div class="col-md-8 ">
-                                                        @*房間資訊*@
-                                                        <h4>@item.RoomClassName </h4>
-                                                        <p>@item.RoomClassDetail</p>
-                                                        <p> 住宿人數：@item.RoomClassPeople</p>
-                                                        <p> 坪數：@item.RoomClassSize</p>
-                                                    </div>
-                                                </div>
-                                                <div>
-                                                    @*pricetitle*@
-                                                    <table width="100%">
-                                                        <tr style="background-color: #f0f0f0;">
-                                                            <th width="40%">入住地區</th>
-                                                            <th width="20%">價格</th>
-                                                            <th width="20%">數量</th>
-                                                            <th width="20%"></th>
-                                                        </tr>
-                                                        <tr>
-                                                            @*price*@
-                                                            <th>北部</th>
-                                                            <th>NT$ @item.WeekdayPrice</th>
-                                                            <th>1</th>
-                                                            <th>
-                                                                <button class="btn-primary btn-block" onclick="addRoomToCart('@item.RoomClassId')">加入購物車</button>
-                                                            </th>
-                                                        </tr>
-                                                    </table>
-                                                    <hr>
-                                                </div>
+                                                                <div class="row">
+                                                                    @*room*@
+                                                                    <div class="col-md-4">
+                                                                        @*圖片*@
+                                                                        <img src="~/image/@item.RoomClassPhoto1" width="250" height="150" />
+                                                                    </div>
+                                                                    <div class="col-md-8 ">
+                                                                        @*房間資訊*@
+                                                                        <h4>@item.RoomClassName </h4>
+                                                                        <p>@item.RoomClassDetail</p>
+                                                                        <p> 住宿人數：@item.RoomClassPeople</p>
+                                                                        <p> 坪數：@item.RoomClassSize</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div>
+                                                                    @*pricetitle*@
+                                                                    <table width="100%">
+                                                                        <tr style="background-color: #f0f0f0;">
+                                                                            <th width="40%">飯店名稱</th>
+                                                                            <th width="20%">價格</th>
+                                                                            <th width="20%">數量</th>
+                                                                            <th width="20%"></th>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>@item.HotelName</th>
+                                                                            <th>NT$ @item.WeekdayPrice</th>
+                                                                            <th>1</th>
+                                                                            <th>
+                                                                                <button class="btn-primary btn-block" onclick="addRoomToCart('@item.RoomClassId')">加入購物車</button>
+                                                                            </th>
+                                                                        </tr>
+                                                                    </table>
+                                                                    <hr>
+                                                                </div>
                             }
                         }
                         }
@@ -251,18 +255,19 @@ model IEnumerable<String>
             document.getElementById("RoomList").innerHTML = "<div class='stNotroom'>該時段已沒有空間，請重新選擇時段。</div>";
         } else {
             let html = "";
-          
+
             const dataArray = JSON.parse(data);
-            dataArray.forEach((item)=>{
-              
+            dataArray.forEach((item) => {
+               
                 console.log(item);
                 html += "<div class='row'>";
                 html += "<div class='col-md-4'>";
-                html += "<img src='wwwroot/image/" + item.RoomClassPhoto1 + "' width='250' height='150' />";
+                //html += "<img src='/image/" + item.RoomClassPhoto1 + "' width='250' height='150' />";
+                html += "<img src=@Url.Content("~/image/")" + item.RoomClassPhoto1 + " width='250' height='150' />";
                 html += "</div>";
                 html += "<div class='col-md-8'>";
                 html += "<h4>" + item["RoomClassName"] + "</h4>";
-                html += "<p>" + item.RoomClassId + "</p>";
+                //html += "<p>" + item.RoomClassId + "</p>";
                 html += "<p>" + item.RoomClassDetail + "</p>";
                 html += "<p>住宿人數：" + item.RoomClassPeople + "</p>";
                 html += "<p>坪數：" + item.RoomClassSize + "</p>";
@@ -271,17 +276,17 @@ model IEnumerable<String>
                 html += "<div>";
                 html += "<table width='100%'>";
                 html += "<tr style='background-color: #f0f0f0;'>";
-                html += "<th width='40%'>入住地區</th>";
+                html += "<th width='40%'>飯店名稱</th>";
                 html += "<th width='20%'>價格</th>";
                 html += "<th width='20%'>數量</th>";
                 html += "<th width='20%'></th>";
                 html += "</tr>";
                 html += "<tr>";
-                html += "<th>北部</th>";
+                html += "<th>" + item["HotelName"] + "</th>";
                 html += "<th>NT$ " + item.WeekdayPrice + "</th>";
                 html += "<th>1</th>";
                 html += "<th>";
-                html += "<button class='btn-primary btn-block' onclick='addRoomToCart(" + item.RoomClassId + ")'>加入購物車</button>";
+                html += "<button class='btn-primary btn-block' onclick=addRoomToCart('" + item.RoomClassId + "')>加入購物車</button>";
                 html += "</th>";
                 html += "</tr>";
                 html += "</table>";
@@ -289,7 +294,7 @@ model IEnumerable<String>
             })
             document.getElementById("RoomList").innerHTML = html;
         }
-        }
+    }
 
 
     //加入購物車
@@ -445,13 +450,13 @@ model IEnumerable<String>
 
 
 </script>
-<script>
-    var a = document.getElementById('checkInDate');
-    console.log(a.value);
-    window.onload = async () => {
-        const response = await fetch('@Url.Action("getActivitySession", "Order")');
-        const data = await response.json();
-        a.value = data.time;
-        console.log(data);
-    };
-</script>
+//<script>
+//    var a = document.getElementById('checkInDate');
+//    console.log(a.value);
+//    window.onload = async () => {
+//        const response = await fetch('@Url.Action("getActivitySession", "Order")');
+//        const data = await response.json();
+//        a.value = data.time;
+//        console.log(data);
+//    };
+//</script>
