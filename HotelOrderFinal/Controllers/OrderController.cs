@@ -166,6 +166,10 @@ namespace HotelOrderFinal.Controllers
             HotelOrderContext db = new HotelOrderContext();
             // 根據 activityId 檢索相關的活動詳細資料
             var activityDetails = db.Activity.FirstOrDefault(a => a.ActivityId == activityId);
+            if (activityDetails == null)
+            {
+                return RedirectToAction("List", "Activity"); // 或導向其他適當的動作或視圖
+            }
             // 將該資料傳遞到訂單介面的視圖中
             return View(activityDetails);
             ////讀取與設定入住日期
