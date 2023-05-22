@@ -1,6 +1,4 @@
-﻿
-
-@{
+﻿@{
     ViewData["Title"] = "Create";
 }
 
@@ -14,7 +12,7 @@
 {
     <form asp-action="Create" method="post">
         <div class="d-flex justify-content-center">
-            <div >
+            <div>
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label for="MemberPhone">手機(為登入帳號)</label>
@@ -25,7 +23,7 @@
                     <label for="MemberName">姓名</label>
                     <input type="text" id="MemberName" name="MemberName" class="form-control" required>
                     <span class="text-danger" data-valmsg-for="MemberName" data-valmsg-replace="true"></span>
-                </div>                
+                </div>
                 <div class="form-group">
                     <label for="MemberIdentity">身份證字號</label>
                     <input type="text" id="MemberIdentity" name="MemberIdentity" class="form-control" required pattern="[A-Z][12][0-9]{8}">
@@ -33,14 +31,14 @@
                 </div>
                 <div class="form-group">
                     <label for="MemberGender">生理性別</label>
-                   <p></p>
+                    <p></p>
                     <input type="radio" name="MemberGender" value="male">男性
                     <input type="radio" name="MemberGender" value="female">女性
                     <span class="text-danger" data-valmsg-for="MemberGender" data-valmsg-replace="true"></span>
                 </div>
                 <div class="form-group">
                     <label for="MemberBirthday">生日</label>
-                    <input type="date" id="MemberBirthday" name="MemberBirthday" class="form-control" required >
+                    <input type="date" id="MemberBirthday" name="MemberBirthday" class="form-control" required>
                     <span class="text-danger" data-valmsg-for="MemberBirthday" data-valmsg-replace="true"></span>
                 </div>
                 <div class="form-group">
@@ -56,7 +54,7 @@
                 <div class="form-group">
                     <input type="submit" onclick="valcheck()" value="註冊" class="btn btn-primary" />
 
-                    <button type="button" onclick="autofill()" class="btn btn-primary" >Demo</button>
+                    <button type="button" onclick="autofill()" class="btn btn-primary">Demo</button>
                     @*<input type="submit" value="註冊" class="btn btn-default">*@
                 </div>
             </div>
@@ -81,19 +79,21 @@
 
 @*</div>*@
 
-@if (TempData["SuccessMessage"] != null)
+@{
+    var errorMessage = ViewBag.Message as string;
+}
+
+
+@if (!string.IsNullOrEmpty(ViewBag.Message))
 {
     <script>
-        $(function () {
-            alert("@TempData["SuccessMessage"]");
-        });
+        alert(errorMessage);
     </script>
 }
 
 
-
-
 <script>
+
     function autofill() {
         document.getElementById("MemberName").value = "林哈娜";
         document.getElementById("MemberIdentity").value = "A221144467";

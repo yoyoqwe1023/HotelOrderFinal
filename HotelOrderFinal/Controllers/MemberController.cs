@@ -305,9 +305,10 @@ namespace HotelOrderFinal.Controllers
 
                 db.DiscountDetail.Add(discountDetail);
 
+                ViewBag.Message = "註冊成功，請重新登入，謝謝 !";
                 db.Add(model);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Home", new { message = HttpUtility.UrlEncode("註冊成功，請重新登入，謝謝 !") });
+                return RedirectToAction("Index", "Home");
 
             }
             catch (Exception ex)
@@ -352,9 +353,7 @@ namespace HotelOrderFinal.Controllers
                 if (cust != null)
                 {
                     cust.MemberName = model.MemberName;
-                    cust.MemberPhone = model.MemberPhone;
                     cust.MemberEmail = model.MemberEmail;
-                    cust.MemberPassword = model.MemberPassword;
                     db.SaveChanges();
                 }
                 return RedirectToAction("Index", "Home");
@@ -475,8 +474,28 @@ public IActionResult ShoppingCar(int id)
             //    orders.Add(order);
             //}
             db = new HotelOrderContext();
-            List<Order> orders = db.Order.Where(t => t.MemberId == HttpContext.Session.GetString("UserID")).ToList();
-            return View(orders);
+
+            List<Order> orders = db.Order.Select(o =>new Order
+            { 
+                MemberId = o.MemberId,
+                OrderId = o.OrderId,
+                OrderDate = o.OrderDate,
+                OrderTotalPrice = o.OrderTotalPrice,
+                CheckInPeople = o.CheckInPeople,
+                OrderRemark = o.OrderRemark
+            }).Where(t => t.MemberId == HttpContext.Session.GetString("UserID")).ToList();
+
+            List<ShowOderData> ShowOrders = orders.Select(o => new ShowOderData
+            {
+                MemberId = o.MemberId,
+                OrderId = o.OrderId,
+                OrderDate = o.OrderDate.ToString("yyyy/MM/dd"),
+                CheckInPeople=o.CheckInPeople,
+                OrderTotalPrice = (int)o.OrderTotalPrice,
+                OrderRemark=o.OrderRemark
+            }).ToList();
+
+            return View(ShowOrders);
         }
 
 
