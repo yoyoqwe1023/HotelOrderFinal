@@ -9,12 +9,10 @@
         .toast-container {
             z-index: 10000; /* 确保Toast显示在最上层 */
         }
-
         .toast {
             width: 300px;
             background-color: #f8f9fa;
         }
-
         .toast-success {
             border-color: #28a745;
         }
@@ -65,13 +63,20 @@
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">參加活動確認單</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">
-                                ...
+                            <div class="modal-body">                                
+                                    注意事項                                    
+                                    <p>請確認活動地址：</p>                                    
+                                    <p>活動地點是否與您住宿地區相近，若區域不同將不額外補償</p>
+                                    <p>請確認活動時間：</p>
+                                    <p>活動時間是否與您住宿日期相符合，若不相同將不負責損失</p>
+                                    <p>請確認活動費用及人數：</p>
+                                    <p>請確認您參加的人數，並且確認是否有超過人數上限</p>                                                                
                             </div>
                             <div class="modal-footer">
+                                <a href="@Url.Action("getActivitySession", "Order", new { activityId = Model.ActivityId })">下訂單</a>
                                 <button type="button" class="btn btn-primary">Save changes</button>
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>                                
                             </div>

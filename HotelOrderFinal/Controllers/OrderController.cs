@@ -161,21 +161,26 @@ namespace HotelOrderFinal.Controllers
                 return View(vmList);
             }
         }
-        public IActionResult getActivitySession()
+        public IActionResult getActivitySession(int activityId)
         {
-            //讀取與設定入住日期
-            string selectedActivityId = HttpContext.Session.GetString("SelectedActivityId");
-            string selectedActivityTime = HttpContext.Session.GetString("ActivityTime");
-            if (selectedActivityId != null && selectedActivityTime != null)
-            {
-                var jsonObject = new
-                {
-                    id = selectedActivityId,
-                    time = selectedActivityTime
-                };
-                return Json(jsonObject);
-            }
-            return RedirectToAction("List");
+            HotelOrderContext db = new HotelOrderContext();
+            // 根據 activityId 檢索相關的活動詳細資料
+            var activityDetails = db.Activity.FirstOrDefault(a => a.ActivityId == activityId);
+            // 將該資料傳遞到訂單介面的視圖中
+            return View(activityDetails);
+            ////讀取與設定入住日期
+            //string selectedActivityId = HttpContext.Session.GetString("SelectedActivityId");
+            //string selectedActivityTime = HttpContext.Session.GetString("ActivityTime");
+            //if (selectedActivityId != null && selectedActivityTime != null)
+            //{
+            //    var jsonObject = new
+            //    {
+            //        id = selectedActivityId,
+            //        time = selectedActivityTime
+            //    };
+            //    return Json(jsonObject);
+            //}
+            //return RedirectToAction("List");
         }
 
         //房間加入購物車
