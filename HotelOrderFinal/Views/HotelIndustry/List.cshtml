@@ -2,7 +2,7 @@
 
 @{
     //Layout = "_Layout";
-    ViewData ["Title"] = "List";
+    ViewData["Title"] = "List";
 }
 
 <!--================Breadcrumb Area =================-->
@@ -141,16 +141,16 @@
         //    });
         //}
         //連接自己的API區塊(未寫)
-        var mapapiUrl = "https://localhost:7007/api/APIHotelIndustry/";
-        const lat='';
-        const lmg='';
+        var mapapiUrl = "https://localhost:7007/api/APIHotelIndustry/get";
+        const lat = '';
+        const lmg = '';
 
-        fetch(mapapiUrl,{method:'GET'})
-        .then(res=>{
-            return res.text();
-        }).then(result=>{
-            console.log(result);
-        })
+        fetch(mapapiUrl, { method: 'Get' })
+            .then(res => {
+                return res.text();
+            }).then(result => {
+                console.log(result);
+            })
 
         //
         //window.initMap = initMap;
@@ -160,12 +160,14 @@
             $('#btn1').on('click', function (event) {
 
                 var hotelRegionId = $(event.target).data('hotelregionid');
-
-                var apiUrl = "https://localhost:7007/api/APIHotelIndustry?hotelRegionId=" + hotelRegionId;
+                //字串插值apiUrl
+                //var apiUrl = $"https://localhost:7007/api/APIHotelIndustry/{hotelRegionId}";
+                var apiUrl = `https://localhost:7007/api/APIHotelIndustry/get/${hotelRegionId}`;
+                //var apiUrl = "https://localhost:7007/api/APIHotelIndustry/1";
                 //僅輸出符合api所設參數的內容
                 $.ajax({
                     url: apiUrl,
-                    method: 'get',
+                    method: 'Get',
                     success: function (data) {
                         $("#hoteldata1").empty(); //清空之前的資料
                         for (var i = 0; i < data.length; i++) {
@@ -193,12 +195,12 @@
             $('#btn2').on('click', function (event) {
 
                 var hotelRegionId = $(event.target).data('hotelregionid');
-
-                var apiUrl = "https://localhost:7007/api/APIHotelIndustry?hotelRegionId=" + hotelRegionId;
+                //字串插值apiUrl
+                var apiUrl = `https://localhost:7007/api/APIHotelIndustry/get/${hotelRegionId}`;
                 //僅輸出符合api所設參數的內容
                 $.ajax({
                     url: apiUrl,
-                    method: 'get',
+                    method: 'Get',
                     success: function (data) {
                         $("#hoteldata2").empty(); //清空之前的資料
                         for (var i = 0; i < data.length; i++) {
@@ -223,12 +225,12 @@
             //抓hotelregionid
             $('#btn3').on('click', function (event) {
                 var hotelRegionId = $(event.target).data('hotelregionid');
-
-                var apiUrl = "https://localhost:7007/api/APIHotelIndustry?hotelRegionId=" + hotelRegionId;
+                //字串插值apiUrl
+                var apiUrl = `https://localhost:7007/api/APIHotelIndustry/get/${hotelRegionId}`;
                 //僅輸出符合api所設參數的內容
                 $.ajax({
                     url: apiUrl,
-                    method: 'get',
+                    method: 'Get',
                     success: function (data) {
                         $("#hoteldata3").empty(); //清空之前的資料
                         for (var i = 0; i < data.length; i++) {

@@ -5,55 +5,63 @@ using HotelOrderFinal.Models;
 
 namespace HotelOrderFinal.Controllers
 {
-    [Route ( "api/[controller]" )]
+    [Route("api/[controller]")]
     [ApiController]
     public class APIHotelIndustryController : ControllerBase
     {
-        // GET: api/<APIHotelIndustryController >
-        
+        // GET: api/APIHotelIndustry/get
+        // https://localhost:7007/api/APIHotelIndustry/get
+        [Route("[action]")]
         [HttpGet]
-        public IEnumerable<HotelIndustry> Get ( int hotelRegionId )
+        public IEnumerable<HotelIndustry> Get()
         {
-            HotelOrderContext db = new HotelOrderContext ( );
-            var datas = from HI in db.HotelIndustry
-                        where hotelRegionId == HI.HotelRegionId
-                        select HI;
-            return datas;
+            HotelOrderContext db = new HotelOrderContext();
+            return db.HotelIndustry;
         }
 
+        // GET: api/APIHotelIndustry/get/1
+        // https://localhost:7007/api/APIHotelIndustry/get/1
+        [Route("[action]/{hotelRegionId}")]
+        [HttpGet]
+        public IEnumerable<HotelIndustry> Get(int hotelRegionId)
+        {
+            HotelOrderContext db = new HotelOrderContext();
+            return db.HotelIndustry.Where((x) => x.HotelRegionId == hotelRegionId);
+        }
+        
+        // GET: api/APIHotelIndustry/get?hotelRegionId=1
+        // https://localhost:7007/api/APIHotelIndustry/get?hotelRegionId=1
+        //[Route("[action]")]
         //[HttpGet]
-        //public IEnumerable<HotelIndustry> Get ( )
+        //public IEnumerable<HotelIndustry> Get (int hotelRegionId)
         //{
-        //    HotelOrderContext db = new HotelOrderContext ( );
-        //    var datas = from HI in db.HotelIndustry
-        //                select HI;
-        //    return datas;
+        //    HotelOrderContext db = new HotelOrderContext();
+        //    return db.HotelIndustry.Where((x) => x.HotelRegionId == hotelRegionId);
         //}
 
-
         // GET api/<APIHotelIndustryController>/5
-        [HttpGet ( "{id}" )]
+        [HttpGet("{id}")]
         //public string Get ( int id )
         //{
         //    return "value";
         //}
 
-        // POST api/<APIHotelIndustryController>
+        //POST api/<APIHotelIndustryController>
         [HttpPost]
-        public void Post ( [FromBody] string value )
+        public void Post([FromBody] string value)
         {
         }
 
         // PUT api/<APIHotelIndustryController>/5
-        [HttpPut ( "{id}" )]
-        public void Put ( int id , [FromBody] HotelIndustry p )
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] HotelIndustry p)
         {
- 
+
         }
 
         // DELETE api/<APIHotelIndustryController>/5
-        [HttpDelete ( "{id}" )]
-        public void Delete ( int id )
+        [HttpDelete("{id}")]
+        public void Delete(int id)
         {
         }
     }
