@@ -1,0 +1,110 @@
+﻿@model IEnumerable<HotelOrderFinal.Models.RoomMember>
+
+@{
+    Layout = null;
+    ViewData["Title"] = "List";
+}
+
+<style>
+    table{
+        font-family: verdana,arial,sans-serif;
+        font-size: 11px;
+        color: #333333;
+        border-width: 1px;
+        border-color: #666666;
+        border-collapse: collapse;
+        width:auto
+    }
+
+        table th {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #dedede;
+        }
+
+        table td {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #ffffff;            
+        }
+</style>
+<h2>會員管理</h2>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>管理員ID</th>
+                <th>會員ID</th>
+                <th>會員姓名</th>
+                <th>會員生日</th>
+                <th>會員性別</th>
+                <th>會員身份</th>
+                <th>會員電話</th>
+                <th>電子郵件</th>
+                <th>會員照片</th>
+                <th>會員密碼</th>
+               @* <th>會員等級</th>*@
+                <th>會員訂單總數</th>
+                <th><a asp-action="Create" class="btn btn-primary">新增會員</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.AdminId)</td>
+                    <td>@Html.DisplayFor(modelItem => item.MemberId)</td>
+                    <td>@Html.DisplayFor(modelItem => item.MemberName)</td>
+                    <td>@(item.MemberBirthday.HasValue ? item.MemberBirthday.Value.Date.ToString("yyyy/MM/dd") : string.Empty)</td>
+                    <td>@Html.DisplayFor(modelItem => item.MemberGender)</td>
+                    <td>@Html.DisplayFor(modelItem => item.MemberIdentity)</td>
+                    <td>@Html.DisplayFor(modelItem => item.MemberPhone)</td>
+                    <td>@Html.DisplayFor(modelItem => item.MemberEmail)</td>
+                    <td><img src="@item.MemberPhoto" width="20" height="20" /></td>
+                    <td>@Html.DisplayFor(modelItem => item.MemberPassword)</td>
+                  @*  <td>@Html.DisplayFor(modelItem => item.MemberLavel)</td>*@
+                    <td>@Html.DisplayFor(modelItem => item.MemberOrderTotal)</td>
+                    <td>
+                      @*  @Html.ActionLink("Edit", "Edit", new { id = item.PrimaryKey }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.PrimaryKey }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.PrimaryKey })*@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    @if (ViewBag.TotalPages > 1)
+    {
+        var prevPage = ViewBag.CurrentPage > 1 ? ViewBag.CurrentPage - 1 : 1;
+        var nextPage = ViewBag.CurrentPage < ViewBag.TotalPages ? ViewBag.CurrentPage + 1 : ViewBag.TotalPages;
+
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a class="page-link" href="?pageNumber=@prevPage" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+                @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                {
+                    <li class="page-item @(i == ViewBag.CurrentPage ? "active" : "")">
+                        <a class="page-link" href="?pageNumber=@i">@i</a>
+                    </li>
+                }
+                <li class="page-item">
+                    <a class="page-link" href="?pageNumber=@nextPage" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    }
+</div>
+

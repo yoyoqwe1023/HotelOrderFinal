@@ -5,6 +5,7 @@
 }
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+
 <section class="breadcrumb_area">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
@@ -33,7 +34,7 @@
                     <ul class="list" style="list-style: none;">
                         <!--改成手風琴下拉式-->
                         <li>
-                            @Html.ActionLink("會員管理", "ShoppingCar", "Member", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
+                            @Html.ActionLink("會員管理", "List", "MemberMange", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
                         </li>
                         <li>
                             @Html.ActionLink("房型管理", "AdminRoom", "Room", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
@@ -56,6 +57,9 @@
                     </ul>
                 </div>
             </div>
+        </div>        
+        <div id="selectedItemContent" class="col-xs-12 col-md-9 hidden">
+            <!-- 這裡會顯示點選的項目的內容 -->
         </div>
         <!--這個區塊放圖表-->
         <table class="table  col-md-3">
@@ -77,10 +81,10 @@
 
     <!--這div要有，不然版面會亂-->
     <div>
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="List">Back to List</a>
     </div>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     //圓餅圖
     const data1 = {
@@ -152,4 +156,50 @@
         }
     };
     const linechart = new Chart(document.getElementById('line'), lineconfig);
+
+    $(document).ready(function () {
+        // 監聽按鈕的點擊事件
+        $('.Adminbutton').click(function (e) {
+            e.preventDefault(); // 防止按鈕默認的導航行為
+
+            // 獲取按鈕的 href 屬性值，即點選的項目的 URL
+            var url = $(this).attr('href');
+            // 隱藏圖表
+            $('.Admincanvas').hide();
+
+            // 使用 AJAX 請求載入選擇的項目的內容
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (data) {
+                    // 將獲取到的內容設置到區域中
+                    $('#selectedItemContent').html(data);
+                    $('#selectedItemContent').removeClass('hidden'); // 移除 hidden 類別，顯示區域
+                
+                },
+                error: function () {
+                    // 請求失敗時的處理邏輯
+                }
+            });
+        });
+    });
+    $(function () {
+        // 點擊右側內容區域中的按鈕
+        $('#selectedItemContent').on('click', 'button', function (e) {
+            e.preventDefault();
+
+            var url = $(this).attr('href');
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function (result) {
+                    $('#selectedItemContent').html(result); // 更新右側內容區域的內容
+                },
+                error: function () {
+                    alert('請求失敗');
+                }
+            });
+        });
+    });
 </script>

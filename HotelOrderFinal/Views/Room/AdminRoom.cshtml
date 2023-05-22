@@ -1,53 +1,76 @@
 ﻿@model IEnumerable<HotelOrderFinal.Models.RoomClass>
 
 @{
+    Layout = null;
     ViewData ["Title"] = "AdminRoom";
+    
 }
+<style>
+    table {
+        font-family: verdana,arial,sans-serif;
+        font-size: 11px;
+        color: #333333;
+        border-width: 1px;
+        border-color: #666666;
+        border-collapse: collapse;
+        width: auto
+    }
 
-<section class="breadcrumb_area">
-    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
-    <div class="container">
-        <div class="page-cover text-center">
-            <h2 class="page-cover-tittle">後台管理系統：房型管理</h2>
-        </div>
-    </div>
-</section>
+        table th {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #dedede;
+        }
+
+        table td {
+            border-width: 1px;
+            padding: 8px;
+            border-style: solid;
+            border-color: #666666;
+            background-color: #ffffff;
+        }
+</style>
+           @* <h2 class="page-cover-tittle">後台管理系統：房型管理</h2>*@
+<h2>房型管理</h2>
+
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.RoomClassId)
+               風格編號
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RoomClassName)
+                名稱
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RoomClassSize)
+                坪數
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RoomClassPeople)
+                人數
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RoomClassDetail)
+                詳細
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RoomClassPhoto1)
+                照片1
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RoomClassPhoto2)
+                照片2
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RoomClassPhoto3)
+                照片3
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.WeekdayPrice)
+                平日價格
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HolidayPrice)
+                假日價格
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AddPrice)
+                加價
             </th>
             <th><a asp-action="Create" class="btn btn-primary">新增房間</a></th>
         </tr>
@@ -69,16 +92,16 @@
                     @Html.DisplayFor(modelItem => item.RoomClassPeople)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.RoomClassDetail)
+                    @*@Html.DisplayFor(modelItem => item.RoomClassDetail)*@
                 </td>
                 <td>
-                    <img src="~/image/@item.RoomClassPhoto1" width="160" height="120" >
+                    <img src="~/image/@item.RoomClassPhoto1" width="120" height="90" >                                    
+                </td>
+                                <td>
+                    <img src="~/image/@item.RoomClassPhoto2" width="120" height="90">
                 </td>
                 <td>
-                    <img src="~/image/@item.RoomClassPhoto2" width="160" height="120" />
-                </td>
-                <td>
-                    <img src="~/image/@item.RoomClassPhoto3" width="160" height="120" />
+                    <img src="~/image/@item.RoomClassPhoto3" width="120" height="90">
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.WeekdayPrice)
