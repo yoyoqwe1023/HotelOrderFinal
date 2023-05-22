@@ -37,7 +37,9 @@
     <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
             <div class="d-flex justify-content-center">
-                <iframe src="https://www.google.com/maps/d/embed?mid=1J4qA06_2AVU2zKFMINRSFG-f-CQhIGA&ehbc=2E312F" width="640" height="480"></iframe>
+                <!--<iframe src="https://www.google.com/maps/d/embed?mid=1J4qA06_2AVU2zKFMINRSFG-f-CQhIGA&ehbc=2E312F" width="640" height="480"></iframe>-->
+                <!--Google map api 囤放處-->
+                <div id="map" style="width:640px; height:480px;"></div>
             </div>
             <div class="d-flex justify-content-center">
                 <a href="@Url.Action("List", "Order")" class="btn btn-dark" role="button">我要訂房!</a>
@@ -102,88 +104,35 @@
 </section>
 <!--================ Facilities Area  =================-->
 <!--================ Testimonial Area  =================-->
-@*<section class="testimonial_area section_gap">
-    <div class="container">
-        <div class="section_title text-center">
-            <h2 class="title_color">Testimonial from our Clients</h2>
-            <p>The French Revolution constituted for the conscience of the dominant aristocratic class a fall from </p>
-        </div>
-        <div class="testimonial_slider owl-carousel">
-            <div class="media testimonial_item">
-                <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
-                <div class="media-body">
-                    <p>As conscious traveling Paupers we must always be concerned about our dear Mother Earth. If you think about it, you travel across her face, and She is the </p>
-                    <a href="#"><h4 class="sec_h4">Fanny Spencer</h4></a>
-                    <div class="star">
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star-half-o"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="media testimonial_item">
-                <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
-                <div class="media-body">
-                    <p>As conscious traveling Paupers we must always be concerned about our dear Mother Earth. If you think about it, you travel across her face, and She is the </p>
-                    <a href="#"><h4 class="sec_h4">Fanny Spencer</h4></a>
-                    <div class="star">
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star-half-o"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="media testimonial_item">
-                <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
-                <div class="media-body">
-                    <p>As conscious traveling Paupers we must always be concerned about our dear Mother Earth. If you think about it, you travel across her face, and She is the </p>
-                    <a href="#"><h4 class="sec_h4">Fanny Spencer</h4></a>
-                    <div class="star">
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star-half-o"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="media testimonial_item">
-                <img class="rounded-circle" src="image/testtimonial-1.jpg" alt="">
-                <div class="media-body">
-                    <p>As conscious traveling Paupers we must always be concerned about our dear Mother Earth. If you think about it, you travel across her face, and She is the </p>
-                    <a href="#"><h4 class="sec_h4">Fanny Spencer</h4></a>
-                    <div class="star">
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star"></i></a>
-                        <a href="#"><i class="fa fa-star-half-o"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-*@<!--================ Testimonial Area  =================-->
-<!--================ start footer Area  =================-->
-@*<h1>@ViewData["Title"]</h1>
-
-
-<p>Use this page to detail your site's privacy policy.</p>*@
-
 
 @section Scripts{
+    <script async
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCu2MdiX8Qb7KWkqfIembmElinOcl-GgWE&callback=initMap">
+    </script>
 
     <script>
         //$("#hoteldata3").empty();與$("#hoteldata3").append應該要寫一個可以自己判別的通用式
         catchid1()
         catchid2()
         catchid3()
+        //google maps api
+            // 初始化+載入地圖
+            function initMap() {
+                // 地圖位置 {}為座標 抓取座標的方式:google地圖 對要的地方右鍵選:這是哪裡
+                const taiwan = { lat: 23.739768, lng: 120.937298 };
+                // The map, centered at Uluru
+                const map = new google.maps.Map(document.getElementById("map"), {
+                    zoom: 7,
+                    center: taiwan,
+                });
+                // 圖標, 對應地圖(飯店要)設置的位置
+                const marker = new google.maps.Marker({
+                    position: taiwan,
+                    map: map,
+                });
+            }
 
+        window.initMap = initMap;
         function catchid1() {
             //抓hotelregionid
             $('#btn1').on('click', function (event) {
