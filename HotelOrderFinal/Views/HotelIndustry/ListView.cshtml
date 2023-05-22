@@ -1,0 +1,71 @@
+﻿@model IEnumerable<HotelOrderFinal.Models.HotelIndustry>
+
+@{
+    ViewData["Title"] = "ListView";
+}
+
+<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle">後台管理系統：飯店一覽管理</h2>
+        </div>
+    </div>
+</section>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                飯店名稱
+            </th>
+            <th>
+                飯店電話號碼
+            </th>
+            <th>
+                地址
+            </th>
+            <th>
+                飯店預設圖片
+            </th>
+            <th>
+                圖片描述
+            </th>
+            <th>
+                區域ID(北區為1，中區為2，南區為3)
+            </th>
+            <th>
+                    <a asp-action="Create">新增飯店</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+            @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HotelName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HotelPhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HotelAddress)
+            </td>
+            <td>
+             <img src="~/image/@item.HotelImage" width="160" height="120" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HotelImageDiscription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HotelRegionId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.HotelId">修改</a> |
+                <a asp-action="Delete" asp-route-id="@item.HotelId">刪除</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
