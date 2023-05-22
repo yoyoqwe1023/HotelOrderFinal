@@ -33,7 +33,7 @@
             margin: 10px;
             text-decoration: underline;
             /*  text-decoration-style: dotted;
-                      text-decoration-color: red;*/
+                              text-decoration-color: red;*/
         }
 
         ol {
@@ -93,41 +93,41 @@
             </div>
         </div>
 
-        <div id="ActivityList" class="area">
-            <div>
-                <h2>活動列表</h2>
-                <div class="row">
-                    <table  style="box-sizing: border-box ; width:100% ;text-align:center;">
-                       <tbody>
-                        <tr style="background-color: #f0f0f0;">
-                        <th width="25%">活動日期</th>
-                        <th width="25%">活動名稱</th>
-                        <th width="20%">參加人數</th>
-                        <th width="20%">小計</th>
-                        <th width="10%">刪除</th>
-                        </tr>
-                        <tr>
-                        <td>item.ActivityTime</td>
-                        <td>item.ActivityName</td>
-                        <td>
-                                    <select id="ActivityPeople">
-                                        @{
+        @* <div id="ActivityList" class="area">
+        <div>
+        <h2>活動列表</h2>
+        <div class="row">
+        <table  style="box-sizing: border-box ; width:100% ;text-align:center;">
+        <tbody>
+        <tr style="background-color: #f0f0f0;">
+        <th width="25%">活動日期</th>
+        <th width="25%">活動名稱</th>
+        <th width="20%">參加人數</th>
+        <th width="20%">小計</th>
+        <th width="10%">刪除</th>
+        </tr>
+        <tr>
+        <td>item.ActivityTime</td>
+        <td>item.ActivityName</td>
+        <td>
+        <select id="ActivityPeople">
+        @{
 
-                                            for(int i =1; i<7;i++)
-                                            {
-                                                <option value="i" >i</option>
-                                            }
-                                        }
-                                    </select>
-                        </td>
-                        <td>NT$ item.ActivityCost</td>
-                        <td>刪除</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        for(int i =1; i<7;i++)
+        {
+        <option value="i" >i</option>
+        }
+        }
+        </select>
+        </td>
+        <td>NT$ item.ActivityCost</td>
+        <td>刪除</td>
+        </tr>
+        </tbody>
+        </table>
         </div>
+        </div>
+        </div>*@
 
         <div class="area">
             <div>
@@ -202,12 +202,12 @@
 <script>
 
     let cartItemsDiv;
-    
+
 
     //頁面載入時載入購物車內容
     $(document).ready(function () {
         loadCartFromSession();
-        loadActivitySession();
+        //loadActivitySession();
     });
 
     function loadCartFromSession() {
@@ -335,7 +335,7 @@
                         cartItemsDiv.append(itemRow);
 
                         totalPrice += item.weekdayPrice
-                    
+
 
                     });
                     //const totalPriceCell = $('<td></td>').addClass('text-right').text('NT$ ' + totalPrice);
@@ -374,7 +374,7 @@
         showDiscount(totalPrice);
     }
 
-    function showDiscount(price){
+    function showDiscount(price) {
         // $('#discountRow').show().text("abcd");
         var selectedDiscount = $('#discountSelect').val()
         // var totalPrice = parseFloat($('#OrderDetailTotalPrice').text().replace('NT$ ', '')); // 獲取總金額數字
@@ -393,10 +393,10 @@
         }
     }
 
-         //當優惠券選擇改變時觸發事件
-        $('#discountSelect').change(function () {
-            calculateTotalPrice();
-        });
+    //當優惠券選擇改變時觸發事件
+    $('#discountSelect').change(function () {
+        calculateTotalPrice();
+    });
 
     function loadActivitySession() {
         fetch('/Order/GetActivitySession', {
@@ -408,28 +408,24 @@
                 const activityListDiv = document.getElementById("ActivityList");
                 var html = "<div><h2>活動列表</h2><div class='row'><table style='box-sizing: border-box; width:100%; text-align:center;'><tbody><tr style='background-color: #f0f0f0;'><th width='25%'>活動日期</th><th width='25%'>活動名稱</th><th width='20%'>參加人數</th><th width='20%'>小計</th><th width='10%'>刪除</th></tr>";
 
-        
-                    dataArray.forEach((item) => {
-                        html += "<tr>";
-                        html += "<td>" + item.ActivityTime + "</td>";
-                        html += "<td>" + item.ActivityName + "</td>";
-                        html += "<td>";
-                        html += "<select id='ActivityPeople'>";
-                        for (var i = 1; i < 7; i++) {
-                            html += "<option value='" + i + "'>" + i + "</option>";
-                        }
-                        html += "</select>";
-                        html += "</td>";
-                        html += "<td>NT$ " + item.ActivityCost + "</td>";
-                        html += "<td>刪除</td>";
-                        html += "</tr>";
-                    });
-                } 
-
-                html += "</tbody></table></div></div>";
-                activityListDiv.innerHTML = html;
-            });
-    }
-
+                dataArray.forEach((item) => {
+                    html += "<tr>";
+                    html += "<td>" + item.ActivityTime + "</td>";
+                    html += "<td>" + item.ActivityName + "</td>";
+                    html += "<td>";
+                    html += "<select id='ActivityPeople'>";
+                    for (var i = 1; i < 7; i++) {
+                        html += "<option value='" + i + "'>" + i + "</option>";
+                    }
+                    html += "</select>";
+                    html += "</td>";
+                    html += "<td>NT$ " + item.ActivityCost + "</td>";
+                    html += "<td>刪除</td>";
+                    html += "</tr>";
+                });
+                    html += "</tbody></table></div></div>";
+        activityListDiv.innerHTML = html;
+    });
+ }
 
 </script>
