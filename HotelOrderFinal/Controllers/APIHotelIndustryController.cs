@@ -10,7 +10,7 @@ namespace HotelOrderFinal.Controllers
     public class APIHotelIndustryController : ControllerBase
     {
         // GET: api/APIHotelIndustry/get
-        // https://localhost:7007/api/APIHotelIndustry/get
+        // https://localhost:7007/api/APIHotelIndustry/get <---在Fetch/XHR會出現為get
         [Route("[action]")]
         [HttpGet]
         public IEnumerable<HotelIndustry> Get()
@@ -20,7 +20,9 @@ namespace HotelOrderFinal.Controllers
         }
 
         // GET: api/APIHotelIndustry/get/1
-        // https://localhost:7007/api/APIHotelIndustry/get/1
+        // https://localhost:7007/api/APIHotelIndustry/get/1 <---在Fetch/XHR會出現為get後的1
+        //Route有[hotelRegionId]這個參數時不用再寫?hotelRegionId=1，寫了等同已經有參數還重複會get不到
+        //只有[action]的話需要?hotelRegionId=1去補參數
         [Route("[action]/{hotelRegionId}")]
         [HttpGet]
         public IEnumerable<HotelIndustry> Get(int hotelRegionId)
