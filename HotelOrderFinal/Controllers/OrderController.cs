@@ -29,6 +29,8 @@ namespace HotelOrderFinal.Controllers
             //讀取與設定入退宿時間      
             DateTime checkIn;
             DateTime checkOut;
+            // 儲存當前頁面路徑到 Session
+            HttpContext.Session.SetString("ReturnUrl", "/Order/List");
 
             if (!string.IsNullOrEmpty(checkInDate) && !string.IsNullOrEmpty(checkOutDate))
             {
