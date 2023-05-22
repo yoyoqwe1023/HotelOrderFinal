@@ -3,6 +3,27 @@
     ViewData["Title"] = "ActivityByDetails";
 }
 
+<head>
+
+    <style>
+        .toast-container {
+            z-index: 10000; /* 确保Toast显示在最上层 */
+        }
+
+        .toast {
+            width: 300px;
+            background-color: #f8f9fa;
+        }
+
+        .toast-success {
+            border-color: #28a745;
+        }
+
+        .toast-error {
+            border-color: #dc3545;
+        }
+    </style>
+</head>
 <section class="breadcrumb_area">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
@@ -17,7 +38,7 @@
 </section>
 
 
-<h1 class="text-center">ActivityByDetails</h1>
+<h1 class="text-center">活動詳細資訊</h1>
 <br />
 
 
@@ -25,7 +46,7 @@
 
     <div class="page-cover text-center">
         <div class="d-flex flex-wrap">
-
+            <div id="toast-container" class="toast-container position-fixed top-0 end-0 p-3"></div>
             <div class="text-black about_content" style="width: 50rem;">
                 <img class="card-img" src="~/image/@Model.ActivityImage" width="300" height="400" />
                 <div class="card-body">
@@ -38,19 +59,42 @@
                     <li class="list-group-item">費用：@Html.DisplayFor(modelItem => Model.ActivityCost)</li>
                     <li class="list-group-item">限制人數：@Html.DisplayFor(modelItem => Model.ActivityPeople)</li>
                 </ul>
-                <div class="card-body">
-                    <a role="button" href="@Url.Action("List", "Order")" class="card-link" onclick="setSessionByActivity(@Model.ActivityId)">前往訂房</a>
-                    <a href="javascript:window.history.back()" class="card-link">回上一層</a>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                ...
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-body">   
+                    <button type="button" onclick="setSessionByActivity(@Model.ActivityId)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">參加活動</button>
+                    @*@<button type="button" onclick="location.href='@Url.Action("ActivityByAcceding", "Activity")'" class="btn btn-primary" nclick="setSessionByActivity(@Model.ActivityId)">參加活動</button>*@
+                    <button type="button" onclick="window.history.back();" class="btn btn-secondary" nclick="setSessionByActivity(@Model.ActivityId)">回上一層</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <script>
-    async function setSessionByActivity(acId) {
+    @*async function setSessionByActivity(acId) {
         var url = '@Url.Action("setSessionByActivity","Activity")?id=' + acId;
         await fetch(url, {
             method: 'POST'
         });
-    }
+    }*@
+   
+
 </script>

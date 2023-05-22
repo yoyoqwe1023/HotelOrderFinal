@@ -93,51 +93,51 @@
                         <a class="navbar-brand logo_h" asp-controller="Home" asp-action="Index">
                         <img src="~/image/Logo2.png" alt="">
                         </a>*@
-                        <a href="#">
-                            <img src="image/room1.jpg" alt="">
+                        <a href="@Url.Action("List", "Room")">
+                            <img src="image/room/ae2c9ea0-75aa-450b-9f42-40a99a55e1b5.jpg" alt="" width="262" height="270">
                         </a>
 
                     </div>
-                    <a href="#"><h4 class="sec_h4">日式風格 Japan</h4></a>
+                    <a href="@Url.Action("List", "Room")"><h4 class="sec_h4">簡奢風格</h4></a>
                 </div>
             </div>
             <div class="col-lg-3 col-sm-6">
                 <div class="accomodation_item text-center">
                     <div class="hotel_img">
 
-                        <a href="#">
-                            <img src="image/room2.jpg" alt="">
+                        <a href="@Url.Action("List", "Room")">
+                            <img src="image/room/4eb3dca9-03e7-43f9-aebe-00df912c34a0.jpg" alt="" width="262" height="270">
                         </a>
                         @*<img src="image/room2.jpg" alt="">
                         <a href="#" class="btn theme_btn button_hover">Book Now</a>*@
                     </div>
-                    <a href="#"><h4 class="sec_h4">北歐風格 Nordic</h4></a>
+                    <a href="@Url.Action("List", "Room")"><h4 class="sec_h4">日式風格</h4></a>
                 </div>
             </div>
             <div class="col-lg-3 col-sm-6">
                 <div class="accomodation_item text-center">
                     <div class="hotel_img">
 
-                        <a href="#">
-                            <img src="image/room3.jpg" alt="">
+                        <a href="@Url.Action("List", "Room")">
+                            <img src="image/room/da7329be-29db-47e3-b437-d9194635f104.jpg" alt="" width="262" height="270">
                         </a>
                         @*<img src="image/room3.jpg" alt="">
                         <a href="#" class="btn theme_btn button_hover">Book Now</a>*@
                     </div>
-                    <a href="#"><h4 class="sec_h4">波希米亞 Bohemian</h4></a>
+                    <a href="@Url.Action("List", "Room")"><h4 class="sec_h4">北歐風格</h4></a>
                 </div>
             </div>
             <div class="col-lg-3 col-sm-6">
                 <div class="accomodation_item text-center">
                     <div class="hotel_img">
 
-                        <a href="#">
-                            <img src="image/room4.jpg" alt="">
+                        <a href="@Url.Action("List", "Room")">
+                            <img src="image/room/11f06d41-cf38-4047-bd8e-eb5a332ee516.jpg" alt="" width="262" height="270">
                         </a>
                         @*<img src="image/room4.jpg" alt="">
                         <a href="#" class="btn theme_btn button_hover">Book Now</a>*@
                     </div>
-                    <a href="#"><h4 class="sec_h4">地中海 Mediterranean</h4></a>
+                    <a href="@Url.Action("List", "Room")"><h4 class="sec_h4">總統套房</h4></a>
                 </div>
             </div>
         </div>
@@ -145,14 +145,14 @@
 </section>
 <!--================ Accomodation Area  =================-->
 <!--================ About History Area  =================-->
-<section class="about_history_area section_gap">
+@*<section class="about_history_area section_gap">
     <div class="container">
         <div class="row">
             <div class="col-md-6 d_flex align-items-center">
                 <div class="about_content ">
-                    <h2 class="title title_color">關於我們 <br>飯店簡史<br>目標</h2>
-                    <p>介紹欄位代填</p>
-                    <a href="#" class="button_hover theme_btn_two">Request Custom Price</a>
+                    <h2 class="title title_color">關於我們 </h2>
+                    <p>我們飯店是一家位於城市中心的高級酒店，提供全方位的住宿體驗。我們的團隊致力於以最優質的服務和設施，為每一位客人打造一個難忘的入住體驗。無論是商務旅客、家庭遊客還是情侶度假者，我們都以熱情、專業和細緻的待客之道，讓每位客人感受到家的溫暖和舒適。</p>
+                    <a href="#" class="button_hover theme_btn_two">取得價格</a>
                 </div>
             </div>
             <div class="col-md-6">
@@ -160,7 +160,7 @@
             </div>
         </div>
     </div>
-</section>
+</section>*@
 <!--================ About History Area  =================-->
 <!--================ Facilities Area  =================-->
 <section class="facilities_area section_gap">
@@ -216,7 +216,10 @@
 <section class="testimonial_area section_gap">
     <div class="container">
         <div class="section_title text-center">
-            <h2 class="title_color">房型評論區</h2>
+            <h2 class="title_color">
+
+
+            </h2>
             <p>The French Revolution constituted for the conscience of the dominant aristocratic class a fall from </p>
         </div>
 
@@ -298,21 +301,37 @@
             {
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-
+                        <a href="@Url.Action("ActivityByDetails", "Activity", new { id = Model.ActivityID[i] })">
                         <img src="~/image/@Model.ActivityImage[i]" style="width:360px;height:360px" alt="Slide 1">
+                        </a>
+                        <a href="@Url.Action("ActivityByDetails", "Activity", new { id = Model.ActivityID[i+1] })">
                         <img src="~/image/@Model.ActivityImage[i+1]" style="width:360px;height:360px" alt="Slide 2">
+                        </a>
+                        <a href="@Url.Action("ActivityByDetails", "Activity", new { id = Model.ActivityID[i+2] })">
                         <img src="~/image/@Model.ActivityImage[i+2]" style="width:360px;height:360px" alt="Slide 3">
+                        </a>
                     </div>
                     <div class="carousel-item">
+                        <a href="@Url.Action("ActivityByDetails", "Activity", new { id = Model.ActivityID[i+3] })">
                         <img src="~/image/@Model.ActivityImage[i+3]" style="width:360px;height:360px" alt="Slide 1">
+                        </a>
+                        <a href="@Url.Action("ActivityByDetails", "Activity", new { id = Model.ActivityID[i+4] })">
                         <img src="~/image/@Model.ActivityImage[i+4]" style="width:360px;height:360px" alt="Slide 2">
+                        </a>
+                        <a href="@Url.Action("ActivityByDetails", "Activity", new { id = Model.ActivityID[i+5] })">
                         <img src="~/image/@Model.ActivityImage[i+5]" style="width:360px;height:360px" alt="Slide 3">
-
+                        </a>
                     </div>
                     <div class="carousel-item">
+                        <a href="@Url.Action("ActivityByDetails", "Activity", new { id = Model.ActivityID[i+6] })">
                         <img src="~/image/@Model.ActivityImage[i+6]" style="width:360px;height:360px" alt="Slide 1">
+                        </a>
+                        <a href="@Url.Action("ActivityByDetails", "Activity", new { id = Model.ActivityID[i+7] })">
                         <img src="~/image/@Model.ActivityImage[i+7]" style="width:360px;height:360px" alt="Slide 2">
+                        </a>
+                        <a href="@Url.Action("ActivityByDetails", "Activity", new { id = Model.ActivityID[i+8] })">
                         <img src="~/image/@Model.ActivityImage[i+8]" style="width:360px;height:360px" alt="Slide 3">
+                        </a>
                     </div>
                 </div>
                 i += 9;

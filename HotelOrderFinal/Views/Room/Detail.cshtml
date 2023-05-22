@@ -111,6 +111,20 @@
         background-color: rgba(128, 128, 128, 0.5);
     }
 
+    .fade-in-from-bottom {
+        opacity: 0.3; 
+        transform: translateX(3%); 
+        transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+    }
+
+        .fade-in-from-bottom.show {
+            opacity: 1;
+            transform: translateY(0); 
+        }
+
+/*    .bread {
+        padding: 10px; /* 調整內容的上下左右間距 */
+    
 </style>
 
 <section class="breadcrumb_area">
@@ -123,21 +137,32 @@
                 <li class="active">房型一覽</li>
                 <li class="active">@Html.DisplayFor(model => model.RoomClass.RoomClassName)</li>
             </ol>*@
+             <ol class="breadcrumb">
+                <li> @Html.ActionLink("首頁", "Index", "Home")</li>
+                <li class="active">@Html.ActionLink("房型一覽", "List", "Room")</li>
+                <li class="active">@Html.DisplayFor(model => model.RoomClass.RoomClassName)</li>
+            </ol>
         </div>
     </div>
 </section>
-
-<div class="bread">
-    <a href="../../">首頁</a>
-    <span>/</span>
-    <a href=#>房型一覽</a>
+   <div class="myoverlay" id="myoverlay">
+                <div class="my-modal">
+                    <span class="close" id="close">&times;</span>
+                    <img src="" class="modal-image" alt="Modal Image">
+                </div>
+            </div>
+@*<div class="bread">   
+    @Html.ActionLink("首頁", "Index", "Home")
+    <span>/</span>    
+    @Html.ActionLink("房型一覽", "List", "Room")
     <span>/</span>
     @Html.DisplayFor(model => model.RoomClass.RoomClassName)
-</div>
+</div>*@
 
 <div class="container">
-<h2>房型介紹</h2>
+    <h2 style="padding:20px">房型介紹</h2>
 <hr>
+    <div class="fade-in-from-bottom">
 <div class="row">
     <div class="col-md-4">
         <div class="container">
@@ -150,12 +175,12 @@
             </div>
 
 
-            <div class="myoverlay" id="myoverlay">
+        @*    <div class="myoverlay" id="myoverlay">
                 <div class="my-modal">
                     <span class="close" id="close">&times;</span>
                     <img src="" class="modal-image" alt="Modal Image">
                 </div>
-            </div>
+            </div>*@
         </div>
 
     </div>
@@ -182,10 +207,10 @@
         </ul>
     </div>
 </div>
-
+    </div>
 @Html.ActionLink("立即預約", "list", "Order", null, new { @class = "book_now_btn button_hover" })
-</div>
 
+</div>
 @section Scripts{
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -255,6 +280,12 @@
   });
 });
 
-
+        // 在頁面載入完成後，為元素添加show類名以觸發動畫效果
+        document.addEventListener('DOMContentLoaded', function () {
+            var fadeInElements = document.getElementsByClassName('fade-in-from-bottom');
+            for (var i = 0; i < fadeInElements.length; i++) {
+                fadeInElements[i].classList.add('show');
+            }
+        });
     </script>
 }

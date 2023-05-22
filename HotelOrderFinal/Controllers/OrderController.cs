@@ -1,5 +1,6 @@
 ﻿using HotelOrderFinal.Models;
 using HotelOrderFinal.ViewModels;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -7,6 +8,7 @@ using NuGet.Frameworks;
 using NuGet.Protocol;
 using System.Globalization;
 using System.Text.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace HotelOrderFinal.Controllers
 {
@@ -14,12 +16,10 @@ namespace HotelOrderFinal.Controllers
     {
         public IHttpContextAccessor _contextAccessor;
 
-        public OrderController ( IHttpContextAccessor contextAccessor )
+        public OrderController(IHttpContextAccessor contextAccessor)
         {
             this._contextAccessor = contextAccessor;
         }
-
-        
 
         List<CShopCartViewModel> _cart = new List<CShopCartViewModel>();
 
@@ -107,8 +107,6 @@ namespace HotelOrderFinal.Controllers
             }
         }
 
-        
-
         [HttpPost]
         public IActionResult SearchRoom(string checkInDate, string checkOutDate)
         {
@@ -162,7 +160,6 @@ namespace HotelOrderFinal.Controllers
             {
                 return View(vmList);
             }
-
         }
         public IActionResult getActivitySession()
         {
@@ -181,7 +178,7 @@ namespace HotelOrderFinal.Controllers
             return RedirectToAction("List");
         }
 
-
+        //房間加入購物車
         public ActionResult AddShopCart(string RoomClassId)
         {
             HotelOrderContext db = new HotelOrderContext();
@@ -189,18 +186,36 @@ namespace HotelOrderFinal.Controllers
 
             string checkInDateStr = HttpContext.Session.GetString("CHECKINDATE");
             string checkOutDateStr = HttpContext.Session.GetString("CHECKOUTDATE");
-
-
-            string json = "";
-
+                     
             if (roomClass != null)
             {
                 DateTime checkInDate;
                 DateTime checkOutDate;
+
                 if (DateTime.TryParse(checkInDateStr, out checkInDate) && DateTime.TryParse(checkOutDateStr, out checkOutDate))
                 {
+                    string json = "";
+                    List<CShopCartViewModel> cartList = null;
+                    if (HttpContext.Session.Keys.Contains("CartData"))
+                    { 
+                        json = HttpContext.Session.GetString("CartData");
+                        cartList = JsonSerializer.Deserialize<List<CShopCartViewModel>>(json);
+                    }
+                    else
+                    {
+                        cartList = new List<CShopCartViewModel>();
+                    }
+
+                    int fId = 0;
+
+                    if (cartList.Count > 0)
+                    {
+                        fId = cartList.Max(item => item.FId) + 1;
+                    }
+
                     CShopCartViewModel cartItem = new CShopCartViewModel();
                     {
+                        cartItem.FId = fId;
                         cartItem.RoomClassName = roomClass.RoomClassName;
                         cartItem.RoomClassPhoto1 = roomClass.RoomClassPhoto1;
                         cartItem.RoomClassSize = roomClass.RoomClassSize;
@@ -212,37 +227,91 @@ namespace HotelOrderFinal.Controllers
                         cartItem.CheckInDate = checkInDate;
                         cartItem.CheckOutDate = checkOutDate;
                     };
-                    _cart.Add(cartItem);
-                }
-                }
-                json = JsonConvert.SerializeObject(_cart);
+                    cartList.Add(cartItem);
+                    json = JsonSerializer.Serialize(cartList);
+                    HttpContext.Session.SetString("CartData", json);
 
-            return Json(json);
+                    return Json(json);
+                }
+            }
+            return Json(null);
         }
 
-        public IActionResult Detail()
+        //網頁更新時顯示購物車session內容
+        public ActionResult GetShopCartFromSession()
+        {
+            string json = HttpContext.Session.GetString("CartData");
+            List<CShopCartViewModel> cartList = null;
+
+            if (!string.IsNullOrEmpty(json))
+            {
+                cartList = JsonSerializer.Deserialize<List<CShopCartViewModel>>(json);
+            }
+
+            return Json(cartList);
+        }
+
+        //進入訂單明細顯示顯示購物車session內容
+        public ActionResult GetShopCartOrderDetailSession()
+        {
+            string json = HttpContext.Session.GetString("CartData");
+            List<CShopCartViewModel> cartList = null;
+
+            if (!string.IsNullOrEmpty(json))
+            {
+                cartList = JsonSerializer.Deserialize<List<CShopCartViewModel>>(json);
+            }
+
+            return Json(cartList);
+        }
+
+        //刪除session
+        [HttpPost]
+        public void DeleteSessionData(int FId)
+        {
+            string json = HttpContext.Session.GetString("CartData");
+            List<CShopCartViewModel> cartList = null;
+
+            if (!string.IsNullOrEmpty(json))
+            {
+                cartList = JsonSerializer.Deserialize<List<CShopCartViewModel>>(json);
+
+                // 查找并删除具有相同RoomClassName的项目
+                cartList.RemoveAll(item => item.FId == FId);
+
+                // 将更新后的数据重新存入会话
+                string updatedJson = JsonSerializer.Serialize(cartList);
+                HttpContext.Session.SetString("CartData", updatedJson);
+            }
+        }
+
+
+        //訂房明細頁面
+        public IActionResult Detail(string OrderId)
         {
             if (HttpContext.Session.GetString("UserID") == null)
             {
                 return RedirectToAction("Login", "Member");
             }
-            var userId = _contextAccessor.HttpContext.Session.GetString ( "UserID" );
-            HotelOrderContext db = new HotelOrderContext ( );
-            IEnumerable<DiscountDetail> usesid = db.DiscountDetail.Where ( x => x.MemberId == userId );
 
-            var MemberDiscount = db.DiscountDetail.Include ( x => x.Discount).Where(x => x.MemberId == userId).ToList();
+            var userId = _contextAccessor.HttpContext.Session.GetString("UserID");
+            HotelOrderContext db = new HotelOrderContext();
+            IEnumerable<DiscountDetail> usesid = db.DiscountDetail.Where(x => x.MemberId == userId);
+
+            var MemberDiscount = db.DiscountDetail.Include(x => x.Discount).Where(x => x.MemberId == userId).ToList();
             //var theater = movieContext.TSessions.Include(s => s.FTheater).FirstOrDefault(s => s.FSessionId == sessionID).FTheater;
-            return View (MemberDiscount);
+            return View(MemberDiscount);
         }
 
         public IActionResult Create()
         {
-            var userId = _contextAccessor.HttpContext.Session.GetString ( "UserID" );
-            HotelOrderContext db = new HotelOrderContext ( );
-            IEnumerable<RoomMember> usersid = db.RoomMember.Where ( x => x.MemberId == userId );
+            var userId = _contextAccessor.HttpContext.Session.GetString("UserID");
+            HotelOrderContext db = new HotelOrderContext();
+            IEnumerable<RoomMember> usersid = db.RoomMember.Where(x => x.MemberId == userId);
 
-            return View( usersid );
+            return View(usersid);
         }
+
         //[HttpPost]
         //public IActionResult Create(Order p)
         //{
@@ -255,6 +324,25 @@ namespace HotelOrderFinal.Controllers
         public IActionResult ShowOrder()
         {
             return View();
+        }
+
+        public IActionResult ShowOrderDetail(string id)
+        {
+            HotelOrderContext db = new HotelOrderContext();
+
+            ShowOrderDetailData  model = db.OrderDetail.Select(o=>new ShowOrderDetailData{
+            orderID = o.OrderId,
+            CheckInDate = o.CheckInDate.Value.ToString("yyyy/MM/dd"),
+            CheckOutDate = o.CheckOutDate.Value.ToString("yyyy/MM/dd"),
+            OrderDetailRemark = o.OrderDetailRemark,
+            OrderDetailStatusID = o.OrderDetailStatusId,
+            PaymentDate = o.PaymentDate.Value.ToString("yyyy/MM/dd"),
+            PaymentID = o.PaymentId,
+            PaymentPrice = (int)o.PaymentPrice.Value,
+            RoomID = o.RoomId
+            }).Where(o => o.orderID == id).FirstOrDefault();
+
+            return View(model);
         }
     }
 }

@@ -19,10 +19,10 @@
     <!-- main css -->
     <link rel="stylesheet" href="~/css/style.css">
     <link rel="stylesheet" href="~/css/responsive.css">
-     <link rel="stylesheet" href="~/css/ForHotelIndustry.css" >
+    <link rel="stylesheet" href="~/css/ForHotelIndustry.css">
 
     @*Bootstrap CSS*@
-@*    @Styles.Render("~/Content/css/bootstrap.css")
+    @*    @Styles.Render("~/Content/css/bootstrap.css")
     @Styles.Render("~/Content/css/font-awesome.min.css")
     @Styles.Render("~/Content/css/style.css")
     @Styles.Render("~/Content/css/responsive.css")
@@ -62,15 +62,15 @@
                 </button>
                 <!--Collect the nav links, forms, and other content for toggling-->
                 <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-                    <ul class="nav navbar-nav menu_nav ml-auto">                        
-   <li class="nav-item active; nav-item">@Html.ActionLink("關於", "About", "Home", null, new { @class = "nav-link" })</li>
+                    <ul class="nav navbar-nav menu_nav ml-auto">
+                        <li class="nav-item active; nav-item">@Html.ActionLink("關於", "About", "Home", null, new { @class = "nav-link" })</li>
                         <li class="nav-item active; nav-item">@Html.ActionLink("飯店一覽", "List", "HotelIndustry", null, new { @class = "nav-link" })</li>
                         <li class="nav-item active; nav-item">@Html.ActionLink("房型", "List", "Room", null, new { @class = "nav-link" })</li>
                         <li class="nav-item active; nav-item">@Html.ActionLink("活動", "List", "Activity", null, new { @class = "nav-link" })</li>
-                        <li class="nav-item active; nav-item">@Html.ActionLink("評論", "List", "Comment", null, new { @class = "nav-link" })</li>         
+                        <li class="nav-item active; nav-item">@Html.ActionLink("評論", "ListByMember", "Comment", null, new { @class = "nav-link" })</li>
                         @{
-                            var userName = Context.Session.GetString("UserName");
-                            var userId = Context.Session.GetString("UserID");
+                            var userName = Context.Session.GetString ( "UserName" );
+                            var userId = Context.Session.GetString ( "UserID" );
                         }
                         <li class="nav-item active; nav-item">@Html.ActionLink(@"歡迎，"+userName, "index", "Member", null, new { @class = "nav-link" })</li>
                         <li class="nav-item active; nav-item">@Html.ActionLink("優惠折扣", "DiscountByMember", "Discount", null, new { @class = "nav-link" })</li>
@@ -83,17 +83,16 @@
     @RenderBody()
     <!--================ Recent Area  =================
     ================ start footer Area  =================-->
-     <div style="text-align:center">
-
+    <div style="text-align:center">
     </div>
     <footer class="footer-area section_gap">
         <div class="container">
             <div class="row">
                 @*               <div class="col-lg-3  col-md-6 col-sm-6">
-                    <div class="single-footer-widget">
-                        <h6 class="footer_title">About Agency</h6>
-                        <p>The world has become so fast paced that people don’t want to stand by reading a page of information, they would much rather look at a presentation and understand the message. It has come to a point </p>
-                    </div>
+                <div class="single-footer-widget">
+                <h6 class="footer_title">About Agency</h6>
+                <p>The world has become so fast paced that people don’t want to stand by reading a page of information, they would much rather look at a presentation and understand the message. It has come to a point </p>
+                </div>
                 </div>*@
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="single-footer-widget">
@@ -103,13 +102,13 @@
                                 <ul class="list_style">
                                     <li><a href="#">關於我們</a></li>
                                     <li><a href="#">資展品牌</a></li>
-                                    <li><a href="#">資展中心</a></li>                                    
+                                    <li><a href="#">資展中心</a></li>
                                 </ul>
                             </div>
                             <div class="col-4">
                                 <ul class="list_style">
-                            <li><a href="#">資展公寓</a></li>
-                            <li><a href="#">聯絡我們</a></li>                                    
+                                    <li><a href="#">資展公寓</a></li>
+                                    <li><a href="#">聯絡我們</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -130,17 +129,17 @@
                         </div>
                     </div>
                     @* <div class="single-footer-widget">
-                        <h6 class="footer_title">Newsletter</h6>
-                        <p>For business professionals caught between high OEM price and mediocre print and graphic output, </p>
-                        <div id="mc_embed_signup">
-                            <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="subscribe_form relative">
-                                <div class="input-group d-flex flex-row">
-                                    <input name="EMAIL" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address '" required="" type="email">
-                                    <button class="btn sub-btn"><span class="lnr lnr-location"></span></button>
-                                </div>
-                                <div class="mt-10 info"></div>
-                            </form>
-                        </div>
+                    <h6 class="footer_title">Newsletter</h6>
+                    <p>For business professionals caught between high OEM price and mediocre print and graphic output, </p>
+                    <div id="mc_embed_signup">
+                    <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="subscribe_form relative">
+                    <div class="input-group d-flex flex-row">
+                    <input name="EMAIL" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address '" required="" type="email">
+                    <button class="btn sub-btn"><span class="lnr lnr-location"></span></button>
+                    </div>
+                    <div class="mt-10 info"></div>
+                    </form>
+                    </div>
                     </div>*@
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
@@ -156,17 +155,17 @@
                             <li><img src="image/instagram/Image-07.jpg" alt=""></li>
                             <li><img src="image/instagram/Image-08.jpg" alt=""></li>
                         </ul>
-                    </div>                  
+                    </div>
                 </div>
             </div>
 
             <div class="border_line"></div>
             <div class="row footer-bottom d-flex justify-content-between align-items-center">
                 @*               <p class="col-lg-8 col-sm-12 footer-text m-0">
-                    Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
-                    Copyright &copy;
-                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                    Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
+                Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
+                Copyright &copy;
+                <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0.
                 </p>*@
                 <div class="col-lg-4 col-sm-12 footer-social">
                     <a href="#"><i class="fa fa-facebook"></i></a>
