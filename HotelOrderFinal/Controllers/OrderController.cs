@@ -216,7 +216,7 @@ namespace HotelOrderFinal.Controllers
         //}
 
         //房間加入購物車
-        public ActionResult AddShopCart(string RoomClassId /*, string checkInDate, string checkOutDate*/)
+        public ActionResult AddShopCart(string RoomClassId)
         {
             HotelOrderContext db = new HotelOrderContext();
             var roomClass = db.RoomClass.Find(RoomClassId);
@@ -226,9 +226,7 @@ namespace HotelOrderFinal.Controllers
 
             if (roomClass != null)
             {
-                //DateTime checkIn = DateTime.ParseExact(checkInDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                //DateTime checkOut = DateTime.ParseExact(checkOutDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
-
+               
                 DateTime checkInDate;
                 DateTime checkOutDate;
 
@@ -266,8 +264,9 @@ namespace HotelOrderFinal.Controllers
                         cartItem.AddPrice = (int)Math.Floor(roomClass.AddPrice.GetValueOrDefault());
                         cartItem.CheckInDate = checkInDate;
                         cartItem.CheckOutDate = checkOutDate;
-                        //cartItem.HotelName = db.HotelIndustry.Where(h=>h.HotelId == roomClass) roomClass.HotelName;
-                        //cartItem.HotelName = db.HotelIndustry.Where(h => h.HotelId == roomClass.RoomClassId).Select(h => h.HotelName);
+                        var hotelID = db.Room.Where(r => r.RoomClassId == RoomClassId).Select(r => r.HotelId).FirstOrDefault();
+                        cartItem.HotelName = db.HotelIndustry.FirstOrDefault(h => h.HotelId == hotelID)?.HotelName;
+
                     };
                     cartList.Add(cartItem);
                     json = JsonSerializer.Serialize(cartList);
