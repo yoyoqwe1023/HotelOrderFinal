@@ -161,6 +161,7 @@
 
                 var hotelRegionId = $(event.target).data('hotelregionid');
                 //字串插值apiUrl
+                //var mapapiUrl = "https://localhost:7007/api/APIHotelIndustry/"; 舊寫法 這裡會給出的是APIHotelIndustry...
                 var apiUrl = `https://localhost:7007/api/APIHotelIndustry/get/${hotelRegionId}`;
                 //僅輸出符合api所設參數的內容
                 $.ajax({
