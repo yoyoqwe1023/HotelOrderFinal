@@ -1,4 +1,5 @@
 ﻿using HotelOrderFinal.Models;
+using HotelOrderFinal.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol.Plugins;
 using System.Text.Json;
@@ -11,6 +12,14 @@ namespace HotelOrderFinal.Controllers
         public HotelIndustryController ( IWebHostEnvironment p )
         {
             _enviro = p;
+        }
+
+        public IActionResult ListView()
+        {
+            HotelOrderContext db = new HotelOrderContext();
+            var datas = from c in db.HotelIndustry
+                        select c;
+            return View(datas);
         }
 
         public IActionResult List ( )

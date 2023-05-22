@@ -271,10 +271,16 @@ namespace HotelOrderFinal.Controllers
             {
                 return PartialView(model);
             }
-
+                  
             string memberID_ = string.Empty;
             int maxMemberID = 0;
             model.AdminId = "AD00010";
+            //性別處理
+            string gender = model.MemberGender;
+            string genderText = (gender == "male") ? "男" : "女";
+            //生日處理
+            DateTime birthday = model.MemberBirthday.Value;
+
             try
             {
                 db = new HotelOrderContext();
@@ -285,10 +291,24 @@ namespace HotelOrderFinal.Controllers
                 maxMemberID = (count > 0) ? Convert.ToInt32(q.Max().Substring(2)) : 0;
                 memberID_ = (count == 0) ? "MB00000" : "MB" + (maxMemberID + 1).ToString().PadLeft(5, '0');
                 model.MemberId = memberID_;
+                // 設置性別屬性
+                model.MemberGender = genderText;
+                model.MemberBirthday = birthday;
 
+
+                DiscountDetail discountDetail = new DiscountDetail();
+                discountDetail.MemberId = memberID_;
+                discountDetail.DiscountId = 1;
+                discountDetail.DiscountStart = DateTime.Now;
+                discountDetail.DiscountEnd = DateTime.Now.AddYears(1);
+                discountDetail.DiscountUse = 0;
+
+                db.DiscountDetail.Add(discountDetail);
+
+                ViewBag.Message = "註冊成功，請重新登入，謝謝 !";
                 db.Add(model);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Home", new { message = HttpUtility.UrlEncode("註冊成功，請重新登入，謝謝 !") });
+                return RedirectToAction("Index", "Home");
 
             }
             catch (Exception ex)
@@ -333,9 +353,7 @@ namespace HotelOrderFinal.Controllers
                 if (cust != null)
                 {
                     cust.MemberName = model.MemberName;
-                    cust.MemberPhone = model.MemberPhone;
                     cust.MemberEmail = model.MemberEmail;
-                    cust.MemberPassword = model.MemberPassword;
                     db.SaveChanges();
                 }
                 return RedirectToAction("Index", "Home");
@@ -456,8 +474,28 @@ public IActionResult ShoppingCar(int id)
             //    orders.Add(order);
             //}
             db = new HotelOrderContext();
-            List<Order> orders = db.Order.Where(t => t.MemberId == HttpContext.Session.GetString("UserID")).ToList();
-            return View(orders);
+
+            List<Order> orders = db.Order.Select(o =>new Order
+            { 
+                MemberId = o.MemberId,
+                OrderId = o.OrderId,
+                OrderDate = o.OrderDate,
+                OrderTotalPrice = o.OrderTotalPrice,
+                CheckInPeople = o.CheckInPeople,
+                OrderRemark = o.OrderRemark
+            }).Where(t => t.MemberId == HttpContext.Session.GetString("UserID")).ToList();
+
+            List<ShowOderData> ShowOrders = orders.Select(o => new ShowOderData
+            {
+                MemberId = o.MemberId,
+                OrderId = o.OrderId,
+                OrderDate = o.OrderDate.ToString("yyyy/MM/dd"),
+                CheckInPeople=o.CheckInPeople,
+                OrderTotalPrice = (int)o.OrderTotalPrice,
+                OrderRemark=o.OrderRemark
+            }).ToList();
+
+            return View(ShowOrders);
         }
 
 

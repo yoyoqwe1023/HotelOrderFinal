@@ -2,14 +2,20 @@
 @{
     ViewData["Title"] = "doubleRoom";
 }
-
+<style>
+.RoomList {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+</style>
 <section class="breadcrumb_area">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
         <div class="page-cover text-center">
             <h2 class="page-cover-tittle">房型一覽</h2>
             <ol class="breadcrumb">
-                <li><a href="index.html">首頁</a></li>
+                <li>@Html.ActionLink("首頁", "Index", "Home")</li>
                 <li class="active">房型</li>
             </ol>
         </div>
@@ -65,6 +71,8 @@
 </section>
 <!--================Breadcrumb Area =================-->
 <!--================ Accomodation Area  =================-->
+
+
 <section class="accomodation_area section_gap">
     <div class="container">
         <div class="section_title text-center">
@@ -101,11 +109,13 @@
                 <div id="doubleRoom" class="tab-pane fade show active">
                     <div class="row accomodation_two">
 
+                        
                         @if (Model != null)
                         {
                             var customOrder = new List<string> { "簡奢", "日式", "北歐", "總統" };
                             @foreach (var item in Model.OrderBy(x => customOrder.FindIndex(c => x.RoomClassName.Contains(c))))
                             {
+                             
                                 <div class="col-lg-3 col-sm-6">
                                     <div class="accomodation_item text-center">
                                         <div class="hotel_img">
@@ -122,8 +132,10 @@
                                     </div>
                                    
                                 </div>
+                               
                             }
                         }
+                        
                     </div>
                 </div>
             </div>
@@ -153,4 +165,9 @@
         //防止表單自動提交
         return false;
     }
+    window.addEventListener('DOMContentLoaded', function () {
+        var roomListElement = document.querySelector('.RoomList');
+        roomListElement.style.opacity = '1';
+        roomListElement.style.transform = 'translateY(0)';
+    });
 </script>

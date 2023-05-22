@@ -193,10 +193,9 @@ namespace HotelOrderFinal.Controllers
             }
             else
             {
-                return Json(json);
+                return View(vmList);
             }
         }
-
 
         //public IActionResult getActivitySession()
         //{
@@ -328,7 +327,7 @@ namespace HotelOrderFinal.Controllers
 
 
         //訂房明細頁面
-        public IActionResult Detail()
+        public IActionResult Detail(string OrderId)
         {
             if (HttpContext.Session.GetString("UserID") == null)
             {
@@ -365,6 +364,25 @@ namespace HotelOrderFinal.Controllers
         public IActionResult ShowOrder()
         {
             return View();
+        }
+
+        public IActionResult ShowOrderDetail(string id)
+        {
+            HotelOrderContext db = new HotelOrderContext();
+
+            ShowOrderDetailData  model = db.OrderDetail.Select(o=>new ShowOrderDetailData{
+            orderID = o.OrderId,
+            CheckInDate = o.CheckInDate.Value.ToString("yyyy/MM/dd"),
+            CheckOutDate = o.CheckOutDate.Value.ToString("yyyy/MM/dd"),
+            OrderDetailRemark = o.OrderDetailRemark,
+            OrderDetailStatusID = o.OrderDetailStatusId,
+            PaymentDate = o.PaymentDate.Value.ToString("yyyy/MM/dd"),
+            PaymentID = o.PaymentId,
+            PaymentPrice = (int)o.PaymentPrice.Value,
+            RoomID = o.RoomId
+            }).Where(o => o.orderID == id).FirstOrDefault();
+
+            return View(model);
         }
     }
 }

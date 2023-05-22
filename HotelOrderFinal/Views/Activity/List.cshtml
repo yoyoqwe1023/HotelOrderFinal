@@ -15,7 +15,9 @@
         </div>*@
     </div>
 </section>
-
+<p>
+    <a asp-action="Create">新增優惠</a>
+</p>
 <head>
 
     <style>
@@ -36,7 +38,9 @@
         }
     </style>
 </head>
+
 <body>
+
     <div class="container-fluid">
         <div class="row" style="background-color: #dcebfd;">
             @* -------------------------------------------------------
@@ -75,10 +79,10 @@
                                     </div>
 
 
-                            @*<td>
+                           @* <td>
                             @Html.ActionLink("修改", "Edit", new {  id=item.ActivityId  }) |
                             @Html.ActionLink("刪除", "Delete","Customer", new {  id=item.ActivityId },new {onclick="return confirm('確定刪除嗎?')"})
-                            </td>*@
+                            </td> *@
 
                                 </div>
                             }
