@@ -29,6 +29,8 @@ namespace HotelOrderFinal.Controllers
             //讀取與設定入退宿時間      
             DateTime checkIn;
             DateTime checkOut;
+            // 儲存當前頁面路徑到 Session
+            HttpContext.Session.SetString("ReturnUrl", "/Order/List");
 
             if (!string.IsNullOrEmpty(checkInDate) && !string.IsNullOrEmpty(checkOutDate))
             {
@@ -322,6 +324,19 @@ namespace HotelOrderFinal.Controllers
                 // 将更新后的数据重新存入会话
                 string updatedJson = JsonSerializer.Serialize(cartList);
                 HttpContext.Session.SetString("CartData", updatedJson);
+            }
+        }
+        public IActionResult CheckLoginStatus()
+        {
+            if (HttpContext.Session.GetString("UserID") != null)
+            {
+                // 使用者已登入
+                return Json(new { loggedIn = true });
+            }
+            else
+            {
+                // 使用者未登入
+                return Json(new { loggedIn = false });
             }
         }
 
