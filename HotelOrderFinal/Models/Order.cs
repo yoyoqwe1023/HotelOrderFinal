@@ -2,8 +2,6 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 
 namespace HotelOrderFinal.Models
 {
@@ -14,17 +12,11 @@ namespace HotelOrderFinal.Models
             OrderDetail = new HashSet<OrderDetail>();
         }
 
-        [DisplayName("訂單ID")]
         public string OrderId { get; set; }
-        [DisplayName("會員ID")]
         public string MemberId { get; set; }
-        [DisplayName("訂單日期")]
-        public  DateTime OrderDate { get; set; }
-        [DisplayName("訂單金額")]
+        public DateTime? OrderDate { get; set; }
         public decimal? OrderTotalPrice { get; set; }
-        [DisplayName("訂單人")]
         public int? CheckInPeople { get; set; }
-        [DisplayName("備註")]
         public string OrderRemark { get; set; }
         public string OrderStatus { get; set; }
         public int? ActivityId { get; set; }

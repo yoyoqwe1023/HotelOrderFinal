@@ -9,7 +9,7 @@ namespace HotelOrderFinal.ViewModels
         [DisplayName("訂單ID")]
         public string OrderId { get; set; }
         [DisplayName("訂單日期")]
-        public string OrderDate { get; set; }
+        public DateTime? OrderDate { get; set; }
         [DisplayName("訂單金額")]
         public int OrderTotalPrice { get; set; }
         [DisplayName("訂單數量")]
