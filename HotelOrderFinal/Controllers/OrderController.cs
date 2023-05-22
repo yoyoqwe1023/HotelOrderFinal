@@ -351,12 +351,15 @@ namespace HotelOrderFinal.Controllers
         {
             HotelOrderContext db = new HotelOrderContext();
 
+            string test = "1";
+            HttpContext.Session.SetString("SelectedActivityId", test);
+
             string activityId = HttpContext.Session.GetString("SelectedActivityId");
 
             if (activityId != null)
             {
                 //var activity = db.Activity.Where(a => a.ActivityId == int.Parse(activityId)).Select(a=>a).ToList();
-                var activity = db.Activity.Find(activityId);
+                var activity = db.Activity.Find(int.Parse(activityId));
                 string json = "";
                 COrderDetailViewModel activityItem = new COrderDetailViewModel();
                 {

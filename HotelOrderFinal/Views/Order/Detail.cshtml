@@ -93,8 +93,8 @@
             </div>
         </div>
 
-        @* <div id="ActivityList" class="area">
-        <div>
+        <div id="ActivityList" class="area">
+            @* <div>
         <h2>活動列表</h2>
         <div class="row">
         <table  style="box-sizing: border-box ; width:100% ;text-align:center;">
@@ -126,8 +126,8 @@
         </tbody>
         </table>
         </div>
+            </div>*@
         </div>
-        </div>*@
 
         <div class="area">
             <div>
@@ -207,7 +207,7 @@
     //頁面載入時載入購物車內容
     $(document).ready(function () {
         loadCartFromSession();
-        //loadActivitySession();
+        loadActivitySession();
     });
 
     function loadCartFromSession() {
@@ -398,34 +398,36 @@
         calculateTotalPrice();
     });
 
+    //獲得活動資料
     function loadActivitySession() {
         fetch('/Order/GetActivitySession', {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         })
             .then(response => response.json())
-            .then(dataArray => {
+            .then(data => {
                 const activityListDiv = document.getElementById("ActivityList");
+                const item = data;
+                console.log(data)
                 var html = "<div><h2>活動列表</h2><div class='row'><table style='box-sizing: border-box; width:100%; text-align:center;'><tbody><tr style='background-color: #f0f0f0;'><th width='25%'>活動日期</th><th width='25%'>活動名稱</th><th width='20%'>參加人數</th><th width='20%'>小計</th><th width='10%'>刪除</th></tr>";
 
-                dataArray.forEach((item) => {
-                    html += "<tr>";
-                    html += "<td>" + item.ActivityTime + "</td>";
-                    html += "<td>" + item.ActivityName + "</td>";
-                    html += "<td>";
-                    html += "<select id='ActivityPeople'>";
-                    for (var i = 1; i < 7; i++) {
-                        html += "<option value='" + i + "'>" + i + "</option>";
-                    }
-                    html += "</select>";
-                    html += "</td>";
-                    html += "<td>NT$ " + item.ActivityCost + "</td>";
-                    html += "<td>刪除</td>";
-                    html += "</tr>";
-                });
-                    html += "</tbody></table></div></div>";
-        activityListDiv.innerHTML = html;
-    });
- }
+                html += "<tr>";
+                html += "<td>" + item.ActivityTime + "</td>";
+                html += "<td>" + item.ActivityName + "</td>";
+             
+                html += "<td>";
+                html += "<select id='ActivityPeople'>";
+                for (var i = 1; i < 7; i++) {
+                    html += "<option value='" + i + "'>" + i + "</option>";
+                }
+                html += "</select>";
+                html += "</td>";
+                html += "<td>NT$ " + item.ActivityCost + "</td>";
+                html += "<td>刪除</td>";
+                html += "</tr>";
 
+                html += "</tbody></table></div>";
+                activityListDiv.innerHTML = html;
+            });
+    }
 </script>
