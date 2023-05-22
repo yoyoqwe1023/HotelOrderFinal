@@ -10,6 +10,7 @@ namespace HotelOrderFinal.Controllers
     public class APIHotelIndustryController : ControllerBase
     {
         // GET: api/<APIHotelIndustryController >
+        
         [HttpGet]
         public IEnumerable<HotelIndustry> Get ( int hotelRegionId )
         {
@@ -19,6 +20,16 @@ namespace HotelOrderFinal.Controllers
                         select HI;
             return datas;
         }
+
+        //[HttpGet]
+        //public IEnumerable<HotelIndustry> Get ( )
+        //{
+        //    HotelOrderContext db = new HotelOrderContext ( );
+        //    var datas = from HI in db.HotelIndustry
+        //                select HI;
+        //    return datas;
+        //}
+
 
         // GET api/<APIHotelIndustryController>/5
         [HttpGet ( "{id}" )]
