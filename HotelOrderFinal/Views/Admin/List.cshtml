@@ -33,13 +33,16 @@
                     <ul class="list" style="list-style: none;">
                         <!--改成手風琴下拉式-->
                         <li>
+                            @Html.ActionLink("會員管理", "ShoppingCar", "Member", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
+                        </li>
+                        <li>
+                            @Html.ActionLink("房型管理", "AdminRoom", "Room", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
+                        </li>
+                        <li>
                             @Html.ActionLink("活動管理", "ActivityByCreate", "Activity", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
                         </li>
                         <li>
                             @Html.ActionLink("訂房管理", "EditPassword", "Member", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
-                        </li>
-                        <li>
-                            @Html.ActionLink("會員管理", "ShoppingCar", "Member", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
                         </li>
                         <li>
                             @Html.ActionLink("飯店一覽管理", "ListView", "HotelIndustry", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
