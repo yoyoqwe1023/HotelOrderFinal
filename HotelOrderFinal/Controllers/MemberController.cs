@@ -55,10 +55,19 @@ namespace HotelOrderFinal.Controllers
             db = new HotelOrderContext();
             //HttpContext.Session.SetString("LayoutMessage", "_LayoutMember");
             var member = db.RoomMember.Where(o => o.MemberPhone == model.MemberPhone && o.MemberPassword == model.MemberPassword).FirstOrDefault();
+            var returnUrl = HttpContext.Session.GetString("ReturnUrl");
             if (member == null)
             {
                 //ViewBag.Message = "帳密錯誤，登入失敗";
                 TempData["ErrorMessage"] = "帳密錯誤，登入失敗";
+               
+                if (!string.IsNullOrEmpty(returnUrl))
+                {
+                    // 清除 Session 中的頁面路徑
+                    HttpContext.Session.Remove("ReturnUrl");
+                    // 導向先前的頁面路徑
+                    return Redirect(returnUrl);
+                }
                 return RedirectToAction("Index", "Home");
             }
             ViewBag.Message = model.MemberName + "，歡迎光臨";
@@ -72,8 +81,14 @@ namespace HotelOrderFinal.Controllers
             HttpContext.Session.SetString("UserPhone", member.MemberPhone);
             HttpContext.Session.SetString("UserPassword", member.MemberPassword);
             HttpContext.Session.SetString("LayoutMessage", "_LayoutMember");
-
-            return RedirectToAction("Index", "Home");
+            
+            if (!string.IsNullOrEmpty(returnUrl))
+            { // 清除 Session 中的頁面路徑
+                HttpContext.Session.Remove("ReturnUrl");
+                // 導向先前的頁面路徑
+                return Redirect(returnUrl);
+            }
+                return RedirectToAction("Index", "Home");
         }
         //【忘記密碼】==========================================================================================
 
