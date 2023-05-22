@@ -18,7 +18,9 @@ namespace HotelOrderFinal.Controllers
         }
         public IActionResult ActivityByCreate()
         {
-            return View();
+            var datas = from c in db.Activity
+                        select c;
+            return View ( datas );
         }
         public ActionResult ActivityByAcceding(int? id)
         {
