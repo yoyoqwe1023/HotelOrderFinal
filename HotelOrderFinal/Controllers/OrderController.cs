@@ -324,6 +324,19 @@ namespace HotelOrderFinal.Controllers
                 HttpContext.Session.SetString("CartData", updatedJson);
             }
         }
+        public IActionResult CheckLoginStatus()
+        {
+            if (HttpContext.Session.GetString("UserID") != null)
+            {
+                // 使用者已登入
+                return Json(new { loggedIn = true });
+            }
+            else
+            {
+                // 使用者未登入
+                return Json(new { loggedIn = false });
+            }
+        }
 
 
         //訂房明細頁面

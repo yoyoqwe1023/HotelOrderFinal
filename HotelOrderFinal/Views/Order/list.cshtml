@@ -432,12 +432,36 @@ model IEnumerable<String>
         // 檢查購物車內容是否為空
         if ($('#ShopCart').is(':empty')) {
             // 購物車內容為空，顯示確認提示框
-            alert('購物車內容為空，請先選擇入住房型')
+            alert('購物車內容為空，請先選擇入住房型');
         } else {
-            // 購物車內容不為空，直接執行跳轉
-            window.location.href = "/Order/Detail";
+            // 檢查使用者是否已登入
+            checkUserLoginStatus(function (loggedIn) {
+                if (loggedIn) {
+                    // 已登入，跳轉到訂單詳細頁面
+                    window.location.href = "/Order/Detail";
+                } else {
+                    // 未登入，顯示登入會員的 modal
+                    $('#myAccountModal').modal('show');
+                }
+            });
         }
     });
+
+    function checkUserLoginStatus(callback) {
+        // 發送 AJAX 請求檢查使用者登入狀態
+        $.ajax({
+            url: "/Order/CheckLoginStatus", // 替換為實際的檢查登入狀態的後端路由
+            type: "GET",
+            success: function (response) {
+                var loggedIn = response.loggedIn;
+                console.log(loggedIn);
+                callback(loggedIn); // 呼叫回呼函式處理結果
+            },
+            error: function () {
+                // 處理錯誤情況
+            }
+        });
+    }
 
 
     //document.querySelector('#btnSearchRoom').addEventListener('click', async () => {
