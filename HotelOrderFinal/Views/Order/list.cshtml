@@ -188,7 +188,7 @@ model IEnumerable<String>
                     <div>
                         @*房間資訊*@
                         <table id="ShopCart">
-                            @*   <tr>
+                            @*<tr>
                             <th width="40%" > 房間類型 </th>
                             <td>RoomClassName </td>
                             </tr>
@@ -319,11 +319,17 @@ model IEnumerable<String>
                     const itemRow = $('<tr></tr>');
                     itemRow.append($('<th></th>').attr('width', '100px').text('房間類型'));
                     itemRow.append($('<td></td>').text(item.RoomClassName));
+                    //const deleteButton = $('<img></img>').attr('src', '/image/delete.jpg').attr('id', 'item.FId').addClass('delete-icon').css('cursor', 'pointer');
+                    ////deleteButton.on('click', function () {
+                    ////    // 點擊事件處理程式碼
+       
+                    ////});
+                    //itemRow.append($('<td></td>').attr('style', 'text-align: right;').append(deleteButton));
                     cartItemsDiv.append(itemRow);
 
                     const itemRow2 = $('<tr></tr>');
-                    itemRow2.append($('<th></th>').attr('width', '100px').text('入住地區'));
-                    itemRow2.append($('<td></td>').text('北部'));
+                    itemRow2.append($('<th></th>').attr('width', '100px').text('飯店名稱'));
+                    itemRow2.append($('<td></td>').text(item.HotelName));
                     cartItemsDiv.append(itemRow2);
 
                     const formattedCheckInDate = new Date(item.CheckInDate).toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' });
