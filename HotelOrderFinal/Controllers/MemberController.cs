@@ -22,10 +22,13 @@ namespace HotelOrderFinal.Controllers
 {
     public class MemberController : Controller
     {
-        private HotelOrderContext db;
+        private HotelOrderContext db = new HotelOrderContext();
+   
         private IWebHostEnvironment _enviro;
-        // GET: MemberController
-        public IActionResult Index(string id)
+
+
+            // GET: MemberController
+            public IActionResult Index(string id)
         {
             //驗證會員登入是否又錯誤，找不到該會員會回到首頁
 
@@ -84,12 +87,12 @@ namespace HotelOrderFinal.Controllers
             return View();
         }
 
-        [ValidateAntiForgeryToken]
-        //[Route("Member/ForgotPassword")]
-     
-        [HttpPost]
-        public IActionResult ForgotPassword(string target) //忘記密碼方法
+        //[HttpPost]  //用ajax方法請求回傳值跟form/submit是無相關的兩條路, 使用時要分清楚
+        [Route("Member/find")]
+        public IActionResult Find_password(string target) //忘記密碼方法
         {
+
+ 
             bool isEmailExist = db.RoomMember.Any(x => x.MemberEmail == target);
             if (isEmailExist)
             {
@@ -101,11 +104,12 @@ namespace HotelOrderFinal.Controllers
                 string receivePage = "Member/ResetPwd";
                 string mailContent = "請點擊以下連結，返回網站重新設定密碼，逾期 5 分鐘後，此連結將會失效。<br><br>";
                 mailContent = mailContent + "<a href='" + webPath + receivePage + "?verify=" + sVerify + "'  target='_blank'>點此連結</a>";
-                string mailSubject = "[讀本] 重設密碼申請信";
+                string mailSubject = "[訂房'系統] 重設密碼驗證連結";
                 string SmtpServer = "smtp.gmail.com";
                 string GoogleMailUserID = "imapple1991@gmail.com"; //Google 發信帳號
                 string GoogleMailUserPwd = "lqcacnvacukpnzpf"; //應用程式密碼
-   
+                //string GoogleMailUserID = _config["GoogleMailUserID"];
+                //string GoogleMailUserPwd = _config["GoogleMailUserPwd"];
                 int port = 587;
                 MailMessage mms = new MailMessage();
                 mms.From = new MailAddress(GoogleMailUserID);
