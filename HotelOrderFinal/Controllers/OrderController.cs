@@ -193,7 +193,7 @@ namespace HotelOrderFinal.Controllers
             }
             else
             {
-                return View(vmList);
+                return Json(json);
             }
         }
 
@@ -327,12 +327,12 @@ namespace HotelOrderFinal.Controllers
 
 
         //訂房明細頁面
-        public IActionResult Detail(string OrderId)
+        public IActionResult Detail( )
         {
-            if (HttpContext.Session.GetString("UserID") == null)
-            {
-                return RedirectToAction("Login", "Member");
-            }
+            //if (HttpContext.Session.GetString("UserID") == null)
+            //{
+            //    return RedirectToAction("Login", "Member");
+            //}
 
             var userId = _contextAccessor.HttpContext.Session.GetString("UserID");
             HotelOrderContext db = new HotelOrderContext();
