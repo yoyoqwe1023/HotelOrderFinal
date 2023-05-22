@@ -63,8 +63,10 @@ namespace HotelOrderFinal.Controllers
                 hotelid = 1;
             }
 
-            var hotelname = db.HotelIndustry.Where(h => h.HotelId == hotelid).Select(h => h.HotelName);
+            var hotelname = db.HotelIndustry.Where(h => h.HotelId == hotelid).Select(h => h.HotelName).FirstOrDefault();
             HttpContext.Session.SetString("HOTELNAME", hotelname.ToString());
+            string hn = HttpContext.Session.GetString("HOTELNAME");
+
 
             //查詢空閒房間方法
             //查詢指定時間區間內已被預訂的房間
@@ -153,6 +155,9 @@ namespace HotelOrderFinal.Controllers
                 hotelid = 1;
             }
 
+            var hotelname = db.HotelIndustry.Where(h => h.HotelId == hotelid).Select(h => h.HotelName).FirstOrDefault();
+            HttpContext.Session.SetString("HOTELNAME", hotelname.ToString());
+
             //查詢空閒房間方法
             //查詢指定時間區間內已被預訂的房間
             var reservedRooms = from od in db.OrderDetail
@@ -224,6 +229,7 @@ namespace HotelOrderFinal.Controllers
 
             string checkInDateStr = HttpContext.Session.GetString("CHECKINDATE");
             string checkOutDateStr = HttpContext.Session.GetString("CHECKOUTDATE");
+            string hotelname = HttpContext.Session.GetString("HOTELNAME");
 
             if (roomClass != null)
             {
@@ -265,8 +271,9 @@ namespace HotelOrderFinal.Controllers
                         cartItem.AddPrice = (int)Math.Floor(roomClass.AddPrice.GetValueOrDefault());
                         cartItem.CheckInDate = checkInDate;
                         cartItem.CheckOutDate = checkOutDate;
-                        var hotelID = db.Room.Where(r => r.RoomClassId == RoomClassId).Select(r => r.HotelId).FirstOrDefault();
-                        cartItem.HotelName = db.HotelIndustry.FirstOrDefault(h => h.HotelId == hotelID)?.HotelName;
+                        cartItem.HotelName = hotelname;
+                        //var hotelID = db.Room.Where(r => r.RoomClassId == RoomClassId).Select(r => r.HotelId).FirstOrDefault();
+                        //cartItem.HotelName = db.HotelIndustry.FirstOrDefault(h => h.HotelId == hotelID)?.HotelName;
 
                     };
                     cartList.Add(cartItem);
