@@ -1,0 +1,68 @@
+﻿
+/*每個頁面右下角的回頁首按鈕*/
+#mytop-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: none;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index:20;
+}
+
+    #mytop-button:hover {
+        background-color: #555;
+    }
+
+/*footer social icon*/
+.social-link {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 20px;
+    color: #333;
+}
+
+    .social-link:hover {
+        color: #00a0d2;
+    }
+    
+.custom-icon {
+    font-size: 50px; 
+}
+
+/*footer版權字顏色*/
+.footer-bottom .footer-text a {
+    color: #52c5fd;
+}
+
+/*調整首頁飯店設施<p>字體大小*/
+.facilities_item p {
+    font-size: 16px;  
+}
+
+/*footer減少padding數值*/
+.footer-area {
+    padding: 50px 0px;
+}
+
+/*nav調色*/
+.navbar {
+    background: #aed6f194;    
+}
+
+.navbar_fixed {
+    background: #5DADE2;
+}
+
+/*更改滑鼠移至nav link上的顏色*/
+.navbar .menu_nav .nav-item:hover .nav-link, .navbar .menu_nav .nav-item.active .nav-link {
+    color: #0047ab;
+}
+/*section調色*/
+section {
+    background: #E1F5FE;
+}
+

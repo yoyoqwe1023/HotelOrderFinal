@@ -16,11 +16,16 @@
     <link rel="stylesheet" href="~/vendors/nice-select/css/nice-select.css">
     <link rel="stylesheet" href="~/vendors/owl-carousel/owl.carousel.min.css">
     <!-- main css -->
+
     <link rel="stylesheet" href="~/css/style.css">
     <link rel="stylesheet" href="~/css/responsive.css">
     <link rel="stylesheet" href="~/css/ForHotelIndustry.css" >
     <link rel="stylesheet" href="~/css/ForAdmin.css">
-   
+    <link rel="stylesheet" href="~/css/ForLayout.css">
+    
+
+
+
     
     <style>
 
@@ -81,7 +86,7 @@
                         <li class="nav-item active; nav-item">@Html.ActionLink("活動", "List", "Activity", null, new { @class = "nav-link" })</li>
                         <li class="nav-item active; nav-item">@Html.ActionLink("評論", "List", "Comment", null, new { @class = "nav-link" })</li>                        
                         <li class="nav-item active">
-                            <a href="#" class="nav-link text-white" data-toggle="modal" data-target="#myAccountModal" data-backdrop="false">我的帳戶</a>
+                            <a href="#" class="nav-link text-white " data-toggle="modal" data-target="#myAccountModal" data-backdrop="false">我的帳戶</a>
                         </li>               
                     </ul>
                    
@@ -90,10 +95,11 @@
         </div>
       
     </header>
+    
     @RenderBody()
     <!--================ Recent Area  =================
     ================ start footer Area  =================-->
-    
+    <div id="mytop-button">TOP</div>
     <div style="text-align:center">
         
     </div>
@@ -168,10 +174,11 @@
 
                 </div>             
                                 <div class="col-lg-3 col-sm-12 footer-social">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-dribbble"></i></a>
-                                    <a href="#"><i class="fa fa-behance"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-facebook custom-icon"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter custom-icon"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-line custom-icon"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram custom-icon"></i></a>
+
                                 </div>      
 
             </div>          
@@ -187,12 +194,12 @@
                     Designed by <a href="https://getbootstrap.com/">Bootstrap</a>
                 </p>
                
-                <div class="col-lg-4 col-sm-12 footer-social">
+              @*  <div class="col-lg-4 col-sm-12 footer-social">
                     <a href="#"><i class="fa fa-facebook"></i></a>
                     <a href="#"><i class="fa fa-twitter"></i></a>
                     <a href="#"><i class="fa fa-dribbble"></i></a>
                     <a href="#"><i class="fa fa-behance"></i></a>
-                </div>
+                </div>*@
             </div>
         </div>
         <div class="copyright">
@@ -202,6 +209,8 @@
     <!--================ End footer Area  =================
     Optional JavaScript
     jQuery first, then Popper.js, then Bootstrap JS-->
+    @*AJAX老師說這個要留*@
+    @RenderSection("Scripts", required: false)
 
     <script src="~/js/jquery-3.2.1.min.js"></script>
     <script src="~/js/popper.js"></script>
@@ -217,16 +226,38 @@
     <script src="~/js/custom.js"></script>
     <script src="~/js/bootstrap.js"></script>
     <script src="~/js/datetimepicker.js"></script>
-
+    @*顯示footer的social icon*@
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 
 
     @*@await RenderSectionAsync("Scripts",required:false)*@
 
     
-    @*AJAX老師說這個要留*@
-    @RenderSection("Scripts", required: false)
+    
+    <script>
+        // 當文件載入完成時
+        $(document).ready(function () {
+            // 綁定滾動事件
+            $(window).scroll(function () {
+                // 檢查滾動位置
+                if ($(this).scrollTop() > 100) {
+                    // 滾動位置超過 100px 時，顯示回頁首按鈕
+                    $('#mytop-button').fadeIn();
+                } else {
+                    // 滾動位置小於 100px 時，隱藏回頁首按鈕
+                    $('#mytop-button').fadeOut();
+                }
+            });
 
+            // 點擊回頁首按鈕時，捲動到頁面頂部
+            $('#mytop-button').click(function () {
+                $('html, body').animate({ scrollTop: 0 }, 'slow');
+            });
+        });
+
+    </script>
 </body>
+
 </html>
 
 
