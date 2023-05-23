@@ -134,7 +134,6 @@
         //window.initMap = initMap;
         //////////////////////////////////////////////////////////////////////////////////////////////////
         var mapapiUrl = "https://localhost:7007/api/APIHotelIndustry/get";
-
         function initMap() {
             const map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 7,
@@ -177,7 +176,7 @@
                         for (var i = 0; i < data.length; i++) {
                             $("#hoteldata1").append(
                                 '<div class="mycol">' +
-                                '<div class="container" >' +
+                                '<div class="mycol container" >' +
                                 '<div id = "hotelupload1" class= "newcontainer  text-center" >' +
                                 '<h1 style="color:black;">' + data[i].hotelName + '</h1>' +
                                 '<img src="/image/' + data[i].hotelImage + ' "  width = "320" height = "240" />' +
