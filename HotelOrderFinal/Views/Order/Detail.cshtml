@@ -465,6 +465,11 @@
                 calculateActSelecttotal();
             });
     }
-
-
+ 
+    window.onload = async () => {
+        const response = await fetch('@Url.Action("getActivitySession", "Order")');
+        const data = await response.json();
+       
+        console.log(data);
+    };
 </script>
