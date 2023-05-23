@@ -2,7 +2,7 @@
 
 @{
     //Layout = "_Layout";
-    ViewData ["Title"] = "List";
+    ViewData["Title"] = "List";
 }
 
 <!--================Breadcrumb Area =================-->
@@ -111,13 +111,13 @@
 <!--================ Facilities Area  =================-->
 <!--================ Testimonial Area  =================-->
 @section Scripts{
-    <script async
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCu2MdiX8Qb7KWkqfIembmElinOcl-GgWE&callback=initMap">
-    </script>
+    @*    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCu2MdiX8Qb7KWkqfIembmElinOcl-GgWE&callback=initMap"></script>*@
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCu2MdiX8Qb7KWkqfIembmElinOcl-GgWE&callback=initMap1"></script>
+@*    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCu2MdiX8Qb7KWkqfIembmElinOcl-GgWE&callback=initMap2"></script>
+*@
+
 
     <script>
-        //$("#hoteldata3").empty();與$("#hoteldata3").append應該要寫一個可以自己判別的通用式
-        
         catchid1()
         catchid2()
         catchid3()
@@ -168,7 +168,7 @@
         }
         window.initMap = initMap; // 將 initMap 函式指定為全局變數，使其能夠在載入 Google Maps API 時被調用
         ///////////////////////////////配合各區域的map
-        
+
         function initMap1() {
             const map = new google.maps.Map(document.getElementById("map1"), {
                 zoom: 10,
@@ -194,7 +194,7 @@
                     console.log("Fetch Error:", error);
                 });
         }
-        window.initMap = initMap1;
+        window.initMap1 = initMap1;
 
         function initMap2() {
             const map = new google.maps.Map(document.getElementById("map2"), {
@@ -221,7 +221,7 @@
                     console.log("Fetch Error:", error);
                 });
         }
-        window.initMap = initMap2;
+        window.initMap2 = initMap2;
 
         ///////////////////////////////////////////////////////////////////////////////////////////////
         //研究中，為動態顯示圖標所對應的資料 使用了JQuery
@@ -298,9 +298,9 @@
             //抓hotelregionid
             $('#btn2').on('click', function (event) {
 
-               var hotelRegionId = $(event.target).data('hotelregionid');
+                var hotelRegionId = $(event.target).data('hotelregionid');
                 //字串插值apiUrl
-               var apiUrl = `https://localhost:7007/api/APIHotelIndustry/get/${hotelRegionId}`;
+                var apiUrl = `https://localhost:7007/api/APIHotelIndustry/get/${hotelRegionId}`;
                 //僅輸出符合api所設參數的內容
                 $.ajax({
                     url: apiUrl,
