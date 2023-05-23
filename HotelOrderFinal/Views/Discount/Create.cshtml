@@ -17,59 +17,132 @@
     </div>
 </section>
 
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @*    <title>評點&評論</title>*@
+    <link rel="stylesheet" href="../css/start.css" />
+    <style>
+        .card-text {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            overflow: hidden;
+        }
 
-<h1>新增優惠內容</h1>
+        * {
+            margin: 0;
+            padding: 0;
+        }
 
-<h4>優惠資料</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        /* .類別名 可套用在不同標籤上*/
+        .left {
+            width: 400px;
+            float: left;
+            margin-left: 100px;
+        }
 
-           
-          @*  <div class="form-group">
-                <label asp-for="DiscountId" class="control-label"></label>
-                <input asp-for="DiscountId" class="form-control" />
-                <span asp-validation-for="DiscountId" class="text-danger"></span>
-            </div>*@
-            <div class="form-group">
-                <label asp-for="DiscountName" class="control-label"></label>
-                <input asp-for="DiscountName" class="form-control" />
-                <span asp-validation-for="DiscountName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DiscountImage" class="control-label"></label>
-                <input asp-for="DiscountImage" class="form-control" />
-                <span asp-validation-for="DiscountImage" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DiscountDirections" class="control-label"></label>
-                <input asp-for="DiscountDirections" class="form-control" />
-                <span asp-validation-for="DiscountDirections" class="text-danger"></span>
-            </div>
+        .t1 {
+            /* float: left; 文繞圖浮動到左邊*/
+            float: left;
+        }
 
-            <div class="form-group">
-                <label asp-for="DiscountDiscount" class="control-label"></label>
-                <input asp-for="DiscountDiscount" class="form-control" />
-                <span asp-validation-for="DiscountDiscount" class="text-danger"></span>
-            </div>
+        .t2 {
+            width: 400px;
+            text-align: center;
+        }
 
-@*            <div class="form-group">
-                <label asp-for="MemberId" class="control-label"></label>
-                <input asp-for="MemberId" class="form-control" />
-                <span asp-validation-for="MemberId" class="text-danger"></span>
-            </div>*@
-         
-            <div class="form-group">
-                <input type="submit" value="送出" class="btn btn-primary" />
-                <button type="button" onclick="location.href='@Url.Action("List")'" class="btn btn-secondary">取消</button>              
+        .sub {
+            width: 400px;
+            /* 捲軸:視需要自動啟動 */
+            overflow: auto;
+            margin-left: 10px;
+            text-align: start;
+        }
+        /* 不能任意調整文字框大小 */
+        textarea {
+            margin-left: 10px;
+            resize: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+            <div class="row">
+                <div class="col-5 col-1-sm-6">
+                    <div class="d-flex flex-wrap">
+                        @*    <div class="col-md-4">*@
+                        <form asp-action="Create">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="form-group">
+                            @*<label asp-for="DiscountId" class="control-label"></label>*@
+                            <input type="hidden" asp-for="DiscountId" class="form-control" />
+                            <span asp-validation-for="DiscountId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="DiscountName" class="control-label"></label>
+                                <input  asp-for="DiscountName" class="form-control" />
+                                <span asp-validation-for="DiscountName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="DiscountImage" class="control-label"></label>
+                                <input asp-for="DiscountImage" class="form-control" />
+                                <span asp-validation-for="DiscountImage" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="DiscountDirections" class="control-label"></label>
+                                <input asp-for="DiscountDirections" class="form-control" />
+                                <span asp-validation-for="DiscountDirections" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="DiscountDiscount" class="control-label"></label>
+                                <input asp-for="DiscountDiscount" class="form-control" />
+                                <span asp-validation-for="DiscountDiscount" class="text-danger"></span>
+                            </div>
+
+                            @*<div class="form-group">
+                            <label asp-for="MemberId" class="control-label"></label>
+                            <input asp-for="MemberId" class="form-control" />
+                            <span asp-validation-for="MemberId" class="text-danger"></span>
+                            </div>*@
+                            <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-primary" />
+                                <input type="reset" value="清除" class="btn btn-secondary" />
+                            <a asp-action="List" class="btn btn-warning">取消</a>
+                            </div>
+                            <div class="form-group">
+                                @using (Html.BeginForm("Create", "Discount", new { id = "my-form-id" }))
+                                {
+                                    <button type="button" class="btn btn-secondary" onclick="demoDiscount()">Demo</button>
+                                }
+                                @ViewBag.Message
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-        </form>
-    </div>
-</div>
+        </div>
+    
+</body>
+
+
 
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+   
+    <script>
+        function demoDiscount() {
+            // 設定 Demo 評價
+            // 取得表單元素和欄位元素
+            document.getElementById("DiscountName").value = "促進經濟旅遊";
+            document.getElementById("DiscountDirections").value = "就是來住宿";
+            document.getElementById("DiscountDiscount").value = 0.8;           
+            //// 提交表單
+            form.submit();
+        }
+    </script>
+    }
 }

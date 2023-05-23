@@ -10,10 +10,13 @@ namespace HotelOrderFinal.Controllers
     {
         private HotelOrderContext db = new HotelOrderContext();
         public IHttpContextAccessor _contextAccessor;
+        public IWebHostEnvironment _enviro;
 
-        public DiscountController(IHttpContextAccessor contextAccessor)
+        public DiscountController(IHttpContextAccessor contextAccessor , IWebHostEnvironment enviro)
         {
             this._contextAccessor = contextAccessor;
+            _enviro = enviro;
+            
         }
 
         public IActionResult List(CKeywordViewModel vm)
@@ -53,7 +56,6 @@ namespace HotelOrderFinal.Controllers
                     int lastID = db.Discount.OrderByDescending(x => x.DiscountId).FirstOrDefault().DiscountId;
                     foreach (var itme in members)
                     {
-
                         DiscountDetail detail = new DiscountDetail();
                         detail.DiscountId = lastID;
                         detail.DiscountStart = DateTime.Now;
@@ -61,7 +63,6 @@ namespace HotelOrderFinal.Controllers
                         detail.DiscountUse = 0;
                         detail.MemberId = itme;
                         db.DiscountDetail.Add(detail);
-
                     }
                     db.SaveChanges();
                     return RedirectToAction("List");
@@ -95,19 +96,41 @@ namespace HotelOrderFinal.Controllers
             return View(cust);
         }
         [HttpPost]
-        public IActionResult Edit(Discount p)
-        {           
+        public IActionResult Edit(CDiscountWrap p)
+        {
+
             Discount cust = db.Discount.FirstOrDefault(t => t.DiscountId == p.DiscountId);
             if (cust != null)
             {
+                if (p.photo != null)
+                {
+                    string photoName = Guid.NewGuid().ToString() + ".jpg";
+                    string path = _enviro.WebRootPath + "/image/" + photoName;
+                    p.photo.CopyTo(new FileStream(path, FileMode.Create));
+                    cust.DiscountImage = photoName;
+                }
+
                 cust.DiscountName = p.DiscountName;
-                cust.DiscountImage = p.DiscountImage;
                 cust.DiscountDirections = p.DiscountDirections;
                 cust.DiscountDiscount = p.DiscountDiscount;
+                cust.DiscountExist = p.DiscountExist;           
                 db.SaveChanges();
             }
             return RedirectToAction("List");
         }
+        //public IActionResult Edit(Discount p)
+        //{           
+        //    Discount cust = db.Discount.FirstOrDefault(t => t.DiscountId == p.DiscountId);
+        //    if (cust != null)
+        //    {
+        //        cust.DiscountName = p.DiscountName;
+        //        cust.DiscountImage = p.DiscountImage;
+        //        cust.DiscountDirections = p.DiscountDirections;
+        //        cust.DiscountDiscount = p.DiscountDiscount;
+        //        db.SaveChanges();
+        //    }
+        //    return RedirectToAction("List");
+        //}
 
         public IActionResult DiscountByMember()
         {
