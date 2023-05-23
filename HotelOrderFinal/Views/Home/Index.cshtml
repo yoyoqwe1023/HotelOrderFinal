@@ -469,6 +469,7 @@
         //    headers: { 'Content-Type': 'application/json' },
         //})
         //~/
+        console.log(checkInDate)
         var url = `/Order/List?checkInDate=${encodeURIComponent(checkInDate)}&checkOutDate=${encodeURIComponent(checkOutDate)}&hotelId=${encodeURIComponent(hotelId)}`;
 
         window.location.href = url;

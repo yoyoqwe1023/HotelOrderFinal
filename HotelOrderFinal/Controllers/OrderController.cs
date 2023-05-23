@@ -33,7 +33,14 @@ namespace HotelOrderFinal.Controllers
             DateTime checkIn;
             DateTime checkOut;
 
-            if (!string.IsNullOrEmpty(checkInDate) && !string.IsNullOrEmpty(checkOutDate))
+            ////從活動過來的日期
+            //if (!string.IsNullOrEmpty(TempData["CheckInDate"] as string) && !string.IsNullOrEmpty(TempData["CheckOutDate"] as string))
+            //{
+            //    checkIn = DateTime.ParseExact(TempData["CheckInDate"] as string, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            //    checkOut = DateTime.ParseExact(TempData["CheckOutDate"] as string, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            //}
+            ////從首頁過來的日期
+            /*else*/ if (!string.IsNullOrEmpty(checkInDate) && !string.IsNullOrEmpty(checkOutDate))
             {
                 checkIn = DateTime.ParseExact(checkInDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                 checkOut = DateTime.ParseExact(checkOutDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
@@ -207,35 +214,35 @@ namespace HotelOrderFinal.Controllers
             }
         }
 
-        public IActionResult getActivitySession(int activityId)
-        {
-            HotelOrderContext db = new HotelOrderContext();
-            // 根據 activityId 檢索相關的活動詳細資料
-            //var activityDetails = db.Activity.FirstOrDefault(a => a.ActivityId == activityId);
-            //if (activityDetails == null)
-            //{
-            //    return RedirectToAction("List", "Activity"); // 或導向其他適當的動作或視圖
-            //}
-            // 將該資料傳遞到訂單介面的視圖中
-            //return View(activityDetails);
-            ////讀取與設定入住日期
-            string selectedActivityId = HttpContext.Session.GetString("SelectedActivityId");
-            string selectedActivityTime = HttpContext.Session.GetString("ActivityTime");
-            if (selectedActivityId != null && selectedActivityTime != null)
-            {
-                var jsonObject = new
-                {
-                    id = selectedActivityId,
-                    time = selectedActivityTime
-                };
-                return Json(jsonObject);
-            }
-            else
-            {
-                return Json(null);
-            }
+        //public IActionResult getActivitySession(int activityId)
+        //{
+        //    HotelOrderContext db = new HotelOrderContext();
+        //    // 根據 activityId 檢索相關的活動詳細資料
+        //    //var activityDetails = db.Activity.FirstOrDefault(a => a.ActivityId == activityId);
+        //    //if (activityDetails == null)
+        //    //{
+        //    //    return RedirectToAction("List", "Activity"); // 或導向其他適當的動作或視圖
+        //    //}
+        //    // 將該資料傳遞到訂單介面的視圖中
+        //    //return View(activityDetails);
+        //    ////讀取與設定入住日期
+        //    string selectedActivityId = HttpContext.Session.GetString("SelectedActivityId");
+        //    string selectedActivityTime = HttpContext.Session.GetString("ActivityTime");
+        //    if (selectedActivityId != null && selectedActivityTime != null)
+        //    {
+        //        var jsonObject = new
+        //        {
+        //            id = selectedActivityId,
+        //            time = selectedActivityTime
+        //        };
+        //        return Json(jsonObject);
+        //    }
+        //    else
+        //    {
+        //        return Json(null);
+        //    }
             
-        }
+        //}
 
         //房間加入購物車
         public ActionResult AddShopCart(string RoomClassId)
@@ -381,10 +388,10 @@ namespace HotelOrderFinal.Controllers
         {
             HotelOrderContext db = new HotelOrderContext();
 
-            string test = "1";
-            HttpContext.Session.SetString("SelectedActivityId", test);
+            //string test = "1";
+            //HttpContext.Session.SetString("ActivityId", test);
 
-            string activityId = HttpContext.Session.GetString("SelectedActivityId");
+            string activityId = HttpContext.Session.GetString("ActivityId");
 
             if (activityId != null)
             {
