@@ -65,138 +65,147 @@
 
 <body>
     <div class="col-md-10 offset-md-1 ">
-        <div class="area">
-            <div>
-                <h2>房間明細</h2>
-            </div>
-            <div style="margin:10px;">
-                <table id="SessionRoomList" style="box-sizing: border-box ; width:100% ;text-align:center;">
-                    @*<tbody>
-                    <tr style="background-color: #f0f0f0;">
-                    <th width="25%">住宿時間</th>
-                    <th width="25%">房間類型</th>
-                    <th width="10%">數量</th>
-                    <th width="15%">人數</th>
-                    <th width="15%">小計</th>
-                    <th width="10%">刪除</th>
-                    </tr>
-                    <tr>
-                    <td><p>入住日期</p><p>2023/5/7</p><p>退房日期</p><p>2023/5/8</p></td>
-                    <td>雙人房</td>
-                    <td>1</td>
-                    <td>0</td>
-                    <td>NT$ 4000</td>
-                    <td>刪除</td>
-                    </tr>
-                    </tbody>*@
-                </table>
-            </div>
-        </div>
-        <div id ="ActivityList">
-            @*<div class="area">
-            <div>
-            <h2>活動列表</h2>
-            <div class="row">
-            <table  style="box-sizing: border-box ; width:100% ;text-align:center;">
-            <tbody>
-            <tr style="background-color: #f0f0f0;">
-            <th width="25%">活動日期</th>
-            <th width="25%">活動名稱</th>
-            <th width="20%">參加人數</th>
-            <th width="20%">小計</th>
-            <th width="10%">刪除</th>
-            </tr>
-            <tr>
-            <td>item.ActivityTime</td>
-            <td>item.ActivityName</td>
-            <td>
-            <select id="ActivityPeople">
-            @{
-
-            for(int i =1; i<7;i++)
-            {
-            <option value="i" >i</option>
-            }
-            }
-            </select>
-            </td>
-            <td>NT$ item.ActivityCost</td>
-            <td>刪除</td>
-            </tr>
-            </tbody>
-            </table>
-            </div>
-            </div>
-            </div>*@
-        </div>
-        <div class="area">
-            <div>
-                <h2>優惠卷</h2>
-            </div>
-            <div class="form-group col-md-2">
-                <select id="discountSelect">
-                    @foreach (var item in Model)
-                    {
-                        <option value="@item.Discount.DiscountDiscount">@Html.DisplayFor(modelItem => item.Discount.DiscountName)</option>
-                    }
-                </select>
-            </div>
-            <div class="row">
-                <div class="col-md-4"></div>
-                <div class="col-md-4"></div>
-                <div class="col-md-4">
-                    <table style="width:100%">
+        <form action="SaveDB">
+            <div class="area">
+                <div>
+                    <h2>房間明細</h2>
+                </div>
+                <div style="margin:10px;">
+                    <table id="SessionRoomList" style="box-sizing: border-box ; width:100% ;text-align:center;">
+                        @*<tbody>
+                        <tr style="background-color: #f0f0f0;">
+                        <th width="25%">住宿時間</th>
+                        <th width="25%">房間類型</th>
+                        <th width="10%">數量</th>
+                        <th width="15%">人數</th>
+                        <th width="15%">小計</th>
+                        <th width="10%">刪除</th>
+                        </tr>
                         <tr>
-                            <th>總金額</th>
-                            <td id="OrderDetailTotalPrice" class="text-center">NT$ 0</td>
-
+                        <td><p>入住日期</p><p>2023/5/7</p><p>退房日期</p><p>2023/5/8</p></td>
+                        <td>雙人房</td>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>NT$ 4000</td>
+                        <td>刪除</td>
                         </tr>
-                        <tr id="discountRow" style="display:none;">
-                            <th width="25%">折扣後總金額</th>
-                            <td id="discountAmount" class="text-center">NT$ 0</td>
-                        </tr>
+                        </tbody>*@
                     </table>
                 </div>
             </div>
-        </div>
-
-        <div class="area">
-            <div>
-                <h2>付款方式</h2>
+            <div id="ActivityList">
+                @*<div class="area">
+                <div>
+                <h2>活動列表</h2>
                 <div class="row">
-                    <label class="lab1">
-                        <input type="radio" name="pay" value="cash" required checked />現金(現場支付)
-                    </label>
-                    <label class="lab1">
-                        <input type="radio" name="pay" value="creditcard" />信用卡
-                    </label>
+                <table  style="box-sizing: border-box ; width:100% ;text-align:center;">
+                <tbody>
+                <tr style="background-color: #f0f0f0;">
+                <th width="25%">活動日期</th>
+                <th width="25%">活動名稱</th>
+                <th width="20%">參加人數</th>
+                <th width="20%">小計</th>
+                <th width="10%">刪除</th>
+                </tr>
+                <tr>
+                <td>item.ActivityTime</td>
+                <td>item.ActivityName</td>
+                <td>
+                <select id="ActivityPeople">
+                @{
+
+                for(int i =1; i<7;i++)
+                {
+                <option value="i" >i</option>
+                }
+                }
+                </select>
+                </td>
+                <td>NT$ item.ActivityCost</td>
+                <td>刪除</td>
+                </tr>
+                </tbody>
+                </table>
+                </div>
+                </div>
+                </div>*@
+            </div>
+            <div class="area">
+                <div>
+                    <h2>優惠卷</h2>
+                </div>
+                <div class="form-group col-md-2">
+                    <select id="">
+
+                    </select>
+
+                    @*<select id="discountSelect" name="discountSelect">
+                        @foreach (var item in Model)
+                        {
+                            <option value="@item.Discount.DiscountDiscount">@Html.DisplayFor(modelItem => item.Discount.DiscountName)</option>
+                        }
+                    </select>*@
+                </div>
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4">
+                        <table style="width:100%">
+                            <tr>
+                                <th>總金額</th>
+                                <td id="OrderDetailTotalPrice" class="text-center">NT$ 0</td>
+
+                            </tr>
+                            <tr id="discountRow" style="display:none;">
+                                <th width="25%">折扣後總金額</th>
+                                <td id="discountAmount" class="text-center">NT$ 0</td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="area">
-            <div>
-                <h2>注意事項</h2>
-                <ol>
-                    <li>飯店入住時間：下午3點之後；退房時間：中午11點以前。</li>
-                    <li>飯店全館禁止吸菸及謝絕寵物入住(除導盲犬)，謝謝合作。</li>
-                    <li>入住時請出示身分證或護照以便住宿登記。</li>
-                    @*<li>平、旺、假日之定義，將依飯店規定為主。</li>*@
-                </ol>
+
+            <div class="area">
+                <div>
+                    <h2>付款方式</h2>
+                    <div class="row">
+                        <label class="lab1">
+                            <input type="radio" name="pay" value="cash" required checked />現金(現場支付)
+                        </label>
+                        <label class="lab1">
+                            <input type="radio" name="pay" value="creditcard" />信用卡
+                        </label>
+                    </div>
+                </div>
             </div>
-            <div>
-                <h2>備注</h2>
-                <textarea></textarea>
+            <div class="area">
+                <div>
+                    <h2>注意事項</h2>
+                    <ol>
+                        <li>飯店入住時間：下午3點之後；退房時間：中午11點以前。</li>
+                        <li>飯店全館禁止吸菸及謝絕寵物入住(除導盲犬)，謝謝合作。</li>
+                        <li>入住時請出示身分證或護照以便住宿登記。</li>
+                        @*<li>平、旺、假日之定義，將依飯店規定為主。</li>*@
+                    </ol>
+                </div>
+                <div>
+                    <h2>備注</h2>
+                    <textarea id="txtRemark" name="txtRemark "></textarea>
+                </div>
             </div>
-        </div>
-        <div class="row justify-content-end">
-            <div class="col-md-2">
-                <a href="#">@Html.ActionLink("返回上一頁", "List", "Order", null, new { @class = "btn btn-primary btn-block" })</a>
+            <div class="row justify-content-end">
+                <div class="col-md-2">
+                    <a href="#">@Html.ActionLink("返回上一頁", "List", "Order", null, new { @class = "btn btn-primary btn-block" })</a>
+                </div>
+                <div class="col-md-2">
+                    <a href="#" onclick="getOrderDetailValue();" class="btn btn-primary btn-block">付款 </a>
+
+                    @*<input type="submit"/>*@
+                </div>
             </div>
-            <div class="col-md-2">
-                <a href="#">@Html.ActionLink("付款", "ShowOrder", "Order", null, new { @class = "btn btn-primary btn-block" })</a>
-            </div>
-        </div>
+        </form>
     </div>
+
 </body>
 
 <script>
@@ -248,6 +257,8 @@
                         //住宿人數為下拉選單, 上限+2
                         const selectroomPeople = $('<td></td>');
                         const select = $('<select></select>');
+                        //const select = $('<select></select>').attr('id', 'roomPeople').attr('name', 'roomPeople');
+
 
                         // 建立下拉式選單選項
                         for (let i = 1; i <= item.roomClassPeople + 2; i++) {
@@ -260,6 +271,9 @@
 
                             select.append(option);
                         }
+                        // 設定唯一的id和name屬性值
+                        //const uniqueId = 'roomPeople-' + index;
+                        //select.attr('id', uniqueId).attr('name', uniqueId);
 
                         // 監聽下拉選單變更事件
                         select.change(() => {
@@ -415,52 +429,84 @@
                 console.log(item)
                 var html = "<div class='area'><div><h2>活動列表</h2><div class='row'><table style='box-sizing: border-box; width:100%; text-align:center;'><tbody><tr style='background-color: #f0f0f0;'><th width='25%'>活動日期</th><th width='30%'>活動名稱</th><th width='25%'>參加人數/剩餘名額</th><th width='20%'>小計</th></tr>";
                 //const datas=JSON.parse(data);
-               
-                    html += "<tr>";
-                    //html += "<td>" + item.activityTime + "</td>";
+
+                html += "<tr>";
+                //html += "<td>" + item.activityTime + "</td>";
                 const formattedActivityTime = new Date(item.activityTime).toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' });
 
                 html += "<td>" + formattedActivityTime + "</td>";
 
-                    html += "<td>" + item.activityName + "</td>";
+                html += "<td>" + item.activityName + "</td>";
 
-                    html += "<td>";
-                    html += "<select id='ActivityPeople'>";
-                    var remainingPeople = item.activityPeople - item.活動參加總人數;
+                html += "<td>";
+                html += "<select id='ActivityPeople'name='ActivityPeople'>";
+                var remainingPeople = item.activityPeople - item.活動參加總人數;
 
-                    for (var i = 1; i <= remainingPeople; i++) {
-                        html += "<option value='" + i + "'>" + i + "</option>";
-                    }
-                    html += "</select>";
-                    html += " /  " + remainingPeople + "</td>";
+                for (var i = 1; i <= remainingPeople; i++) {
+                    html += "<option value='" + i + "'>" + i + "</option>";
+                }
+                html += "</select>";
+                html += " /  " + remainingPeople + "</td>";
 
-                    html += "<td>NT$ <span id='totalCost'>" + 0 + "</span></td>";
-                    //html += "<td>NT$ " + totalPrice + "</td>";
+                html += "<td>NT$ <span id='totalCost'>" + 0 + "</span></td>";
+                //html += "<td>NT$ " + totalPrice + "</td>";
 
-                    html += "</tr>";
+                html += "</tr>";
 
                 html += "</tbody></table></div></div>";
-                    activityListDiv.innerHTML = html;
+                activityListDiv.innerHTML = html;
 
-                    document.getElementById('ActivityPeople').addEventListener('change', calculateActSelecttotal);
+                document.getElementById('ActivityPeople').addEventListener('change', calculateActSelecttotal);
 
-                    //活動人數變更計算金額
-                    function calculateActSelecttotal() {
-                        var selectedPeople = parseInt(document.getElementById('ActivityPeople').value);
-                        var totalCost = selectedPeople * item.activityCost;
-                        document.getElementById('totalCost').textContent = totalCost
+                //活動人數變更計算金額
+                function calculateActSelecttotal() {
+                    var selectedPeople = parseInt(document.getElementById('ActivityPeople').value);
+                    var totalCost = selectedPeople * item.activityCost;
+                    document.getElementById('totalCost').textContent = totalCost
 
-                        //更新到總金額內
-                        calculateTotalPrice(totalCost);
+                    //更新到總金額內
+                    calculateTotalPrice(totalCost);
 
-                        //const 總金額字串 = calculateTotalPrice();
-                        //const 總金額 = parseInt(總金額字串.substring(4));
+                    //const 總金額字串 = calculateTotalPrice();
+                    //const 總金額 = parseInt(總金額字串.substring(4));
 
-                    };
+                };
 
                 //初始執行計算
                 calculateActSelecttotal();
             });
     }
+
+
+    function getOrderDetailValue() {
+        var activitypeople = document.getElementById("ActivityPeople").value;
+        var discountselect = document.getElementById("discountSelect").value;
+        var txtremark = document.getElementById("txtRemark").value;
+        var roomPeopleElements = document.querySelectorAll('[name="roomPeople"]');
+        var roomPeopleValues = [];
+
+        roomPeopleElements.forEach(function (element) {
+            roomPeopleValues.push(element.value);
+        });
+
+        console.log('activitypeople', activitypeople);
+        console.log('discountselect', discountselect);
+        console.log('txtremark', txtremark);
+        //console.log('roomPeople', roomPeopleValues);
+
+        var data = {
+            activitypeople: activitypeople,
+            discountselect: discountselect,
+            txtremark: txtremark,
+            roomPeople: roomPeopleValues
+        };
+
+        fetch('/your/backend/url', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        })
+    }
+
 
 </script>
