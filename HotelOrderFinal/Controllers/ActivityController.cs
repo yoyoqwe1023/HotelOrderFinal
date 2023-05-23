@@ -1,5 +1,5 @@
 ﻿using HotelOrderFinal.Models;
-
+using HotelOrderFinal.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
@@ -25,7 +25,7 @@ namespace HotelOrderFinal.Controllers
                 db.Activity.Remove(cust);
                 db.SaveChanges();
             }
-            return RedirectToAction("List");
+            return RedirectToAction("ActivityByCreate");
         }
         public IActionResult Create()
         {            
@@ -36,13 +36,23 @@ namespace HotelOrderFinal.Controllers
         {
             db.Activity.Add(p);
             db.SaveChanges();
-            return RedirectToAction("List");
+            return RedirectToAction("ActivityByCreate");
         }
-            public IActionResult ActivityByCreate()
+            public IActionResult ActivityByCreate(CKeywordViewModel vm)
         {
-            var datas = from c in db.Activity
+            HotelOrderContext db = new HotelOrderContext();
+            IEnumerable<Activity> datas = null;
+            if (string.IsNullOrEmpty(vm.txtKeyword))
+                datas = from c in db.Activity                        
                         select c;
-            return View ( datas );
+            else
+                datas = db.Activity
+                    .Where(p => p.ActivityDirections.Contains(vm.txtKeyword)); 
+            if(datas == null)
+            {
+                return RedirectToAction("ActivityByCreate");
+            }
+            return View(datas);
         }
         public ActionResult ActivityByAcceding(int? id)
         {
@@ -76,12 +86,22 @@ namespace HotelOrderFinal.Controllers
             return RedirectToAction("List", "Order");
         }
 
-        public IActionResult List()
-        {                        
-            var datas = from c in db.Activity
+        public IActionResult List(CKeywordViewModel vm)
+        {
+            HotelOrderContext db = new HotelOrderContext();
+            IEnumerable<Activity> datas = null;
+            if (string.IsNullOrEmpty(vm.txtKeyword))
+                datas = from c in db.Activity                        
                         select c;
             return View(datas);
         }
+        //public IActionResult List()
+        //{    
+
+        //    var datas = from c in db.Activity
+        //                select c;
+        //    return View(datas);
+        //}
         public IActionResult Edit(int? id)
         {
             HotelOrderContext db = new HotelOrderContext();
@@ -116,7 +136,19 @@ namespace HotelOrderFinal.Controllers
             return RedirectToAction("List");
         }
 
-
+        public IActionResult CheckLoginStatus()
+        {
+            if (HttpContext.Session.GetString("UserID") != null)
+            {
+                // 使用者已登入
+                return Json(new { loggedIn = true });
+            }
+            else
+            {
+                // 使用者未登入
+                return Json(new { loggedIn = false });
+            }
+        }
 
     }
 }

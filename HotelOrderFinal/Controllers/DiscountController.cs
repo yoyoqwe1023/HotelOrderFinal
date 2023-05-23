@@ -18,7 +18,6 @@ namespace HotelOrderFinal.Controllers
 
         public IActionResult List(CKeywordViewModel vm)
         {
-
             IEnumerable<Discount> datas = null;
             if (string.IsNullOrEmpty(vm.txtKeyword))
                 datas = from c in db.Discount
@@ -37,7 +36,6 @@ namespace HotelOrderFinal.Controllers
         {
             try
             {
-
                 // 取得優惠是否存在
                 p.DiscountExist = true;
 
@@ -113,10 +111,9 @@ namespace HotelOrderFinal.Controllers
 
         public IActionResult DiscountByMember()
         {
-            var userId = _contextAccessor.HttpContext.Session.GetString("UserID");
-            
+            var userId = _contextAccessor.HttpContext.Session.GetString("UserID");           
             IEnumerable<DiscountDetail> usesid = db.DiscountDetail.Where(x => x.MemberId == userId);
-
+            
             //IEnumerable<Discount> usesid = db.Discount.Where(x => x.MemberId == userId);
             return View(usesid);
         }

@@ -225,8 +225,7 @@ namespace HotelOrderFinal.Controllers
             else
             {
                 return Json(null);
-            }
-            
+            }         
         }
 
         //房間加入購物車
