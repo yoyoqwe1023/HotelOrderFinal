@@ -25,11 +25,11 @@
     <div class="col-md-4">
         <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="ActivityId" class="control-label"></label>
                 <input asp-for="ActivityId" class="form-control" />
                 <span asp-validation-for="ActivityId" class="text-danger"></span>
-            </div>
+            </div>*@
             <div class="form-group">
                 <label asp-for="ActivityName" class="control-label"></label>
                 <input asp-for="ActivityName" class="form-control" />
@@ -70,14 +70,15 @@
                 <input type="file" name="photo" class="form-control" />                
             </div>
             <div class="form-group">
-                <input type="submit" value="送出" class="btn btn-primary" />
+                    <div class="form-group">
+                        <input type="submit" value="送出" class="btn btn-primary" />
+                        <button type="button" onclick="location.href='@Url.Action("List")'" class="btn btn-secondary">取消</button>
+                    </div>
+               
             </div>
         </form>
     </div>
 </div>
-    <div>
-        <a asp-action="List">取消</a>
-    </div>
 </div>
 
 

@@ -7,27 +7,24 @@
 <section class="breadcrumb_area">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
-      @*  <div class="page-cover text-center">
-            <h2 class="page-cover-tittle">About Us</h2>
-            <ol class="breadcrumb">
-                <li><a href="index.html">Home</a></li>
-                <li class="active">About</li>
-            </ol>
-        </div>*@
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle">後台管理系統</h2>
+        </div>
     </div>
 </section>
-
-<h1>優惠瀏覽</h1>
-
+<h1>活動管理</h1>
 <p>
-    <a asp-action="Create">新增優惠</a>
+    @using (Html.BeginForm())
+    {
+        @:關鍵字 @Html.TextBox("txtKeyword") <input type="submit" value="查詢">
+    }
 </p>
 <table class="table">
     <thead>
         <tr>
-           @* <th>
+            <th>
                 @Html.DisplayNameFor(model => model.DiscountId)
-            </th>*@
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.DiscountName)
             </th>
@@ -44,21 +41,24 @@
             @*<th>
                 @Html.DisplayNameFor(model => model.MemberId)
             </th>*@
-            
-            <th></th>
+            <th>
+                <a asp-action="Create" class="btn btn-info">新增活動</a>
+            </th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
-        <tr>
-           @* <td>
-                @Html.DisplayFor(modelItem => item.DiscountId)
-            </td>*@
+            int count = 0;
+            count++;
+            <tr>
+            <td>
+                @count
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DiscountName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.DiscountImage)
+                 <img src="~/image/@item.DiscountImage" width="160" height="120" />
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DiscountDirections)
@@ -70,8 +70,6 @@
             @*<td>
                 @Html.DisplayFor(modelItem => item.MemberId)
             </td>*@
-           
-
                 <td>
                     @Html.ActionLink("修改", "Edit", new {  id=item.DiscountId  }) |
                     @Html.ActionLink("刪除", "Delete","Discount", new {  id=item.DiscountId },new {onclick="return confirm('確定刪除嗎?')"})

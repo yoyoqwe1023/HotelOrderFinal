@@ -63,13 +63,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2" style="background-color: #f2f2f2;">
-                @*                <h2>左欄內容</h2>*@
-                <p>
-                    @*                    <a asp-action="Create">前往訂房</a>*@
-                </p>
             </div>
-            @*<p></p>
-            <hr />*@
 
             <div class="row">
                 <div class="col-5 col-1-sm-6">
@@ -89,9 +83,9 @@
                             </div>
 
                             <div class="form-group">
-                                <label asp-for="RoomClassId" class="control-label"></label>
-                                <input asp-for="RoomClassId" class="form-control" />
-                                <span asp-validation-for="RoomClassId" class="text-danger"></span>
+                                <label asp-for="CommentClass" class="control-label"></label>
+                                <input asp-for="CommentClass" class="form-control" />
+                                <span asp-validation-for="CommentClass" class="text-danger"></span>
                             </div>
 
                             <div class="form-group">
@@ -119,7 +113,7 @@
                             <div class="form-group">
                                 @using (Html.BeginForm("CreateByAdmin", "Comment", new { id = "my-form-id" }))
                                 {
-                                    <button type="button" class="btn btn-dark" onclick="demoCommentAdmin()">Demo</button>
+                                    <button type="button" class="btn btn-secondary" onclick="demoCommentAdmin()">Demo</button>
                                 }
                                 @ViewBag.Message
                             </div>
@@ -137,8 +131,8 @@
             // 設定 Demo 評價
             // 取得表單元素和欄位元素
             document.getElementById("MemberId").value = "MB00006";
-            document.getElementById("CommentPoint").value = 4;
-            document.getElementById("CommentDetail").value ="很舒適的住房體驗，浴室乾濕分離，獨立浴缸不會有邊角發霉問題，整體乾淨整潔。";
+            document.getElementById("CommentPoint").value = 5;
+            document.getElementById("CommentDetail").value = "給五星不是沒有缺點，但住四個晚上下來整體感受很不錯，下次來台北還是會列為首選。";
             //// 提交表單
             form.submit();
         }

@@ -10,7 +10,6 @@ namespace HotelOrderFinal.Models
     {
         public RoomClass()
         {
-            Comment = new HashSet<Comment>();
             MultipleRoomFacility = new HashSet<MultipleRoomFacility>();
             Room = new HashSet<Room>();
         }
@@ -30,7 +29,6 @@ namespace HotelOrderFinal.Models
         [DisplayFormat(DataFormatString = "{0:0}")]
         public decimal? AddPrice { get; set; }
 
-        public virtual ICollection<Comment> Comment { get; set; }
         public virtual ICollection<MultipleRoomFacility> MultipleRoomFacility { get; set; }
         public virtual ICollection<Room> Room { get; set; }
     }

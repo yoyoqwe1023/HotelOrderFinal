@@ -25,14 +25,22 @@ namespace HotelOrderFinal.Controllers
         List<CShopCartViewModel> _cart = new List<CShopCartViewModel>();
 
         public IActionResult List(string checkInDate, string checkOutDate, string hotelId)
-        {
-            //讀取與設定入退宿時間      
-            DateTime checkIn;
-            DateTime checkOut;
+        {         
             // 儲存當前頁面路徑到 Session
             HttpContext.Session.SetString("ReturnUrl", "/Order/List");
 
-            if (!string.IsNullOrEmpty(checkInDate) && !string.IsNullOrEmpty(checkOutDate))
+            //讀取與設定入退宿時間      
+            DateTime checkIn;
+            DateTime checkOut;
+
+            ////從活動過來的日期
+            //if (!string.IsNullOrEmpty(TempData["CheckInDate"] as string) && !string.IsNullOrEmpty(TempData["CheckOutDate"] as string))
+            //{
+            //    checkIn = DateTime.ParseExact(TempData["CheckInDate"] as string, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            //    checkOut = DateTime.ParseExact(TempData["CheckOutDate"] as string, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            //}
+            ////從首頁過來的日期
+            /*else*/ if (!string.IsNullOrEmpty(checkInDate) && !string.IsNullOrEmpty(checkOutDate))
             {
                 checkIn = DateTime.ParseExact(checkInDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
                 checkOut = DateTime.ParseExact(checkOutDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
@@ -46,12 +54,11 @@ namespace HotelOrderFinal.Controllers
             HttpContext.Session.SetString("CHECKINDATE", checkIn.ToString("yyyy-MM-dd"));
             HttpContext.Session.SetString("CHECKOUTDATE", checkOut.ToString("yyyy-MM-dd"));
 
+           //抓取飯店名稱列表
             CSearchRoomViewModel h = new CSearchRoomViewModel();
             h.hotels = db.HotelIndustry.ToList();
 
-           
-
-            //讀取飯店ID
+            //讀取與設定飯店ID
             int hotelid = 0;
 
             if (!string.IsNullOrEmpty(hotelId) && int.TryParse(hotelId, out int parsedHotelId))
@@ -63,8 +70,9 @@ namespace HotelOrderFinal.Controllers
                 hotelid = 1;
             }
 
-            var hotelname = db.HotelIndustry.Where(h => h.HotelId == hotelid).Select(h => h.HotelName);
+            var hotelname = db.HotelIndustry.Where(h => h.HotelId == hotelid).Select(h => h.HotelName).FirstOrDefault();
             HttpContext.Session.SetString("HOTELNAME", hotelname.ToString());
+            //string hn = HttpContext.Session.GetString("HOTELNAME");
 
             //查詢空閒房間方法
             //查詢指定時間區間內已被預訂的房間
@@ -73,7 +81,7 @@ namespace HotelOrderFinal.Controllers
                                 select od.RoomId;
             var reservedRoomList = reservedRooms.ToList();
 
-            //所有房間扣掉已預訂房間 , 符合飯店跟
+            //所有房間扣掉已預訂房間 , 篩選飯店跟用房型分類
             var freeRooms = db.Room.Include(r => r.RoomClass).AsEnumerable()
                 .Where(r => !reservedRoomList.Contains(r.RoomId) && r.HotelId == hotelid)
                 .GroupBy(r => r.RoomClass.RoomClassName)
@@ -120,9 +128,6 @@ namespace HotelOrderFinal.Controllers
         [HttpPost]
         public IActionResult SearchRoom(string checkInDate, string checkOutDate, string hotelId)
         {
-            CSearchRoomViewModel h = new CSearchRoomViewModel();
-            h.hotels = db.HotelIndustry.ToList();
-
             //讀取與設定入退宿時間      
             DateTime checkIn;
             DateTime checkOut;
@@ -141,7 +146,11 @@ namespace HotelOrderFinal.Controllers
             HttpContext.Session.SetString("CHECKINDATE", checkIn.ToString("yyyy-MM-dd"));
             HttpContext.Session.SetString("CHECKOUTDATE", checkOut.ToString("yyyy-MM-dd"));
 
-            //讀取飯店ID
+            //抓取飯店名稱列表
+            CSearchRoomViewModel h = new CSearchRoomViewModel();
+            h.hotels = db.HotelIndustry.ToList();
+
+            //讀取與設定飯店ID
             int hotelid = 0;
 
             if (!string.IsNullOrEmpty(hotelId) && int.TryParse(hotelId, out int parsedHotelId))
@@ -153,6 +162,9 @@ namespace HotelOrderFinal.Controllers
                 hotelid = 1;
             }
 
+            var hotelname = db.HotelIndustry.Where(h => h.HotelId == hotelid).Select(h => h.HotelName).FirstOrDefault();
+            HttpContext.Session.SetString("HOTELNAME", hotelname.ToString());
+
             //查詢空閒房間方法
             //查詢指定時間區間內已被預訂的房間
             var reservedRooms = from od in db.OrderDetail
@@ -160,14 +172,14 @@ namespace HotelOrderFinal.Controllers
                                 select od.RoomId;
             var reservedRoomList = reservedRooms.ToList();
 
-            //所有房間扣掉已預訂房間 , 符合飯店跟
+            //所有房間扣掉已預訂房間 , 篩選飯店跟用房型分類
             var freeRooms = db.Room.Include(r => r.RoomClass).AsEnumerable()
                 .Where(r => !reservedRoomList.Contains(r.RoomId) && r.HotelId == hotelid)
                 .GroupBy(r => r.RoomClass.RoomClassName)
                 .Select(g => new { g.Key, g }).ToList();
 
             List<CSearchRoomViewModel> vmList = new List<CSearchRoomViewModel>();
-            string json = "";
+
             foreach (var room in freeRooms)
             {
                 var f = room.g.First();
@@ -188,37 +200,18 @@ namespace HotelOrderFinal.Controllers
                 vmList.Add(vm);
             }
 
+            //資料轉為json格式
+            string json = "";
             json = JsonSerializer.Serialize(vmList);
+
             if (freeRooms == null)
             {
                 return Json(null);
             }
             else
             {
-                return View(vmList);
+                return Json(json);
             }
-        }
-
-        public IActionResult getActivitySession(int activityId)
-        {
-            HotelOrderContext db = new HotelOrderContext();
-            // 根據 activityId 檢索相關的活動詳細資料
-            var activityDetails = db.Activity.FirstOrDefault(a => a.ActivityId == activityId);
-            // 將該資料傳遞到訂單介面的視圖中
-            return View(activityDetails);
-            ////讀取與設定入住日期
-            //string selectedActivityId = HttpContext.Session.GetString("SelectedActivityId");
-            //string selectedActivityTime = HttpContext.Session.GetString("ActivityTime");
-            //if (selectedActivityId != null && selectedActivityTime != null)
-            //{
-            //    var jsonObject = new
-            //    {
-            //        id = selectedActivityId,
-            //        time = selectedActivityTime
-            //    };
-            //    return Json(jsonObject);
-            //}
-            //return RedirectToAction("List");
         }
 
         //房間加入購物車
@@ -229,6 +222,7 @@ namespace HotelOrderFinal.Controllers
 
             string checkInDateStr = HttpContext.Session.GetString("CHECKINDATE");
             string checkOutDateStr = HttpContext.Session.GetString("CHECKOUTDATE");
+            string hotelname = HttpContext.Session.GetString("HOTELNAME");
 
             if (roomClass != null)
             {
@@ -270,11 +264,13 @@ namespace HotelOrderFinal.Controllers
                         cartItem.AddPrice = (int)Math.Floor(roomClass.AddPrice.GetValueOrDefault());
                         cartItem.CheckInDate = checkInDate;
                         cartItem.CheckOutDate = checkOutDate;
-                        var hotelID = db.Room.Where(r => r.RoomClassId == RoomClassId).Select(r => r.HotelId).FirstOrDefault();
-                        cartItem.HotelName = db.HotelIndustry.FirstOrDefault(h => h.HotelId == hotelID)?.HotelName;
+                        cartItem.HotelName = hotelname;
+                        //var hotelID = db.Room.Where(r => r.RoomClassId == RoomClassId).Select(r => r.HotelId).FirstOrDefault();
+                        //cartItem.HotelName = db.HotelIndustry.FirstOrDefault(h => h.HotelId == hotelID)?.HotelName;
 
                     };
                     cartList.Add(cartItem);
+
                     json = JsonSerializer.Serialize(cartList);
                     HttpContext.Session.SetString("CartData", json);
 
@@ -312,7 +308,7 @@ namespace HotelOrderFinal.Controllers
             return Json(cartList);
         }
 
-        //刪除session
+        //刪除購物車session
         [HttpPost]
         public void DeleteSessionData(int FId)
         {
@@ -323,14 +319,14 @@ namespace HotelOrderFinal.Controllers
             {
                 cartList = JsonSerializer.Deserialize<List<CShopCartViewModel>>(json);
 
-                // 查找并删除具有相同RoomClassName的项目
                 cartList.RemoveAll(item => item.FId == FId);
 
-                // 将更新后的数据重新存入会话
                 string updatedJson = JsonSerializer.Serialize(cartList);
                 HttpContext.Session.SetString("CartData", updatedJson);
             }
         }
+
+        //是否會員登錄判斷
         public IActionResult CheckLoginStatus()
         {
             if (HttpContext.Session.GetString("UserID") != null)
@@ -345,15 +341,9 @@ namespace HotelOrderFinal.Controllers
             }
         }
 
-
         //訂房明細頁面
-        public IActionResult Detail(string OrderId)
+        public IActionResult Detail( )
         {
-            if (HttpContext.Session.GetString("UserID") == null)
-            {
-                return RedirectToAction("Login", "Member");
-            }
-
             var userId = _contextAccessor.HttpContext.Session.GetString("UserID");
             HotelOrderContext db = new HotelOrderContext();
             IEnumerable<DiscountDetail> usesid = db.DiscountDetail.Where(x => x.MemberId == userId);
@@ -363,6 +353,46 @@ namespace HotelOrderFinal.Controllers
             return View(MemberDiscount);
         }
 
+        //進入訂單明細讀取活動session
+        public IActionResult GetActivitySession()
+        {
+            HotelOrderContext db = new HotelOrderContext();
+
+            //string test = "1";
+            //HttpContext.Session.SetString("ActivityId", test);
+
+            string activityId = HttpContext.Session.GetString("ActivityId");
+
+            if (activityId != null)
+            {
+                var 活動參加人數 = db.Order.Where(o => o.ActivityId == int.Parse(activityId)).Select(o => o.ActivityPeople).ToList();
+                int 活動參加總人數 = 活動參加人數.Where(x => x.HasValue).Sum(x => x.Value);
+
+                var activity = db.Activity.Find(int.Parse(activityId));
+                //string json = "";
+                COrderDetailViewModel activityItem = new COrderDetailViewModel();
+                {
+                    activityItem.ActivityName = activity.ActivityName;
+                    activityItem.ActivityPeople = activity.ActivityPeople;
+                    activityItem.ActivityCost=activity.ActivityCost;
+                    DateTime? activityTime = activity.ActivityTime.GetValueOrDefault().Date;
+                    activityItem.ActivityTime = activityTime;
+                    activityItem.活動參加總人數 = 活動參加總人數;
+
+                }
+
+                //json = JsonSerializer.Serialize(activityItem);
+                //return Json(json);
+                return Json(activityItem);
+            }
+            else
+            {
+                return Json(null);
+            }
+        }
+
+
+        //未用到
         public IActionResult Create()
         {
             var userId = _contextAccessor.HttpContext.Session.GetString("UserID");
@@ -372,15 +402,7 @@ namespace HotelOrderFinal.Controllers
             return View(usersid);
         }
 
-        //[HttpPost]
-        //public IActionResult Create(Order p)
-        //{
-        //    string json;
-        //    List<Order> detail = null;
-        //    json = HttpContext.Session.GetString ( CDictionary.SK_PURCHASED_PRODUCTS_LIST );
-        //    detail = JsonSerializer.Deserialize<List<Order>> ( json );
-        //    return View ( );
-        //}
+        //訂單完成畫面
         public IActionResult ShowOrder()
         {
             return View();
