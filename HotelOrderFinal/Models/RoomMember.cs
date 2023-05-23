@@ -59,5 +59,10 @@ namespace HotelOrderFinal.Models
         public virtual ICollection<Comment> Comment { get; set; }
         public virtual ICollection<DiscountDetail> DiscountDetail { get; set; }
         public virtual ICollection<Order> Order { get; set; }
+
+        //[Range(typeof(bool), "true", "true", ErrorMessage = "您必須同意會員條款。")]
+        public bool AgreeToTerms { get; set; }
+
+
     }
 }

@@ -2,29 +2,69 @@
     ViewData["Title"] = "Login";
 }
 <style>
+
+    /*    .checkbox input[type="checkbox"],
+        .checkbox a {
+            display: inline-block;
+            vertical-align: middle;
+        }*/
+
+
 </style>
 <div class="wrapper ">
     <p></p>
-        @using (Html.BeginForm("Login", "Member", FormMethod.Post))
-        {
-            @Html.AntiForgeryToken()
-            <div class="form-group">
-                <label for="MemberPhone">手機號碼</label>
-                <input type="tel" id="MemberPhone" name="MemberPhone" class="form-control" required>
-            </div>
+    @using (Html.BeginForm("Login", "Member", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <label for="MemberPhone">手機號碼</label>
+            <input type="tel" id="MemberPhone" name="MemberPhone" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="MemberPassword">密碼</label>
+            <input type="password" id="MemberPassword" name="MemberPassword" class="form-control" required>
+        </div>
+        <div class="row" style="display:flex; align-items: center;margin-right: 20px;">
+            <input type="checkbox" id="AgreeToTerms" name="AgreeToTerms" required>
+            <span style="margin-left: 5px;">我同意</span>
+            <a href="Member/terms.cshtml">@Html.ActionLink("會員條款", "terms", "Member", null )</a><br> <br>
+        </div>
 
-            <div class="form-group">
-                <label for="MemberPassword">密碼</label>
-                <input type="password" id="MemberPassword" name="MemberPassword" class="form-control" required>
-            </div>
 
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary">登入</button>
-            <button type="button" class="btn btn-primary" onclick="demoLogin() ">Demo</button>
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Launch demo modal
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true" data-bs-toggle="modal" data-bs-target="#myAccountModal">會員登入</button>
+
+
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">登入</button>
             <a href="@Url.Action("ForgotPassword", "Member")" class="btn btn-primary">忘記密碼</a>
-            </div>
-        }
-
+            <button type="button" class="btn btn-primary" onclick="demoLogin() ">Demo</button>
+        </div>
+    }
     @{
         var errorMessage = TempData["ErrorMessage"] as string;
     }
@@ -43,20 +83,6 @@
             document.getElementById("MemberPassword").value = "64V7VpFc";
         }
     </script>
-    <script>
-        //// 提交表單時的驗證
-        //document.querySelector("form").addEventListener("submit", function (event) {
-        //    var memberPhone = document.getElementById("MemberPhone").value;
-        //    var memberPassword = document.getElementById("MemberPassword").value;
 
-        //    // 模擬驗證邏輯
-        //    if (memberPhone !== "admin" || memberPassword !== "password") {
-        //        event.preventDefault(); // 阻止表單提交
-
-        //        // 彈跳提示框
-        //        alert("帳號密碼錯誤，請重新確認，謝謝!");
-        //    }
-        //});
-    </script>
 
 </div>
