@@ -41,7 +41,7 @@
                         {
                             @:關鍵字 @Html.TextBox("txtKeyword")  <input type="submit"  class="btn btn-light" value="查詢">
 
-                            @using (Html.BeginForm("Create", "Comment", new { id = "my-form-id" }))
+                            @using (Html.BeginForm("List", "Comment", new { id = "my-form-id" }))
                             {
                                 <button type="button"  class="btn btn-secondary" onclick="demoSearch()">Demo</button>
                             }
@@ -95,14 +95,5 @@
 </body>
 @section Scripts
 {
-    <script type="text/javascript">
-        function demoSearch() {
-            // 取得表單元素和欄位元素
-            var txtKeyword = document.getElementById("txtKeyword");
-            // 設定 Demo 評價
-            txtKeyword.value = "房間";
-            // 提交表單
-            form.submit();
-        }
-    </script>
+    <script src="~/js/comment/demoSearch.js"></script>
 }
