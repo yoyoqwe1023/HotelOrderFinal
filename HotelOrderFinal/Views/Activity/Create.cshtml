@@ -70,6 +70,16 @@
         </form>
     </div>
 </div>
+<script>
+    var counter = 1;
+
+    document.getElementById("ActivityId").value = counter;
+
+    document.querySelector("form").addEventListener("submit", function () {
+        counter++;
+        document.getElementById("ActivityId").value = counter;
+    });
+</script>
 
 
 @section Scripts {
