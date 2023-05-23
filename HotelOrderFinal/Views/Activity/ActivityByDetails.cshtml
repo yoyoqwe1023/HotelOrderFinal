@@ -9,10 +9,12 @@
         .toast-container {
             z-index: 10000; /* 确保Toast显示在最上层 */
         }
+
         .toast {
             width: 300px;
             background-color: #f8f9fa;
         }
+
         .toast-success {
             border-color: #28a745;
         }
@@ -66,57 +68,65 @@
                                 <h1 class="modal-title fs-5" id="exampleModalLabel">參加活動確認單</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
-                            <div class="modal-body">                                
-                                    注意事項                                    
-                                    <p>請確認活動地址：</p>                                    
-                                    <p>活動地點是否與您住宿地區相近，若區域不同將不額外補償</p>
-                                    <p>請確認活動時間：</p>
-                                    <p>活動時間是否與您住宿日期相符合，若不相同將不負責損失</p>
-                                    <p>請確認活動費用及人數：</p>
-                                    <p>請確認您參加的人數，並且確認是否有超過人數上限</p>                                                                
+                            <div class="modal-body">
+                                注意事項
+                                <p>請確認活動地址：</p>
+                                <p>活動地點是否與您住宿地區相近，若區域不同將不額外補償</p>
+                                <p>請確認活動時間：</p>
+                                <p>活動時間是否與您住宿日期相符合，若不相同將不負責損失</p>
+                                <p>請確認活動費用及人數：</p>
+                                <p>請確認您參加的人數，並且確認是否有超過人數上限</p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" onclick="setSessionByActivity(@Model.ActivityId)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">參加活動</button>                                                                
-                                <a href="@Url.Action("Detail", "Order", new { activityId = Model.ActivityId })"></a>                                
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>                                
+                                <a href="#" onclick="getSearchActivityValue();" class="book_now_btn button_hover">參加並訂房</a>
+                            @*    <a href="@Url.Action("Detail", "Order", new { activityId = Model.ActivityId })">下訂單</a>*@
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="card-body">
-                    <button type="button" id="Activitybutton" onclick="setSessionByActivity(@Model.ActivityId)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">參加活動</button>
-                    <a href="@Url.Action("Detail", "Order", new { activityId = Model.ActivityId })"></a>
-                    
-                    @*<a href="@Url.Action("Detail", "Order", new { activityId = Model.ActivityId })">
-                        <button type="button" id="Activitybutton" onclick="setSessionByActivity(@Model.ActivityId)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">參加活動</button>
-                    </a>*@
-                    <button type="button" onclick="window.history.back();" class="btn btn-secondary" nclick="setSessionByActivity(@Model.ActivityId)">回上一層</button>
+                    <button type="button" onclick="setSessionByActivity(@Model.ActivityId)" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">參加活動</button>
+                    @*@<button type="button" onclick="location.href='@Url.Action("ActivityByAcceding", "Activity")'" class="btn btn-primary" nclick="setSessionByActivity(@Model.ActivityId)">參加活動</button>*@
+                    <button type="button" onclick="window.history.back();" class="btn btn-secondary">回上一層</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <script>
-    @*async function setSessionByActivity(acId) {
-        var url = '@Url.Action("setSessionByActivity","Activity")?id=' + acId;
-        await fetch(url, {
+
+    async function setSessionByActivity(ActivityId) {
+        const activityid = ActivityId
+        console.log('活動ID', activityid);
+        const response = await fetch(`/Activity/setSessionByActivity?ActivityID=${activityid}`, {
+
             method: 'POST'
         });
-    }*@
+    }
+    function getSearchActivityValue() {
+        fetch('/Activity/getSessionToOrder', {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        })
+            .then(response => response.json())
+            .then(data => {
+              
+                checkInDate = data.checkInDate
+                checkOutDate = data.checkOutDate
 
-        $('#Activitybutton').click(function (event) {           
-        if{
-            // 檢查使用者是否已登入
-            checkUserLoginStatus(function (loggedIn) {
-                if (loggedIn) {
-                    // 已登入，跳轉到訂單詳細頁面
-                    window.location.href = "/Order/Detail";
-                } else {
-                    // 未登入，顯示登入會員的 modal
-                    $('#myAccountModal').modal('show');
-                }
+                console.log('checkInDate:', data.checkInDate);
+                console.log('checkOutDate:', data.checkOutDate);
+
+                var url = `/Order/List?checkInDate=${encodeURIComponent(checkInDate)}&checkOutDate=${encodeURIComponent(checkOutDate)}`;
+
+                window.location.href = url;
             });
-        }
-    });
+    }
+
+
+
+
 </script>

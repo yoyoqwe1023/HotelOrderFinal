@@ -2,6 +2,7 @@
 using HotelOrderFinal.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 using System.Net;
 
 namespace HotelOrderFinal.Controllers
@@ -66,24 +67,34 @@ namespace HotelOrderFinal.Controllers
                 return RedirectToAction("List");
             return View(cust);
         }
-        [HttpPost]
-        public ActionResult setSessionByActivity(int id)
-        {          
-            var a = db.Activity.FirstOrDefault(t => t.ActivityId == id);
-            if (a== null)
-            {
-                return RedirectToAction("ActivityByDetails");
-            }
-            if (HttpContext.Session.GetString("SelectedActivityId") == null)
-            {
-                HttpContext.Session.SetString("SelectedActivityId", a.ActivityId.ToString());
-            }
 
-            if (HttpContext.Session.GetString("ActivityTime") == null)
-            {
-                HttpContext.Session.SetString("ActivityTime", a.ActivityTime.ToString());
-            }
-            return RedirectToAction("List", "Order");
+        [HttpPost]
+        public ActionResult setSessionByActivity(int activityid)
+        {
+ 
+           HttpContext.Session.SetString("ActivityId", activityid.ToString());
+            string ac = HttpContext.Session.GetString("ActivityId");
+
+            return new EmptyResult();
+        }
+
+        public ActionResult getSessionToOrder()
+        {
+            string activityid = HttpContext.Session.GetString("ActivityId");
+
+            DateTime? day = db.Activity.Where(a => a.ActivityId == int.Parse(activityid)).Select(a => a.ActivityTime).FirstOrDefault();
+
+            DateTime actcheckIn = day.Value;
+            DateTime actcheckOut = actcheckIn.AddDays(1);
+
+            string checkInDate = actcheckIn.ToString("yyyy-MM-dd");
+            string checkOutDate = actcheckOut.ToString("yyyy-MM-dd");
+
+            //return RedirectToAction("List", "Order", new { checkInDate = checkInDate, checkOutDate = checkOutDate });
+            var result = new { checkInDate = checkInDate, checkOutDate = checkOutDate };
+
+            return Json(result);
+
         }
 
         public IActionResult List(CKeywordViewModel vm)
