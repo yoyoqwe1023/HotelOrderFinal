@@ -1,7 +1,6 @@
 ﻿@model IEnumerable<HotelOrderFinal.Models.RoomClass>
 
-@{
-    Layout = null;
+@{    
     ViewData ["Title"] = "AdminRoom";
     
 }
@@ -33,7 +32,60 @@
         }
 </style>
            @* <h2 class="page-cover-tittle">後台管理系統：房型管理</h2>*@
-<h2>房型管理</h2>
+
+<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle">後台管理系統：房型管理</h2>
+        </div>
+    </div>
+</section>
+
+<div class="row">
+    <div class="col-xs-12 col-md-2">
+        <div class=" ">
+            <div class=" ">
+                <div class="">
+                    @{
+                        var AdminId = Context.Session.GetString("AdminId");
+                    }
+
+                </div>
+            </div>
+            <div class="">
+                <h2 style="text-align: center">@AdminId</h2>
+                <ul class="list" style="list-style: none; padding: 0;">
+                
+        <!--改成手風琴下拉式-->
+        <li>
+            @Html.ActionLink("會員管理", "List", "MemberMange", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
+        </li>
+        <li>
+            @Html.ActionLink("房型管理", "AdminRoom", "Room", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
+        </li>
+        <li>
+            @Html.ActionLink("活動管理", "ActivityByCreate", "Activity", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
+        </li>
+        <li>
+            @Html.ActionLink("訂房管理", "EditPassword", "Member", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
+        </li>
+        <li>
+            @Html.ActionLink("飯店一覽管理", "ListView", "HotelIndustry", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
+        </li>
+        <li>
+            @Html.ActionLink("優惠折扣管理", "List", "Discount", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
+        </li>
+        <li>
+            @Html.ActionLink("評論管理", "ListByAdmin", "Comment", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
+        </li>
+    </ul>
+</div>
+            </div>
+        </div>
+<div id="selectedItemContent" class="col-xs-12 col-md-10 ">
+    <!-- 這裡會顯示點選的項目的內容 -->
+
 
 
 <table class="table">
@@ -121,22 +173,8 @@
         }
     </tbody>
 </table>
+</div>
+</div>
 <script>
-                $(document).ready(function() {
-    // 點擊按鈕時觸發事件
-    $('#refreshButton').click(function() {
-        // 使用AJAX載入C頁面的內容
-        $.ajax({
-            url: '/Controller/Action',  // 請將Controller和Action替換為您的實際路徑
-            type: 'GET',
-            success: function(result) {
-                // 將C頁面的內容顯示在適當的區域
-                $('#cPageContent').html(result);
-            },
-            error: function() {
-                console.log('載入失敗');
-            }
-        });
-    });
-    });
+
     </script>
