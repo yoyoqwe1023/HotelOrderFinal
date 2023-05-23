@@ -1,5 +1,5 @@
-﻿@model IEnumerable<HotelOrderFinal.Models.DiscountDetail>
-@*@model IEnumerable<HotelOrderFinal.ViewModels.COrderDetailViewModel>*@
+﻿@*@model IEnumerable<HotelOrderFinal.Models.DiscountDetail>*@
+@model HotelOrderFinal.ViewModels.COrderDetailViewModel
 
 <section class="breadcrumb_area">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
@@ -33,7 +33,7 @@
             margin: 10px;
             text-decoration: underline;
             /*  text-decoration-style: dotted;
-                                      text-decoration-color: red;*/
+                                                      text-decoration-color: red;*/
         }
 
         ol {
@@ -134,16 +134,16 @@
                 <div>
                     <h2>優惠卷</h2>
                 </div>
-                <div class="form-group col-md-2">
-                    <select id="">
-
-                    </select>
+                <div  id="Discount" class="form-group col-md-2">
+                  @*  <select id="DiscountDiscount" name="DiscountDiscount">*@
+                        @*<option value="item.DiscountDiscount">item.DiscountName</option>*@
+                @*    </select>*@
 
                     @*<select id="discountSelect" name="discountSelect">
-                        @foreach (var item in Model)
-                        {
-                            <option value="@item.Discount.DiscountDiscount">@Html.DisplayFor(modelItem => item.Discount.DiscountName)</option>
-                        }
+                    @foreach (var item in Model)
+                    {
+                    <option value="@item.Discount.DiscountDiscount">@Html.DisplayFor(modelItem => item.Discount.DiscountName)</option>
+                    }
                     </select>*@
                 </div>
                 <div class="row">
@@ -217,6 +217,7 @@
     $(document).ready(function () {
         loadCartFromSession();
         loadActivitySession();
+        loadDiscount();
     });
 
     function loadCartFromSession() {
@@ -375,15 +376,17 @@
     function calculateTotalPrice(totalCost) {
         let totalPrice = 0;
         let 活動金額 = totalCost;
-        //console.log("活動金額", 活動金額);
+        console.log("1", 活動金額);
         $('#SessionRoomList').find('tr').each((index, row) => {
             const priceText = $(row).find('td:nth-child(5)').text();
             const itemPrice = parseInt(priceText.substring(4)); // 去除 "NT$ "
             //扣掉標題的內容
             if (!isNaN(itemPrice)) {
                 totalPrice += itemPrice;
-            } else if (活動金額 > 0) {
+                console.log("2", 活動金額);
+            } else if (!isNaN(活動金額) && 活動金額 > 0) {
                 totalPrice = totalPrice + 活動金額
+                console.log("3", 活動金額);
             }
         });
 
@@ -394,7 +397,7 @@
 
     function showDiscount(price) {
         // $('#discountRow').show().text("abcd");
-        var selectedDiscount = $('#discountSelect').val()
+        var selectedDiscount = $('#DiscountDiscount').val()
         // var totalPrice = parseFloat($('#OrderDetailTotalPrice').text().replace('NT$ ', '')); // 獲取總金額數字
         let totalPrice = price;
         //取得discountId
@@ -412,7 +415,7 @@
     }
 
     //當優惠券選擇改變時觸發事件
-    $('#discountSelect').change(function () {
+    $('#DiscountDiscount').change(function () {
         calculateTotalPrice();
     });
 
@@ -425,7 +428,7 @@
             .then(response => response.json())
             .then(item => {
                 const activityListDiv = document.getElementById("ActivityList");
-                //const item = data;
+                
                 console.log(item)
                 var html = "<div class='area'><div><h2>活動列表</h2><div class='row'><table style='box-sizing: border-box; width:100%; text-align:center;'><tbody><tr style='background-color: #f0f0f0;'><th width='25%'>活動日期</th><th width='30%'>活動名稱</th><th width='25%'>參加人數/剩餘名額</th><th width='20%'>小計</th></tr>";
                 //const datas=JSON.parse(data);
@@ -463,9 +466,13 @@
                     var selectedPeople = parseInt(document.getElementById('ActivityPeople').value);
                     var totalCost = selectedPeople * item.activityCost;
                     document.getElementById('totalCost').textContent = totalCost
-
+                    console.log("4", totalCost);
                     //更新到總金額內
-                    calculateTotalPrice(totalCost);
+                    if (!isNaN(totalCost) && totalCost > 0) {
+                        calculateTotalPrice(totalCost);
+                        console.log("5");
+                    }
+                    
 
                     //const 總金額字串 = calculateTotalPrice();
                     //const 總金額 = parseInt(總金額字串.substring(4));
@@ -477,10 +484,33 @@
             });
     }
 
+    //讀取優惠卷數據
+    function loadDiscount() {
+        fetch('/Order/GetDiscountId', {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        })
+            .then(response => response.json())
+            .then(data => {
+                var selectElement = document.getElementById("Discount");
+                console.log(data);
+                selectElement.innerHTML = "";
 
+                data.forEach(item => {
+                    var optionHtml = "<select id='DiscountDiscount' name='DiscountDiscount'><option value='" + item.discountDiscount + "'>" + item.discountName + "</option></select> ";
+                    console.log(optionHtml);
+                    selectElement.innerHTML += optionHtml;
+                });
+            });
+    }
+
+
+
+
+    //獲得參數(未完成)
     function getOrderDetailValue() {
         var activitypeople = document.getElementById("ActivityPeople").value;
-        var discountselect = document.getElementById("discountSelect").value;
+        var discountdiscount = document.getElementById("DiscountDiscount").value;
         var txtremark = document.getElementById("txtRemark").value;
         var roomPeopleElements = document.querySelectorAll('[name="roomPeople"]');
         var roomPeopleValues = [];
@@ -490,13 +520,13 @@
         });
 
         console.log('activitypeople', activitypeople);
-        console.log('discountselect', discountselect);
+        console.log('discountdiscount', discountdiscount);
         console.log('txtremark', txtremark);
         //console.log('roomPeople', roomPeopleValues);
 
         var data = {
             activitypeople: activitypeople,
-            discountselect: discountselect,
+            discountdiscount: discountdiscount,
             txtremark: txtremark,
             roomPeople: roomPeopleValues
         };

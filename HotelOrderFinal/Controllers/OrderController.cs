@@ -353,18 +353,45 @@ namespace HotelOrderFinal.Controllers
             //var 可以使用的優惠卷ID = db.DiscountDetail.Where(x => x.DiscountUse == 0).Select(x => x.DiscountId).ToList();
             // var discountdiscountid = db.Discount.Where(x=>x.DiscountId == 可以使用的優惠卷ID)
 
-            var discountid = db.DiscountDetail.Include(x => x.Discount).Where(x => x.MemberId == userId).Where(x => x.DiscountUse == 0).Select(x => x.DiscountId);
-            List<decimal> ids = new List<decimal>();
-            foreach(var item in discountid)
+            //var discountid = db.DiscountDetail.Include(x => x.Discount).Where(x => x.MemberId == userId).Where(x => x.DiscountUse == 0).Select(x => x.DiscountId);
+            //List<Discount> ids = new List<Discount>();
+            //foreach(var item in discountid)
+            //{
+            //    decimal discount=(decimal)db.Discount.Where(d => d.DiscountId == (int)item).Select(x => x.DiscountDiscount).FirstOrDefault();
+            //    string name = db.Discount.Where(d => d.DiscountId == (int)item).Select(x => x.DiscountName).FirstOrDefault();
+
+            //    ids.Add(discount);
+            //    ids.Add(name);
+            //}
+
+            //return Json(ids);
+
+            var discountIds = db.DiscountDetail
+                .Include(x => x.Discount)
+                .Where(x => x.MemberId == userId && x.DiscountUse == 0)
+                .Select(x => x.Discount)
+                .ToList();
+
+            List<Discount> discountList = new List<Discount>();
+            foreach (var discount in discountIds)
             {
-                decimal x=(decimal)db.Discount.Where(d => d.DiscountId == (int)item).Select(x => x.DiscountDiscount).FirstOrDefault();
-                ids.Add(x);
+                Discount disc = new Discount
+                {
+                    DiscountId = discount.DiscountId,
+                    DiscountName = discount.DiscountName,
+                    DiscountImage = discount.DiscountImage,
+                    DiscountDirections = discount.DiscountDirections,
+                    DiscountDiscount = discount.DiscountDiscount,
+                    DiscountExist = discount.DiscountExist,
+                    
+                };
+
+                discountList.Add(disc);
             }
-            
-            
+
+            return Json(discountList);
 
 
-            return Json(ids);
         }
 
         //進入訂單明細讀取活動session
@@ -464,6 +491,11 @@ namespace HotelOrderFinal.Controllers
             return View();
         }
 
+        public IActionResult Detail()
+        {
+
+            return View();
+        }
 
         //未用到
         public IActionResult Create()
