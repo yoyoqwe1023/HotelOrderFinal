@@ -120,5 +120,13 @@ namespace HotelOrderFinal.Controllers
 
         }
 
+        public IActionResult AdminRoom()
+        {
+            HotelOrderContext db = new HotelOrderContext();
+            var datas = from c in db.RoomClass
+                        select c;
+            return View(datas);
+        }
+
     }
 }
