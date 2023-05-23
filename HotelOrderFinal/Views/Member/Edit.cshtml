@@ -40,19 +40,18 @@
     <h1 class="Namewrapper">會員資料修改</h1>
     <hr />
     <div class="row">
-
         @*//【側邊欄位】==========================================================================*@
         <div class="col-xs-12 col-md-3">
             <div class="athMember__menu pb-sm-3">
                 <div class="athMember__user pb-20">
-                    <div class="Namewrapper">
+                    <div class="athMember__userInfo">
                         @{
                             var userName = Context.Session.GetString("UserName");
                             var userId = Context.Session.GetString("UserID");
                             var usePhone = Context.Session.GetString("UserPhone");
                         }
                         <h2 class="athMember__userName">@userName</h2>
-                       @* <p class="athMember__usePhone">@usePhone</p>*@
+                        <p class="athMember__usePhone">@usePhone</p>
                     </div>
                 </div>
                 <div class="athMemberNav">
@@ -73,13 +72,13 @@
                             @Html.ActionLink("您的評論", "ListByMember", "Comment", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
                         </li>
                         @*<li class="athMember__menu__isactive" hidden>*@
-                            @*@Html.ActionLink("最新消息", "News", "Member", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })*@
+                        @*@Html.ActionLink("最新消息", "News", "Member", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })*@
                         @*</li>*@
-                        @*<li class="athMember__menu__isactive">*@
-                            @*@Html.ActionLink("會員條款", "MemberTerms", "Member", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })*@
-                        @*</li>*@
+                        <li class="athMember__menu__isactive">
+                            @Html.ActionLink("會員條款", "terms", "Member", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
+                        </li>
                         @*<li class="athMember__menu__isactive" hidden>*@
-                            @*@Html.ActionLink("電子會員卡", "MemberCard", "Member", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })*@
+                        @*@Html.ActionLink("電子會員卡", "MemberCard", "Member", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })*@
                         @*</li>*@
 
                     </ul>
