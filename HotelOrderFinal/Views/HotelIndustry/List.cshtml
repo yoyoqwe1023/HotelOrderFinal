@@ -145,7 +145,7 @@
                 .then((response) => response.json())
                 .then(data => {
                     console.log("Data:", data);
-                    data.foreach((location)=> {
+                    data.forEach((location)=> {
                         const { lat, lng } = location;
                         const position = new google.maps.LatLng(lat, lng);
                         new google.maps.Marker({
