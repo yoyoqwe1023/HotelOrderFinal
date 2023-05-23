@@ -122,7 +122,7 @@ namespace HotelOrderFinal.Controllers
                 
                 db.SaveChanges();
             }
-            return RedirectToAction("List");
+            return RedirectToAction("AdminRoom");
         }
 
         public IActionResult SearchRooms()

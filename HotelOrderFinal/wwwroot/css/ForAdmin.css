@@ -8,7 +8,8 @@
     border: 1px solid transparent;
     border-color: black black black;
     margin: 5px;
-    font-size:larger;
+    font-size: larger;
+    white-space: nowrap;
 }
 
 /*要用子選擇器或後代選擇器*/

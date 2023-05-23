@@ -5,32 +5,9 @@
     
 }
 <style>
-    table {
-        font-family: verdana,arial,sans-serif;
-        font-size: 11px;
-        color: #333333;
-        border-width: 1px;
-        border-color: #666666;
-        border-collapse: collapse;
-        width: auto
-    }
 
-        table th {
-            border-width: 1px;
-            padding: 8px;
-            border-style: solid;
-            border-color: #666666;
-            background-color: #dedede;
-        }
-
-        table td {
-            border-width: 1px;
-            padding: 8px;
-            border-style: solid;
-            border-color: #666666;
-            background-color: #ffffff;
-        }
 </style>
+<link rel="stylesheet" href="~/css/ForAdminTable.css">
            @* <h2 class="page-cover-tittle">後台管理系統：房型管理</h2>*@
 
 <section class="breadcrumb_area">
@@ -41,7 +18,7 @@
         </div>
     </div>
 </section>
-
+<div class="Adminwrapper">
 <div class="row">
     <div class="col-xs-12 col-md-2">
         <div class=" ">
@@ -54,7 +31,8 @@
                 </div>
             </div>
             <div class="">
-                <h2 style="text-align: center">@AdminId</h2>
+                <h2 style="text-align: center">
+                    @Html.ActionLink(AdminId, "List", "Admin")</h2>
                 <ul class="list" style="list-style: none; padding: 0;">
                 
         <!--改成手風琴下拉式-->
@@ -88,7 +66,7 @@
 
 
 
-<table class="table">
+            <table class="table">
     <thead>
         <tr>
             <th>
@@ -107,14 +85,14 @@
                 詳細
             </th>
             <th>
-                照片1
+                房間照片
             </th>
-            <th>
+          @*  <th>
                 照片2
             </th>
             <th>
                 照片3
-            </th>
+            </th>*@
             <th>
                 平日價格
             </th>
@@ -149,12 +127,12 @@
                 <td>
                     <img src="~/image/@item.RoomClassPhoto1" width="120" height="90" >                                    
                 </td>
-                                <td>
+                      @*          <td>
                     <img src="~/image/@item.RoomClassPhoto2" width="120" height="90">
                 </td>
                 <td>
                     <img src="~/image/@item.RoomClassPhoto3" width="120" height="90">
-                </td>
+                </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.WeekdayPrice)
                 </td>
@@ -165,14 +143,14 @@
                     @Html.DisplayFor(modelItem => item.AddPrice)
                 </td>
                 <td>
-                    @Html.ActionLink("修改", "Edit", new {id=item.RoomClassId},new { @class="btn btn-success" })
-                    <br>
+                    @Html.ActionLink("修改", "Edit", new {id=item.RoomClassId},new { @class="btn btn-success" })                    
                     @Html.ActionLink("刪除", "Delete", new {id=item.RoomClassId},new { @class="btn btn-danger", onclick="return confirm('確定要刪除嗎?')"})
                 </td>
             </tr>
         }
     </tbody>
 </table>
+</div>
 </div>
 </div>
 <script>
