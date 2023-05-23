@@ -2,24 +2,18 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 
 namespace HotelOrderFinal.Models
 {
     public partial class Comment
     {
         public int CommentId { get; set; }
-        [DisplayName("評點日期：")]
         public DateTime? CommentDate { get; set; }
-        [DisplayName("會員編號：")]
         public string MemberId { get; set; }
-        public string RoomClassId { get; set; }
-        [DisplayName("評點：")]
+        public int? CommentClass { get; set; }
         public int? CommentPoint { get; set; }
-        [DisplayName("評價摘要：")]
         public string CommentDetail { get; set; }
 
         public virtual RoomMember Member { get; set; }
-        public virtual RoomClass RoomClass { get; set; }
     }
 }
