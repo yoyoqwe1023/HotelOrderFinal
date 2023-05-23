@@ -7,13 +7,7 @@
 <section class="breadcrumb_area">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
-        <div class="page-cover text-center">
-            <h2 class="page-cover-tittle">About Us</h2>
-            <ol class="breadcrumb">
-                <li><a href="index.html">Home</a></li>
-                <li class="active">About</li>
-            </ol>
-        </div>
+
     </div>
 </section>
 <head>
@@ -124,7 +118,7 @@
                             <div class="form-group">
                                  @using (Html.BeginForm("Create", "Comment",  new { id = "my-form-id" }))
                                  {
-                                  <button type="button" class="btn btn-dark" onclick="demoComment()">Demo</button>
+                                    <button type="button" class="btn btn-secondary" onclick="demoComment()">Demo</button>
                                  }
                                  @ViewBag.Message
                            </div>
@@ -151,5 +145,4 @@
         }
     </script>
 }
-}
-    }
+
