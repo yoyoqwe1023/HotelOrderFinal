@@ -37,9 +37,9 @@
     <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
             <div class="d-flex justify-content-center">
-                <iframe src="https://www.google.com/maps/d/embed?mid=1J4qA06_2AVU2zKFMINRSFG-f-CQhIGA&ehbc=2E312F" width="640" height="480"></iframe>
+                @*<iframe src="https://www.google.com/maps/d/embed?mid=1J4qA06_2AVU2zKFMINRSFG-f-CQhIGA&ehbc=2E312F" width="640" height="480"></iframe>*@
                 <!--Google map api 囤放處-->
-                @* <div id="map" style="width:640px; height:480px;"></div>*@
+                <div id="map" style="width:640px; height:480px;"></div>
             </div>
             <div class="d-flex justify-content-center">
                 <a href="@Url.Action("List", "Order")" class="btn btn-dark" role="button">我要訂房!</a>
@@ -102,6 +102,9 @@
                     @*容器*@
                     <div id="hoteldata3" class="mx-auto row d-flex justify-content-center" style="background-color:#efefef	">
                     </div>
+                    <div class=" d-flex justify-content-center">
+                        <div id="map3" style="width:640px; height:480px;"></div>
+                    </div>
                     @*容器*@
                 </div>
             </div>
@@ -111,155 +114,8 @@
 <!--================ Facilities Area  =================-->
 <!--================ Testimonial Area  =================-->
 @section Scripts{
-    @*    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCu2MdiX8Qb7KWkqfIembmElinOcl-GgWE&callback=initMap"></script>*@
-    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCu2MdiX8Qb7KWkqfIembmElinOcl-GgWE&callback=initMap1"></script>
-@*    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCu2MdiX8Qb7KWkqfIembmElinOcl-GgWE&callback=initMap2"></script>
-*@
-
 
     <script>
-        catchid1()
-        catchid2()
-        catchid3()
-        /////////////////////////////////////////////////////////////////////////////////////////////////
-        //google maps api
-        // 初始化+載入地圖
-        //function initMap() {
-        //     地圖位置 {}為座標 抓取座標的方式:google地圖 對要的地方右鍵選:這是哪裡
-        //    const taiwan = { lat: 23.739768, lng: 120.937298 };
-        //     The map, centered at Uluru
-        //    const map = new google.maps.Map(document.getElementById("map"), {
-        //        zoom: 7,
-        //        center: taiwan,
-        //    });
-        //     圖標, 對應地圖(飯店要)設置的位置
-        //    const marker = new google.maps.Marker({
-        //        position: taiwan,
-        //        map: map,
-        //    });
-        //}
-        //window.initMap = initMap;
-        //////////////////////////////////////////////////////////////////////////////////////////////////
-        var mapapiUrl = "https://localhost:7007/api/APIHotelIndustry/get";
-        function initMap() {
-            const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 7,
-                center: new google.maps.LatLng(23.739768, 120.937298),
-            });
-            // 創建 Google Maps 地圖實例，設置縮放級別和中心點座標
-
-            fetch(mapapiUrl, { method: 'Get' }) // 使用 fetch 函式發起 GET 請求，獲取資料
-                .then((response) => response.json()) // 將回傳的響應轉換成 JSON 格式
-                .then(data => { // 處理獲取到的資料
-                    console.log("Data:", data);
-                    data.forEach((location) => { // 使用 forEach 迴圈迭代資料陣列中的每個項目
-                        const { lat, lng } = location; // 從項目中獲取緯度和經度
-                        const position = new google.maps.LatLng(lat, lng); // 創建 Google Maps 的 LatLng 物件，表示地點的座標
-
-                        new google.maps.Marker({ // 創建地圖標記物件
-                            position: position, // 設定標記的位置座標
-                            map: map, // 將標記加入地圖
-                        });
-                    });
-                })
-                .catch((error) => { // 處理請求發生的錯誤
-                    console.log("Fetch Error:", error);
-                });
-        }
-        window.initMap = initMap; // 將 initMap 函式指定為全局變數，使其能夠在載入 Google Maps API 時被調用
-        ///////////////////////////////配合各區域的map
-
-        function initMap1() {
-            const map = new google.maps.Map(document.getElementById("map1"), {
-                zoom: 10,
-                center: new google.maps.LatLng(24.88577858311454, 121.52141365726166),
-            });
-            // 創建 Google Maps 地圖實例，設置縮放級別和中心點座標
-
-            fetch(mapapiUrl, { method: 'Get' }) // 使用 fetch 函式發起 GET 請求，獲取資料
-                .then((response) => response.json()) // 將回傳的響應轉換成 JSON 格式
-                .then(data => { // 處理獲取到的資料
-                    console.log("Data:", data);
-                    data.forEach((location) => { // 使用 forEach 迴圈迭代資料陣列中的每個項目
-                        const { lat, lng } = location; // 從項目中獲取緯度和經度
-                        const position = new google.maps.LatLng(lat, lng); // 創建 Google Maps 的 LatLng 物件，表示地點的座標
-
-                        new google.maps.Marker({ // 創建地圖標記物件
-                            position: position, // 設定標記的位置座標
-                            map: map, // 將標記加入地圖
-                        });
-                    });
-                })
-                .catch((error) => { // 處理請求發生的錯誤
-                    console.log("Fetch Error:", error);
-                });
-        }
-        window.initMap1 = initMap1;
-
-        function initMap2() {
-            const map = new google.maps.Map(document.getElementById("map2"), {
-                zoom: 10,
-                center: new google.maps.LatLng(24.128982813655696, 120.66686597596934),
-            });
-            // 創建 Google Maps 地圖實例，設置縮放級別和中心點座標
-
-            fetch(mapapiUrl, { method: 'Get' }) // 使用 fetch 函式發起 GET 請求，獲取資料
-                .then((response) => response.json()) // 將回傳的響應轉換成 JSON 格式
-                .then(data => { // 處理獲取到的資料
-                    console.log("Data:", data);
-                    data.forEach((location) => { // 使用 forEach 迴圈迭代資料陣列中的每個項目
-                        const { lat, lng } = location; // 從項目中獲取緯度和經度
-                        const position = new google.maps.LatLng(lat, lng); // 創建 Google Maps 的 LatLng 物件，表示地點的座標
-
-                        new google.maps.Marker({ // 創建地圖標記物件
-                            position: position, // 設定標記的位置座標
-                            map: map, // 將標記加入地圖
-                        });
-                    });
-                })
-                .catch((error) => { // 處理請求發生的錯誤
-                    console.log("Fetch Error:", error);
-                });
-        }
-        window.initMap2 = initMap2;
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////
-        //研究中，為動態顯示圖標所對應的資料 使用了JQuery
-        function selectMarker(i) {
-            marker[i].addListener('click', function () { // 為第 i 個標記添加點擊事件監聽器 原先相關的寫法是將data以陣列的形式輸出(不確定是否能用像我一樣的寫法，或者可以考慮用hotelId對應?)
-                // 設定 .info 區塊的內容
-                $(".info .hotel_link img").attr("src", markerdata[i]['img']);
-                //決定是否輸出照片
-                if (markerdata[i]['img'] == "") {
-                    $(".info .hotel_link img").css("display", "none");
-                } else {
-                    $(".info .hotel_link img").css("display", "block");
-                }
-                //輸出飯店名字?
-                $(".info .name a").text(markerdata[i]['name'].slice(markerdata[i]['name'].indexOf("-", 3) + 1));
-                //輸出飯店敘述與地址 此處為class:middle區塊
-                $(".info .middle .lead").html(markerdata[i]['post_code'] + " " + markerdata[i]['address'] + "<br /><br />" + markerdata[i]['description']);
-                //輸出底下的飯店電話按鈕 此處為class:bottom區塊
-                $(".info .bottom .tel .pc-fix").text("電話予約：" + markerdata[i]['tel']);
-                //輸出空房or飯店電話相關?
-                $(".info .bottom .tel .sp-fix a").attr("href", "tel:" + markerdata[i]['tel']);
-                $(".info .hotel_link").each(function () {
-                    $(this).attr("href", "/" + markerdata[i]['id'] + "/");
-                });
-                // 根據條件顯示或隱藏 .info 區塊中的元素
-                if (removeReserveIds.includes(markerdata[i]['id']) == true) {
-                    $(".info .bottom .reserve").hide();
-                } else {
-                    $(".info .bottom .reserve").show();
-                }
-                //輸出空房預約按鈕?
-                $(".info .bottom .reserve p").html('<a href="javascript:void(0)" data-hid="' + markerdata[i]['hid'] + '" data-area="' + markerdata[i]['area'] + '" data-hotelid="' + markerdata[i]['id'] + '" class="reserve-button">空室検索・宿泊予約</a>');
-                //css排版相關
-                $(".refine-map-body .map").css("width", "882px");
-                $(".refine-map-body .info").css("display", "block");
-            });
-        }
-        ///////////////////////////////////////////////////////////////////////////////////////////////
         function catchid1() {
             //抓hotelregionid
             $('#btn1').on('click', function (event) {
@@ -356,5 +212,187 @@
             });
         }
 
+        document.getElementById('btn1').addEventListener('click', catchid1())
+        document.getElementById('btn2').addEventListener('click', catchid2())
+        document.getElementById('btn3').addEventListener('click', catchid3())
+
+
+        //catchid1()
+        //catchid2()
+        //catchid3()
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////
+        //google maps api
+        // 初始化+載入地圖
+        //function initMap() {
+        //     地圖位置 {}為座標 抓取座標的方式:google地圖 對要的地方右鍵選:這是哪裡
+        //    const taiwan = { lat: 23.739768, lng: 120.937298 };
+        //     The map, centered at Uluru
+        //    const map = new google.maps.Map(document.getElementById("map"), {
+        //        zoom: 7,
+        //        center: taiwan,
+        //    });
+        //     圖標, 對應地圖(飯店要)設置的位置
+        //    const marker = new google.maps.Marker({
+        //        position: taiwan,
+        //        map: map,
+        //    });
+        //}
+        //window.initMap = initMap;
+        //////////////////////////////////////////////////////////////////////////////////////////////////
+        var mapapiUrl = "https://localhost:7007/api/APIHotelIndustry/get";
+        function initMap() {
+            const map = new google.maps.Map(document.getElementById("map"), {
+                zoom: 7,
+                center: new google.maps.LatLng(23.739768, 120.937298),
+            });
+            // 創建 Google Maps 地圖實例，設置縮放級別和中心點座標
+
+            fetch(mapapiUrl, { method: 'Get' }) // 使用 fetch 函式發起 GET 請求，獲取資料
+                .then((response) => response.json()) // 將回傳的響應轉換成 JSON 格式
+                .then(data => { // 處理獲取到的資料
+                    console.log("Data:", data);
+                    data.forEach((location) => { // 使用 forEach 迴圈迭代資料陣列中的每個項目
+                        const { lat, lng } = location; // 從項目中獲取緯度和經度
+                        const position = new google.maps.LatLng(lat, lng); // 創建 Google Maps 的 LatLng 物件，表示地點的座標
+
+                        new google.maps.Marker({ // 創建地圖標記物件
+                            position: position, // 設定標記的位置座標
+                            map: map, // 將標記加入地圖
+                        });
+                    });
+                })
+                .catch((error) => { // 處理請求發生的錯誤
+                    console.log("Fetch Error:", error);
+                });
+        }
+        //window.initMap = initMap; // 將 initMap 函式指定為全局變數，使其能夠在載入 Google Maps API 時被調用
+        ///////////////////////////////配合各區域的map
+
+
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////
+        //研究中，為動態顯示圖標所對應的資料 使用了JQuery
+        function selectMarker(i) {
+            marker[i].addListener('click', function () { // 為第 i 個標記添加點擊事件監聽器 原先相關的寫法是將data以陣列的形式輸出(不確定是否能用像我一樣的寫法，或者可以考慮用hotelId對應?)
+                // 設定 .info 區塊的內容
+                $(".info .hotel_link img").attr("src", markerdata[i]['img']);
+                //決定是否輸出照片
+                if (markerdata[i]['img'] == "") {
+                    $(".info .hotel_link img").css("display", "none");
+                } else {
+                    $(".info .hotel_link img").css("display", "block");
+                }
+                //輸出飯店名字?
+                $(".info .name a").text(markerdata[i]['name'].slice(markerdata[i]['name'].indexOf("-", 3) + 1));
+                //輸出飯店敘述與地址 此處為class:middle區塊
+                $(".info .middle .lead").html(markerdata[i]['post_code'] + " " + markerdata[i]['address'] + "<br /><br />" + markerdata[i]['description']);
+                //輸出底下的飯店電話按鈕 此處為class:bottom區塊
+                $(".info .bottom .tel .pc-fix").text("電話予約：" + markerdata[i]['tel']);
+                //輸出空房or飯店電話相關?
+                $(".info .bottom .tel .sp-fix a").attr("href", "tel:" + markerdata[i]['tel']);
+                $(".info .hotel_link").each(function () {
+                    $(this).attr("href", "/" + markerdata[i]['id'] + "/");
+                });
+                // 根據條件顯示或隱藏 .info 區塊中的元素
+                if (removeReserveIds.includes(markerdata[i]['id']) == true) {
+                    $(".info .bottom .reserve").hide();
+                } else {
+                    $(".info .bottom .reserve").show();
+                }
+                //輸出空房預約按鈕?
+                $(".info .bottom .reserve p").html('<a href="javascript:void(0)" data-hid="' + markerdata[i]['hid'] + '" data-area="' + markerdata[i]['area'] + '" data-hotelid="' + markerdata[i]['id'] + '" class="reserve-button">空室検索・宿泊予約</a>');
+                //css排版相關
+                $(".refine-map-body .map").css("width", "882px");
+                $(".refine-map-body .info").css("display", "block");
+            });
+        }
+        ///////////////////////////////////////////////////////////////////////////////////////////////
+
+
     </script>
-                        }
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCu2MdiX8Qb7KWkqfIembmElinOcl-GgWE&callback=initMap"></script>
+    <script>
+        function initMap1() {
+            const map = new google.maps.Map(document.getElementById("map1"), {
+                zoom: 10,
+                center: new google.maps.LatLng(24.88577858311454, 121.52141365726166),
+            });
+            // 創建 Google Maps 地圖實例，設置縮放級別和中心點座標
+
+            fetch(mapapiUrl, { method: 'Get' }) // 使用 fetch 函式發起 GET 請求，獲取資料
+                .then((response) => response.json()) // 將回傳的響應轉換成 JSON 格式
+                .then(data => { // 處理獲取到的資料
+                    console.log("Data:", data);
+                    data.forEach((location) => { // 使用 forEach 迴圈迭代資料陣列中的每個項目
+                        const { lat, lng } = location; // 從項目中獲取緯度和經度
+                        const position = new google.maps.LatLng(lat, lng); // 創建 Google Maps 的 LatLng 物件，表示地點的座標
+                        new google.maps.Marker({ // 創建地圖標記物件
+                            position: position, // 設定標記的位置座標
+                            map: map, // 將標記加入地圖
+                        });
+                    });
+                })
+                .catch((error) => { // 處理請求發生的錯誤
+                    console.log("Fetch Error:", error);
+                });
+        }
+        initMap1()
+
+        function initMap2() {
+            const map = new google.maps.Map(document.getElementById("map2"), {
+                zoom: 10,
+                center: new google.maps.LatLng(24.128982813655696, 120.66686597596934),
+            });
+            // 創建 Google Maps 地圖實例，設置縮放級別和中心點座標
+
+            fetch(mapapiUrl, { method: 'Get' }) // 使用 fetch 函式發起 GET 請求，獲取資料
+                .then((response) => response.json()) // 將回傳的響應轉換成 JSON 格式
+                .then(data => { // 處理獲取到的資料
+                    console.log("Data:", data);
+                    data.forEach((location) => { // 使用 forEach 迴圈迭代資料陣列中的每個項目
+                        const { lat, lng } = location; // 從項目中獲取緯度和經度
+                        const position = new google.maps.LatLng(lat, lng); // 創建 Google Maps 的 LatLng 物件，表示地點的座標
+
+                        new google.maps.Marker({ // 創建地圖標記物件
+                            position: position, // 設定標記的位置座標
+                            map: map, // 將標記加入地圖
+                        });
+                    });
+                })
+                .catch((error) => { // 處理請求發生的錯誤
+                    console.log("Fetch Error:", error);
+                });
+        }
+        initMap2()
+
+        function initMap3() {
+            const map = new google.maps.Map(document.getElementById("map3"), {
+                zoom: 10,
+                center: new google.maps.LatLng(22.843186840520087, 120.35690098300554),
+            });
+            // 創建 Google Maps 地圖實例，設置縮放級別和中心點座標
+
+            fetch(mapapiUrl, { method: 'Get' }) // 使用 fetch 函式發起 GET 請求，獲取資料
+                .then((response) => response.json()) // 將回傳的響應轉換成 JSON 格式
+                .then(data => { // 處理獲取到的資料
+                    console.log("Data:", data);
+                    data.forEach((location) => { // 使用 forEach 迴圈迭代資料陣列中的每個項目
+                        const { lat, lng } = location; // 從項目中獲取緯度和經度
+                        const position = new google.maps.LatLng(lat, lng); // 創建 Google Maps 的 LatLng 物件，表示地點的座標
+
+                        new google.maps.Marker({ // 創建地圖標記物件
+                            position: position, // 設定標記的位置座標
+                            map: map, // 將標記加入地圖
+                        });
+                    });
+                })
+                .catch((error) => { // 處理請求發生的錯誤
+                    console.log("Fetch Error:", error);
+                });
+        }
+        initMap3()
+    </script>
+}
