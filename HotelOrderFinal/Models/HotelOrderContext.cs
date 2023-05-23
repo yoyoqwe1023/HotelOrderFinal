@@ -85,19 +85,10 @@ namespace HotelOrderFinal.Models
                     .HasMaxLength(20)
                     .HasColumnName("MemberID");
 
-                entity.Property(e => e.RoomClassId)
-                    .HasMaxLength(20)
-                    .HasColumnName("RoomClassID");
-
                 entity.HasOne(d => d.Member)
                     .WithMany(p => p.Comment)
                     .HasForeignKey(d => d.MemberId)
                     .HasConstraintName("FK_Comments_RoomMember");
-
-                entity.HasOne(d => d.RoomClass)
-                    .WithMany(p => p.Comment)
-                    .HasForeignKey(d => d.RoomClassId)
-                    .HasConstraintName("FK_Comment_RoomClass");
             });
 
             modelBuilder.Entity<Discount>(entity =>
@@ -212,12 +203,12 @@ namespace HotelOrderFinal.Models
                 entity.HasOne(d => d.Facility)
                     .WithMany(p => p.MultipleRoomFacility)
                     .HasForeignKey(d => d.FacilityId)
-                    .HasConstraintName("FK_MultipleRoomFacility1_RoomFacility");
+                    .HasConstraintName("FK_MultipleRoomFacility_RoomFacility");
 
                 entity.HasOne(d => d.RoomClass)
                     .WithMany(p => p.MultipleRoomFacility)
                     .HasForeignKey(d => d.RoomClassId)
-                    .HasConstraintName("FK_MultipleRoomFacility1_RoomClass");
+                    .HasConstraintName("FK_MultipleRoomFacility_RoomClass");
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -392,9 +383,9 @@ namespace HotelOrderFinal.Models
                     .HasMaxLength(20)
                     .HasColumnName("RoomClassID");
 
-                entity.Property(e => e.AddPrice).HasColumnType("numeric(10, 0)");
+                entity.Property(e => e.AddPrice).HasColumnType("money");
 
-                entity.Property(e => e.HolidayPrice).HasColumnType("numeric(10, 0)");
+                entity.Property(e => e.HolidayPrice).HasColumnType("money");
 
                 entity.Property(e => e.RoomClassName).HasMaxLength(20);
 
@@ -404,7 +395,7 @@ namespace HotelOrderFinal.Models
 
                 entity.Property(e => e.RoomClassPhoto3).HasMaxLength(50);
 
-                entity.Property(e => e.WeekdayPrice).HasColumnType("numeric(10, 0)");
+                entity.Property(e => e.WeekdayPrice).HasColumnType("money");
             });
 
             modelBuilder.Entity<RoomFacility>(entity =>
