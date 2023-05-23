@@ -6,10 +6,8 @@ namespace HotelOrderFinal.ViewModels
     {
         public string RoomId { get; set; }
         public string RoomClassId { get; set; }
-
-        //public int? HotelId { get; set; }
-        //public string AdminId { get; set; }
-
+        public int? HotelId { get; set; }
+        public string HotelName { get; set; }
 
         public string RoomClassName { get; set; }
         public int? RoomClassSize { get; set; }
@@ -22,6 +20,10 @@ namespace HotelOrderFinal.ViewModels
 
         public DateTime? CheckInDate { get; set; }
         public DateTime? CheckOutDate { get; set; }
+
+        public List<Room> rooms { get; set; }
+        public List<RoomClass> RoomClasss { get; set; }
+        public List<HotelIndustry> hotels { get; set; }
 
     }
 }

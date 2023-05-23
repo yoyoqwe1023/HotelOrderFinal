@@ -15,16 +15,20 @@ using Microsoft.Data.SqlClient;
 using System.Data;
 using System.Security.Cryptography;
 using System.Text;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 
 namespace HotelOrderFinal.Controllers
 {
     public class MemberController : Controller
     {
-        private HotelOrderContext db;
+        private HotelOrderContext db = new HotelOrderContext();
+   
         private IWebHostEnvironment _enviro;
-        // GET: MemberController
-        public IActionResult Index(string id)
+
+
+            // GET: MemberController
+            public IActionResult Index(string id)
         {
             //驗證會員登入是否又錯誤，找不到該會員會回到首頁
 
@@ -55,10 +59,19 @@ namespace HotelOrderFinal.Controllers
             db = new HotelOrderContext();
             //HttpContext.Session.SetString("LayoutMessage", "_LayoutMember");
             var member = db.RoomMember.Where(o => o.MemberPhone == model.MemberPhone && o.MemberPassword == model.MemberPassword).FirstOrDefault();
+            var returnUrl = HttpContext.Session.GetString("ReturnUrl");
             if (member == null)
             {
                 //ViewBag.Message = "帳密錯誤，登入失敗";
                 TempData["ErrorMessage"] = "帳密錯誤，登入失敗";
+               
+                if (!string.IsNullOrEmpty(returnUrl))
+                {
+                    // 清除 Session 中的頁面路徑
+                    HttpContext.Session.Remove("ReturnUrl");
+                    // 導向先前的頁面路徑
+                    return Redirect(returnUrl);
+                }
                 return RedirectToAction("Index", "Home");
             }
             ViewBag.Message = model.MemberName + "，歡迎光臨";
@@ -72,8 +85,14 @@ namespace HotelOrderFinal.Controllers
             HttpContext.Session.SetString("UserPhone", member.MemberPhone);
             HttpContext.Session.SetString("UserPassword", member.MemberPassword);
             HttpContext.Session.SetString("LayoutMessage", "_LayoutMember");
-
-            return RedirectToAction("Index", "Home");
+            
+            if (!string.IsNullOrEmpty(returnUrl))
+            { // 清除 Session 中的頁面路徑
+                HttpContext.Session.Remove("ReturnUrl");
+                // 導向先前的頁面路徑
+                return Redirect(returnUrl);
+            }
+                return RedirectToAction("Index", "Home");
         }
         //【忘記密碼】==========================================================================================
 
@@ -83,177 +102,92 @@ namespace HotelOrderFinal.Controllers
             return View();
         }
 
-        [HttpPost]
-        //public IActionResult ResetPassword(string resetEmail)
-        //{
-        //    // 处理密码重置的逻辑
-        //    // 发送重置密码的电子邮件或短信等
-        //    // 进行密码重置操作
-
-        //    ViewBag.ResetMessage = "密码重置邮件已发送，请查看您的注册邮箱并按照提示重置密码。";
-        //    return View("ForgotPassword");
-        //}
-        /// <summary>
-        /// 寄送驗證碼
-        /// </summary>
-        /// <returns></returns>
-
-        [ValidateAntiForgeryToken]
-        public IActionResult ResetPassword(SendMailTokenIn inModel,string id)
+        //[HttpPost]  //用ajax方法請求回傳值跟form/submit是無相關的兩條路, 使用時要分清楚
+        [Route("Member/find")]
+        public IActionResult Find_password(string target) //忘記密碼方法
         {
-            SendMailTokenOut outModel = new SendMailTokenOut();
 
-            // 檢查輸入來源
-            if (string.IsNullOrEmpty(inModel.UserID))
+ 
+            bool isEmailExist = db.RoomMember.Any(x => x.MemberEmail == target);
+            if (isEmailExist)
             {
-                outModel.ErrMsg = "請輸入帳號";
-                return Json(outModel);
+                RoomMember member = db.RoomMember.FirstOrDefault(x => x.MemberEmail == target)!;
+                string sVerify = member.MemberId + "|" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+                sVerify = HttpUtility.UrlEncode(sVerify);
+                int portNumber = HttpContext.Connection.LocalPort;
+                string webPath = "https://localhost:" + portNumber + "/";
+                string receivePage = "Member/ResetPwd";
+                string mailContent = "請點擊以下連結，返回網站重新設定密碼，逾期 5 分鐘後，此連結將會失效。<br><br>";
+                mailContent = mailContent + "<a href='" + webPath + receivePage + "?verify=" + sVerify + "'  target='_blank'>點此連結</a>";
+                string mailSubject = "[訂房'系統] 重設密碼驗證連結";
+                string SmtpServer = "smtp.gmail.com";
+                string GoogleMailUserID = "imapple1991@gmail.com"; //Google 發信帳號
+                string GoogleMailUserPwd = "lqcacnvacukpnzpf"; //應用程式密碼
+                //string GoogleMailUserID = _config["GoogleMailUserID"];
+                //string GoogleMailUserPwd = _config["GoogleMailUserPwd"];
+                int port = 587;
+                MailMessage mms = new MailMessage();
+                mms.From = new MailAddress(GoogleMailUserID);
+                mms.Subject = mailSubject;
+                mms.Body = mailContent;
+                mms.IsBodyHtml = true;
+                mms.SubjectEncoding = Encoding.UTF8;
+                mms.To.Add(new MailAddress(target));
+                using (SmtpClient client = new SmtpClient(SmtpServer, port))
+                {
+                    client.EnableSsl = true;
+                    client.Credentials = new NetworkCredential(GoogleMailUserID, GoogleMailUserPwd);
+                    client.Send(mms);
+                }
             }
-
-            // 檢查資料庫是否有這個帳號
-
-            // 取得資料庫連線字串
-            db = new HotelOrderContext();
-
-            id = HttpContext.Session.GetString("UserID");
-
-            db = new HotelOrderContext();
-
-            // 取得會員資料
-            RoomMember cust = db.RoomMember.FirstOrDefault(t => t.MemberId == id);
-            // 當程式碼離開 using 區塊時，會自動關閉連接
-            //using (SqlConnection conn = new SqlConnection(connStr))
-            //{
-                //// 資料庫連線
-                //conn.Open();
-
-                //// 取得會員資料
-                //string sql = "select * from Member where UserID = @UserID";
-                //SqlCommand cmd = new SqlCommand();
-                //cmd.CommandText = sql;
-                //cmd.Connection = conn;
-
-                // 使用參數化填值
-                //cmd.Parameters.AddWithValue("@UserID", inModel.UserID);
-
-                // 執行資料庫查詢動作
-                //SqlDataAdapter adpt = new SqlDataAdapter();
-                //adpt.SelectCommand = cmd;
-                DataSet ds = new DataSet();
-                //adpt.Fill(ds);
-                DataTable dt = ds.Tables[0];
-
-                if (dt.Rows.Count > 0)
-                {
-                    // 取出會員信箱
-                    string UserEmail = dt.Rows[0]["UserEmail"].ToString();
-
-                    // 取得系統自定密鑰，在 Web.config 設定
-                    //string SecretKey = ConfigurationManager.AppSettings["SecretKey"];
-
-                    // 產生帳號+時間驗證碼
-                    string sVerify = inModel.UserID + "|" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
-
-                //    // 將驗證碼使用 3DES 加密
-                //    TripleDESCryptoServiceProvider DES = new TripleDESCryptoServiceProvider();
-                //    MD5 md5 = new MD5CryptoServiceProvider();
-                //byte[] buf = Encoding.UTF8.GetBytes(SecretKey);
-                //byte[] result = md5.ComputeHash(buf);
-                //string md5Key = BitConverter.ToString(result).Replace("-", "").ToLower().Substring(0, 24);
-                //DES.Key = UTF8Encoding.UTF8.GetBytes(md5Key);
-                //    DES.Mode = CipherMode.ECB;
-                //    ICryptoTransform DESEncrypt = DES.CreateEncryptor();
-                //    byte[] Buffer = UTF8Encoding.UTF8.GetBytes(sVerify);
-                //    sVerify = Convert.ToBase64String(DESEncrypt.TransformFinalBlock(Buffer, 0, Buffer.Length)); // 3DES 加密後驗證碼
-
-                    // 將加密後密碼使用網址編碼處理
-                    sVerify = HttpUtility.UrlEncode(sVerify);
-
-                    // 網站網址
-                    //string webPath = Request.Url.Scheme + "://" + Request.Url.Authority + Url.Content("~/");
-                    string webPath = $"{Request.Scheme}://{Request.Host}{Request.PathBase}";
-
-
-                    // 從信件連結回到重設密碼頁面
-                    string receivePage = "Member/ResetPwd";
-
-                    // 信件內容範本
-                    string mailContent = "請點擊以下連結，返回網站重新設定密碼，逾期 30 分鐘後，此連結將會失效。<br><br>";
-                    mailContent = mailContent + "<a href='" + webPath + receivePage + "?verify=" + sVerify + "'  target='_blank'>點此連結</a>";
-
-                    // 信件主題
-                    string mailSubject = "重設密碼申請信";
-
-                    // Google 發信帳號密碼
-                    string GoogleMailUserID = "imapple1991@gmail.com"; //Google 發信帳號
-                    string GoogleMailUserPwd = "notffmckaayqzchi"; //應用程式密碼
-
-                    // 使用 Google Mail Server 發信
-                    string SmtpServer = "smtp.gmail.com";
-                    int SmtpPort = 587;
-                    MailMessage mms = new MailMessage();
-                    mms.From = new MailAddress(GoogleMailUserID);
-                    mms.Subject = mailSubject;
-                    mms.Body = mailContent;
-                    mms.IsBodyHtml = true;
-                    mms.SubjectEncoding = Encoding.UTF8;
-                    mms.To.Add(new MailAddress(UserEmail));
-                    using (SmtpClient client = new SmtpClient(SmtpServer, SmtpPort))
-                    {
-                        client.EnableSsl = true;
-                        client.Credentials = new NetworkCredential(GoogleMailUserID, GoogleMailUserPwd);//寄信帳密 
-                        client.Send(mms); //寄出信件
-                    }
-                    outModel.ResultMsg = "請於 30 分鐘內至你的信箱點擊連結重新設定密碼，逾期將無效";
-                }
-                else
-                {
-                    outModel.ErrMsg = "查無此帳號";
-                }
-            
-
-            // 回傳 Json 給前端
-            return Json(outModel);
+            return Content(isEmailExist.ToString());
         }
 
+        public IActionResult ResetPwd(string verify)  //重設密碼頁面
+        {
+            string script = "<script>alert('驗證碼錯誤或逾期失效');window.close();</script>";
 
+            if (verify == "")
+            {
+                return Content(script, "text/html", System.Text.Encoding.UTF8);
+            }
+            string UserID = verify.Split('|')[0];
+            string ResetTime = verify.Split('|')[1];
+            DateTime dResetTime = Convert.ToDateTime(ResetTime);
+            TimeSpan TS = new TimeSpan(DateTime.Now.Ticks - dResetTime.Ticks);
+            double diff = Convert.ToDouble(TS.TotalMinutes);
+            if (diff > 5)
+            {
+                return Content(script, "text/html", System.Text.Encoding.UTF8);
+            }          
+            RoomMember member = db.RoomMember.FirstOrDefault(x => x.MemberId == UserID)!;
+            return View(member);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult doResetPwd(RoomMember target)  //修改密碼方法
+        {
 
-
-        //【　　】==========================================================================================
-        // GET: MemberController/Details/5
-        //        public IActionResult Details(int id)
-        //        {
-        //            if (Request.IsAjaxRequest())
-        //            {
-        //                this.GetClientes();
-        //                var cliente = Clientes.FirstOrDefault(x => x.Id == id) ?? new Cliente();
-        //                if (cliente != null)
-        //                    return PartialView(cliente);
-        //                else
-        //                {
-        //                    Response.StatusCode - 403;
-        //                    return PartialView("Error");
-        //                }
-        //            }
-
-        //            Response.StatusCode = 500;
-        //            return PartialView("Error");
-        //            //return View();
-        //        }
-
-        //        private void GetClientes()
-        //        {
-        //            if (Session["clientes"] == null)
-        //            {
-        //                Clientes = new List<Cliente>()
-        //{
-        //new Cliente() ( Id = 1, Name = "Paco", Number = "111" ),
-        //new Cliente() ( Id = 2, Name = "Lucia", Number = "2222" )
-        //};
-        //                Session["clientes"] = Clientes;
-        //            }
-        //            Clientes = Session["clientes"] as List<Cliente>;
-        //        }
+            if (db.RoomMember.Any(x => x.MemberId == target.MemberId))
+            {
+                RoomMember member = db.RoomMember.FirstOrDefault(x => x.MemberId == target.MemberId)!;
+                member.MemberPassword = target.MemberPassword;
+                db.SaveChanges();
+                return Json(new
+                {
+                    success = "true",
+                    message = "密碼重新設定成功"
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    success = "false",
+                    message = "密碼重新設定失敗"
+                });
+            }
+        }
 
         //【新增】==========================================================================================
         // GET: MemberController/Create
@@ -294,6 +228,15 @@ namespace HotelOrderFinal.Controllers
                 // 設置性別屬性
                 model.MemberGender = genderText;
                 model.MemberBirthday = birthday;
+                
+                //判定帳號是否重複註冊
+
+                var account = db.RoomMember.Where(x=>x.MemberPhone==model.MemberPhone).ToList();
+                if (account.Count > 0) 
+                {
+                    TempData["ErrorMessageSameAccount"] = "帳密錯誤，登入失敗";
+                    return RedirectToAction("Index", "Home"); 
+                }
 
 
                 DiscountDetail discountDetail = new DiscountDetail();
@@ -305,11 +248,11 @@ namespace HotelOrderFinal.Controllers
 
                 db.DiscountDetail.Add(discountDetail);
 
-                ViewBag.Message = "註冊成功，請重新登入，謝謝 !";
                 db.Add(model);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Home");
 
+                TempData["SuccessMessage"] = "註冊成功！";
+                return RedirectToAction("RegistrationSuccess");
             }
             catch (Exception ex)
             {
@@ -321,6 +264,13 @@ namespace HotelOrderFinal.Controllers
                 //    message = ex.Message
                 //});
             }
+        }
+        public IActionResult RegistrationSuccess()
+        {
+            // 從TempData中獲取註冊成功的訊息
+            string successMessage = TempData["SuccessMessage"] as string;
+            ViewBag.SuccessMessage = successMessage;
+            return View();
         }
 
         //【修改】==========================================================================================
@@ -356,12 +306,21 @@ namespace HotelOrderFinal.Controllers
                     cust.MemberEmail = model.MemberEmail;
                     db.SaveChanges();
                 }
-                return RedirectToAction("Index", "Home");
+                TempData["SuccessMessage"] = "修改成功！";
+                return RedirectToAction("EditSuccess", "Member");
             }
             catch
             {
                 return View();
             }
+        }
+
+        public IActionResult EditSuccess()
+        {
+            // 從TempData中獲取註冊成功的訊息
+            string successMessage = TempData["SuccessMessage"] as string;
+            ViewBag.SuccessMessage = successMessage;
+            return View();
         }
 
         //【修改密碼】==========================================================================================
@@ -391,33 +350,42 @@ namespace HotelOrderFinal.Controllers
         {
             db = new HotelOrderContext();
                RoomMember cust = db.RoomMember.Where(o => o.MemberId == change.UserId).FirstOrDefault();
-            if (cust == null )
-            {                
+            if (!ModelState.IsValid)
+            {
+                return PartialView(change);
+            }
+            if (cust.MemberPassword != change.OldPassword)
+            {
                 ModelState.AddModelError("OldPassword", "舊密碼不正確");
-                TempData["ErrorMessage"] = "舊密碼不正確";
+                TempData["ErrorMessageOldPassword"] = "舊密碼不正確";
                 return View("EditPassword", "model");
             }
             if (change.NewPassword != change.ReNewPassword)
             {
                 ModelState.AddModelError("ReNewPassword", "新密碼兩次輸入不一致");
-                TempData["ErrorMessage"] = "新密碼兩次輸入不一致";
+                TempData["ErrorMessageReNewPassword"] = "新密碼兩次輸入不一致";
                 return View("EditPassword", "model");
             }
-            if (cust.MemberPassword != change.OldPassword)
-            {
-                ModelState.AddModelError("OldPassword", "舊密碼不正確");
-                TempData["ErrorMessage"] = "舊密碼不正確";
-                return View("EditPassword", "model");
-            }
+
             cust.MemberPassword = change.NewPassword;             
                 db.SaveChanges();
-                // 在ViewBag中设置密码重置成功的消息
-                ViewBag.ResetSuccessMessage = "您的密碼已重設。";
-                // 重定向到显示成功消息的页面
-                return RedirectToAction("Index", "Member");
+           
+            TempData["PasswordSuccessMessage"] = "修改成功！";
+            return RedirectToAction("EditPasswordSuccess", "Member");
+             // 在ViewBag中设置密码重置成功的消息
+             //ViewBag.ResetSuccessMessage = "您的密碼已重設。";
+            //    // 重定向到显示成功消息的页面
+            //    return RedirectToAction("Index", "Member");
 
-        }      
+        }
 
+        public IActionResult EditPasswordSuccess()
+        {
+            // 從TempData中獲取註冊成功的訊息
+            string passwordsuccessMessage = TempData["PasswordSuccessMessage"] as string;
+            ViewBag.PasswordsuccessMessage = passwordsuccessMessage;
+            return View();
+        }
 
 
         //【登出】==========================================================================================

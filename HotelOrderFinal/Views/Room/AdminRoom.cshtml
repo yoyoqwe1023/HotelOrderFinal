@@ -1,0 +1,100 @@
+﻿@model IEnumerable<HotelOrderFinal.Models.RoomClass>
+
+@{
+    ViewData ["Title"] = "AdminRoom";
+}
+
+<section class="breadcrumb_area">
+    <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+    <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle">後台管理系統：房型管理</h2>
+        </div>
+    </div>
+</section>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RoomClassId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoomClassName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoomClassSize)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoomClassPeople)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoomClassDetail)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoomClassPhoto1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoomClassPhoto2)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoomClassPhoto3)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WeekdayPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HolidayPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AddPrice)
+            </th>
+            <th><a asp-action="Create" class="btn btn-primary">新增房間</a></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ( var item in Model )
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoomClassId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoomClassName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoomClassSize)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoomClassPeople)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoomClassDetail)
+                </td>
+                <td>
+                    <img src="~/image/@item.RoomClassPhoto1" width="160" height="120" >
+                </td>
+                <td>
+                    <img src="~/image/@item.RoomClassPhoto2" width="160" height="120" />
+                </td>
+                <td>
+                    <img src="~/image/@item.RoomClassPhoto3" width="160" height="120" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WeekdayPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HolidayPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AddPrice)
+                </td>
+                <td>
+                    @Html.ActionLink("修改", "Edit", new {id=item.RoomClassId},new { @class="btn btn-success" })
+                    <br>
+                    @Html.ActionLink("刪除", "Delete", new {id=item.RoomClassId},new { @class="btn btn-danger", onclick="return confirm('確定要刪除嗎?')"})
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

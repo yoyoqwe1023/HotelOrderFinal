@@ -37,11 +37,12 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="book_tabel_item">
-                                    <select class="wide">
-                                        <option data-display="入住地區">選擇地區</option>
-                                        <option value="1">北區</option>
-                                        <option value="2">中區</option>
-                                        <option value="3">南區</option>
+                                    <select id="hotelId" class="wide">
+                                        <option data-display="入住飯店">選擇飯店</option>
+                                        @foreach (var item in Model.hotelIndustry)
+                                        {
+                                            <option  value="@item.HotelId">@item.HotelName</option>
+                                        }
                                     </select>
                                 </div>
                             </div>
@@ -66,7 +67,7 @@
                             <div class="col-md-3">
                                 <div class="book_tabel_item">
                                     @* <a href="#">@Html.ActionLink("立即預約", "Index", "Order", null, new { @class = "book_now_btn button_hover" })</a>*@
-                                    <a href="#" onclick="return setSession();" class="book_now_btn button_hover">立即預約</a>
+                                    <a href="#" onclick="getSearchRoomValue();" class="book_now_btn button_hover">立即預約</a>
 
                                 </div>
                             </div>
@@ -284,6 +285,35 @@
         </div>
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
+                @for (int i = 0; i < Model.ActivityImage.Count; i++)
+                {
+                    <li data-target="#myCarousel" data-slide-to="@i" class="@((i == 0) ? "active" : "")"></li>
+                }
+            </ol>
+            <div class="carousel-inner">
+                @for (int i = 0; i < Model.ActivityImage.Count; i += 3)
+                {
+                    <div class="carousel-item @((i == 0) ? "active" : "")">
+                        @for (int j = i; j < i + 3 && j < Model.ActivityImage.Count; j++)
+                        {
+                            <a href="@Url.Action("ActivityByDetails", "Activity", new { id = Model.ActivityID[j] })">
+                                <img src="~/image/@Model.ActivityImage[j]" style="width:360px;height:360px" alt="Slide @(j % 3 + 1)">
+                            </a>
+                        }
+                    </div>
+                }
+            </div>
+            <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+@*        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
                 <li data-target="#myCarousel" data-slide-to="1"></li>
                 <li data-target="#myCarousel" data-slide-to="2"></li>
@@ -337,7 +367,7 @@
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
             </a>
-        </div>
+        </div>*@
 
 
         @*       <div class="row mb_30">
@@ -399,27 +429,44 @@
 </div>*@
 
 <script>
-    function setSession() {
-    var checkInDate = document.getElementById("checkInDate").value;
-    var checkOutDate = document.getElementById("checkOutDate").value;
+  //  function setSession() {
+  //  var checkInDate = document.getElementById("checkInDate").value;
+  //  var checkOutDate = document.getElementById("checkOutDate").value;
 
-    var xhr = new XMLHttpRequest();
-    xhr.open("POST", "/Home/setSession", true);
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  //  var xhr = new XMLHttpRequest();
+  //  xhr.open("POST", "/Home/setSession", true);
+  //  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-         // alert("session的CHECKINDATE值：" + HttpContext.Session.GetString("CHECKINDATE") + "\n session的CHECKOUTDATE值：" + HttpContext.Session.GetString("CHECKOUTDATE"));
-      }
-            window.location.href = "/Order/List";
+  //  xhr.onreadystatechange = function () {
+  //    if (xhr.readyState === 4 && xhr.status === 200) {
+  //       // alert("session的CHECKINDATE值：" + HttpContext.Session.GetString("CHECKINDATE") + "\n session的CHECKOUTDATE值：" + HttpContext.Session.GetString("CHECKOUTDATE"));
+  //    }
+  //          window.location.href = "/Order/List";
      
-    };
+  //  };
 
-    xhr.send("checkInDate=" + encodeURIComponent(checkInDate) + "&checkOutDate=" + encodeURIComponent(checkOutDate));
+  //  xhr.send("checkInDate=" + encodeURIComponent(checkInDate) + "&checkOutDate=" + encodeURIComponent(checkOutDate));
 
-    //防止表單自動提交
-    return false;
-  }
+  //  //防止表單自動提交
+  //  return false;
+  //}
+
+    function getSearchRoomValue() {
+        var checkInDate = document.getElementById("checkInDate").value;
+        var checkOutDate = document.getElementById("checkOutDate").value;
+        var hotelId = document.getElementById("hotelId").value;
+
+        //fetch(`/Order/List?checkInDate=${encodeURIComponent(checkInDate)}&checkOutDate=${encodeURIComponent(checkOutDate)}&hotelId=${encodeURIComponent(hotelId)}`, {
+        //    method: 'POST',
+        //    headers: { 'Content-Type': 'application/json' },
+        //})
+        //~/
+        var url = `/Order/List?checkInDate=${encodeURIComponent(checkInDate)}&checkOutDate=${encodeURIComponent(checkOutDate)}&hotelId=${encodeURIComponent(hotelId)}`;
+
+        window.location.href = url;
+
+    }
+
 </script>
 
 

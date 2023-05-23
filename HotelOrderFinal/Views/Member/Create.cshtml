@@ -77,19 +77,20 @@
 
 *@
 
-@*</div>*@
+
+
 
 @{
-    var errorMessage = ViewBag.Message as string;
+    var errorMessage = TempData["ErrorMessageSameAccount"] as string;
 }
 
-
-@if (!string.IsNullOrEmpty(ViewBag.Message))
+@if (!string.IsNullOrEmpty(errorMessage))
 {
     <script>
-        alert(errorMessage);
+        alert("帳號已註冊，請重新確認，謝謝!");
     </script>
 }
+
 
 
 <script>

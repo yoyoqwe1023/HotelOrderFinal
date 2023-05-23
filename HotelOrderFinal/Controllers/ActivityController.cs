@@ -16,7 +16,29 @@ namespace HotelOrderFinal.Controllers
         {
             _enviro = p;
         }
-        public IActionResult ActivityByCreate()
+        public IActionResult Delete(int? id)
+        {
+
+            Activity cust = db.Activity.FirstOrDefault(t => t.ActivityId == id);
+            if (cust != null)
+            {
+                db.Activity.Remove(cust);
+                db.SaveChanges();
+            }
+            return RedirectToAction("List");
+        }
+        public IActionResult Create()
+        {            
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Create(Activity p)
+        {
+            db.Activity.Add(p);
+            db.SaveChanges();
+            return RedirectToAction("List");
+        }
+            public IActionResult ActivityByCreate()
         {
             var datas = from c in db.Activity
                         select c;
@@ -42,10 +64,18 @@ namespace HotelOrderFinal.Controllers
             {
                 return RedirectToAction("ActivityByDetails");
             }
-            HttpContext.Session.SetString("SelectedActivityId", a.ActivityId.ToString());
-            HttpContext.Session.SetString("ActivityTime", a.ActivityTime.ToString());
+            if (HttpContext.Session.GetString("SelectedActivityId") == null)
+            {
+                HttpContext.Session.SetString("SelectedActivityId", a.ActivityId.ToString());
+            }
+
+            if (HttpContext.Session.GetString("ActivityTime") == null)
+            {
+                HttpContext.Session.SetString("ActivityTime", a.ActivityTime.ToString());
+            }
             return RedirectToAction("List", "Order");
         }
+
         public IActionResult List()
         {                        
             var datas = from c in db.Activity
@@ -85,6 +115,8 @@ namespace HotelOrderFinal.Controllers
             }
             return RedirectToAction("List");
         }
+
+
 
     }
 }
