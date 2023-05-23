@@ -1,4 +1,5 @@
 ﻿using HotelOrderFinal.Models;
+using HotelOrderFinal.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -6,32 +7,31 @@ namespace HotelOrderFinal.Controllers
 {
     public class MemberMangeController : Controller
     {
-        public IActionResult List()
-        {
-            //ViewBag.SelectedItemContent = "會員管理的內容";
+        public IActionResult List(CAdminKeywordViewModel vm)
+        {          
             HotelOrderContext db = new HotelOrderContext();
-            var datas = from c in db.RoomMember
-                        select c;
+            IEnumerable<RoomMember> datas = null;
+            if (string.IsNullOrEmpty(vm.txtKeyword))
+            {
+                datas = from c in db.RoomMember
+                            select c;
+            }
+            else
+            {
+                datas = db.RoomMember.Where(p =>
+                p.MemberId.Contains(vm.txtKeyword)||
+                p.MemberName.Contains(vm.txtKeyword) ||
+                p.MemberPhone.Contains(vm.txtKeyword) ||
+                p.MemberEmail.Contains(vm.txtKeyword));
+            }
+            if (!datas.Any()) // 檢查搜尋結果是否為空
+            {
+                ViewData["Message"] = "查無任何資料！";
+            }
             return View(datas);
         }
+        
 
-        //public IActionResult List(int pageNumber = 1, int pageSize = 10)
-        //{
-        //    ViewBag.SelectedItemContent = "會員管理的內容";
-        //    HotelOrderContext db = new HotelOrderContext();
-
-        //    var totalItems = db.RoomMember.Count();
-        //    var totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
-
-        //    var pagedData = db.RoomMember
-        //        .Skip((pageNumber - 1) * pageSize)
-        //        .Take(pageSize)
-        //        .ToList();
-
-        //    ViewBag.TotalPages = totalPages;
-        //    ViewBag.CurrentPage = pageNumber;
-
-        //    return View(pagedData);
         //}
         public IActionResult Edit(string? id)
         {

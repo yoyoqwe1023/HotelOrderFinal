@@ -7,6 +7,7 @@
 
 </style>
 <link rel="stylesheet" href="~/css/ForAdminTable.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <section class="breadcrumb_area">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
@@ -63,26 +64,36 @@
     </div>
     <div id="selectedItemContent" class="col-xs-12 col-md-10 ">
         <!-- 這裡會顯示點選的項目的內容 -->
+            <div id="searchForm">
+            <div class="row" style="margin: 10px;">
+            @using (Html.BeginForm())
+            {
+                        @:關鍵字 @Html.TextBox("txtKeyword")
+                        <input type="submit" value="查詢" autocomplete="off">
+                        <input id="clearButton" type="button" value="清除搜尋結果">
+            }
+            </div>
 <div class="table-responsive">
                 <table class="table" style="vertical-align: middle; text-align:center">
         <thead>
             <tr>
                 @*<th>管理員ID</th>*@
-                <th>會員ID</th>
-                <th>會員姓名</th>
-                <th>會員生日</th>
-                <th>會員性別</th>
-                <th>會員身份</th>
-                <th>會員電話</th>
-                <th>電子郵件</th>
+                                <th style="width:100px;">會員編號</th>
+                                <th style ="width:100px;">會員姓名</th>
+                                <th style ="width:120px;">會員生日</th>
+                                <th style ="width:100px;">會員性別</th>
+                                <th style ="width:125px;">會員身份</th>
+                                <th style ="width:125px;">會員電話</th>
+                                <th style ="width:250px;">電子郵件</th>
                         @* <th>會員照片</th>
                 <th>會員密碼</th>
                <th>會員等級</th>*@
-                <th>會員訂單總數</th>
-                <th><a asp-action="Create" class="btn btn-primary">新增會員</a></th>
+                                <th style="width:140px;">會員訂單總數</th>
+                                <th style="width:130px;"><a asp-action="Create" class="btn btn-primary">新增會員</a></th>
             </tr>
         </thead>
         <tbody>
+                       
             @foreach (var item in Model)
             {
                 <tr>
@@ -119,8 +130,22 @@
             }
         </tbody>
     </table>
+                @if (!string.IsNullOrEmpty(ViewData["Message"] as string))
+                {
+                    <div class="text-center">
+                    <h4>@ViewData["Message"]</h4>
+                    </div>
+                }
 
+            </div>
             </div>
 </div>
     </div>
 </div>
+
+<script>
+    document.getElementById("clearButton").addEventListener("click", function () {
+        document.getElementById("txtKeyword").value = ""; // 清除關鍵字
+        document.querySelector("form").submit();
+    });
+</script>
