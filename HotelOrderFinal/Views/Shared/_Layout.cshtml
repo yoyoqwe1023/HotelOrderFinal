@@ -209,9 +209,7 @@
     <!--================ End footer Area  =================
     Optional JavaScript
     jQuery first, then Popper.js, then Bootstrap JS-->
-    @*AJAX老師說這個要留*@
-    @RenderSection("Scripts", required: false)
-
+    
     <script src="~/js/jquery-3.2.1.min.js"></script>
     <script src="~/js/popper.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
@@ -233,7 +231,9 @@
     @*@await RenderSectionAsync("Scripts",required:false)*@
 
     
-    
+    @*AJAX老師說這個要留*@
+    @RenderSection("Scripts", required: false)
+
     <script>
         // 當文件載入完成時
         $(document).ready(function () {
