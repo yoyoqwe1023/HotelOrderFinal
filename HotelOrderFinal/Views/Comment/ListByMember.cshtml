@@ -36,13 +36,27 @@
                 <p>
                     <a asp-action="Create" class="btn btn-info">請寫下您寶貴的意見</a>
                     <a asp-action="ListByMemberAll" class="btn btn-info">查看全部評價</a>
+                    @{
+                        int count = 0; decimal avgPoint = 0, totPoint = 0;
+                        foreach (var item2 in Model)
+                        {
+                            count++;
+                            totPoint += item2.CommentPoint.Value;
+                        }
+                        if (count > 0)
+                        {
+                            avgPoint = (totPoint / count);
+                        }
+                        <span style="color:#2894FF; font-size:1.5em;">　　　評點平均數:@avgPoint.ToString("N2")</span>
+                    }
                 </p>
-                <div class="d-flex flex-wrap">
+                <div class="d-flex flex-wrap" style="padding-bottom:10px">
                     @foreach (var item in Model)
                     {
                         <div class="col-4 col-1-sm-6">
-                            <div class="card" style="width: 20rem; border-radius:10px">
-                                <div class="card-body">
+                            <div class="card" style="width:400px; height:240px;  border-radius:10px;  margin-top:10px; padding-bottom:10px;">
+@*                            <div class="card" style="width: 20rem; border-radius:10px">
+*@                                <div class="card-body">
                                     <input type="hidden" value="@Html.DisplayFor(modelItem => item.CommentId)" />
                                     <h5 class="card-title">@Html.DisplayFor(modelItem => item.CommentDate)</h5>
                                     <h5 class="card-title">@Html.DisplayFor(modelItem => item.MemberId)</h5>
