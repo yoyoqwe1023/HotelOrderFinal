@@ -351,8 +351,8 @@ namespace HotelOrderFinal.Controllers
         {
             HotelOrderContext db = new HotelOrderContext();
 
-            //string test = "1";
-            //HttpContext.Session.SetString("SelectedActivityId", test);
+            string test = "1";
+            HttpContext.Session.SetString("SelectedActivityId", test);
 
             string activityId = HttpContext.Session.GetString("SelectedActivityId");
 

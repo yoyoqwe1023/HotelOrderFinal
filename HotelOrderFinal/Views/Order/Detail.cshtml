@@ -92,9 +92,9 @@
                 </table>
             </div>
         </div>
-
-        <div id="ActivityList" class="area">
-            @* <div>
+        <div id ="ActivityList">
+            @*<div class="area">
+            <div>
             <h2>活動列表</h2>
             <div class="row">
             <table  style="box-sizing: border-box ; width:100% ;text-align:center;">
@@ -126,9 +126,9 @@
             </tbody>
             </table>
             </div>
+            </div>
             </div>*@
         </div>
-
         <div class="area">
             <div>
                 <h2>優惠卷</h2>
@@ -413,7 +413,7 @@
                 const activityListDiv = document.getElementById("ActivityList");
                 //const item = data;
                 console.log(item)
-                var html = "<div><h2>活動列表</h2><div class='row'><table style='box-sizing: border-box; width:100%; text-align:center;'><tbody><tr style='background-color: #f0f0f0;'><th width='25%'>活動日期</th><th width='30%'>活動名稱</th><th width='25%'>參加人數/剩餘名額</th><th width='20%'>小計</th>></tr>";
+                var html = "<div class='area'><div><h2>活動列表</h2><div class='row'><table style='box-sizing: border-box; width:100%; text-align:center;'><tbody><tr style='background-color: #f0f0f0;'><th width='25%'>活動日期</th><th width='30%'>活動名稱</th><th width='25%'>參加人數/剩餘名額</th><th width='20%'>小計</th></tr>";
                 //const datas=JSON.parse(data);
                
                     html += "<tr>";
@@ -439,7 +439,7 @@
 
                     html += "</tr>";
 
-                    html += "</tbody></table></div>";
+                html += "</tbody></table></div></div>";
                     activityListDiv.innerHTML = html;
 
                     document.getElementById('ActivityPeople').addEventListener('change', calculateActSelecttotal);
