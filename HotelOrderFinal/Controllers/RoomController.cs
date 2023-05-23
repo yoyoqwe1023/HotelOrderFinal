@@ -92,11 +92,25 @@ namespace HotelOrderFinal.Controllers
             RoomClass room = db.RoomClass.FirstOrDefault(t => t.RoomClassId == p.RoomClassId);
             if (room != null)
             {
-                if (p.photo != null)
+                if (p.photo1 != null)
                 {
                     string photoName = Guid.NewGuid().ToString() + ".jpg";
                     string path = _enviro.WebRootPath + "/image/room/" + photoName;
-                    p.photo.CopyTo(new FileStream(path, FileMode.Create));
+                    p.photo1.CopyTo(new FileStream(path, FileMode.Create));
+                    room.RoomClassPhoto1 = photoName;
+                }
+                if (p.photo2 != null)
+                {
+                    string photoName = Guid.NewGuid().ToString() + ".jpg";
+                    string path = _enviro.WebRootPath + "/image/room/" + photoName;
+                    p.photo2.CopyTo(new FileStream(path, FileMode.Create));
+                    room.RoomClassPhoto2 = photoName;
+                }
+                if (p.photo3 != null)
+                {
+                    string photoName = Guid.NewGuid().ToString() + ".jpg";
+                    string path = _enviro.WebRootPath + "/image/room/" + photoName;
+                    p.photo3.CopyTo(new FileStream(path, FileMode.Create));
                     room.RoomClassPhoto3 = photoName;
                 }
 
