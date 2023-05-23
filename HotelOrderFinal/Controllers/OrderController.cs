@@ -351,16 +351,18 @@ namespace HotelOrderFinal.Controllers
         {
             HotelOrderContext db = new HotelOrderContext();
 
-            string test = "1";
-            HttpContext.Session.SetString("SelectedActivityId", test);
+            //string test = "1";
+            //HttpContext.Session.SetString("SelectedActivityId", test);
 
             string activityId = HttpContext.Session.GetString("SelectedActivityId");
 
             if (activityId != null)
             {
-                //var activity = db.Activity.Where(a => a.ActivityId == int.Parse(activityId)).Select(a=>a).ToList();
+                var 活動參加人數 = db.Order.Where(o => o.ActivityId == int.Parse(activityId)).Select(o => o.ActivityPeople).ToList();
+                int 活動參加總人數 = 活動參加人數.Where(x => x.HasValue).Sum(x => x.Value);
+
                 var activity = db.Activity.Find(int.Parse(activityId));
-                string json = "";
+                //string json = "";
                 COrderDetailViewModel activityItem = new COrderDetailViewModel();
                 {
                     activityItem.ActivityName = activity.ActivityName;
@@ -368,12 +370,15 @@ namespace HotelOrderFinal.Controllers
                     activityItem.ActivityCost=activity.ActivityCost;
                     DateTime? activityTime = activity.ActivityTime.GetValueOrDefault().Date;
                     activityItem.ActivityTime = activityTime;
+                    activityItem.活動參加總人數 = 活動參加總人數;
 
                 }
 
-                json = JsonSerializer.Serialize(activityItem);
-                return Json(json);
-            }else
+                //json = JsonSerializer.Serialize(activityItem);
+                //return Json(json);
+                return Json(activityItem);
+            }
+            else
             {
                 return Json(null);
             }

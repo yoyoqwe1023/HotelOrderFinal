@@ -33,7 +33,7 @@
             margin: 10px;
             text-decoration: underline;
             /*  text-decoration-style: dotted;
-                              text-decoration-color: red;*/
+                                      text-decoration-color: red;*/
         }
 
         ol {
@@ -95,37 +95,37 @@
 
         <div id="ActivityList" class="area">
             @* <div>
-        <h2>活動列表</h2>
-        <div class="row">
-        <table  style="box-sizing: border-box ; width:100% ;text-align:center;">
-        <tbody>
-        <tr style="background-color: #f0f0f0;">
-        <th width="25%">活動日期</th>
-        <th width="25%">活動名稱</th>
-        <th width="20%">參加人數</th>
-        <th width="20%">小計</th>
-        <th width="10%">刪除</th>
-        </tr>
-        <tr>
-        <td>item.ActivityTime</td>
-        <td>item.ActivityName</td>
-        <td>
-        <select id="ActivityPeople">
-        @{
+            <h2>活動列表</h2>
+            <div class="row">
+            <table  style="box-sizing: border-box ; width:100% ;text-align:center;">
+            <tbody>
+            <tr style="background-color: #f0f0f0;">
+            <th width="25%">活動日期</th>
+            <th width="25%">活動名稱</th>
+            <th width="20%">參加人數</th>
+            <th width="20%">小計</th>
+            <th width="10%">刪除</th>
+            </tr>
+            <tr>
+            <td>item.ActivityTime</td>
+            <td>item.ActivityName</td>
+            <td>
+            <select id="ActivityPeople">
+            @{
 
-        for(int i =1; i<7;i++)
-        {
-        <option value="i" >i</option>
-        }
-        }
-        </select>
-        </td>
-        <td>NT$ item.ActivityCost</td>
-        <td>刪除</td>
-        </tr>
-        </tbody>
-        </table>
-        </div>
+            for(int i =1; i<7;i++)
+            {
+            <option value="i" >i</option>
+            }
+            }
+            </select>
+            </td>
+            <td>NT$ item.ActivityCost</td>
+            <td>刪除</td>
+            </tr>
+            </tbody>
+            </table>
+            </div>
             </div>*@
         </div>
 
@@ -152,7 +152,7 @@
 
                         </tr>
                         <tr id="discountRow" style="display:none;">
-                            <th width="25%">使用優待卷折扣</th>
+                            <th width="25%">折扣後總金額</th>
                             <td id="discountAmount" class="text-center">NT$ 0</td>
                         </tr>
                     </table>
@@ -358,14 +358,18 @@
     }
 
     // 計算總金額函數
-    function calculateTotalPrice() {
+    function calculateTotalPrice(totalCost) {
         let totalPrice = 0;
+        let 活動金額 = totalCost;
+        //console.log("活動金額", 活動金額);
         $('#SessionRoomList').find('tr').each((index, row) => {
             const priceText = $(row).find('td:nth-child(5)').text();
             const itemPrice = parseInt(priceText.substring(4)); // 去除 "NT$ "
             //扣掉標題的內容
             if (!isNaN(itemPrice)) {
                 totalPrice += itemPrice;
+            } else if (活動金額 > 0) {
+                totalPrice = totalPrice + 活動金額
             }
         });
 
@@ -405,29 +409,62 @@
             headers: { 'Content-Type': 'application/json' },
         })
             .then(response => response.json())
-            .then(data => {
+            .then(item => {
                 const activityListDiv = document.getElementById("ActivityList");
-                const item = data;
-                console.log(data)
-                var html = "<div><h2>活動列表</h2><div class='row'><table style='box-sizing: border-box; width:100%; text-align:center;'><tbody><tr style='background-color: #f0f0f0;'><th width='25%'>活動日期</th><th width='25%'>活動名稱</th><th width='20%'>參加人數</th><th width='20%'>小計</th><th width='10%'>刪除</th></tr>";
+                //const item = data;
+                console.log(item)
+                var html = "<div><h2>活動列表</h2><div class='row'><table style='box-sizing: border-box; width:100%; text-align:center;'><tbody><tr style='background-color: #f0f0f0;'><th width='25%'>活動日期</th><th width='30%'>活動名稱</th><th width='25%'>參加人數/剩餘名額</th><th width='20%'>小計</th>></tr>";
+                //const datas=JSON.parse(data);
+               
+                    html += "<tr>";
+                    //html += "<td>" + item.activityTime + "</td>";
+                const formattedActivityTime = new Date(item.activityTime).toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' });
 
-                html += "<tr>";
-                html += "<td>" + item.ActivityTime + "</td>";
-                html += "<td>" + item.ActivityName + "</td>";
-             
-                html += "<td>";
-                html += "<select id='ActivityPeople'>";
-                for (var i = 1; i < 7; i++) {
-                    html += "<option value='" + i + "'>" + i + "</option>";
-                }
-                html += "</select>";
-                html += "</td>";
-                html += "<td>NT$ " + item.ActivityCost + "</td>";
-                html += "<td>刪除</td>";
-                html += "</tr>";
+                html += "<td>" + formattedActivityTime + "</td>";
 
-                html += "</tbody></table></div>";
-                activityListDiv.innerHTML = html;
+                    html += "<td>" + item.activityName + "</td>";
+
+                    html += "<td>";
+                    html += "<select id='ActivityPeople'>";
+                    var remainingPeople = item.activityPeople - item.活動參加總人數;
+
+                    for (var i = 1; i <= remainingPeople; i++) {
+                        html += "<option value='" + i + "'>" + i + "</option>";
+                    }
+                    html += "</select>";
+                    html += " /  " + remainingPeople + "</td>";
+
+                    html += "<td>NT$ <span id='totalCost'>" + 0 + "</span></td>";
+                    //html += "<td>NT$ " + totalPrice + "</td>";
+
+                    html += "</tr>";
+
+                    html += "</tbody></table></div>";
+                    activityListDiv.innerHTML = html;
+
+                    document.getElementById('ActivityPeople').addEventListener('change', calculateActSelecttotal);
+
+                    //活動人數變更計算金額
+                    function calculateActSelecttotal() {
+                        var selectedPeople = parseInt(document.getElementById('ActivityPeople').value);
+                        var totalCost = selectedPeople * item.activityCost;
+                        document.getElementById('totalCost').textContent = totalCost
+
+                        //更新到總金額內
+                        calculateTotalPrice(totalCost);
+
+                        //const 總金額字串 = calculateTotalPrice();
+                        //const 總金額 = parseInt(總金額字串.substring(4));
+
+
+                    };
+                
+
+
+                //初始執行計算
+                calculateActSelecttotal();
             });
     }
+
+
 </script>

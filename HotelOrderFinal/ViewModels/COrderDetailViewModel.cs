@@ -33,6 +33,7 @@
         public string ActivityPlace { get; set; }
         public int? ActivityPeople { get; set; }
         public string ActivityCost { get; set; }
+        public int? 活動參加總人數 { get; set; }
 
     }
 }
