@@ -62,7 +62,7 @@
                         <div id="hoteldata1" class="mx-auto row d-flex justify-content-center" style="background-color:#efefef">
                         </div>
                         <div class=" d-flex justify-content-center">
-                            <div id="map" style="width:640px; height:480px;"></div>
+                            <div id="map1" style="width:640px; height:480px;"></div>
                         </div>
                         @*容器*@
                     </div>
@@ -81,6 +81,9 @@
                 <div class="accordion-body">
                     @*容器*@
                     <div id="hoteldata2" class="mx-auto row d-flex justify-content-center" style="background-color:#efefef">
+                    </div>
+                    <div class=" d-flex justify-content-center">
+                        <div id="map2" style="width:640px; height:480px;"></div>
                     </div>
                     @*容器*@
                 </div>
@@ -165,33 +168,60 @@
         }
         window.initMap = initMap; // 將 initMap 函式指定為全局變數，使其能夠在載入 Google Maps API 時被調用
         ///////////////////////////////配合各區域的map
-        //var mapapiUrl = `https://localhost:7007/api/APIHotelIndustry/get/${hotelRegionId}`;
-        //function initMap1() {
-        //    const map = new google.maps.Map(document.getElementById("map"), {
-        //        zoom: 7,
-        //        center: new google.maps.LatLng(23.739768, 120.937298),
-        //    });
-        //    // 創建 Google Maps 地圖實例，設置縮放級別和中心點座標
+        
+        function initMap1() {
+            const map = new google.maps.Map(document.getElementById("map1"), {
+                zoom: 10,
+                center: new google.maps.LatLng(24.88577858311454, 121.52141365726166),
+            });
+            // 創建 Google Maps 地圖實例，設置縮放級別和中心點座標
 
-        //    fetch(mapapiUrl, { method: 'Get' }) // 使用 fetch 函式發起 GET 請求，獲取資料
-        //        .then((response) => response.json()) // 將回傳的響應轉換成 JSON 格式
-        //        .then(data => { // 處理獲取到的資料
-        //            console.log("Data:", data);
-        //            data.forEach((location) => { // 使用 forEach 迴圈迭代資料陣列中的每個項目
-        //                const { lat, lng } = location; // 從項目中獲取緯度和經度
-        //                const position = new google.maps.LatLng(lat, lng); // 創建 Google Maps 的 LatLng 物件，表示地點的座標
+            fetch(mapapiUrl, { method: 'Get' }) // 使用 fetch 函式發起 GET 請求，獲取資料
+                .then((response) => response.json()) // 將回傳的響應轉換成 JSON 格式
+                .then(data => { // 處理獲取到的資料
+                    console.log("Data:", data);
+                    data.forEach((location) => { // 使用 forEach 迴圈迭代資料陣列中的每個項目
+                        const { lat, lng } = location; // 從項目中獲取緯度和經度
+                        const position = new google.maps.LatLng(lat, lng); // 創建 Google Maps 的 LatLng 物件，表示地點的座標
 
-        //                new google.maps.Marker({ // 創建地圖標記物件
-        //                    position: position, // 設定標記的位置座標
-        //                    map: map, // 將標記加入地圖
-        //                });
-        //            });
-        //        })
-        //        .catch((error) => { // 處理請求發生的錯誤
-        //            console.log("Fetch Error:", error);
-        //        });
-        //}
-        //window.initMap = initMap;
+                        new google.maps.Marker({ // 創建地圖標記物件
+                            position: position, // 設定標記的位置座標
+                            map: map, // 將標記加入地圖
+                        });
+                    });
+                })
+                .catch((error) => { // 處理請求發生的錯誤
+                    console.log("Fetch Error:", error);
+                });
+        }
+        window.initMap = initMap1;
+
+        function initMap2() {
+            const map = new google.maps.Map(document.getElementById("map2"), {
+                zoom: 10,
+                center: new google.maps.LatLng(24.128982813655696, 120.66686597596934),
+            });
+            // 創建 Google Maps 地圖實例，設置縮放級別和中心點座標
+
+            fetch(mapapiUrl, { method: 'Get' }) // 使用 fetch 函式發起 GET 請求，獲取資料
+                .then((response) => response.json()) // 將回傳的響應轉換成 JSON 格式
+                .then(data => { // 處理獲取到的資料
+                    console.log("Data:", data);
+                    data.forEach((location) => { // 使用 forEach 迴圈迭代資料陣列中的每個項目
+                        const { lat, lng } = location; // 從項目中獲取緯度和經度
+                        const position = new google.maps.LatLng(lat, lng); // 創建 Google Maps 的 LatLng 物件，表示地點的座標
+
+                        new google.maps.Marker({ // 創建地圖標記物件
+                            position: position, // 設定標記的位置座標
+                            map: map, // 將標記加入地圖
+                        });
+                    });
+                })
+                .catch((error) => { // 處理請求發生的錯誤
+                    console.log("Fetch Error:", error);
+                });
+        }
+        window.initMap = initMap2;
 
         ///////////////////////////////////////////////////////////////////////////////////////////////
         //研究中，為動態顯示圖標所對應的資料 使用了JQuery
