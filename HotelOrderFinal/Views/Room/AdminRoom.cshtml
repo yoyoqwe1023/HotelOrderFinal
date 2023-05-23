@@ -106,8 +106,10 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ( var item in Model )
-        {
+        @{
+                    var customOrder = new List<string>{ "簡奢","山嵐", "日式", "北歐","城堡", "總統" };
+                       foreach (var item in Model.OrderBy(x => customOrder.FindIndex(c => x.RoomClassName.Contains(c))))
+                       {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.RoomClassId)
@@ -147,6 +149,7 @@
                     @Html.ActionLink("刪除", "Delete", new {id=item.RoomClassId},new { @class="btn btn-danger", onclick="return confirm('確定要刪除嗎?')"})
                 </td>
             </tr>
+        }
         }
     </tbody>
 </table>

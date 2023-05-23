@@ -39,8 +39,8 @@ table {
 .table th, .table td {
     padding: 0.75rem;
     vertical-align: middle;
+    text-align: center;
     border-top: 1px solid #e9ecef;
-    
 }
 table td.member-id {
     background-color: #f2f2f2; /* 設定灰色背景顏色 */
