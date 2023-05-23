@@ -134,30 +134,69 @@
         //window.initMap = initMap;
         //////////////////////////////////////////////////////////////////////////////////////////////////
         var mapapiUrl = "https://localhost:7007/api/APIHotelIndustry/get";
+
         function initMap() {
             const map = new google.maps.Map(document.getElementById("map"), {
                 zoom: 7,
                 center: new google.maps.LatLng(23.739768, 120.937298),
             });
-            //連接自己的API區塊(未寫)
-            fetch(mapapiUrl, { method: 'Get' })
-                .then((response) => response.json())
-                .then(data => {
+            // 創建 Google Maps 地圖實例，設置縮放級別和中心點座標
+
+            fetch(mapapiUrl, { method: 'Get' }) // 使用 fetch 函式發起 GET 請求，獲取資料
+                .then((response) => response.json()) // 將回傳的響應轉換成 JSON 格式
+                .then(data => { // 處理獲取到的資料
                     console.log("Data:", data);
-                    data.forEach((location)=> {
-                        const { lat, lng } = location;
-                        const position = new google.maps.LatLng(lat, lng);
-                        new google.maps.Marker({
-                            position: position,
-                            map: map,
+                    data.forEach((location) => { // 使用 forEach 迴圈迭代資料陣列中的每個項目
+                        const { lat, lng } = location; // 從項目中獲取緯度和經度
+                        const position = new google.maps.LatLng(lat, lng); // 創建 Google Maps 的 LatLng 物件，表示地點的座標
+                        new google.maps.Marker({ // 創建地圖標記物件
+                            position: position, // 設定標記的位置座標
+                            map: map, // 將標記加入地圖
                         });
                     });
                 })
-          .catch ((error) => {
-            console.log("Fetch Error:", error);
-          });
+                .catch((error) => { // 處理請求發生的錯誤
+                    console.log("Fetch Error:", error);
+                });
         }
-        window.initMap = initMap;
+
+        window.initMap = initMap; // 將 initMap 函式指定為全局變數，使其能夠在載入 Google Maps API 時被調用
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////
+        function selectMarker(i) {
+            marker[i].addListener('click', function () { // 為第 i 個標記添加點擊事件監聽器 原先相關的寫法是將data以陣列的形式輸出(不確定是否能用像我一樣的寫法，或者可以考慮用hotelId對應?)
+                // 設定 .info 區塊的內容
+                $(".info .hotel_link img").attr("src", markerdata[i]['img']);
+                //決定是否輸出照片
+                if (markerdata[i]['img'] == "") {
+                    $(".info .hotel_link img").css("display", "none");
+                } else {
+                    $(".info .hotel_link img").css("display", "block");
+                }
+                //輸出飯店名字?
+                $(".info .name a").text(markerdata[i]['name'].slice(markerdata[i]['name'].indexOf("-", 3) + 1));
+                //輸出飯店敘述與地址 此處為class:middle區塊
+                $(".info .middle .lead").html(markerdata[i]['post_code'] + " " + markerdata[i]['address'] + "<br /><br />" + markerdata[i]['description']);
+                //輸出底下的飯店電話按鈕 此處為class:bottom區塊
+                $(".info .bottom .tel .pc-fix").text("電話予約：" + markerdata[i]['tel']);
+                //輸出空房or飯店電話相關?
+                $(".info .bottom .tel .sp-fix a").attr("href", "tel:" + markerdata[i]['tel']);
+                $(".info .hotel_link").each(function () {
+                    $(this).attr("href", "/" + markerdata[i]['id'] + "/");
+                });
+                // 根據條件顯示或隱藏 .info 區塊中的元素
+                if (removeReserveIds.includes(markerdata[i]['id']) == true) {
+                    $(".info .bottom .reserve").hide();
+                } else {
+                    $(".info .bottom .reserve").show();
+                }
+                //輸出空房預約按鈕?
+                $(".info .bottom .reserve p").html('<a href="javascript:void(0)" data-hid="' + markerdata[i]['hid'] + '" data-area="' + markerdata[i]['area'] + '" data-hotelid="' + markerdata[i]['id'] + '" class="reserve-button">空室検索・宿泊予約</a>');
+                //css排版相關
+                $(".refine-map-body .map").css("width", "882px");
+                $(".refine-map-body .info").css("display", "block");
+            });
+        }
         ///////////////////////////////////////////////////////////////////////////////////////////////
         function catchid1() {
             //抓hotelregionid
