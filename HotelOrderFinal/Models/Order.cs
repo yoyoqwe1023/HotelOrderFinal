@@ -14,7 +14,7 @@ namespace HotelOrderFinal.Models
 
         public string OrderId { get; set; }
         public string MemberId { get; set; }
-        public DateTime? OrderDate { get; set; }
+        public DateTime OrderDate { get; set; }
         public decimal? OrderTotalPrice { get; set; }
         public int? CheckInPeople { get; set; }
         public string OrderRemark { get; set; }
