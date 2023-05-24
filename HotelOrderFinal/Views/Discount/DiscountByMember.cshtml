@@ -20,23 +20,26 @@
 <table class="table">
     <thead>
         <tr>
-            @* <th>
-            @Html.DisplayNameFor(model => model.DiscountDetailId)
-            </th>*@
+            <td>
+                序
+            </td>
             @*<th>
                 @Html.DisplayNameFor(model => model.DiscountId)
             </th>*@
+
             <th>
-                @Html.DisplayNameFor(model => model.DiscountStart)
+                優惠開始時間
+                @*@Html.DisplayNameFor(model => model.DiscountStart)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DiscountEnd)
-            </th>
-                      
+                優惠結束時間
+                @*@Html.DisplayNameFor(model => model.DiscountEnd)*@
+            </th>                      
             <th>
-                @Html.DisplayNameFor(model => model.DiscountUse)
+                優惠是否使用
+                @*@Html.DisplayNameFor(model => model.DiscountUse)*@
             </th>
-            @*<th>
+            @*@<th>
             @Html.DisplayNameFor(model => model.MemberId)
             </th>*@
             
@@ -44,34 +47,41 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                @* <td>
-            @Html.DisplayFor(modelItem => item.DiscountId)
-            </td>*@
-              @*  <td>
-                    @Html.DisplayFor(modelItem => item.DiscountId)
-                </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.DiscountStart)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DiscountEnd)
-                </td>
-                
-                <td>
-                    @Html.DisplayFor(modelItem => item.DiscountUse)
-                </td>
-                @*<td>
+        @{
+            int count = 0;
+                @foreach (var item in Model){
+                count++;
+                <tr>
+                   <td>
+                        @count
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DiscountStart)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DiscountEnd)
+                    </td>                
+                    <td>
+                        @*@Html.DisplayFor(modelItem => item.DiscountUse)*@
+                        @{
+                            string s1 = "";
+                            if (item.DiscountUse == 0)
+                            { s1 = "可使用"; }
+                            else if(item.DiscountUse == 1)
+                            { s1 = "已使用"; }                            
+                        }
+                        @Html.Raw(s1)                            
+                    </td>
+                    @*<td>
             @Html.DisplayFor(modelItem => item.MemberId)
             </td>*@
-                
-                <td>
+                    
+                    @*<td>
                     @Html.ActionLink("修改", "Edit", new {  id=item.DiscountId  }) |
                     @Html.ActionLink("刪除", "Delete","Discount", new {  id=item.DiscountId },new {onclick="return confirm('確定刪除嗎?')"})
-                </td>
-            </tr>
+                </td>*@
+                </tr>
+        }
         }
     </tbody>
 </table>
