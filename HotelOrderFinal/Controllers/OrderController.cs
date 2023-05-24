@@ -391,7 +391,6 @@ namespace HotelOrderFinal.Controllers
 
             return Json(discountList);
 
-
         }
 
         //進入訂單明細讀取活動session
