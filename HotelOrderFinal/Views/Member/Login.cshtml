@@ -28,10 +28,10 @@
 
         <div class="form-group">
             <button type="submit" class="btn btn-primary">登入</button>
-            <a href="@Url.Action("ForgotPassword", "Member")" class="btn btn-primary">忘記密碼</a>
-            <button type="button" class="btn btn-primary" onclick="demoLogin() ">Demo</button>
-            <button type="button" class="btn btn-primary" onclick="demoLogin() ">Demo</button>
-            <button type="button" class="btn btn-primary" onclick="demoLogin() ">Demo</button>
+            <a href="@Url.Action("ForgotPassword", "Member")" class="btn btn-primary">忘記密碼</a><br><br>
+            <button type="button" class="btn btn-primary" onclick="demoLogin1() ">Demo</button>
+            <button type="button" class="btn btn-primary" onclick="demoLogin2() ">Demo(註冊)</button>
+            <button type="button" class="btn btn-primary" onclick="demoLogin3() ">Demo</button>
         </div>
     }
     @{
@@ -46,17 +46,17 @@
     }
 
     <script>
-        function demoLogin() {
+        function demoLogin1() {
             // 設定手機號碼和密碼欄位的值
             document.getElementById("MemberPhone").value = "0936582783";
             document.getElementById("MemberPassword").value = "64V7VpFc";
         }
-                function demoLogin() {
+                function demoLogin2() {
             // 設定手機號碼和密碼欄位的值
-            document.getElementById("MemberPhone").value = "0936582783";
-            document.getElementById("MemberPassword").value = "64V7VpFc";
+            document.getElementById("MemberPhone").value = "0978999999";
+            document.getElementById("MemberPassword").value = "AAaa1122";
         }
-        function demoLogin() {
+        function demoLogin3() {
             // 設定手機號碼和密碼欄位的值
             document.getElementById("MemberPhone").value = "0936582783";
             document.getElementById("MemberPassword").value = "64V7VpFc";
