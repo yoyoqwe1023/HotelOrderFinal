@@ -330,12 +330,15 @@
                                 //執行刪除function
                                 deleteSessionData(extractedFId);
 
-                                //更新價格
+                                //更新總金額
                                 //const totalPriceCell = $('<td></td>').addClass('text-right').text('NT$ ' + totalPrice);
                                 //$('#OrderDetailTotalPrice').empty().append(totalPriceCell);
-                                const totalPriceCell = $('#OrderDetailTotalPrice');
-                                totalPriceCell.text('NT$ ' + totalPrice);
-                                showDiscount(totalPrice);
+                                //const totalPriceCell = $('#OrderDetailTotalPrice');
+                                //totalPriceCell.text('NT$ ' + totalPrice);
+                                //showDiscount(totalPrice);
+
+                                calculateTotalPrice();
+                                console.log("刪除房間有執行到嗎");
 
                                 // 購物車內容為空，回到訂房首頁(目前無作用)
                                 //if (totalPriceCell === 0) {
@@ -356,9 +359,13 @@
                     //const totalPriceCell = $('<td></td>').addClass('text-right').text('NT$ ' + totalPrice);
                     //$('#OrderDetailTotalPrice').empty().append(totalPriceCell);
 
+                    //一開始的房間列表的總額
                     const totalPriceCell = $('#OrderDetailTotalPrice');
                     totalPriceCell.text('NT$ ' + totalPrice);
                     showDiscount(totalPrice);
+
+                    ////呼叫總額計算
+                    //calculateTotalPrice()
                 }
             });
     }
@@ -373,22 +380,36 @@
     }
 
     // 計算總金額函數
-    function calculateTotalPrice(totalCost) {
+    function calculateTotalPrice() {
         let totalPrice = 0;
-        let 活動金額 = totalCost;
-        console.log("1", 活動金額);
+        let 房間列表總額 =0;
+        let 活動總額 = 0;
+        
+        //抓房間列表的小計欄位
         $('#SessionRoomList').find('tr').each((index, row) => {
-            const priceText = $(row).find('td:nth-child(5)').text();
-            const itemPrice = parseInt(priceText.substring(4)); // 去除 "NT$ "
+            const priceText = $(row).find('td:nth-child(5)').text();//抓第5列
+            const roomPrice = parseInt(priceText.substring(4)); // 去除 "NT$ "
+           
             //扣掉標題的內容
-            if (!isNaN(itemPrice)) {
-                totalPrice += itemPrice;
-                console.log("2", 活動金額);
-            } else if (!isNaN(活動金額) && 活動金額 > 0) {
-                totalPrice = totalPrice + 活動金額
-                console.log("3", 活動金額);
-            }
+            if (!isNaN(roomPrice)) {
+                房間列表總額 += roomPrice;
+                console.log("去掉標題內容", 房間列表總額);
+            } 
         });
+
+        //抓活動的小計欄位
+        $('#ActivityList').find('tr').each((index, row) => {
+            const CostText = $(row).find('td:nth-child(4)').text();
+            const actPrice = parseInt(CostText.substring(4));
+            console.log("2", actPrice);
+            //扣掉標題的內容
+            if (!isNaN(actPrice)) {
+                活動總額 += actPrice;
+                console.log("2", 活動總額);
+            } 
+        });
+
+        totalPrice = 房間列表總額 + 活動總額;
 
         const totalPriceCell = $('#OrderDetailTotalPrice');
         totalPriceCell.text('NT$ ' + totalPrice);
@@ -445,7 +466,7 @@
                 html += "<select id='ActivityPeople'name='ActivityPeople'>";
                 var remainingPeople = item.activityPeople - item.活動參加總人數;
 
-                for (var i = 1; i <= remainingPeople; i++) {
+                for (var i = 0; i <= remainingPeople; i++) {
                     html += "<option value='" + i + "'>" + i + "</option>";
                 }
                 html += "</select>";
@@ -468,11 +489,11 @@
                     document.getElementById('totalCost').textContent = totalCost
                     console.log("4", totalCost);
                     //更新到總金額內
-                    if (!isNaN(totalCost) && totalCost > 0) {
-                        calculateTotalPrice(totalCost);
-                        console.log("5");
-                    }
-                    
+                    //if (!isNaN(totalCost) && totalCost > 0) {
+                    //    calculateTotalPrice(totalCost);
+                    //    console.log("5");
+                    //}
+                    calculateTotalPrice();
 
                     //const 總金額字串 = calculateTotalPrice();
                     //const 總金額 = parseInt(總金額字串.substring(4));
@@ -480,7 +501,7 @@
                 };
 
                 //初始執行計算
-                calculateActSelecttotal();
+                //calculateActSelecttotal();
             });
     }
 
@@ -501,6 +522,7 @@
                     console.log(optionHtml);
                     selectElement.innerHTML += optionHtml;
                 });
+                calculateTotalPrice()
             });
     }
 
