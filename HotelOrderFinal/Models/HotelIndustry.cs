@@ -20,6 +20,8 @@ namespace HotelOrderFinal.Models
         public string HotelAddress { get; set; }
         public string HotelImage { get; set; }
         public string HotelImageDiscription { get; set; }
+        public string Lat { get; set; }
+        public string Lng { get; set; }
 
         public virtual HotelRegionName HotelRegion { get; set; }
         public virtual ICollection<MultipleHotelFacility> MultipleHotelFacility { get; set; }
