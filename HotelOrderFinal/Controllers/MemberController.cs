@@ -63,7 +63,7 @@ namespace HotelOrderFinal.Controllers
             if (member == null)
             {
                 //ViewBag.Message = "帳密錯誤，登入失敗";
-                TempData["ErrorMessage"] = "帳密錯誤，登入失敗";
+                TempData["MemberErrorMessage"] = "帳密錯誤，登入失敗";
                
                 if (!string.IsNullOrEmpty(returnUrl))
                 {
