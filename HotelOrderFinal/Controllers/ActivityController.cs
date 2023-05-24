@@ -73,7 +73,7 @@ namespace HotelOrderFinal.Controllers
         {
  
            HttpContext.Session.SetString("ActivityId", activityid.ToString());
-            string ac = HttpContext.Session.GetString("ActivityId");
+            //string ac = HttpContext.Session.GetString("ActivityId");
 
             return new EmptyResult();
         }

@@ -25,13 +25,17 @@
         public decimal? DiscountDiscount { get; set; }
         public bool? DiscountExist { get; set; }
 
+
+        public int? ActivityPeople { get; set; }//參加活動的人數
+
+        //活動
         public int ActivityId { get; set; }
         public string ActivityName { get; set; }
         public string ActivityImage { get; set; }
         public string ActivityDirections { get; set; }
         public DateTime? ActivityTime { get; set; }
         public string ActivityPlace { get; set; }
-        public int? ActivityPeople { get; set; }
+        
         public string ActivityCost { get; set; }
         public int? 活動參加總人數 { get; set; }
 
