@@ -308,6 +308,8 @@ namespace HotelOrderFinal.Controllers
                 {
                     cust.MemberName = model.MemberName;
                     cust.MemberEmail = model.MemberEmail;
+                    cust.MemberBirthday = model.MemberBirthday;
+                    cust.MemberGender = model.MemberGender;
                     db.SaveChanges ( );
                 }
                 TempData["SuccessMessage"] = "修改成功！";

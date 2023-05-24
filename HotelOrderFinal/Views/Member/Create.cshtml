@@ -551,7 +551,8 @@
 
                 <div class="form-group">
                     <input type="submit" onclick="valcheck()" value="註冊" class="btn btn-primary" />
-                    <button type="button" onclick="autofill()" class="btn btn-primary">Demo</button>              
+                    <button type="button" onclick="autofill1()" class="btn btn-primary">Demo(會員)</button>
+                    <button type="button" onclick="autofill2()" class="btn btn-primary">Demo(活動)</button>
                 </div>
             </div>
         </div>
@@ -559,22 +560,6 @@
 }
 
 <div class="col-3"></div>
-@*<div>
-    <a asp-controller="Home" asp-action="Index">取消</a>
-</div>*@
-
-@*<script type="text/javascript">
-    function valcheck() {
-        alert("test");
-        return;
-    }
-
-</script>
-
-*@
-
-
-
 
 @{
     var errorMessage = TempData["ErrorMessageSameAccount"] as string;
@@ -586,16 +571,25 @@
         alert("帳號已註冊，請重新確認，謝謝!");
     </script>
 }
-
-
-
-<script>
-
-    function autofill() {
+    <script>
+    function autofill1() {
         document.getElementById("MemberName").value = "林哈娜";
         document.getElementById("MemberIdentity").value = "A221144467";
+        document.getElementById("MemberBirthday").value = "1991-12-12";
+        document.querySelector('input[name="MemberGender"][value="female"]').checked = true;
         document.getElementById("CMemberPhone").value = "0978999999";
         document.getElementById("MemberEmail").value = "imfufu1029@gmail.com";
         document.getElementById("CMemberPassword").value = "AAaa1122";
     }
+    function autofill2() {
+        document.getElementById("MemberName").value = "廖樸逞";
+        document.getElementById("MemberIdentity").value = "E144617526";
+        document.getElementById("MemberBirthday").value = "1990-10-10";
+        document.querySelector('input[name="MemberGender"][value="male"]').checked = true;
+        document.getElementById("CMemberPhone").value = "0968000595";
+        document.getElementById("MemberEmail").value = "mason3491@hotmail.com";
+        document.getElementById("CMemberPassword").value = "U33dBsLF";
+    }
+
 </script>
+
