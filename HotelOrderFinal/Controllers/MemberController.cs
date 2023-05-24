@@ -32,38 +32,38 @@ namespace HotelOrderFinal.Controllers
         {
             //驗證會員登入是否又錯誤，找不到該會員會回到首頁
 
-            if (HttpContext.Session.GetString("UserID") == null)
+            if ( HttpContext.Session.GetString ( "UserID" ) == null )
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction ( "Index" , "Home" );
             }
-            id = HttpContext.Session.GetString("UserID");
-            db = new HotelOrderContext();
-            RoomMember cust = db.RoomMember.FirstOrDefault(t => t.MemberId == id);
-            if (cust == null)
-                return RedirectToAction("Index", "Home");
-            return View(cust);
+            id = HttpContext.Session.GetString ( "UserID" );
+            db = new HotelOrderContext ( );
+            RoomMember cust = db.RoomMember.FirstOrDefault ( t => t.MemberId == id );
+            if ( cust == null )
+                return RedirectToAction ( "Index" , "Home" );
+            return View ( cust );
         }
-        public IActionResult MyAccount()
+        public IActionResult MyAccount ( )
         {
-            return PartialView("_MyAccount");
+            return PartialView ( "_MyAccount" );
         }
         //【登入】==========================================================================================
-        public IActionResult Login()
+        public IActionResult Login ( )
         {
-            return View();
+            return View ( );
         }
 
         [HttpPost]
-        public IActionResult Login(RoomMember model)
+        public IActionResult Login ( RoomMember model )
         {
-            db = new HotelOrderContext();
+            db = new HotelOrderContext ( );
             //HttpContext.Session.SetString("LayoutMessage", "_LayoutMember");
             var member = db.RoomMember.Where(o => o.MemberPhone == model.MemberPhone && o.MemberPassword == model.MemberPassword).FirstOrDefault();
             var returnUrl = HttpContext.Session.GetString("ReturnUrl");
             if (member == null)
             {
                 //ViewBag.Message = "帳密錯誤，登入失敗";
-                TempData["ErrorMessage"] = "帳密錯誤，登入失敗";
+                TempData["MemberErrorMessage"] = "帳密錯誤，登入失敗";
                
                 if (!string.IsNullOrEmpty(returnUrl))
                 {
@@ -75,10 +75,10 @@ namespace HotelOrderFinal.Controllers
                 return RedirectToAction("Index", "Home");
             }
             ViewBag.Message = model.MemberName + "，歡迎光臨";
-            TempData["SuccessMessage"] = model.MemberName + "，歡迎光臨";
+            TempData ["SuccessMessage"] = model.MemberName + "，歡迎光臨";
             // 將使用者名字存入 ViewBag 或 ViewData 中
             ViewBag.UserName = model.MemberName;
-            ViewData["UserID"] = member.MemberId;
+            ViewData ["UserID"] = member.MemberId;
 
             HttpContext.Session.SetString("UserName", member.MemberName);
             HttpContext.Session.SetString("UserID", member.MemberId);
@@ -103,10 +103,10 @@ namespace HotelOrderFinal.Controllers
 
         //【忘記密碼】==========================================================================================
 
-        public IActionResult ForgotPassword()
+        public IActionResult ForgotPassword ( )
         {
             // 處理密碼重製
-            return View();
+            return View ( );
         }
         //[HttpPost]  //用ajax方法請求回傳值跟form/submit是無相關的兩條路, 使用時要分清楚
         [Route("Member/find")]
@@ -195,39 +195,39 @@ namespace HotelOrderFinal.Controllers
 
         //【新增】==========================================================================================
         // GET: MemberController/Create
-        public IActionResult Create()
+        public IActionResult Create ( )
         {
-            return PartialView();
+            return PartialView ( );
         }
 
         // POST: MemberController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(RoomMember model)
+        public IActionResult Create ( RoomMember model )
         {
-            if (!ModelState.IsValid)
+            if ( !ModelState.IsValid )
             {
-                return PartialView(model);
+                return PartialView ( model );
             }
-                  
+
             string memberID_ = string.Empty;
             int maxMemberID = 0;
             model.AdminId = "AD00010";
             //性別處理
             string gender = model.MemberGender;
-            string genderText = (gender == "male") ? "男" : "女";
+            string genderText = ( gender == "male" ) ? "男" : "女";
             //生日處理
             DateTime birthday = model.MemberBirthday.Value;
 
             try
             {
-                db = new HotelOrderContext();
+                db = new HotelOrderContext ( );
 
                 //自動產生MemberID
-                var q = db.RoomMember.Select(x => x.MemberId).ToList();
-                int count = q.Count();
-                maxMemberID = (count > 0) ? Convert.ToInt32(q.Max().Substring(2)) : 0;
-                memberID_ = (count == 0) ? "MB00000" : "MB" + (maxMemberID + 1).ToString().PadLeft(5, '0');
+                var q = db.RoomMember.Select ( x => x.MemberId ).ToList ( );
+                int count = q.Count ( );
+                maxMemberID = ( count > 0 ) ? Convert.ToInt32 ( q.Max ( ).Substring ( 2 ) ) : 0;
+                memberID_ = ( count == 0 ) ? "MB00000" : "MB" + ( maxMemberID + 1 ).ToString ( ).PadLeft ( 5 , '0' );
                 model.MemberId = memberID_;
                 // 設置性別屬性
                 model.MemberGender = genderText;
@@ -243,14 +243,14 @@ namespace HotelOrderFinal.Controllers
                 }
 
 
-                DiscountDetail discountDetail = new DiscountDetail();
+                DiscountDetail discountDetail = new DiscountDetail ( );
                 discountDetail.MemberId = memberID_;
                 discountDetail.DiscountId = 1;
                 discountDetail.DiscountStart = DateTime.Now;
-                discountDetail.DiscountEnd = DateTime.Now.AddYears(1);
+                discountDetail.DiscountEnd = DateTime.Now.AddYears ( 1 );
                 discountDetail.DiscountUse = 0;
 
-                db.DiscountDetail.Add(discountDetail);
+                db.DiscountDetail.Add ( discountDetail );
 
                 db.Add(model);
                 db.SaveChanges();
@@ -258,10 +258,10 @@ namespace HotelOrderFinal.Controllers
                 TempData["SuccessMessage"] = "註冊成功！";
                 return RedirectToAction("RegistrationSuccess");
             }
-            catch (Exception ex)
+            catch ( Exception ex )
             {
-                Console.WriteLine(ex.ToString());
-                return PartialView();
+                Console.WriteLine ( ex.ToString ( ) );
+                return PartialView ( );
                 //return Json(new
                 //{
                 //    success = false,
@@ -279,43 +279,43 @@ namespace HotelOrderFinal.Controllers
 
         //【修改】==========================================================================================
         // GET: MemberController/Edit/5
-        public IActionResult Edit(string id)
+        public IActionResult Edit ( string id )
         {
-            if (HttpContext.Session.GetString("UserID") == null)
+            if ( HttpContext.Session.GetString ( "UserID" ) == null )
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction ( "Index" , "Home" );
             }
 
-            id = HttpContext.Session.GetString("UserID");
+            id = HttpContext.Session.GetString ( "UserID" );
 
-            db = new HotelOrderContext();
-            RoomMember cust = db.RoomMember.FirstOrDefault(t => t.MemberId == id);
-            if (cust == null)
-                return RedirectToAction("Index", "Home");
-            return View(cust);
+            db = new HotelOrderContext ( );
+            RoomMember cust = db.RoomMember.FirstOrDefault ( t => t.MemberId == id );
+            if ( cust == null )
+                return RedirectToAction ( "Index" , "Home" );
+            return View ( cust );
         }
 
         // POST: MemberController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(RoomMember model)
+        public IActionResult Edit ( RoomMember model )
         {
             try
             {
-                db = new HotelOrderContext();
-                RoomMember cust = db.RoomMember.FirstOrDefault(t => t.MemberId == model.MemberId);
-                if (cust != null)
+                db = new HotelOrderContext ( );
+                RoomMember cust = db.RoomMember.FirstOrDefault ( t => t.MemberId == model.MemberId );
+                if ( cust != null )
                 {
                     cust.MemberName = model.MemberName;
                     cust.MemberEmail = model.MemberEmail;
-                    db.SaveChanges();
+                    db.SaveChanges ( );
                 }
                 TempData["SuccessMessage"] = "修改成功！";
                 return RedirectToAction("EditSuccess", "Member");
             }
             catch
             {
-                return View();
+                return View ( );
             }
         }
 
@@ -330,27 +330,27 @@ namespace HotelOrderFinal.Controllers
         //【修改密碼】==========================================================================================
 
 
-        public IActionResult EditPassword(string UserID)
+        public IActionResult EditPassword ( string UserID )
         {
- 
-            if (HttpContext.Session.GetString("UserID") == null)
+
+            if ( HttpContext.Session.GetString ( "UserID" ) == null )
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction ( "Index" , "Home" );
             }
 
-            UserID = HttpContext.Session.GetString("UserID");
+            UserID = HttpContext.Session.GetString ( "UserID" );
 
-            db = new HotelOrderContext();
-            RoomMember cust = db.RoomMember.Where(t => t.MemberId == UserID).FirstOrDefault();
-   
-            if (cust == null)
-                return RedirectToAction("Index", "Home");
-            return View(cust);
+            db = new HotelOrderContext ( );
+            RoomMember cust = db.RoomMember.Where ( t => t.MemberId == UserID ).FirstOrDefault ( );
+
+            if ( cust == null )
+                return RedirectToAction ( "Index" , "Home" );
+            return View ( cust );
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditPassword(ChangePasswordViewModel change)
+        public IActionResult EditPassword ( ChangePasswordViewModel change )
         {
             db = new HotelOrderContext();
                RoomMember cust = db.RoomMember.Where(o => o.MemberId == change.UserId).FirstOrDefault();
@@ -364,7 +364,7 @@ namespace HotelOrderFinal.Controllers
                 TempData["ErrorMessageOldPassword"] = "舊密碼不正確";
                 return View("EditPassword", "model");
             }
-            if (change.NewPassword != change.ReNewPassword)
+            if ( change.NewPassword != change.ReNewPassword )
             {
                 ModelState.AddModelError("ReNewPassword", "新密碼兩次輸入不一致");
                 TempData["ErrorMessageReNewPassword"] = "新密碼兩次輸入不一致";
@@ -393,43 +393,43 @@ namespace HotelOrderFinal.Controllers
 
 
         //【登出】==========================================================================================
-        public IActionResult Logout()
+        public IActionResult Logout ( )
         {
             // 登出
 
-            HttpContext.Session.Clear();
-            HttpContext.Session.SetString("LayoutMessage", "_Layout");
+            HttpContext.Session.Clear ( );
+            HttpContext.Session.SetString ( "LayoutMessage" , "_Layout" );
 
             // 重新導向至首頁
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction ( "Index" , "Home" );
         }
 
         //【刪除】==========================================================================================
         // GET: MemberController/Delete/5
-        public IActionResult Delete(int id)
+        public IActionResult Delete ( int id )
         {
-            return View();
+            return View ( );
         }
 
         // POST: MemberController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Delete(int id, IFormCollection collection)
+        public IActionResult Delete ( int id , IFormCollection collection )
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction ( nameof ( Index ) );
             }
             catch
             {
-                return View();
+                return View ( );
             }
         }
 
 
-//【歷史訂單】==========================================================================================
+        //【歷史訂單】==========================================================================================
 
-public IActionResult ShoppingCar(int id)
+        public IActionResult ShoppingCar ( int id )
         {
             //沒有資料庫的時候測試用
             //List<Order> orders = new List<Order>();
@@ -445,40 +445,40 @@ public IActionResult ShoppingCar(int id)
             //    order.OrderRemark = string.Empty;
             //    orders.Add(order);
             //}
-            db = new HotelOrderContext();
+            db = new HotelOrderContext ( );
 
-            List<Order> orders = db.Order.Select(o =>new Order
-            { 
-                MemberId = o.MemberId,
-                OrderId = o.OrderId,
-                OrderDate = o.OrderDate,
-                OrderTotalPrice = o.OrderTotalPrice,
-                CheckInPeople = o.CheckInPeople,
-                OrderRemark = o.OrderRemark
-            }).Where(t => t.MemberId == HttpContext.Session.GetString("UserID")).ToList();
-
-            List<ShowOderData> ShowOrders = orders.Select(o => new ShowOderData
+            List<Order> orders = db.Order.Select ( o => new Order
             {
-                MemberId = o.MemberId,
-                OrderId = o.OrderId,
-                OrderDate = o.OrderDate.ToString("yyyy/MM/dd"),
-                CheckInPeople=o.CheckInPeople,
-                OrderTotalPrice = (int)o.OrderTotalPrice,
-                OrderRemark=o.OrderRemark
-            }).ToList();
+                MemberId = o.MemberId ,
+                OrderId = o.OrderId ,
+                OrderDate = o.OrderDate ,
+                OrderTotalPrice = o.OrderTotalPrice ,
+                CheckInPeople = o.CheckInPeople ,
+                OrderRemark = o.OrderRemark
+            } ).Where ( t => t.MemberId == HttpContext.Session.GetString ( "UserID" ) ).ToList ( );
 
-            return View(ShowOrders);
+            List<ShowOderData> ShowOrders = orders.Select ( o => new ShowOderData
+            {
+                MemberId = o.MemberId ,
+                OrderId = o.OrderId ,
+                OrderDate = o.OrderDate,
+                CheckInPeople = o.CheckInPeople ,
+                OrderTotalPrice = ( int ) o.OrderTotalPrice ,
+                OrderRemark = o.OrderRemark
+            } ).ToList ( );
+
+            return View ( ShowOrders );
         }
 
 
-        public IActionResult MemberTerms(int id)
+        public IActionResult MemberTerms ( int id )
         {
-            return View();
+            return View ( );
         }
 
-        public IActionResult MemberCard(int id)
+        public IActionResult MemberCard ( int id )
         {
-            return View();
+            return View ( );
         }
 
     }

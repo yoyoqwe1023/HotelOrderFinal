@@ -1,5 +1,5 @@
 ﻿.Adminwrapper {
-    width: 80%; /* 設定容器寬度 */
+    width: 90%; /* 設定容器寬度 */
     margin: 0 auto; /* 將容器置中對齊 */
 }
 .Adminbutton {
@@ -8,7 +8,8 @@
     border: 1px solid transparent;
     border-color: black black black;
     margin: 5px;
-    font-size:larger;
+    font-size: larger;
+    white-space: nowrap;
 }
 
 /*要用子選擇器或後代選擇器*/
@@ -21,4 +22,7 @@
 }
 .Admincanvas {
     margin: 0 auto;
+}
+.hidden {
+    display: none;
 }

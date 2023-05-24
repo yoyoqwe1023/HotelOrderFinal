@@ -61,6 +61,8 @@ public string RoomClassName
             set { _roomClass.AddPrice = value; }
         }
 
-        public IFormFile photo { get; set; }
+        public IFormFile photo1 { get; set; }
+        public IFormFile photo2 { get; set; }
+        public IFormFile photo3 { get; set; }
     }
 }
