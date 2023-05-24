@@ -12,31 +12,31 @@
         </div>
     </div>
 </section>
-<h1>活動管理</h1>
-<p>
-    @using (Html.BeginForm())
-    {
-        @:關鍵字 @Html.TextBox("txtKeyword") <input type="submit" value="查詢">
-    }
-</p>
+<h1>優惠管理</h1>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.DiscountId)
+                序
+                @*@Html.DisplayNameFor(model => model.DiscountId)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DiscountName)
+                優惠名稱
+                @*@Html.DisplayNameFor(model => model.DiscountName)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DiscountImage)
+                優惠照片
+                @*@Html.DisplayNameFor(model => model.DiscountImage)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.DiscountDirections)
+                優惠詳細
+                @*@Html.DisplayNameFor(model => model.DiscountDirections)*@
             </th>
             
             <th>
-                @Html.DisplayNameFor(model => model.DiscountDiscount)
+                優惠折數
+                @*@Html.DisplayNameFor(model => model.DiscountDiscount)*@
             </th>
             @*<th>
                 @Html.DisplayNameFor(model => model.MemberId)
@@ -47,8 +47,9 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+        @{
             int count = 0;
+@foreach (var item in Model) {            
             count++;
             <tr>
             <td>
@@ -70,11 +71,13 @@
             @*<td>
                 @Html.DisplayFor(modelItem => item.MemberId)
             </td>*@
+
                 <td>
                     @Html.ActionLink("修改", "Edit", new {id=item.DiscountId},new { @class="btn btn-success" }) |
                     @Html.ActionLink("刪除", "Delete","Discount", new {  id=item.DiscountId },new { @class="btn btn-danger", onclick="return confirm('確定要刪除嗎?')"})
                 </td>
         </tr>
 }
+        }
     </tbody>
 </table>

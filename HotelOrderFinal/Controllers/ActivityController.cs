@@ -144,7 +144,7 @@ namespace HotelOrderFinal.Controllers
                 cust.ActivityCost = p.ActivityCost;
                 db.SaveChanges();
             }
-            return RedirectToAction("List");
+            return RedirectToAction("ActivityByCreate");
         }
 
         public IActionResult CheckLoginStatus()

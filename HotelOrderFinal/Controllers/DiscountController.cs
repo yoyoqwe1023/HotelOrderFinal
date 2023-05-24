@@ -35,25 +35,46 @@ namespace HotelOrderFinal.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Create(Discount p)
+        public IActionResult Create(Discount p, CDiscountWrap x)
         {
             try
             {
                 // 取得優惠是否存在
                 p.DiscountExist = true;
-
                 db.Discount.Add(p);
                 db.SaveChanges();
 
-
                 // 取得當時的會員數量
                 int memberCount = db.RoomMember.Count();
+                Discount cust = db.Discount.FirstOrDefault(t => t.DiscountId == p.DiscountId);
 
-                if (p.DiscountExist == true && memberCount > 0)
+                if (cust != null)
                 {
-                    //所有的會員ID
+                    if (x.photo != null)
+                    {
+                        string photoName = Guid.NewGuid().ToString() + ".jpg";
+                        string path = _enviro.WebRootPath + "/image/" + photoName;
+                        using (var stream = new FileStream(path, FileMode.Create))
+                        {
+                            x.photo.CopyTo(stream);
+                        }
+                        cust.DiscountImage = photoName;
+                    }
+
+                    cust.DiscountName = x.DiscountName;
+                    cust.DiscountDirections = x.DiscountDirections;
+                    cust.DiscountDiscount = x.DiscountDiscount;
+                    cust.DiscountExist = x.DiscountExist;
+                    db.SaveChanges();
+                }
+
+                if (memberCount > 0)
+                {
+                    // 所有的會員ID
                     var members = db.RoomMember.Select(x => x.MemberId);
+
                     int lastID = db.Discount.OrderByDescending(x => x.DiscountId).FirstOrDefault().DiscountId;
+
                     foreach (var itme in members)
                     {
                         DiscountDetail detail = new DiscountDetail();
@@ -64,8 +85,8 @@ namespace HotelOrderFinal.Controllers
                         detail.MemberId = itme;
                         db.DiscountDetail.Add(detail);
                     }
+
                     db.SaveChanges();
-                    return RedirectToAction("List");
                 }
 
                 return RedirectToAction("List");
@@ -76,6 +97,63 @@ namespace HotelOrderFinal.Controllers
                 return View();
             }
         }
+
+        //public IActionResult Create(Discount p , CDiscountWrap x)
+        //{
+        //    try
+        //    {
+        //        // 取得優惠是否存在
+        //        p.DiscountExist = true;
+        //        db.Discount.Add(p);
+        //        db.SaveChanges();
+
+
+        //        // 取得當時的會員數量
+        //        int memberCount = db.RoomMember.Count();
+        //        Discount cust = db.Discount.FirstOrDefault(t => t.DiscountId == p.DiscountId);
+        //        if (cust != null)
+        //        {
+        //            if (x.photo != null)
+        //            {
+        //                string photoName = Guid.NewGuid().ToString() + ".jpg";
+        //                string path = _enviro.WebRootPath + "/image/" + photoName;
+        //                x.photo.CopyTo(new FileStream(path, FileMode.Create));
+        //                cust.DiscountImage = photoName;
+        //            }
+
+        //            cust.DiscountName = x.DiscountName;
+        //            cust.DiscountDirections = x.DiscountDirections;
+        //            cust.DiscountDiscount = x.DiscountDiscount;
+        //            cust.DiscountExist = x.DiscountExist;
+        //            db.SaveChanges();
+        //        }
+        //        if (p.DiscountExist == true && memberCount > 0)
+        //        {
+        //            //所有的會員ID
+        //            var members = db.RoomMember.Select(x => x.MemberId);
+
+        //            int lastID = db.Discount.OrderByDescending(x => x.DiscountId).FirstOrDefault().DiscountId;
+        //            foreach (var itme in members)
+        //            {
+        //                DiscountDetail detail = new DiscountDetail();
+        //                detail.DiscountId = lastID;
+        //                detail.DiscountStart = DateTime.Now;
+        //                detail.DiscountEnd = DateTime.Now.AddMonths(3);
+        //                detail.DiscountUse = 0;
+        //                detail.MemberId = itme;
+        //                db.DiscountDetail.Add(detail);
+        //            }
+        //            db.SaveChanges();
+        //            return RedirectToAction("List");
+        //        }                
+        //        return RedirectToAction("List");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(ex.ToString());
+        //        return View();
+        //    }
+        //}
 
         public IActionResult Delete(int? id)
         {
