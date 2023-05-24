@@ -117,7 +117,7 @@
                         
                         @if (Model != null)
                         {
-                            var customOrder = new List<string> { "簡奢", "日式", "北歐", "總統" };
+                            var customOrder = new List<string> { "簡奢","山嵐", "日式", "北歐","城堡", "總統" };
                             @foreach (var item in Model.OrderBy(x => customOrder.FindIndex(c => x.RoomClassName.Contains(c))))
                             {
                              

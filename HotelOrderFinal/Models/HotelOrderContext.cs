@@ -151,6 +151,10 @@ namespace HotelOrderFinal.Models
 
                 entity.Property(e => e.HotelRegionId).HasColumnName("HotelRegionID");
 
+                entity.Property(e => e.Lat).HasColumnName("lat");
+
+                entity.Property(e => e.Lng).HasColumnName("lng");
+
                 entity.HasOne(d => d.HotelRegion)
                     .WithMany(p => p.HotelIndustry)
                     .HasForeignKey(d => d.HotelRegionId)
