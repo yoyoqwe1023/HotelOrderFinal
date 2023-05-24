@@ -38,6 +38,11 @@
     color: #52c5fd;
 }
 
+/*footer hover顏色*/
+.single-footer-widget ul li a:hover {
+    color: #52c5fd;
+}
+
 /*調整首頁飯店設施<p>字體大小*/
 .facilities_item p {
     font-size: 16px;  
@@ -66,3 +71,46 @@ section {
     background: #E1F5FE;
 }
 
+/*白色陰影區塊*/
+.white-block {
+    background-color: white; 
+    padding: 100px 10px 150px 10px; 
+    margin:40px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+}
+
+/*首頁風格介紹增加藍色線元素*/
+.blue-line {
+    display: block;
+    width: 300px; 
+    height: 1px; 
+    background-color: #52c5fd;
+    margin: 10px auto; 
+}
+/*首頁評論區*/
+.comment-white-block {    
+    background-color: white;  
+    padding: 100px 10px 100px 10px; 
+
+    margin: 150px 50px 150px 50px;
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2); /* 陰影 */
+}
+.comment-background {
+    position: relative;
+    background-image: url(../image/commentImage3.jpg);
+    padding: 20px 0;
+}
+
+.about_content p {    
+    font-size: 16px;
+    text-align: justify;
+    line-height: 2;
+}
+
+.about-blue-line {    
+    display:block;
+    width: 80px;
+    height: 1px;
+    background-color: #52c5fd;
+    margin: 10px 0px ;
+}

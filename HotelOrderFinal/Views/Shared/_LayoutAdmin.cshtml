@@ -216,5 +216,28 @@
     @*@await RenderSectionAsync("Scripts",required:false)*@
 
     @RenderSection("Scripts", required: false)
+
+    <script>
+        // 當文件載入完成時
+        $(document).ready(function () {
+            // 綁定滾動事件
+            $(window).scroll(function () {
+                // 檢查滾動位置
+                if ($(this).scrollTop() > 100) {
+                    // 滾動位置超過 100px 時，顯示回頁首按鈕
+                    $('#mytop-button').fadeIn();
+                } else {
+                    // 滾動位置小於 100px 時，隱藏回頁首按鈕
+                    $('#mytop-button').fadeOut();
+                }
+            });
+
+            // 點擊回頁首按鈕時，捲動到頁面頂部
+            $('#mytop-button').click(function () {
+                $('html, body').animate({ scrollTop: 0 }, 'slow');
+            });
+        });
+
+    </script>
 </body>
 </html>

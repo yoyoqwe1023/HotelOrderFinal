@@ -84,10 +84,12 @@
                         <li class="nav-item active; nav-item">@Html.ActionLink("飯店一覽", "List", "HotelIndustry", null, new { @class = "nav-link" })</li>
                         <li class="nav-item active; nav-item">@Html.ActionLink("房型", "List", "Room", null, new { @class = "nav-link" })</li>
                         <li class="nav-item active; nav-item">@Html.ActionLink("活動", "List", "Activity", null, new { @class = "nav-link" })</li>
-                        <li class="nav-item active; nav-item">@Html.ActionLink("評論", "List", "Comment", null, new { @class = "nav-link" })</li>                        
-                        <li class="nav-item active">
+                        <li class="nav-item active; nav-item">@Html.ActionLink("評論", "List", "Comment", null, new { @class = "nav-link" })</li>
+                        <li class="nav-item active; nav-item">@Html.ActionLink("我的帳戶", null, null, null, new { @class = "nav-link", data_toggle = "modal", data_target = "#myAccountModal", data_backdrop = "false" })</li>
+
+                        @* <li class="nav-item active">
                             <a href="#" class="nav-link text-white " data-toggle="modal" data-target="#myAccountModal" data-backdrop="false">我的帳戶</a>
-                        </li>               
+                        </li>             *@  
                     </ul>
                    
                 </div>
@@ -116,14 +118,14 @@
                         <div class="row">
                             <div class="col-2"></div>
                             <div class="col-4">
-                                <ul class="list_style">
+                                <ul class="list_style" style="white-space: nowrap;">
                                     <li><a href="#">關於我們</a></li>
                                     <li><a href="#">資展品牌</a></li>
                                     <li><a href="#">資展中心</a></li>
                                 </ul>
                             </div>      
                             <div class="col-4">
-                                <ul class="list_style">
+                                <ul class="list_style" style="white-space: nowrap;">
                                     <li><a href="#">資展公寓</a></li>
                                     <li><a href="#">資展人才</a></li>
                                     <li><a href="#">聯絡我們</a></li>                                    
