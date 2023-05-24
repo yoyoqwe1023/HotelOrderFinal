@@ -36,10 +36,10 @@
     @*分頁下的內容*@
     <div class="tab-content" id="nav-tabContent">
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-            <div class="d-flex justify-content-center">
+            <div class="d-flex justify-content-center" style="padding-bottom:10px; padding-top:10px;">
                 @*<iframe src="https://www.google.com/maps/d/embed?mid=1J4qA06_2AVU2zKFMINRSFG-f-CQhIGA&ehbc=2E312F" width="640" height="480"></iframe>*@
                 <!--Google map api 囤放處-->
-                <div id="map" style="width:640px; height:480px; "></div>
+                <div id="map" style="width:640px; height:480px; border:2px solid black; "></div>
                 <div></div>
                 <!--詳細資料展現處-->
                 <div class="myinfo" style="display:none" ;>
@@ -62,8 +62,8 @@
             @*手風琴*@
             <div class="accordion" id="accordionExample">
                 <div class="accordion-item">
-                    <div class="d-flex justify-content-center">
-                        <button id="btn1" class="accordion-button collapsed" type="button" style="width:75%" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne" data-hotelregionid="1">
+                    <div class="d-flex justify-content-center" style="padding-top:10px;">
+                        <button id="btn1" class="accordion-button collapsed" type="button" style="width:75%; height:50px; font-size:25px;" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne" data-hotelregionid="1">
                             北部
                         </button>
                     </div>
@@ -82,10 +82,9 @@
                     </div>
                 </div>
             </div>
-
             <div class="accordion-item">
-                <div class="d-flex justify-content-center">
-                    <button id="btn2" class="accordion-button collapsed" type="button" style="width:75%" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo" data-hotelregionid="2">
+                <div class="d-flex justify-content-center" style="padding-top:10px;">
+                    <button id="btn2" class="accordion-button collapsed" type="button" style="width:75%; height:50px; font-size:25px;" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo" data-hotelregionid="2">
                         中部
                     </button>
                 </div>
@@ -103,10 +102,9 @@
                     @*容器*@
                 </div>
             </div>
-
             <div class="accordion-item">
-                <div class="d-flex justify-content-center" id="headingThree">
-                    <button id="btn3" class="accordion-button collapsed" type="button" style="width:75%" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree" data-hotelregionid="3">
+                <div class="d-flex justify-content-center" style="padding-top:10px; padding-bottom:5px;">
+                    <button id="btn3" class="accordion-button collapsed" type="button" style="width:75%; height:50px; font-size:25px;" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree" data-hotelregionid="3">
                         南部
                     </button>
                 </div>
@@ -297,7 +295,6 @@
                                 } else {
                                     $(".myinfo").css({
                                         "display": "block",
-                                        "border-left": "2px solid #222",
                                         "border-right": "2px solid #222",
                                         "border-bottom": "2px solid #222",
                                         "border-top": "2px solid #222",
