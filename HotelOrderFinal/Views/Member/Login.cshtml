@@ -30,6 +30,8 @@
             <button type="submit" class="btn btn-primary">登入</button>
             <a href="@Url.Action("ForgotPassword", "Member")" class="btn btn-primary">忘記密碼</a>
             <button type="button" class="btn btn-primary" onclick="demoLogin() ">Demo</button>
+            <button type="button" class="btn btn-primary" onclick="demoLogin() ">Demo</button>
+            <button type="button" class="btn btn-primary" onclick="demoLogin() ">Demo</button>
         </div>
     }
     @{
@@ -44,6 +46,16 @@
     }
 
     <script>
+        function demoLogin() {
+            // 設定手機號碼和密碼欄位的值
+            document.getElementById("MemberPhone").value = "0936582783";
+            document.getElementById("MemberPassword").value = "64V7VpFc";
+        }
+                function demoLogin() {
+            // 設定手機號碼和密碼欄位的值
+            document.getElementById("MemberPhone").value = "0936582783";
+            document.getElementById("MemberPassword").value = "64V7VpFc";
+        }
         function demoLogin() {
             // 設定手機號碼和密碼欄位的值
             document.getElementById("MemberPhone").value = "0936582783";

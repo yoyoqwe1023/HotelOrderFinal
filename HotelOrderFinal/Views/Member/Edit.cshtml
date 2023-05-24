@@ -30,14 +30,10 @@
         margin: 0 auto; /* 將容器置中對齊 */
     }
 
-    .Namewrapper {
-        width: 40%; /* 設定容器寬度 */
-        margin: 0 auto; /* 將容器置中對齊 */
-    }
 </style>
 <div class="wrapper ">
 
-    <h1 class="Namewrapper">會員資料修改</h1>
+    <h1>會員資料修改</h1>
     <hr />
     <div class="row">
         @*//【側邊欄位】==========================================================================*@
@@ -51,7 +47,7 @@
                             var usePhone = Context.Session.GetString("UserPhone");
                         }
                         <h2 class="athMember__userName">@userName</h2>
-                        <p class="athMember__usePhone">@usePhone</p>
+                        @*<p class="athMember__usePhone">@usePhone</p>*@
                     </div>
                 </div>
                 <div class="athMemberNav">
