@@ -239,6 +239,12 @@ model IEnumerable<String>
 
 
 <script>
+
+    // 頁面載入時載入購物車內容
+    $(document).ready(function () {
+        loadCartFromSession();
+    });
+
     //搜尋按鈕功能
     async function SearchRoom() {
         var checkInDate = document.getElementById("checkInDate").value;
@@ -447,10 +453,7 @@ model IEnumerable<String>
     }
 
 
-    // 頁面載入時載入購物車內容
-    $(document).ready(function () {
-        loadCartFromSession();
-    });
+   
 
     $('#orderButton').click(function (event) {
         event.preventDefault(); // 阻止默認的超連結行為
