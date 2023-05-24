@@ -198,8 +198,8 @@
                     <a href="#">@Html.ActionLink("返回上一頁", "List", "Order", null, new { @class = "btn btn-primary btn-block" })</a>
                 </div>
                 <div class="col-md-2">
-                    <a href="#" onclick="getOrderDetailValue();" class="btn btn-primary btn-block">付款 </a>
-
+                    @*<a href="#" onclick="getOrderDetailValue();" class="btn btn-primary btn-block">付款 </a>*@
+                    <a href="#">@Html.ActionLink("付款", "ShowOrder", "Order", null, new { @class = "btn btn-primary btn-block" })</a>
                     @*<input type="submit"/>*@
                 </div>
             </div>
