@@ -71,8 +71,12 @@ section {
     background: #E1F5FE;
 }
 
-/*白色陰影區塊*/
-.white-block {
+/*首頁設施圖顏色*/
+.facilities_item .sec_h4 i {
+    color: #52c5fd;
+}
+    /*白色陰影區塊*/
+    .white-block {
     background-color: white; 
     padding: 100px 10px 150px 10px; 
     margin:40px;
@@ -100,17 +104,17 @@ section {
     background-image: url(../image/commentImage3.jpg);
     padding: 20px 0;
 }
-
+/*關於頁面相關樣式改動*/
 .about_content p {    
     font-size: 16px;
     text-align: justify;
     line-height: 2;
 }
 
-.about-blue-line {    
-    display:block;
-    width: 80px;
+.about-blue-line {
+    display: inline-block;
+    width: 100%;
     height: 1px;
     background-color: #52c5fd;
-    margin: 10px 0px ;
+    margin: 10px 0px;
 }
