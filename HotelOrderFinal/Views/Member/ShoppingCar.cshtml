@@ -50,24 +50,30 @@
                 <div class="athMemberNav">
                     <ul class="athMember__menuList d-mdx-none pb-15 mt-10" style="list-style: none;">
                         <li class="athMember__menu__isactive">
-                            @Html.ActionLink("修改資料", "Edit", "Member", null, new { @class = "nav-link" })
+                            @Html.ActionLink("修改資料", "Edit", "Member", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
                         </li>
                         <li class="athMember__menu__isactive">
-                            @Html.ActionLink("修改密碼", "EditPassword", "Member", null, new { @class = "nav-link" })
+                            @Html.ActionLink("修改密碼", "EditPassword", "Member", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
                         </li>
                         <li class="athMember__menu__isactive">
-                            @Html.ActionLink("您的訂單", "ShoppingCar", "Member", null, new { @class = "nav-link" })
+                            @Html.ActionLink("您的訂單", "ShoppingCar", "Member", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
                         </li>
                         <li class="athMember__menu__isactive">
-                            @Html.ActionLink("最新消息", "News", "Member", null, new { @class = "nav-link" })
+                            @Html.ActionLink("優惠折扣", "DiscountByMember", "Discount", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
                         </li>
                         <li class="athMember__menu__isactive">
-                            @Html.ActionLink("會員條款", "MemberTerms", "Member", null, new { @class = "nav-link" })
+                            @Html.ActionLink("您的評論", "ListByMember", "Comment", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
                         </li>
-                        <li class="athMember__menu__isactive">
-                            @Html.ActionLink("電子會員卡", "MemberCard", "Member", null, new { @class = "nav-link" })
+                        @*<li class="athMember__menu__isactive" hidden>*@
+                        @*@Html.ActionLink("最新消息", "News", "Member", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })*@
+                        @*</li>*@
+                        @*<li class="athMember__menu__isactive">*@
+                        @*@Html.ActionLink("會員條款", "MemberTerms", "Member", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })*@
+                        @*</li>*@
+                        @*<li class="athMember__menu__isactive" hidden>*@
+                        @*@Html.ActionLink("電子會員卡", "MemberCard", "Member", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })*@
+                        @*</li>*@
 
-                        </li>
                     </ul>
                     <div class="d-md-none">
                         <p class="athMember__menu__select mt-20 mb-10">會員資料選單</p>
@@ -86,6 +92,7 @@
                 </div>
             </div>
         </div>
+
 
         @*///-----------------------------------------------------------------------------------------*@
 

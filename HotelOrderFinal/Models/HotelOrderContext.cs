@@ -85,19 +85,10 @@ namespace HotelOrderFinal.Models
                     .HasMaxLength(20)
                     .HasColumnName("MemberID");
 
-                entity.Property(e => e.RoomClassId)
-                    .HasMaxLength(20)
-                    .HasColumnName("RoomClassID");
-
                 entity.HasOne(d => d.Member)
                     .WithMany(p => p.Comment)
                     .HasForeignKey(d => d.MemberId)
                     .HasConstraintName("FK_Comments_RoomMember");
-
-                entity.HasOne(d => d.RoomClass)
-                    .WithMany(p => p.Comment)
-                    .HasForeignKey(d => d.RoomClassId)
-                    .HasConstraintName("FK_Comment_RoomClass");
             });
 
             modelBuilder.Entity<Discount>(entity =>
@@ -216,7 +207,7 @@ namespace HotelOrderFinal.Models
                 entity.HasOne(d => d.Facility)
                     .WithMany(p => p.MultipleRoomFacility)
                     .HasForeignKey(d => d.FacilityId)
-                    .HasConstraintName("FK_MultipleRoomFacility1_RoomFacility");
+                    .HasConstraintName("FK_MultipleRoomFacility_RoomFacility");
 
                 entity.HasOne(d => d.RoomClass)
                     .WithMany(p => p.MultipleRoomFacility)

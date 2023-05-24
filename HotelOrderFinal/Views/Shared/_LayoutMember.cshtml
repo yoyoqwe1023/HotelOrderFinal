@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="~/css/style.css">
     <link rel="stylesheet" href="~/css/responsive.css">
     <link rel="stylesheet" href="~/css/ForHotelIndustry.css">
+    <link rel="stylesheet" href="~/css/ForAdmin.css">
 
     @*Bootstrap CSS*@
     @*    @Styles.Render("~/Content/css/bootstrap.css")
@@ -73,7 +74,7 @@
                             var userId = Context.Session.GetString ( "UserID" );
                         }
                         <li class="nav-item active; nav-item">@Html.ActionLink(@"歡迎，"+userName, "index", "Member", null, new { @class = "nav-link" })</li>
-                        <li class="nav-item active; nav-item">@Html.ActionLink("優惠折扣", "DiscountByMember", "Discount", null, new { @class = "nav-link" })</li>
+                        @*<li class="nav-item active; nav-item">@Html.ActionLink("優惠折扣", "DiscountByMember", "Discount", null, new { @class = "nav-link" })</li>*@
                         <li class="nav-item active; nav-item">@Html.ActionLink("登出", "Logout", "Member", null, new { @class = "nav-link" })</li>
                     </ul>
                 </div>

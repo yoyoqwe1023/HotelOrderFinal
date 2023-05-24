@@ -3,6 +3,7 @@
 model IEnumerable<String>
 *@
 @model List<HotelOrderFinal.ViewModels.CSearchRoomViewModel>
+
 <section class="breadcrumb_area">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
@@ -13,6 +14,36 @@ model IEnumerable<String>
 </section>
 <head>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .even-row {
+            background-color: #f8f9fa;
+        }
+
+        .area-search {
+            padding: 5px;
+            margin: 10px;
+        }
+
+        .area {
+            padding: 5px;
+            margin: 10px;
+            border: solid green;
+            border-radius: 20px;
+        }
+
+        .row {
+            display: flex;
+            margin: 5px;
+            padding: 5px;
+        }
+
+        .aa{
+          margin-left:-30px;
+        }
 
         .shoppoing-head {
             border: double green;
@@ -41,17 +72,23 @@ model IEnumerable<String>
 </head>
 
 <body>
-    <header style="margin:10px;">
-        <div class="row" style="width:80% margin: 0 auto">
+    <div class="area-search">
+        <div class="row" style="width:100% margin: 0 auto">
             <div class="col-md-2 offset-md-2">
                 <!-- 調整地區 -->
                 <div class="book_tabel_item stDate">
                     <div class="form-group">
                         <div>
-                            <select>
-                                <option value="option1">北區</option>
-                                <option value="option2">中區</option>
-                                <option value="option3">南區</option>
+                            <select id="hotelId" >
+                                @{
+                                    int count1 = 0;
+                                    foreach (var item in ViewBag.Hotels)
+                                    {
+                                        //<option value="@item.HotelId">@item.HotelName</option>
+                                                        <option value="@item.HotelId" selected="@(item.HotelId == ViewBag.HotelId)">@item.HotelName</option>
+                                    }
+                                }
+
                             </select>
                         </div>
                     </div>
@@ -80,21 +117,21 @@ model IEnumerable<String>
             <div class="col-md-1">
                 <!-- 調整搜尋按鈕的位置和寬度 -->
                 <div class="book_tabel_item">
-                    <button id="btnSearchRoom" class="btn-primary btn-block" >搜尋</button>
+                    <button style="margin-top:30px;" id="btnSearchRoom" onclick="SearchRoom()" class="btn-primary btn-block">搜尋</button>
                 </div>
             </div>
         </div>
-    </header>
-    <header style="margin-bottom:20px; width:80% margin: 0 auto">
+    </div>
+    <div>
         <div class="row">
             <div class="col-md-6 offset-md-1 roomlist-head " style="margin-right:20px;">
-                <section>
+                <div>
                     @*list*@
                     <div id="RoomList" style="margin-bottom:3px;">
                         @*roomall*@
-                        @if (Model == null)
+                        @{if (Model == null)
                         {
-                            <div class="stNotroom">該時段已沒有空間，請重新選擇時段。</div>
+                                                            <div class="stNotroom">該時段已沒有空間，請重新選擇時段。</div>
                         }
                         else
                         {
@@ -102,45 +139,45 @@ model IEnumerable<String>
                             foreach (var item in Model)
                             {
                                 count++;
-                                <div class="row">
-                                    @*room*@
-                                    <div class="col-md-4">
-                                        @*圖片*@
-                                        <img src="~/image/@item.RoomClassPhoto1" width="250" height="150" />
-                                    </div>
-                                    <div class="col-md-8 ">
-                                        @*房間資訊*@
-                                        <h4>@item.RoomClassName </h4>
-                                        <p>@item.RoomClassDetail</p>
-                                        <p> 住宿人數：@item.RoomClassPeople</p>
-                                        <p> 坪數：@item.RoomClassSize</p>
-                                    </div>
-                                </div>
-                                <div>
-                                    @*pricetitle*@
-                                    <table width="100%">
-                                        <tr style="background-color: #f0f0f0;">
-                                            <th width="40%">入住地區</th>
-                                            <th width="20%">價格</th>
-                                            <th width="20%">數量</th>
-                                            <th width="20%"></th>
-                                        </tr>
-                                        <tr>
-                                            @*price*@
-                                            <th>北部</th>
-                                            <th>NT$ @item.WeekdayPrice</th>
-                                            <th>1</th>
-                                            <th>
-                                                <button class="btn-primary btn-block" onclick="addRoomToCart('@item.RoomClassId')" >加入購物車</button>
-                                            </th>
-                                        </tr>
-                                    </table>
-                                    <hr>
-                                </div>
+                                                                <div class="row">
+                                                                    @*room*@
+                                                                    <div class="col-md-4">
+                                                                        @*圖片*@
+                                                                        <img src="~/image/@item.RoomClassPhoto1" width="250" height="150" />
+                                                                    </div>
+                                                                    <div class="col-md-8 ">
+                                                                        @*房間資訊*@
+                                                                        <h4>@item.RoomClassName </h4>
+                                                                        <p>@item.RoomClassDetail</p>
+                                                                        <p> 住宿人數：@item.RoomClassPeople</p>
+                                                                        <p> 坪數：@item.RoomClassSize</p>
+                                                                    </div>
+                                                                </div>
+                                                                <div>
+                                                                    @*pricetitle*@
+                                                                    <table width="100%">
+                                                                        <tr style="background-color: #f0f0f0;">
+                                                                            <th width="40%">飯店名稱</th>
+                                                                            <th width="20%">價格</th>
+                                                                            <th width="20%">數量</th>
+                                                                            <th width="20%"></th>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <th>@item.HotelName</th>
+                                                                            <th>NT$ @item.WeekdayPrice</th>
+                                                                            <th>1</th>
+                                                                            <th>
+                                                                                <button class="btn-primary btn-block" onclick="addRoomToCart('@item.RoomClassId')">加入購物車</button>
+                                                                            </th>
+                                                                        </tr>
+                                                                    </table>
+                                                                    <hr>
+                                                                </div>
                             }
                         }
+                        }
                     </div>
-                </section>
+                </div>
             </div>
             <div class="col-md-3">
                 <div class="shoppoing-head">
@@ -151,30 +188,30 @@ model IEnumerable<String>
                     <div>
                         @*房間資訊*@
                         <table id="ShopCart">
-                         @*   <tr>
-                                                      <th width="40%" > 房間類型 </th>
-                                                        <td>RoomClassName </td>
-                                                    </tr>
-                                                    <tr >
-                                                      <th>入住地區 </th>
-                                                       <td > 北部 </td>
-                                                     </tr>
-                                                     <tr >
-                                                       <th>入住日期 </th>
-                                                        <td >@ViewBag.CheckInDate.ToString("yyyy-MM-dd")</td>
-                                                     </tr>
-                                                     <tr >
-                                                      <th>退房日期 </th>
-                                                      <td>@ViewBag.CheckOutDate.ToString("yyyy-MM-dd") </td>
-                                                    </tr>
-                                                     <tr >
-                                                       <th>數量 </th>
-                                                         <td> 1 </td>
-                                                     </tr>
-                                                     <tr >
-                                                       <th>小計 </th>
-                                                        <td> NT$ 4000 </td>
-                                                    </tr>*@
+                            @*<tr>
+                            <th width="40%" > 房間類型 </th>
+                            <td>RoomClassName </td>
+                            </tr>
+                            <tr >
+                            <th>入住地區 </th>
+                            <td > 北部 </td>
+                            </tr>
+                            <tr >
+                            <th>入住日期 </th>
+                            <td >@ViewBag.CheckInDate.ToString("yyyy-MM-dd")</td>
+                            </tr>
+                            <tr >
+                            <th>退房日期 </th>
+                            <td>@ViewBag.CheckOutDate.ToString("yyyy-MM-dd") </td>
+                            </tr>
+                            <tr >
+                            <th>數量 </th>
+                            <td> 1 </td>
+                            </tr>
+                            <tr >
+                            <th>小計 </th>
+                            <td> NT$ 4000 </td>
+                            </tr>*@
                         </table>
                     </div>
                     <hr />
@@ -184,35 +221,81 @@ model IEnumerable<String>
                                 <th class="h5" width="40%">
                                     應付金額:
                                 </th>
-                                <td id="ShopCartTotalPrice"  class="text-right">
+                                <td id="ShopCartTotalPrice" class="text-right">
                                     NT$ 0
                                 </td>
                             </tr>
                         </table>
                         <div class="mt-3" style="margin-bottom:10px;">
 
-                           <a href="#" id="orderButton" class="btn btn-primary btn-block">立即訂購</a>
+                            <a href="#" id="orderButton" class="btn btn-primary btn-block">立即訂購</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </header>
+    </div>
 </body>
 
 
 <script>
-    function SearchRoom() {
+    //搜尋按鈕功能
+    async function SearchRoom() {
         var checkInDate = document.getElementById("checkInDate").value;
         var checkOutDate = document.getElementById("checkOutDate").value;
-        const btnSearchRoom = document.querySelector('#btnSearchRoom');
-        
-        btnSearchRoom.addEventListener('click',async () =>{
-        const response = await fetch(`@Url.Content("/Order/SearchRoom")`)
-        const data = await response.text();
-         document.getElementById("RoomList").innerHTML = `${data}`
-        } );
-    };
+        var hotelId = document.getElementById("hotelId").value;
+
+        const response = await fetch(`/Order/SearchRoom?hotelId=${hotelId}&checkInDate=${checkInDate}&checkOutDate=${checkOutDate}`, {
+            method: 'POST',
+            //headers: { 'Content-Type': 'application/json' },
+        });
+        const data = await response.json();
+        console.log(data);
+        if (data === null) {
+            document.getElementById("RoomList").innerHTML = "<div class='stNotroom'>該時段已沒有空間，請重新選擇時段。</div>";
+        } else {
+            let html = "";
+
+            const dataArray = JSON.parse(data);
+            dataArray.forEach((item) => {
+               
+                console.log(item);
+                html += "<div class='row'>";
+                html += "<div class='col-md-4'>";
+                //html += "<img src='/image/" + item.RoomClassPhoto1 + "' width='250' height='150' />";
+                html += "<img src=@Url.Content("~/image/")" + item.RoomClassPhoto1 + " width='250' height='150' />";
+                html += "</div>";
+                html += "<div class='col-md-8'>";
+                html += "<h4>" + item["RoomClassName"] + "</h4>";
+                //html += "<p>" + item.RoomClassId + "</p>";
+                html += "<p>" + item.RoomClassDetail + "</p>";
+                html += "<p>住宿人數：" + item.RoomClassPeople + "</p>";
+                html += "<p>坪數：" + item.RoomClassSize + "</p>";
+                html += "</div>";
+                html += "</div>";
+                html += "<div>";
+                html += "<table width='100%'>";
+                html += "<tr style='background-color: #f0f0f0;'>";
+                html += "<th width='40%'>飯店名稱</th>";
+                html += "<th width='20%'>價格</th>";
+                html += "<th width='20%'>數量</th>";
+                html += "<th width='20%'></th>";
+                html += "</tr>";
+                html += "<tr>";
+                html += "<th>" + item["HotelName"] + "</th>";
+                html += "<th>NT$ " + item.WeekdayPrice + "</th>";
+                html += "<th>1</th>";
+                html += "<th>";
+                html += "<button class='btn-primary btn-block' onclick=addRoomToCart('" + item.RoomClassId + "')>加入購物車</button>";
+                html += "</th>";
+                html += "</tr>";
+                html += "</table>";
+                html += "<hr>";
+            })
+            document.getElementById("RoomList").innerHTML = html;
+        }
+    }
+
 
     //加入購物車
     function addRoomToCart(rcId) {
@@ -220,27 +303,33 @@ model IEnumerable<String>
         var checkOutDate = document.getElementById("checkOutDate").value;
         const RoomClassId = rcId;
 
-    fetch(`/Order/AddShopCart?RoomClassId=${RoomClassId}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-    })
-    .then(response => response.json())
-    .then(cartData => {
-        const cartItemsDiv = $('#ShopCart');
+        fetch(`/Order/AddShopCart?RoomClassId=${RoomClassId}&checkInDate=${checkInDate}&checkOutDate=${checkOutDate}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+        })
+            .then(response => response.json())
+            .then(cartData => {
+                const cartItemsDiv = $('#ShopCart');
                 cartItemsDiv.empty();
 
-        const cartArray = JSON.parse(cartData);
+                const cartArray = JSON.parse(cartData);
                 let totalPrice = 0;
 
                 cartArray.forEach((item) => {
                     const itemRow = $('<tr></tr>');
                     itemRow.append($('<th></th>').attr('width', '100px').text('房間類型'));
                     itemRow.append($('<td></td>').text(item.RoomClassName));
+                    //const deleteButton = $('<img></img>').attr('src', '/image/delete.jpg').attr('id', 'item.FId').addClass('delete-icon').css('cursor', 'pointer');
+                    ////deleteButton.on('click', function () {
+                    ////    // 點擊事件處理程式碼
+       
+                    ////});
+                    //itemRow.append($('<td></td>').attr('style', 'text-align: right;').append(deleteButton));
                     cartItemsDiv.append(itemRow);
 
                     const itemRow2 = $('<tr></tr>');
-                    itemRow2.append($('<th></th>').attr('width', '100px').text('入住地區'));
-                    itemRow2.append($('<td></td>').text('北部'));
+                    itemRow2.append($('<th></th>').attr('width', '100px').text('飯店名稱'));
+                    itemRow2.append($('<td></td>').text(item.HotelName));
                     cartItemsDiv.append(itemRow2);
 
                     const formattedCheckInDate = new Date(item.CheckInDate).toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' });
@@ -265,7 +354,7 @@ model IEnumerable<String>
                     itemRow6.append($('<td></td>').text('NT$ ' + item.WeekdayPrice));
                     cartItemsDiv.append(itemRow6);
 
-                    
+
                     totalPrice += item.WeekdayPrice;
 
                 });
@@ -276,60 +365,60 @@ model IEnumerable<String>
             });
     }
 
-//讀取購物車的session 
-function loadCartFromSession() {
-    fetch('/Order/GetShopCartFromSession', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-    })
-    .then(response => response.json())
-    .then(cartData => {
-        const cartItemsDiv = $('#ShopCart');
-        cartItemsDiv.empty();
-               
-        if (cartData !== null) {
+    //讀取購物車的session
+    function loadCartFromSession() {
+        fetch('/Order/GetShopCartFromSession', {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        })
+            .then(response => response.json())
+            .then(cartData => {
+                const cartItemsDiv = $('#ShopCart');
+                cartItemsDiv.empty();
+
+                if (cartData !== null) {
                     let totalPrice = 0;
                     cartData.forEach((item) => {
-                const itemRow = $('<tr></tr>');
-                itemRow.append($('<th></th>').attr('width', '40%').text('房間類型'));
-                itemRow.append($('<td></td>').text(item.roomClassName));
-                cartItemsDiv.append(itemRow);
+                        const itemRow = $('<tr></tr>');
+                        itemRow.append($('<th></th>').attr('width', '40%').text('房間類型'));
+                        itemRow.append($('<td></td>').text(item.roomClassName));
+                        cartItemsDiv.append(itemRow);
 
-                const itemRow2 = $('<tr></tr>');
-                itemRow2.append($('<th></th>').attr('width', '40%').text('入住地區'));
-                itemRow2.append($('<td></td>').text('北部'));
-                cartItemsDiv.append(itemRow2);
+                        const itemRow2 = $('<tr></tr>');
+                        itemRow2.append($('<th></th>').attr('width', '40%').text('入住地區'));
+                        itemRow2.append($('<td></td>').text('北部'));
+                        cartItemsDiv.append(itemRow2);
 
-                const formattedCheckInDate = new Date(item.checkInDate).toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' });
-                const itemRow3 = $('<tr></tr>');
-                itemRow3.append($('<th></th>').attr('width', '100px').text('入住日期'));
-                itemRow3.append($('<td></td>').text(formattedCheckInDate));
-                cartItemsDiv.append(itemRow3);
+                        const formattedCheckInDate = new Date(item.checkInDate).toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' });
+                        const itemRow3 = $('<tr></tr>');
+                        itemRow3.append($('<th></th>').attr('width', '100px').text('入住日期'));
+                        itemRow3.append($('<td></td>').text(formattedCheckInDate));
+                        cartItemsDiv.append(itemRow3);
 
-                const formattedCheckOutDate = new Date(item.checkOutDate).toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' });
-                const itemRow4 = $('<tr></tr>');
-                itemRow4.append($('<th></th>').attr('width', '100px').text('退房日期'));
-                itemRow4.append($('<td></td>').text(formattedCheckOutDate));
-                cartItemsDiv.append(itemRow4);
+                        const formattedCheckOutDate = new Date(item.checkOutDate).toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' });
+                        const itemRow4 = $('<tr></tr>');
+                        itemRow4.append($('<th></th>').attr('width', '100px').text('退房日期'));
+                        itemRow4.append($('<td></td>').text(formattedCheckOutDate));
+                        cartItemsDiv.append(itemRow4);
 
-                const itemRow5 = $('<tr></tr>');
-                itemRow5.append($('<th></th>').attr('width', '100px').text('數量'));
-                itemRow5.append($('<td></td>').text('1'));
-                cartItemsDiv.append(itemRow5);
+                        const itemRow5 = $('<tr></tr>');
+                        itemRow5.append($('<th></th>').attr('width', '100px').text('數量'));
+                        itemRow5.append($('<td></td>').text('1'));
+                        cartItemsDiv.append(itemRow5);
 
-                const itemRow6 = $('<tr></tr>');
-                itemRow6.append($('<th></th>').attr('width', '100px').text('小計'));
-                itemRow6.append($('<td></td>').text('NT$ ' + item.weekdayPrice));
-                cartItemsDiv.append(itemRow6);
+                        const itemRow6 = $('<tr></tr>');
+                        itemRow6.append($('<th></th>').attr('width', '100px').text('小計'));
+                        itemRow6.append($('<td></td>').text('NT$ ' + item.weekdayPrice));
+                        cartItemsDiv.append(itemRow6);
 
                         totalPrice += item.weekdayPrice;
-            });
+                    });
                     const totalPriceCell = $('<td></td>').addClass('text-right').text('NT$ ' + totalPrice);
                     $('#ShopCartTotalPrice').empty().append(totalPriceCell);
-        }
-          
-    });
-}
+                }
+
+            });
+    }
 
 
     // 頁面載入時載入購物車內容
@@ -338,28 +427,40 @@ function loadCartFromSession() {
     });
 
     $('#orderButton').click(function (event) {
-    event.preventDefault(); // 阻止默認的超連結行為
+        event.preventDefault(); // 阻止默認的超連結行為
 
-    // 檢查購物車內容是否為空
-    if ($('#ShopCart').is(':empty')) {
-        // 購物車內容為空，顯示確認提示框
-        alert('購物車內容為空，請先選擇入住房型')         
-    } else {
-        // 購物車內容不為空，直接執行跳轉
-        window.location.href = "/Order/Detail";
+        // 檢查購物車內容是否為空
+        if ($('#ShopCart').is(':empty')) {
+            // 購物車內容為空，顯示確認提示框
+            alert('購物車內容為空，請先選擇入住房型');
+        } else {
+            // 檢查使用者是否已登入
+            checkUserLoginStatus(function (loggedIn) {
+                if (loggedIn) {
+                    // 已登入，跳轉到訂單詳細頁面
+                    window.location.href = "/Order/Detail";
+                } else {
+                    // 未登入，顯示登入會員的 modal
+                    $('#myAccountModal').modal('show');
+                }
+            });
+        }
+    });
+
+    function checkUserLoginStatus(callback) {
+        // 發送 AJAX 請求檢查使用者登入狀態
+        $.ajax({
+            url: "/Order/CheckLoginStatus", // 替換為實際的檢查登入狀態的後端路由
+            type: "GET",
+            success: function (response) {
+                var loggedIn = response.loggedIn;
+                console.log(loggedIn);
+                callback(loggedIn); // 呼叫回呼函式處理結果
+            },
+            error: function () {
+                // 處理錯誤情況
+            }
+        });
     }
-});
 
-
-
-</script>
-<script>
-    var a = document.getElementById('checkInDate');
-    console.log(a.value);
-    window.onload = async () => {
-        const response = await fetch('@Url.Action("getActivitySession", "Order")');
-        const data = await response.json();
-        a.value = data.time;
-        console.log(data);
-    };
 </script>
