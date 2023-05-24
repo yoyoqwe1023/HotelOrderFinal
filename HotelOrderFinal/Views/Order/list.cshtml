@@ -41,8 +41,8 @@ model IEnumerable<String>
             padding: 5px;
         }
 
-        .aa{
-          margin-left:-30px;
+        .aa {
+            margin-left: -30px;
         }
 
         .shoppoing-head {
@@ -79,13 +79,13 @@ model IEnumerable<String>
                 <div class="book_tabel_item stDate">
                     <div class="form-group">
                         <div>
-                            <select id="hotelId" >
+                            <select id="hotelId">
                                 @{
                                     int count1 = 0;
                                     foreach (var item in ViewBag.Hotels)
                                     {
-                                        //<option value="@item.HotelId">@item.HotelName</option>
-                                                            <option value="@item.HotelId" selected="@(item.HotelId == ViewBag.HotelId)">@item.HotelName</option>
+                                    //<option value="@item.HotelId">@item.HotelName</option>
+                                        <option value="@item.HotelId" selected="@(item.HotelId == ViewBag.HotelId)">@item.HotelName</option>
                                     }
                                 }
 
@@ -129,52 +129,53 @@ model IEnumerable<String>
                     @*list*@
                     <div id="RoomList" style="margin-bottom:3px;">
                         @*roomall*@
-                        @{if (Model == null)
-                        {
-                                                                <div class="stNotroom">該時段已沒有空間，請重新選擇時段。</div>
-                        }
-                        else
-                        {
-                            int count = 0;
-                            foreach (var item in Model)
+                        @{
+                            if (Model == null)
                             {
-                                count++;
-                                                                    <div class="row">
-                                                                        @*room*@
-                                                                        <div class="col-md-4">
-                                                                            @*圖片*@
-                                                                            <img src="~/image/@item.RoomClassPhoto1" width="250" height="150" />
-                                                                        </div>
-                                                                        <div class="col-md-8 ">
-                                                                            @*房間資訊*@
-                                                                            <h4>@item.RoomClassName </h4>
-                                                                            <p>@item.RoomClassDetail</p>
-                                                                            <p> 住宿人數：@item.RoomClassPeople</p>
-                                                                            <p> 坪數：@item.RoomClassSize</p>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div>
-                                                                        @*pricetitle*@
-                                                                        <table width="100%">
-                                                                            <tr style="background-color: #f0f0f0;">
-                                                                                <th width="40%">飯店名稱</th>
-                                                                                <th width="20%">價格</th>
-                                                                                <th width="20%">數量</th>
-                                                                                <th width="20%"></th>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <th>@item.HotelName</th>
-                                                                                <th>NT$ @item.WeekdayPrice</th>
-                                                                                <th>1</th>
-                                                                                <th>
-                                                                                    <button class="btn-primary btn-block" onclick="addRoomToCart('@item.RoomClassId')">加入購物車</button>
-                                                                                </th>
-                                                                            </tr>
-                                                                        </table>
-                                                                        <hr>
-                                                                    </div>
+                                <div class="stNotroom">該時段已沒有空間，請重新選擇時段。</div>
                             }
-                        }
+                            else
+                            {
+                                int count = 0;
+                                foreach (var item in Model)
+                                {
+                                    count++;
+                                    <div class="row">
+                                        @*room*@
+                                        <div class="col-md-4">
+                                            @*圖片*@
+                                            <img src="~/image/@item.RoomClassPhoto1" width="250" height="150" />
+                                        </div>
+                                        <div class="col-md-8 ">
+                                            @*房間資訊*@
+                                            <h4>@item.RoomClassName </h4>
+                                            <p>@item.RoomClassDetail</p>
+                                            <p> 住宿人數：@item.RoomClassPeople</p>
+                                            <p> 坪數：@item.RoomClassSize</p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        @*pricetitle*@
+                                        <table width="100%">
+                                            <tr style="background-color: #f0f0f0;">
+                                                <th width="40%">飯店名稱</th>
+                                                <th width="20%">價格</th>
+                                                <th width="20%">數量</th>
+                                                <th width="20%"></th>
+                                            </tr>
+                                            <tr>
+                                                <th>@item.HotelName</th>
+                                                <th>NT$ @item.WeekdayPrice</th>
+                                                <th>1</th>
+                                                <th>
+                                                    <button class="btn-primary btn-block" onclick="addRoomToCart('@item.RoomClassId')">加入購物車</button>
+                                                </th>
+                                            </tr>
+                                        </table>
+                                        <hr>
+                                    </div>
+                                }
+                            }
                         }
                     </div>
                 </div>
@@ -264,7 +265,7 @@ model IEnumerable<String>
 
             const dataArray = JSON.parse(data);
             dataArray.forEach((item) => {
-               
+
                 console.log(item);
                 html += "<div class='row'>";
                 html += "<div class='col-md-4'>";
@@ -322,22 +323,63 @@ model IEnumerable<String>
                 let totalPrice = 0;
 
                 cartArray.forEach((item, index) => {
-
+                    console.log(item)
                     const itemRow = $('<tr></tr>');
                     itemRow.append($('<th></th>').attr('width', '40%').css('text-align', 'left').css('padding-left', '15px').text('房間類型'));
-                    itemRow.append($('<td></td>').attr('width', '60%').css('text-align', 'left').text(item.RoomClassName));
-                    //const deleteButton = $('<img></img>').attr('src', '/image/delete.jpg').attr('id', 'item.FId').addClass('delete-icon').css('cursor', 'pointer');
-                    ////deleteButton.on('click', function () {
-                    ////    // 點擊事件處理程式碼
-       
-                    ////});
-                    //itemRow.append($('<td></td>').attr('style', 'text-align: right;').append(deleteButton));
+                    itemRow.append($('<td></td>').attr('width', '40%').css('text-align', 'left').text(item.RoomClassName));
 
+                    const deleteButton = $('<button></button>').text('刪除');
+                    const deleteButtonCell = $('<td></td>').attr('width', '20px').css('text-align', 'center').append(deleteButton);
+                    // 将 fid 值存储在删除按钮元素上
+                    deleteButton.attr('data-fid', item.fId);
+
+                    //---
+                    //點擊刪除按鈕
+                    //deleteButton.click(() => {
+
+                    //    //跳出確認框
+                    //    if (confirm('確定要刪除此項目嗎？')) {
+
+                    //        //抓取刪除列的FId
+                    //        const rowToDelete = cartItemsDiv.find('[data-item-id="' + itemId + '"]');
+
+                    //        //刪除價格
+                    //        const itemPrice = item.weekdayPrice;
+                    //        totalPrice -= itemPrice;
+
+                    //        rowToDelete.remove();
+                    //        const extractedFId = itemId.split('-')[1];
+                    //        //執行刪除function
+                    //        deleteSessionData(extractedFId);
+
+                    //    }
+                        //--
+
+
+
+                    // 添加点击事件处理程序
+                    deleteButton.on('click', function () {
+                            if (confirm('確定要刪除此項目嗎？')) {
+                        const fid = $(this).attr('data-fid');
+                        // 找到对应的 cartItemsDiv 并删除
+                        const cartItemDiv = $('#cartItemsDiv-' + fId);
+                                cartItemDiv.remove(item.fId);
+
+                        //要移除Session
+                        // deleteSessionData(extractedFId);
+
+                        // 更新 ShopCartTotalPrice
+                        totalPrice -= item.WeekdayPrice;
+                        $('#ShopCartTotalPrice').text(totalPrice);
+                            }
+                            });
+
+                    itemRow.append(deleteButtonCell);
                     cartItemsDiv.append(itemRow);
 
                     const itemRow2 = $('<tr></tr>');
                     itemRow2.append($('<th></th>').attr('width', '40%').css('text-align', 'left').css('padding-left', '15px').text('飯店名稱'));
-                    itemRow2.append($('<td></td>').attr('width', '60%').css('text-align', 'left').text(item.HotelName));
+                    itemRow2.append($('<td></td>').attr('width', '50%').css('text-align', 'left').text(item.HotelName));
                     cartItemsDiv.append(itemRow2);
 
                     const formattedCheckInDate = new Date(item.CheckInDate).toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' });
@@ -382,8 +424,17 @@ model IEnumerable<String>
                     alert('已成功加入購物車');
                 }, 10);
             });
-        
+
     }
+
+           //刪除session內的房間
+        function deleteSessionData(FId) {
+                    $.ajax({
+                        url: '/Order/DeleteSessionData',
+                        method: 'POST',
+                        data: { FId: FId },
+                    });
+                }
 
 
 
@@ -397,7 +448,7 @@ model IEnumerable<String>
             .then(cartData => {
                 const cartItemsDiv = $('#ShopCart');
                 cartItemsDiv.empty();
-               
+
                 if (cartData !== null) {
                     let totalPrice = 0;
                     cartData.forEach((item, index) => {
@@ -405,7 +456,7 @@ model IEnumerable<String>
                         itemRow.append($('<th></th>').attr('width', '40%').css('text-align', 'left').css('padding-left', '15px').text('房間類型'));
                         itemRow.append($('<td></td>').attr('width', '60%').css('text-align', 'left').text(item.roomClassName));
                         cartItemsDiv.append(item);
-                        console.log('讀取購物車2',cartData)
+                        console.log('讀取購物車2', cartData)
                         const itemRow2 = $('<tr></tr>');
                         itemRow2.append($('<th></th>').attr('width', '40%').css('text-align', 'left').css('padding-left', '15px').text('入住地區'));
                         itemRow2.append($('<td></td>').attr('width', '60%').css('text-align', 'left').text(item.hotelName));
@@ -452,7 +503,7 @@ model IEnumerable<String>
     }
 
 
-   
+
 
     $('#orderButton').click(function (event) {
         event.preventDefault(); // 阻止默認的超連結行為
