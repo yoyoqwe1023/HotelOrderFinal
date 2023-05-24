@@ -6,5 +6,8 @@ namespace HotelOrderFinal.ViewModels
     {
         public RoomClass RoomClass { get; set; }
         public List<RoomFacility> Facility { get; set; }
+        public List<HotelIndustry> HotelIndustry { get; set; }
+        public string HotelName { get; set; }
+
     }
 }
