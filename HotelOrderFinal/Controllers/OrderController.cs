@@ -115,14 +115,14 @@ namespace HotelOrderFinal.Controllers
             ViewBag.HotelId = hotelid;
             ViewBag.Hotels = h.hotels;
 
-            if (freeRooms == null)
-            {
-                return View();
-            }
-            else
-            {
+            //if (freeRooms == null)
+            //{
+            //    return View();
+            //}
+            //else
+            //{
                 return View(vmList);
-            }
+            //}
         }
 
         //搜尋房間(入/退宿時間、飯店ID)
@@ -205,7 +205,7 @@ namespace HotelOrderFinal.Controllers
             string json = "";
             json = JsonSerializer.Serialize(vmList);
 
-            if (freeRooms == null)
+            if (vmList.Count == 0)
             {
                 return Json(null);
             }
