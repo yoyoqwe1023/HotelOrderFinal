@@ -126,11 +126,11 @@
                         @*    <div class="col-md-4">*@
                         <form asp-action="Create">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                            @*<div class="form-group">
-                                <label asp-for="ActivityId" class="control-label"></label>
-                                <input asp-for="ActivityId" class="form-control" />
+                            <div class="form-group">
+                                @*<label asp-for="ActivityId" class="control-label"></label>*@
+                            <input type="hidden" asp-for="ActivityId" class="form-control" />
                                 <span asp-validation-for="ActivityId" class="text-danger"></span>
-                            </div>*@
+                            </div>
                             <div class="form-group">
                                 <label asp-for="ActivityName" class="control-label"></label>
                                 <input asp-for="ActivityName" class="form-control" />
@@ -194,13 +194,13 @@
             // 設定 Demo 評價
             // 取得表單元素和欄位元素
         
-        document.getElementById("ActivityName").value = "就是要送優惠拉";
-        document.getElementById("ActivityDirections").value = "只給會員唷~~"; 
-        document.getElementById("ActivityTime").value = '2023/5/31 12:00'; console.log('ActivityTime')                   
-        document.getElementById("ActivityPlace").value = "台北巨蛋"; 
-        document.getElementById("ActivityPeople").value = 20;
-        document.getElementById("ActivityCost").value = 2000;            
-            form.submit();
+        document.getElementById("ActivityName").value = "臺港劇場共製《千年幻戀》真雲林閣掌中劇團 X 浪人劇場（香港）";
+        document.getElementById("ActivityDirections").value = "東方的愛情故事，從來也不是激烈動盪，反而是如水般無疾而終，所謂苦戀是東方的「招牌菜」。〈聶小倩〉是苦戀的經典名篇，是男與女，人與鬼，道士（神）與妖（魔）的不斷交纏。我們選中的是當中的「愛」，可以是情慾間的愛，人神間的愛，正邪間的愛，說到底就是「執念」。";
+        document.getElementById("ActivityTime").value = "2023-07-29 14:30"; 
+        document.getElementById("ActivityPlace").value = "臺北市士林區文林路751號";
+        document.getElementById("ActivityPeople").value = 30;
+        document.getElementById("ActivityCost").value = 500;
+        form.submit();
         }   
 </script>
 
