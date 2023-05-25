@@ -6,7 +6,11 @@
 
 <section class="breadcrumb_area">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
-    <div class="container"></div>
+    <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle">後台管理系統:評論管理</h2>
+        </div>
+    </div>
 </section>
 <p></p>
 <head>
@@ -64,11 +68,14 @@
         <div class="row">
             <div class="col-md-2" style="background-color: #f2f2f2;">
             </div>
+            <div class="col-md-10">
+                <p></p>
+                <h4>新增評論</h4>
+                <hr />
 
-            <div class="row">
-                <div class="col-5 col-1-sm-6">
-                    <div class="d-flex flex-wrap">
-                        @*    <div class="col-md-4">*@
+                <div class="row">
+                    <div class="col-md-4" style="font-size: 17px">
+
                         <form asp-action="CreateByAdmin">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="form-group">
@@ -83,14 +90,21 @@
                             </div>
 
                             <div class="form-group">
-                                <label asp-for="CommentClass" class="control-label"></label>
-                                <input asp-for="CommentClass" class="form-control" />
-                                <span asp-validation-for="CommentClass" class="text-danger"></span>
+                                <label>評價分類：</label>
+                                <label class="lab1">
+                                    <input sp-for="CommentClass" type="radio" name="CommentClass" value="1" required checked />整體
+                                </label>
+                                <label class="lab1">
+                                    <input sp-for="CommentClass" type="radio" name="CommentClass" value="2"/>房間
+                                </label>
+                                <label class="lab1">
+                                    <input sp-for="CommentClass" type="radio" name="CommentClass" value="3" />服務
+                                </label>
                             </div>
 
                             <div class="form-group">
                                 <label asp-for="CommentPoint" class="control-label"></label>
-                                <input asp-for="CommentPoint" class="form-control" />
+                                <input asp-for="CommentPoint" class="form-control" type="text" maxlength="1" pattern="[1-5]{1}">
                                 <span asp-validation-for="CommentPoint" class="text-danger"></span>
                             </div>
 
@@ -99,12 +113,12 @@
                                 <textarea asp-for="CommentDetail" cols="40" rows="5" autofocus placeholder="請輸入評論摘要...."></textarea>
                                 <span asp-validation-for="CommentDetail" class="text-danger"></span>
                             </div>
-@*                            <div class="form-group">
-                                <label asp-for="CommentDetail" class="control-label"></label>
-                                <input asp-for="CommentDetail" class="form-control" />
-                                <span asp-validation-for="CommentDetail" class="text-danger"></span>
+                            @*                            <div class="form-group">
+                            <label asp-for="CommentDetail" class="control-label"></label>
+                            <input asp-for="CommentDetail" class="form-control" />
+                            <span asp-validation-for="CommentDetail" class="text-danger"></span>
                             </div>
-*@
+                            *@
                             <div class="form-group">
                                 <input type="submit" value="儲存" class="btn btn-primary" />
                                 <input type="reset" value="清除" class="btn btn-secondary" />
@@ -124,13 +138,13 @@
         </div>
     </div>
 </body>
-
-    @section Scripts {
+@section Scripts {
     <script>
         function demoCommentAdmin() {
             // 設定 Demo 評價
             // 取得表單元素和欄位元素
             document.getElementById("MemberId").value = "MB00006";
+            //document.getElementById("CommentClass").value = 1;
             document.getElementById("CommentPoint").value = 5;
             document.getElementById("CommentDetail").value = "給五星不是沒有缺點，但住四個晚上下來整體感受很不錯，下次來台北還是會列為首選。";
             //// 提交表單
