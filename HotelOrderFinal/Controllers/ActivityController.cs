@@ -48,7 +48,7 @@ namespace HotelOrderFinal.Controllers
                         select c;
             else
                 datas = db.Activity
-                    .Where(p => p.ActivityDirections.Contains(vm.txtKeyword)); 
+                    .Where(p => (p.ActivityName.Contains(vm.txtKeyword)) || (p.ActivityTime.ToString().Contains(vm.txtKeyword))); 
             if(datas == null)
             {
                 return RedirectToAction("ActivityByCreate");
