@@ -12,10 +12,15 @@
         .area {
             padding: 5px;
             margin: 10px;
-            border: solid green;
+            /*border: solid green;
+            border-radius: 20px;*/
+        }
+        .area-big{
+            padding: 5px;
+            margin: 10px;
+            border: solid #52c5fd;
             border-radius: 20px;
         }
-
         .row {
             display: flex;
             margin: 5px;
@@ -52,9 +57,19 @@
         .delete-button {
             btn btn-primary;
         }
+        th{
+            white-space:nowrap;
+        }
+        
+        .blue-line{
+            width:90%;
+            background-color: #b0e5ff;
+        }
     </style>
     
 </head>
+
+
 <section class="breadcrumb_area">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
@@ -64,9 +79,10 @@
     </div>
 </section>
 
-@*<body style="background: #E1F5FE">*@
+<body style="background: #E1F5FE">
       <div style="margin: 80px;padding: 10px 10px 150px 50px; background-color: white; box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);">
     <div class="col-md-10 offset-md-1 ">
+        <div class="area-big">
         <form action="SaveDB">
             <div class="area">
                 <div>
@@ -132,6 +148,7 @@
                 </div>
                 </div>*@
             </div>
+            <div class="blue-line"></div>
             <div class="area">
                 <div>
                     <h2>優惠卷</h2>
@@ -166,7 +183,7 @@
                     </div>
                 </div>
             </div>
-
+                    <div class="blue-line"></div>
             <div class="area">
                 <div>
                     <h2>付款方式</h2>
@@ -180,6 +197,7 @@
                     </div>
                 </div>
             </div>
+                    <div class="blue-line"></div>
             <div class="area">
                 <div>
                     <h2>注意事項</h2>
@@ -190,26 +208,30 @@
                         @*<li>平、旺、假日之定義，將依飯店規定為主。</li>*@
                     </ol>
                 </div>
+                      
                 <div>
+                        
                     <h2>備注</h2>
                     <textarea id="txtRemark" name="txtRemark "></textarea>
                 </div>
             </div>
+            
+          
+        </form>
+    </div>
             <div class="row justify-content-end">
                 <div class="col-md-2">
                     <a href="#">@Html.ActionLink("返回上一頁", "List", "Order", null, new { @class = "btn btn-primary btn-block" })</a>
                 </div>
                 <div class="col-md-2">
                     @*<a href="#" onclick="getOrderDetailValue();" class="btn btn-primary btn-block">付款 </a>*@
-                    <a href="#">@Html.ActionLink("付款", "ShowOrder", "Order", null, new { @class = "btn btn-primary btn-block" })</a>
+                    <a href="#">@Html.ActionLink("確認訂單", "ShowOrder", "Order", null, new { @class = "btn btn-primary btn-block" })</a>
                     @*<input type="submit"/>*@
                 </div>
             </div>
-        </form>
-    </div>
-      
+        </div>
   </div>
-
+  </body>
   
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="~/js/ForOrder.js"></script>
