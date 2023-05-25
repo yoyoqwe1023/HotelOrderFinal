@@ -42,7 +42,12 @@ model IEnumerable<String>
         }
 
         .aa {
-            margin-left: -30px;
+            margin-left: -20px;
+        }
+
+        .bb {
+            margin-left: 10px;
+            padding-left: 20px;
         }
 
         .shoppoing-head {
@@ -142,11 +147,11 @@ model IEnumerable<String>
                                     count++;
                                     <div class="row">
                                         @*room*@
-                                        <div class="col-md-4">
+                                        <div class="col-md-4 aa">
                                             @*圖片*@
-                                            <img src="~/image/@item.RoomClassPhoto1" width="250" height="150" />
+                                            <img src="~/image/@item.RoomClassPhoto1" width="240" height="150" />
                                         </div>
-                                        <div class="col-md-8 ">
+                                        <div class="col-md-8 bb">
                                             @*房間資訊*@
                                             <h4>@item.RoomClassName </h4>
                                             <p>@item.RoomClassDetail</p>
@@ -268,11 +273,11 @@ model IEnumerable<String>
 
                 console.log(item);
                 html += "<div class='row'>";
-                html += "<div class='col-md-4'>";
+                html += "<div class='col-md-4 aa ' >";
                 //html += "<img src='/image/" + item.RoomClassPhoto1 + "' width='250' height='150' />";
-                html += "<img src=@Url.Content("~/image/")" + item.RoomClassPhoto1 + " width='250' height='150' />";
+                html += "<img src=@Url.Content("~/image/")" + item.RoomClassPhoto1 + " width='240' height='150' />";
                 html += "</div>";
-                html += "<div class='col-md-8'>";
+                html += "<div class='col-md-8 bb' >";
                 html += "<h4>" + item["RoomClassName"] + "</h4>";
                 //html += "<p>" + item.RoomClassId + "</p>";
                 html += "<p>" + item.RoomClassDetail + "</p>";
@@ -328,53 +333,54 @@ model IEnumerable<String>
                     itemRow.append($('<th></th>').attr('width', '40%').css('text-align', 'left').css('padding-left', '15px').text('房間類型'));
                     itemRow.append($('<td></td>').attr('width', '40%').css('text-align', 'left').text(item.RoomClassName));
 
-                    const deleteButton = $('<button></button>').text('刪除');
-                    const deleteButtonCell = $('<td></td>').attr('width', '20px').css('text-align', 'center').append(deleteButton);
-                    // 将 fid 值存储在删除按钮元素上
-                    deleteButton.attr('data-fid', item.fId);
+                    //const deleteButton = $('<button></button>').text('刪除');
+                    //const deleteButtonCell = $('<td></td>').attr('width', '20px').css('text-align', 'center').append(deleteButton);
+                    //// 将 fid 值存储在删除按钮元素上
+                    //deleteButton.attr('data-fid', item.fId);
 
-                    //---
-                    //點擊刪除按鈕
-                    //deleteButton.click(() => {
+                    ////---
+                    ////點擊刪除按鈕
+                    ////deleteButton.click(() => {
 
-                    //    //跳出確認框
-                    //    if (confirm('確定要刪除此項目嗎？')) {
+                    ////    //跳出確認框
+                    ////    if (confirm('確定要刪除此項目嗎？')) {
 
-                    //        //抓取刪除列的FId
-                    //        const rowToDelete = cartItemsDiv.find('[data-item-id="' + itemId + '"]');
+                    ////        //抓取刪除列的FId
+                    ////        const rowToDelete = cartItemsDiv.find('[data-item-id="' + itemId + '"]');
 
-                    //        //刪除價格
-                    //        const itemPrice = item.weekdayPrice;
-                    //        totalPrice -= itemPrice;
+                    ////        //刪除價格
+                    ////        const itemPrice = item.weekdayPrice;
+                    ////        totalPrice -= itemPrice;
 
-                    //        rowToDelete.remove();
-                    //        const extractedFId = itemId.split('-')[1];
-                    //        //執行刪除function
-                    //        deleteSessionData(extractedFId);
+                    ////        rowToDelete.remove();
+                    ////        const extractedFId = itemId.split('-')[1];
+                    ////        //執行刪除function
+                    ////        deleteSessionData(extractedFId);
 
-                    //    }
-                        //--
+                    ////    }
+                    //    //--
 
 
 
-                    // 添加点击事件处理程序
-                    deleteButton.on('click', function () {
-                            if (confirm('確定要刪除此項目嗎？')) {
-                        const fid = $(this).attr('data-fid');
-                        // 找到对应的 cartItemsDiv 并删除
-                        const cartItemDiv = $('#cartItemsDiv-' + fId);
-                                cartItemDiv.remove(item.fId);
+                    //// 添加点击事件处理程序
+                    //deleteButton.on('click', function () {
+                    //        if (confirm('確定要刪除此項目嗎？')) {
+                    //    const fid = $(this).attr('data-fid');
+                    //    // 找到对应的 cartItemsDiv 并删除
+                    //    const cartItemDiv = $('#cartItemsDiv-' + fId);
+                    //            cartItemDiv.remove(item.fId);
 
-                        //要移除Session
-                        // deleteSessionData(extractedFId);
+                    //    //要移除Session
+                    //    // deleteSessionData(extractedFId);
 
-                        // 更新 ShopCartTotalPrice
-                        totalPrice -= item.WeekdayPrice;
-                        $('#ShopCartTotalPrice').text(totalPrice);
-                            }
-                            });
+                    //    // 更新 ShopCartTotalPrice
+                    //    totalPrice -= item.WeekdayPrice;
+                    //    $('#ShopCartTotalPrice').text(totalPrice);
+                    //        }
+                    //        });
 
-                    itemRow.append(deleteButtonCell);
+                    //itemRow.append(deleteButtonCell);
+
                     cartItemsDiv.append(itemRow);
 
                     const itemRow2 = $('<tr></tr>');
