@@ -26,6 +26,7 @@ model IEnumerable<String>
         .area-search {
             padding: 5px;
             margin: 10px;
+            
         }
 
         .area {
@@ -76,7 +77,8 @@ model IEnumerable<String>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
-<body>
+<body style="background: #E1F5FE">
+    <div style="margin: 80px;padding: 10px 10px 150px 50px; background-color: white; box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);">
     <div class="area-search">
         <div class="row" style="width:100% margin: 0 auto">
             <div class="col-md-2 offset-md-2">
@@ -129,7 +131,7 @@ model IEnumerable<String>
     </div>
     <div>
         <div class="row">
-            <div class="col-md-6 offset-md-1 roomlist-head " style="margin-right:20px;">
+            <div class="col-md-8 roomlist-head " style="margin-right:20px;">
                 <div>
                     @*list*@
                     <div id="RoomList" style="margin-bottom:3px;">
@@ -240,6 +242,7 @@ model IEnumerable<String>
                 </div>
             </div>
         </div>
+         </div>
     </div>
 </body>
 
@@ -492,14 +495,13 @@ model IEnumerable<String>
 
                         totalPrice += item.weekdayPrice;
 
-                        //// 加hr
-                        //if (index !== cartArray.length - 1) {
-                        //    const hrRow = $('<tr></tr>');
-                        //    const hrCell = $('<td></td>').attr('colspan', '2').html('<hr>');
-                        //    hrRow.append(hrCell);
-                        //    cartItemsDiv.append(hrRow);
-                        //}
-
+                    //     // 加hr
+                    //if (index !== cartArray.length - 1) {
+                    //    const hrRow = $('<tr></tr>');
+                    //    const hrCell = $('<td></td>').attr('colspan', '2').html('<hr>');
+                    //    hrRow.append(hrCell);
+                    //    cartItemsDiv.append(hrRow);
+                    //}
 
                     });
                     const totalPriceCell = $('<td></td>').addClass('text-right').text('NT$ ' + totalPrice);
