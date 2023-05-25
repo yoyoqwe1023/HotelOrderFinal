@@ -67,11 +67,19 @@ namespace HotelOrderFinal.Controllers
                 .Where(mrf => mrf.RoomClassId == id)
                 .Select(mrf => mrf.Facility)
                 .ToList();
+           
+                var hotelId = db.Room.FirstOrDefault(h => h.RoomClassId == id)?.HotelId;
+            var hotelName = db.HotelIndustry.FirstOrDefault(h => h.HotelId == hotelId)?.HotelName;
+            var hotelIds = db.Room.Where(h => h.RoomClassId == id).Select(h => h.HotelId).ToList();
+            var hotelIndustries = db.HotelIndustry.Where(h => hotelIds.Contains(h.HotelId)).ToList();
+
 
             var viewModel = new CRoomClassViewModel
             {
                 RoomClass = room,
-                Facility = facilities
+                Facility = facilities,
+                HotelIndustry = hotelIndustries,
+                HotelName = hotelName
             };
 
             return View(viewModel);

@@ -120,8 +120,8 @@
     </div>
 </div>*@
 <div class="container-fluid">
-            <div class="row">
-                <div class="col-5 col-1-sm-6">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
                     <div class="d-flex flex-wrap">
                         @*    <div class="col-md-4">*@
                         <form asp-action="Create">
@@ -132,7 +132,7 @@
                                 <span asp-validation-for="ActivityId" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="ActivityName" class="control-label"></label>
+                                <label asp-for="ActivityName" class="control-label">活動名稱</label>
                                 <input asp-for="ActivityName" class="form-control" />
                                 <span asp-validation-for="ActivityName" class="text-danger"></span>
                             </div>
@@ -142,27 +142,27 @@
                                 <span asp-validation-for="ActivityImage" class="text-danger"></span>
                             </div>*@
                             <div class="form-group">
-                                <label asp-for="ActivityDirections" class="control-label"></label>
+                                <label asp-for="ActivityDirections" class="control-label">活動詳細</label>
                                 <input asp-for="ActivityDirections" class="form-control" />
                                 <span asp-validation-for="ActivityDirections" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="ActivityTime" class="control-label"></label>
+                                <label asp-for="ActivityTime" class="control-label">活動時間</label>
                                 <input asp-for="ActivityTime" class="form-control" />
                                 <span asp-validation-for="ActivityTime" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="ActivityPlace" class="control-label"></label>
+                                <label asp-for="ActivityPlace" class="control-label">活動地點</label>
                                 <input asp-for="ActivityPlace" class="form-control" />
                                 <span asp-validation-for="ActivityPlace" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="ActivityPeople" class="control-label"></label>
+                                <label asp-for="ActivityPeople" class="control-label">人數限制</label>
                                 <input asp-for="ActivityPeople" class="form-control" />
                                 <span asp-validation-for="ActivityPeople" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label asp-for="ActivityCost" class="control-label"></label>
+                                <label asp-for="ActivityCost" class="control-label">活動費用</label>
                                 <input asp-for="ActivityCost" class="form-control" />
                                 <span asp-validation-for="ActivityCost" class="text-danger"></span>
                             </div>
@@ -171,7 +171,7 @@
                             </div>*@
 
                             <div class="form-group">
-                            <input type="submit" value="Create" class="btn btn-primary" />
+                            <input type="submit" value="新增活動" class="btn btn-primary" />
                                 <input type="reset" value="清除" class="btn btn-secondary" />
                             <a asp-action="ActivityByCreate" class="btn btn-warning">取消</a>
                             </div>

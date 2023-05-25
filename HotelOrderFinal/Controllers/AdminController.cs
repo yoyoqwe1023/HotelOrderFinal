@@ -38,7 +38,7 @@ namespace HotelOrderFinal.Controllers
             if ( admin == null )
             {
                 //ViewBag.Message = "帳密錯誤，登入失敗";
-                TempData ["ErrorMessage"] = "管理者帳密錯誤，登入失敗";
+                TempData ["AdminErrorMessage"] = "管理者帳密錯誤，登入失敗";
                 return RedirectToAction ( "Index" , "Home" );
             }
             ViewBag.Message = model.AdminId + "，登入成功";

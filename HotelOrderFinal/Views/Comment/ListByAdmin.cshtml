@@ -82,7 +82,7 @@
         @ViewBag.Message
     }
 </p>
-<p>
+<p style="padding-left:10px">
     <a asp-action="CreateByAdmin" class="btn btn-info">新增評論</a>
     @{
         int count2 = 0; decimal avgPoint = 0, totPoint = 0;
@@ -105,23 +105,23 @@
             <th>
                 序
             </th>
-            @*<th>
+            <th>
                 <input type="hidden" value="@Html.DisplayNameFor(model => model.CommentId)" />
-            </th>*@
-            <th>
-                評論日期
             </th>
             <th>
-                會員編號
+                @Html.DisplayNameFor(model => model.CommentDate)
             </th>
             <th>
-                評論類別
+                @Html.DisplayNameFor(model => model.MemberId)
             </th>
             <th>
-                評分
+                @Html.DisplayNameFor(model => model.CommentClass)
             </th>
             <th>
-                評論內容
+                @Html.DisplayNameFor(model => model.CommentPoint)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CommentDetail)
             </th>
             <th></th>
         </tr>
@@ -137,9 +137,9 @@
                         @count
                     </td>
 
-                    @*<td>
+                    <td>
                         <input type="hidden" value="@Html.DisplayFor(modelItem => item.CommentId)" />
-                    </td>*@
+                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.CommentDate)
                     </td>
