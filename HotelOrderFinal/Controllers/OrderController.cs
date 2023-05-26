@@ -434,59 +434,59 @@ namespace HotelOrderFinal.Controllers
         //訂房明細頁面
         public IActionResult SaveDB(COrderDetailViewModel vm)
         {
-            //活動
-            string activityId = HttpContext.Session.GetString("ActivityId");
-            var activity = db.Activity.Where(a => a.ActivityId == int.Parse(activityId));
-            //活動人數待查
+            ////活動
+            //string activityId = HttpContext.Session.GetString("ActivityId");
+            //var activity = db.Activity.Where(a => a.ActivityId == int.Parse(activityId));
+            ////活動人數待查
 
-            //優惠卷會員
-            var userId = _contextAccessor.HttpContext.Session.GetString("UserID");
-            string memberId = db.RoomMember.Where(m => m.MemberId == userId).Select(m => m.MemberId).FirstOrDefault();
-
-
-            //取得最大ID
-            string maxOID = db.Order.Max(oid => oid.OrderId);
-            string maxODID = db.OrderDetail.Max(odid => odid.OrderDetailId);
+            ////優惠卷會員
+            //var userId = _contextAccessor.HttpContext.Session.GetString("UserID");
+            //string memberId = db.RoomMember.Where(m => m.MemberId == userId).Select(m => m.MemberId).FirstOrDefault();
 
 
-            //取得ID的數字
-            int numOID = int.Parse(maxOID.Substring(2));
-            string newOrderID = string.Format("OD{0:D6}", numOID + 1);
-            int numODID = int.Parse(maxODID.Substring(3));
-            string newOrderDetailID = string.Format("ODD{0:D6}", numODID + 1);
+            ////取得最大ID
+            //string maxOID = db.Order.Max(oid => oid.OrderId);
+            //string maxODID = db.OrderDetail.Max(odid => odid.OrderDetailId);
 
 
-            Order o = new Order
-            {
-                OrderId = newOrderID,
-                MemberId = memberId,
-                OrderDate = DateTime.Now,
-                //OrderTotalPrice = ,  
-                //CheckInPeople = , //網頁取值
-                ActivityId = int.Parse(activityId)
-                //ActivityPeople = , //網頁取值
-            };
-
-            OrderDetail od = new OrderDetail
-            {
-                OrderDetailId = newOrderDetailID,
-                OrderId = newOrderID,
-                //RoomID =  ,  //房間list
-                //CheckInDate =  , ///房間list
-                //CheckOutDate = , //房間list
-                //PaymentDate = DateTime.Now,
-                //PaymentID = this.ODPaymentID,
-                //PaymentPrice = ,  //房間list
+            ////取得ID的數字
+            //int numOID = int.Parse(maxOID.Substring(2));
+            //string newOrderID = string.Format("OD{0:D6}", numOID + 1);
+            //int numODID = int.Parse(maxODID.Substring(3));
+            //string newOrderDetailID = string.Format("ODD{0:D6}", numODID + 1);
 
 
-            };
+            //Order o = new Order
+            //{
+            //    OrderId = newOrderID,
+            //    MemberId = memberId,
+            //    OrderDate = DateTime.Now,
+            //    //OrderTotalPrice = ,  
+            //    //CheckInPeople = , //網頁取值
+            //    ActivityId = int.Parse(activityId)
+            //    //ActivityPeople = , //網頁取值
+            //};
 
-            //修改
-            DiscountDetail dd = new DiscountDetail()
-            {
-                DiscountUse = 1,
+            //OrderDetail od = new OrderDetail
+            //{
+            //    OrderDetailId = newOrderDetailID,
+            //    OrderId = newOrderID,
+            //    //RoomID =  ,  //房間list
+            //    //CheckInDate =  , ///房間list
+            //    //CheckOutDate = , //房間list
+            //    //PaymentDate = DateTime.Now,
+            //    //PaymentID = this.ODPaymentID,
+            //    //PaymentPrice = ,  //房間list
 
-            };
+
+            //};
+
+            ////修改
+            //DiscountDetail dd = new DiscountDetail()
+            //{
+            //    DiscountUse = 1,
+
+            //};
             return View();
         }
 
