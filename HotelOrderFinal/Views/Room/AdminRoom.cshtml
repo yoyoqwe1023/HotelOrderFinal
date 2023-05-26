@@ -5,9 +5,34 @@
     
 }
 <style>
+    .table td {       
+        overflow: hidden; /* 隐藏溢出内容 */
+        text-overflow: ellipsis; /*使用省略号表示溢出内容 */
+        white-space: normal;
+        height:90px;
+        
+    }
+
+    .image-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;     
+    }
+
+        .image-container img {
+            margin-right: 10px; /* 設置圖片間的右邊距，可根據需要進行調整 */
+        }
+
+    .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3; /* 設置顯示的最大行數 */
+        overflow: hidden;
+    }
 
 </style>
 <link rel="stylesheet" href="~/css/ForAdminTable.css">
+
            @* <h2 class="page-cover-tittle">後台管理系統：房型管理</h2>*@
 
 <section class="breadcrumb_area">
@@ -45,9 +70,9 @@
         <li>
             @Html.ActionLink("活動管理", "ActivityByCreate", "Activity", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
         </li>
-   @*     <li>
+        <li>
             @Html.ActionLink("訂房管理", "EditPassword", "Member", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
-        </li>*@
+        </li>
         <li>
             @Html.ActionLink("飯店一覽管理", "ListView", "HotelIndustry", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
         </li>
@@ -114,7 +139,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.RoomClassId)
                 </td>
-                <td>
+                                <td style="white-space: nowrap;">
                     @Html.DisplayFor(modelItem => item.RoomClassName)
                 </td>
                 <td>
@@ -123,14 +148,15 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.RoomClassPeople)
                 </td>
-                <td>
-                    @*@Html.DisplayFor(modelItem => item.RoomClassDetail)*@
+                                <td class="line-clamp-2" title="@item.RoomClassDetail">
+                    @Html.DisplayFor(modelItem => item.RoomClassDetail)
                 </td>
                 <td>
+                                    <div class="image-container">
                     <img src="~/image/room/@item.RoomClassPhoto1" width="60" height="45" >
-                                    <img src="~/image/room/@item.RoomClassPhoto2" width="60" height="45">
-                                    <img src="~/image/room/@item.RoomClassPhoto3" width="60" height="45">
-
+                    <img src="~/image/room/@item.RoomClassPhoto2" width="60" height="45">                                 
+                    <img src="~/image/room/@item.RoomClassPhoto3" width="60" height="45">
+                                    </div>
                 <td>
                     @Html.DisplayFor(modelItem => item.WeekdayPrice)
                 </td>
