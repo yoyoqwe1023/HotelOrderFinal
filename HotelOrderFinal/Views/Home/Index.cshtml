@@ -4,6 +4,8 @@
 }
 <!--================Banner Area =================-->
 <style>
+ 
+
     .fade-in {
         opacity: 0; /* 設置初始透明度為 0 */
         transform: translateY(50px); /* 將元素下移 50px */
@@ -14,11 +16,14 @@
             opacity: 1; /* 漸入完成後，將透明度設置為 1 */
             transform: translateY(0); /* 元素上移恢復原位 */
         }
+
+
 </style>
 @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">*@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 
 
 @*底下分別是Bootstrap CSS/fontawesome.com用的ICON 需要有才可以使用在飯店設施上的ICON!*@
@@ -28,7 +33,7 @@
 
 <section class="banner_area">
     <div class="booking_table d_flex align-items-center">
-        <div class="overlay bg-parallax" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
+        <div class="overlay bg-parallax" id="TopBlockID" data-stellar-ratio="0.9" data-stellar-vertical-offset="0" data-background=""></div>
         <div class="container">
             <div class="banner_content text-center">
                 <h6>遠離單調的生活</h6>
@@ -485,7 +490,30 @@
         }
     });
 
+
+    // 圖片數量和索引
+    var images = ["../../image/HomePage/HomePage1.jpg", "../../image/HomePage/HomePage2.jpg", "../../image/HomePage/HomePage3.jpg", "../../image/HomePage/HomePage4.jpg"];
+    var currentIndex = 0;
+
+    // 切換圖片函式
+    function changeImage() {
+        // 取得下一個圖片的索引
+        currentIndex = (currentIndex + 1) % images.length;
+        // 取得下一個圖片的路徑
+        var nextImage = images[currentIndex];
+
+        // 淡出效果
+        $('#TopBlockID').animate({ opacity: 0.3 }, 0, function () {
+            // 在淡出完成後，設置新圖片並執行淡入效果
+            $(this).css('background-image', 'url(' + nextImage + ')');
+            $(this).animate({ opacity: 0.5 }, 1000);
+        });
+    }
+
+    setInterval(changeImage, 3000);
 </script>
+
+
 
 
 
