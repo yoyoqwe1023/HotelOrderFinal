@@ -3,7 +3,18 @@
     ViewData["Title"] = "Home Page";
 }
 <!--================Banner Area =================-->
+<style>
+    .fade-in {
+        opacity: 0; /* 設置初始透明度為 0 */
+        transform: translateY(50px); /* 將元素下移 50px */
+        transition: opacity 2s ease, transform 2s ease; /* 添加過渡效果 */
+    }
 
+        .fade-in.show {
+            opacity: 1; /* 漸入完成後，將透明度設置為 1 */
+            transform: translateY(0); /* 元素上移恢復原位 */
+        }
+</style>
 @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">*@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -83,14 +94,14 @@
 <!--================Banner Area =================-->
 <!--================ Accomodation Area  =================-->
 <section class="accomodation_area section_gap">
-    <div class="white-block">
+    <div class="white-block fade-in">
     <div class="container">
         <div class="section_title text-center">
             <h2 class="title_color">風格介紹</h2>
             <p>依照風格,展現不同的風貌</p>
                 <span class="blue-line"></span>
         </div>
-        <div class="row mb_30">
+        <div class="row mb_30 fade-in">
             <div class="col-lg-3 col-sm-6">
                 <div class="accomodation_item text-center">
                     <div class="hotel_img">
@@ -173,12 +184,12 @@
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background="">
     </div>
     <div class="container">
-        <div class="section_title text-center">
+        <div class="section_title text-center fade-in">
             <h2 class="title_w">飯店設施</h2>
             <p style="color: #e9ecef;">我們提供一系列精心設計的設施，以滿足您的各種需求和喜好</p>
             <span class="blue-line"></span>
         </div>
-        <div class="row mb_30">
+        <div class="row mb_30 fade-in">
             <div class="col-lg-4 col-md-6">
                 <div class="facilities_item">
                     <h4 class="sec_h4"><i class="fas fa-coffee"></i>咖啡廳</h4>
@@ -222,15 +233,15 @@
 <!--================ Testimonial Area  =================-->
 <section class="latest_blog_area section_gap comment-background">
     <div class="comment-white-block">
-      
-    <div class="container">
+
+        <div class="container fade-in">
         <div class="section_title text-center">
                 <h2 class="title_color">來自客人優良評價</h2>
                 <p>給未來客人信心與參考</p>
             <span class="blue-line"></span>
         </div>
 
-        <div class="testimonial_slider owl-carousel">
+        <div class="testimonial_slider owl-carousel fade-in">
             <div class="media testimonial_item" style="border-radius:10px">
                 <div class="media-body sec_h4">
                     <p>提前訂到228連假，2500元的價位，CP值很高，至少不是老舊飯店，安全上比較安心 </p>
@@ -291,7 +302,7 @@
 <section class="latest_blog_area section_gap">
     <div class="white-block">
     <div class="container">
-        <div class="section_title text-center">
+        <div class="section_title text-center fade-in">
             <h2 class="title_color">體驗活動</h2>
             <p>與我們一同探索當地文化，留下難忘的回憶和珍貴的體驗</p>
             <span class="blue-line"></span>
@@ -302,7 +313,7 @@
                 <li data-target="#myCarousel" data-slide-to="1"></li>
                 <li data-target="#myCarousel" data-slide-to="2"></li>
             </ol>
-            <div class="carousel-inner">
+            <div class="carousel-inner fade-in">
                 @for (int i = 0; i < Model.ActivityImage.Count; i += 3)
                 {
                     <div class="carousel-item @((i == 0) ? "active" : "")">
@@ -459,6 +470,20 @@
         window.location.href = url;
 
     }
+
+    window.addEventListener('scroll', function () {
+        var elements = document.querySelectorAll('.fade-in');
+
+        for (var i = 0; i < elements.length; i++) {
+            var element = elements[i];
+            var position = element.getBoundingClientRect().top;
+            var windowHeight = window.innerHeight;
+
+            if (position < windowHeight - 50) {
+                element.classList.add('show');
+            }
+        }
+    });
 
 </script>
 
