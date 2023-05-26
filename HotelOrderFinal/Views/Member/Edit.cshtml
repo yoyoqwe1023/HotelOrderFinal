@@ -21,6 +21,9 @@
         margin: 0 auto; /* 將容器置中對齊 */
     }
 
+    .control-label {
+        font-size: 18px;
+    }
 </style>
 <div class="wrapper ">
 
@@ -92,29 +95,29 @@
             <form asp-controller="Member" asp-action="Edit">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 @*設定隱藏display: none*@
-                <div class="form-group" style="display: none;>  
+                <div class="form-group" style="display: none;">  
                     <label asp-for="AdminId" class="control-label"></label>
                     <input asp-for="AdminId" class="form-control" />
                     <span asp-validation-for="AdminId" class="text-danger"></span>
                 </div>
                 @*設定隱藏display: none*@
-                <div class="form-group" style="display: none;>
+                <div class="form-group" style="display: none;">
                     <label asp-for="MemberId" class="control-label"></label>
                     <input asp-for="MemberId" class="form-control" />
                     <span asp-validation-for="MemberId" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="MemberName" class="control-label"></label>
+                    <label asp-for="MemberName" class="control-label">會員名稱</label>
                     <input asp-for="MemberName" class="form-control" />
                     <span asp-validation-for="MemberName" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="MemberBirthday" class="control-label"></label>
+                    <label asp-for="MemberBirthday" class="control-label">生日</label>
                     <input asp-for="MemberBirthday" class="form-control" type="date" />
                     <span asp-validation-for="MemberBirthday" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="MemberGender" class="control-label"></label>
+                    <label asp-for="MemberGender" class="control-label">性別</label>
                     <input asp-for="MemberGender" class="form-control" />
                     <span asp-validation-for="MemberGender" class="text-danger"></span>
                 </div>
@@ -124,14 +127,14 @@
                 <span asp-validation-for="MemberIdentity" class="text-danger"></span>
                 </div>*@
                 <div class="form-group">
-                    <label asp-for="MemberPhone" class="control-label"></label>
+                    <label asp-for="MemberPhone" class="control-label">會員手機(帳號)</label>
 
                     <input asp-for="MemberPhone" class="form-control" disabled />
 
                     <span asp-validation-for="MemberPhone" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="MemberEmail" class="control-label"></label>
+                    <label asp-for="MemberEmail" class="control-label">電子信箱</label>
                     <input asp-for="MemberEmail" class="form-control" />
                     <span asp-validation-for="MemberEmail" class="text-danger"></span>
                 </div>
@@ -171,6 +174,6 @@
     </div>
 
     <div>
-        <a asp-action="Index">Back to List</a>
+        @*<a asp-action="Index">Back to List</a>*@
     </div>
 </div>

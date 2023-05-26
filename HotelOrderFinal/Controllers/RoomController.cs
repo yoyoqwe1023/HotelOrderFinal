@@ -78,7 +78,7 @@ namespace HotelOrderFinal.Controllers
             {
                 RoomClass = room,
                 Facility = facilities,
-                HotelIndustry = new List<HotelIndustry>(),
+                HotelIndustry = hotelIndustries,
                 HotelName = hotelName
             };
 
