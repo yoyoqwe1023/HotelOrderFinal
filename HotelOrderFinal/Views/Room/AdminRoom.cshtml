@@ -85,14 +85,14 @@
                 詳細
             </th>
             <th>
-                照片1
+                房間照片
             </th>
-            <th>
+            @*<th>
                 照片2
             </th>
             <th>
                 照片3
-            </th>
+            </th>*@
             <th>
                 平日價格
             </th>
@@ -127,14 +127,10 @@
                     @*@Html.DisplayFor(modelItem => item.RoomClassDetail)*@
                 </td>
                 <td>
-                    <img src="~/image/room/@item.RoomClassPhoto1" width="120" height="90" >                                    
-                </td>
-                          <td>
-                    <img src="~/image/room/@item.RoomClassPhoto2" width="120" height="90">
-                </td>
-                <td>
-                    <img src="~/image/room/@item.RoomClassPhoto3" width="120" height="90">
-                </td>
+                    <img src="~/image/room/@item.RoomClassPhoto1" width="60" height="45" >
+                                    <img src="~/image/room/@item.RoomClassPhoto2" width="60" height="45">
+                                    <img src="~/image/room/@item.RoomClassPhoto3" width="60" height="45">
+
                 <td>
                     @Html.DisplayFor(modelItem => item.WeekdayPrice)
                 </td>

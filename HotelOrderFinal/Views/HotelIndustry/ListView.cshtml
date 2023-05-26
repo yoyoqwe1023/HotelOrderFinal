@@ -4,6 +4,16 @@
     ViewData["Title"] = "ListView";
 }
 <link rel="stylesheet" href="~/css/ForAdminTable.css">
+<style>
+
+    .table td {
+        white-space: nowrap; /* 防止内容换行 */
+        overflow: hidden; /* 隐藏溢出内容 */
+        text-overflow: ellipsis; /* 使用省略号表示溢出内容 */
+        overflow: hidden; /* 隐藏溢出内容 */
+        white-space: normal;
+    }
+</style>
 
 <section class="breadcrumb_area">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
@@ -79,7 +89,7 @@
                 圖片描述
             </th>
             <th>
-                區域ID(北區為1，中區為2，南區為3)
+                區域ID<br />(北區為1，中區為2，南區為3)
             </th>
             <th>
                 <a asp-action="Create" class="btn btn-primary">新增飯店</a>
