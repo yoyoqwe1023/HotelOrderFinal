@@ -50,7 +50,7 @@ function loadCartFromSession() {
 
 
                     // 建立下拉式選單選項
-                    for (let i = 1; i <= item.roomClassPeople + 2; i++) {
+                    for (let i = item.roomClassPeople; i <= item.roomClassPeople + 2; i++) {
                         const option = $('<option></option>').text(i);
 
                         // 設定預設選項
