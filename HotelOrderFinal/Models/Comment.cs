@@ -17,7 +17,7 @@ namespace HotelOrderFinal.Models
         public int? CommentClass { get; set; }
         [DisplayName("評點：1.非常失望..5.非常滿意")]
         public int? CommentPoint { get; set; }
-        [DisplayName("評價摘要")]
+        [DisplayName("評論摘要")]
         public string CommentDetail { get; set; }
 
         public virtual RoomMember Member { get; set; }

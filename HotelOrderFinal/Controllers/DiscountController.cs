@@ -212,11 +212,34 @@ namespace HotelOrderFinal.Controllers
 
         public IActionResult DiscountByMember()
         {
-            var userId = _contextAccessor.HttpContext.Session.GetString("UserID");           
-            IEnumerable<DiscountDetail> usesid = db.DiscountDetail.Where(x => x.MemberId == userId);
-            
+            var userId = _contextAccessor.HttpContext.Session.GetString("UserID");
+
+            //IEnumerable<DiscountDetail> usesid = db.DiscountDetail.Where(x => x.MemberId == userId);
+            //var 這個會員的優惠=db.DiscountDetail.Where(d => d.MemberId == userId);
+            //List<string> discountNames = new List<string>();
+            //foreach(var item in 這個會員的優惠)
+            //{
+            //    var 優惠類型=db.Discount.FirstOrDefault(d=>d.DiscountId==(int)item.DiscountId);
+            //    if (優惠類型 != null)
+            //        discountNames.Add(優惠類型.DiscountName);
+            //}
+            //CTingViewModel vm = new CTingViewModel();
+            //vm.names = discountNames;
+            //vm.xx = usesid;
+
+            List<CDiscountViewModel> list = new List<CDiscountViewModel>();
+            var discountDetails=db.DiscountDetail.Where(x => x.MemberId == userId).ToList();
+            foreach(var item in discountDetails)
+            {
+                CDiscountViewModel vm = new CDiscountViewModel();
+                vm.discountDetail = item;
+                var 取得優惠資料=db.Discount.FirstOrDefault(x => x.DiscountId == item.DiscountId);
+                vm.names = 取得優惠資料.DiscountName;
+                list.Add(vm);
+            }
             //IEnumerable<Discount> usesid = db.Discount.Where(x => x.MemberId == userId);
-            return View(usesid);
+            //return View(usesid);
+            return View(list);
         }
     }
 }
