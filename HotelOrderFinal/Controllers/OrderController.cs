@@ -514,21 +514,54 @@ namespace HotelOrderFinal.Controllers
 
         public IActionResult ShowOrderDetail(string id)
         {
-            HotelOrderContext db = new HotelOrderContext();
+            ShowOrderDetailData model = new ShowOrderDetailData();
 
-            ShowOrderDetailData  model = db.OrderDetail.Select(o=>new ShowOrderDetailData{
-            orderID = o.OrderId,
-            CheckInDate = o.CheckInDate.Value.ToString("yyyy/MM/dd"),
-            CheckOutDate = o.CheckOutDate.Value.ToString("yyyy/MM/dd"),
-            OrderDetailRemark = o.OrderDetailRemark,
-            OrderDetailStatusID = o.OrderDetailStatusId,
-            PaymentDate = o.PaymentDate.Value.ToString("yyyy/MM/dd"),
-            PaymentID = o.PaymentId,
-            PaymentPrice = (int)o.PaymentPrice.Value,
-            RoomID = o.RoomId
-            }).Where(o => o.orderID == id).FirstOrDefault();
+            using (var dbContext = new HotelOrderContext())
+            {
+                var query = (from a in dbContext.OrderDetail
+                             join b in dbContext.Room
+                             on new { a.RoomId } equals new { b.RoomId }
+                             join c in dbContext.RoomClass
+                             on new { b.RoomClassId } equals new { c.RoomClassId } into d
+                             from c in d.DefaultIfEmpty()
+                             where a.OrderId == id
+                             select new { a.OrderId, a.CheckInDate, a.CheckOutDate, a.OrderDetailRemark, a.OrderDetailStatusId, a.PaymentDate, a.PaymentId, a.PaymentPrice, c.RoomClassPhoto1, c.RoomClassPhoto2, c.RoomClassPhoto3, c.RoomClassName }).FirstOrDefault();
+
+                if (query != null)
+                {
+                    model.orderID = query.OrderId;
+                    model.CheckInDate = query.CheckInDate.Value.ToString("yyyy/MM/dd");
+                    model.CheckOutDate = query.CheckOutDate.Value.ToString("yyyy/MM/dd");
+                    model.OrderDetailRemark = query.OrderDetailRemark;
+                    model.OrderDetailStatusID = query.OrderDetailStatusId;
+                    model.PaymentDate = query.PaymentDate.Value.ToString("yyyy/MM/dd");
+                    model.PaymentID = query.PaymentId;
+                    model.PaymentPrice = (int)(query.PaymentPrice.Value);
+                    model.RoomClassPhoto1 = query.RoomClassPhoto1;
+                    model.RoomClassPhoto2 = query.RoomClassPhoto2;
+                    model.RoomClassPhoto3 = query.RoomClassPhoto3;
+                    model.RoomClassName = query.RoomClassName;
+                }
+            }
 
             return View(model);
+                       
+
+            //HotelOrderContext db = new HotelOrderContext();
+            //ShowOrderDetailData model = db.OrderDetail.Select(o => new ShowOrderDetailData
+            //{
+            //    orderID = o.OrderId,
+            //    CheckInDate = o.CheckInDate.Value.ToString("yyyy/MM/dd"),
+            //    CheckOutDate = o.CheckOutDate.Value.ToString("yyyy/MM/dd"),
+            //    OrderDetailRemark = o.OrderDetailRemark,
+            //    OrderDetailStatusID = o.OrderDetailStatusId,
+            //    PaymentDate = o.PaymentDate.Value.ToString("yyyy/MM/dd"),
+            //    PaymentID = o.PaymentId,
+            //    PaymentPrice = (int)o.PaymentPrice.Value,
+            //    RoomID = o.RoomId
+            //}).Where(o => o.orderID == id).FirstOrDefault();
+
+            //return View(model);
         }
     }
 }

@@ -92,65 +92,75 @@
         @*// 在這裡可以使用 memberId 去查詢該會員的歷史訂單資訊*@
         @*// 假設您有一個名為 orders 的資料集合用於儲存訂單資訊*@
         <div class="row">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model[0].OrderId)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model[0].OrderDate)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model[0].OrderTotalPrice)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model[0].CheckInPeople)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model[0].OrderRemark)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @{
-                    int count = 0;
-                    foreach (var item in Model)
-                    {
-                        count++;
-                        <tr>
-                            <td>
-                                @count
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.OrderId)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem =>item.OrderDate)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.OrderTotalPrice)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.CheckInPeople)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.OrderRemark)
-                            </td>
-                            <td>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            序號
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model[0].OrderId)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model[0].OrderDate)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model[0].OrderTotalPrice)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model[0].CheckInPeople)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model[0].OrderRemark)
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model[0].OrderRemark)
+                        </th>
+
+
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int count = 0;
+                        foreach (var item in Model)
+                        {
+                            count++;
+                            <tr>
+                                <td>
+                                    @count
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrderId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem =>item.OrderDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrderTotalPrice)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.CheckInPeople)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrderRemark)
+                                </td>
+                                <td>
                                     @Html.ActionLink("查詢", "ShowOrderDetail","Order", new {  id=item.OrderId })
-                            </td>
-                        </tr>
-                    }
-                }
-            </tbody>
-        </table>
-    </div>
-    </div>
+                                </td>
    
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 
     @*<div>
-        <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Back to List</a>
     </div>*@
 </div>
