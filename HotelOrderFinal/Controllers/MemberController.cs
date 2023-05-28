@@ -63,7 +63,7 @@ namespace HotelOrderFinal.Controllers
             if (member == null)
             {
                 //ViewBag.Message = "帳密錯誤，登入失敗";
-                TempData["ErrorMessage"] = "帳密錯誤，登入失敗";
+                TempData["MemberErrorMessage"] = "帳密錯誤，登入失敗";
                
                 if (!string.IsNullOrEmpty(returnUrl))
                 {
@@ -94,6 +94,13 @@ namespace HotelOrderFinal.Controllers
             }
                 return RedirectToAction("Index", "Home");
         }
+
+
+        public IActionResult terms()
+        {
+            return View();
+        }
+
         //【忘記密碼】==========================================================================================
 
         public IActionResult ForgotPassword ( )
@@ -101,13 +108,10 @@ namespace HotelOrderFinal.Controllers
             // 處理密碼重製
             return View ( );
         }
-
         //[HttpPost]  //用ajax方法請求回傳值跟form/submit是無相關的兩條路, 使用時要分清楚
         [Route("Member/find")]
         public IActionResult Find_password(string target) //忘記密碼方法
-        {
-
- 
+        { 
             bool isEmailExist = db.RoomMember.Any(x => x.MemberEmail == target);
             if (isEmailExist)
             {
@@ -119,7 +123,7 @@ namespace HotelOrderFinal.Controllers
                 string receivePage = "Member/ResetPwd";
                 string mailContent = "請點擊以下連結，返回網站重新設定密碼，逾期 5 分鐘後，此連結將會失效。<br><br>";
                 mailContent = mailContent + "<a href='" + webPath + receivePage + "?verify=" + sVerify + "'  target='_blank'>點此連結</a>";
-                string mailSubject = "[訂房'系統] 重設密碼驗證連結";
+                string mailSubject = "[訂房系統] 重設密碼驗證連結";
                 string SmtpServer = "smtp.gmail.com";
                 string GoogleMailUserID = "imapple1991@gmail.com"; //Google 發信帳號
                 string GoogleMailUserPwd = "lqcacnvacukpnzpf"; //應用程式密碼
@@ -141,6 +145,7 @@ namespace HotelOrderFinal.Controllers
                 }
             }
             return Content(isEmailExist.ToString());
+            //return RedirectToAction("Index", "Home");
         }
 
         public IActionResult ResetPwd(string verify)  //重設密碼頁面
@@ -167,7 +172,6 @@ namespace HotelOrderFinal.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult doResetPwd(RoomMember target)  //修改密碼方法
         {
-
             if (db.RoomMember.Any(x => x.MemberId == target.MemberId))
             {
                 RoomMember member = db.RoomMember.FirstOrDefault(x => x.MemberId == target.MemberId)!;
@@ -304,6 +308,8 @@ namespace HotelOrderFinal.Controllers
                 {
                     cust.MemberName = model.MemberName;
                     cust.MemberEmail = model.MemberEmail;
+                    cust.MemberBirthday = model.MemberBirthday;
+                    cust.MemberGender = model.MemberGender;
                     db.SaveChanges ( );
                 }
                 TempData["SuccessMessage"] = "修改成功！";

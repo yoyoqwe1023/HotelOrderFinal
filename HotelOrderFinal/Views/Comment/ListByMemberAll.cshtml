@@ -7,6 +7,9 @@
 <section class="breadcrumb_area">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle">會員管理系統:評論一覽</h2>
+        </div>
     </div>
 </section>
 <head>
@@ -66,7 +69,7 @@
                         <div class="d-flex flex-wrap" style="padding-bottom:10px">
                             @foreach (var item in Model)
                             {
-                                <div class="col-4 col-1-sm-6">
+                                <div class="col-5 col-1-sm-6">
                                     <div class="card" style="width:400px; height:200px;  border-radius:10px;  margin-top:10px; padding-bottom:10px;">
                                         <div class="card-body">
                                             <input type="hidden" value="@Html.DisplayFor(modelItem => item.CommentId)" />

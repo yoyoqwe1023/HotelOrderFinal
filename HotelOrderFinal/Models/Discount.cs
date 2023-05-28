@@ -15,7 +15,7 @@ namespace HotelOrderFinal.Models
 
         public int DiscountId { get; set; }
         public string DiscountName { get; set; }
-        public byte[] DiscountImage { get; set; }
+        public string DiscountImage { get; set; }
         public string DiscountDirections { get; set; }
         public decimal? DiscountDiscount { get; set; }
         public bool? DiscountExist { get; set; }

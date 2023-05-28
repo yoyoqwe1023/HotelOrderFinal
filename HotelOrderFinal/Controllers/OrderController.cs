@@ -8,6 +8,7 @@ using NuGet.Frameworks;
 using NuGet.Protocol;
 using System.Globalization;
 using System.Text.Json;
+using static Microsoft.AspNetCore.Razor.Language.TagHelperMetadata;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
 namespace HotelOrderFinal.Controllers
@@ -114,14 +115,14 @@ namespace HotelOrderFinal.Controllers
             ViewBag.HotelId = hotelid;
             ViewBag.Hotels = h.hotels;
 
-            if (freeRooms == null)
-            {
-                return View();
-            }
-            else
-            {
+            //if (freeRooms == null)
+            //{
+            //    return View();
+            //}
+            //else
+            //{
                 return View(vmList);
-            }
+            //}
         }
 
         //搜尋房間(入/退宿時間、飯店ID)
@@ -204,7 +205,7 @@ namespace HotelOrderFinal.Controllers
             string json = "";
             json = JsonSerializer.Serialize(vmList);
 
-            if (freeRooms == null)
+            if (vmList.Count == 0)
             {
                 return Json(null);
             }
@@ -341,16 +342,55 @@ namespace HotelOrderFinal.Controllers
             }
         }
 
-        //訂房明細頁面
-        public IActionResult Detail( )
+        //進入訂單明細讀取優惠卷ID
+        public IActionResult GetDiscountId( )
         {
             var userId = _contextAccessor.HttpContext.Session.GetString("UserID");
             HotelOrderContext db = new HotelOrderContext();
-            IEnumerable<DiscountDetail> usesid = db.DiscountDetail.Where(x => x.MemberId == userId);
+            //IEnumerable<DiscountDetail> usesid = db.DiscountDetail.Where(x => x.MemberId == userId);
 
-            var MemberDiscount = db.DiscountDetail.Include(x => x.Discount).Where(x => x.MemberId == userId).ToList();
-            //var theater = movieContext.TSessions.Include(s => s.FTheater).FirstOrDefault(s => s.FSessionId == sessionID).FTheater;
-            return View(MemberDiscount);
+            //var discountid = db.DiscountDetail.Include(x => x.Discount).Where(x => x.MemberId == userId).Select(x => x.DiscountId);
+            //var 可以使用的優惠卷ID = db.DiscountDetail.Where(x => x.DiscountUse == 0).Select(x => x.DiscountId).ToList();
+            // var discountdiscountid = db.Discount.Where(x=>x.DiscountId == 可以使用的優惠卷ID)
+
+            //var discountid = db.DiscountDetail.Include(x => x.Discount).Where(x => x.MemberId == userId).Where(x => x.DiscountUse == 0).Select(x => x.DiscountId);
+            //List<Discount> ids = new List<Discount>();
+            //foreach(var item in discountid)
+            //{
+            //    decimal discount=(decimal)db.Discount.Where(d => d.DiscountId == (int)item).Select(x => x.DiscountDiscount).FirstOrDefault();
+            //    string name = db.Discount.Where(d => d.DiscountId == (int)item).Select(x => x.DiscountName).FirstOrDefault();
+
+            //    ids.Add(discount);
+            //    ids.Add(name);
+            //}
+
+            //return Json(ids);
+
+            var discountIds = db.DiscountDetail
+                .Include(x => x.Discount)
+                .Where(x => x.MemberId == userId && x.DiscountUse == 0)
+                .Select(x => x.Discount)
+                .ToList();
+
+            List<Discount> discountList = new List<Discount>();
+            foreach (var discount in discountIds)
+            {
+                Discount disc = new Discount
+                {
+                    DiscountId = discount.DiscountId,
+                    DiscountName = discount.DiscountName,
+                    DiscountImage = discount.DiscountImage,
+                    DiscountDirections = discount.DiscountDirections,
+                    DiscountDiscount = discount.DiscountDiscount,
+                    DiscountExist = discount.DiscountExist,
+                    
+                };
+
+                discountList.Add(disc);
+            }
+
+            return Json(discountList);
+
         }
 
         //進入訂單明細讀取活動session
@@ -391,6 +431,70 @@ namespace HotelOrderFinal.Controllers
             }
         }
 
+        //訂房明細頁面
+        public IActionResult SaveDB(COrderDetailViewModel vm)
+        {
+            ////活動
+            //string activityId = HttpContext.Session.GetString("ActivityId");
+            //var activity = db.Activity.Where(a => a.ActivityId == int.Parse(activityId));
+            ////活動人數待查
+
+            ////優惠卷會員
+            //var userId = _contextAccessor.HttpContext.Session.GetString("UserID");
+            //string memberId = db.RoomMember.Where(m => m.MemberId == userId).Select(m => m.MemberId).FirstOrDefault();
+
+
+            ////取得最大ID
+            //string maxOID = db.Order.Max(oid => oid.OrderId);
+            //string maxODID = db.OrderDetail.Max(odid => odid.OrderDetailId);
+
+
+            ////取得ID的數字
+            //int numOID = int.Parse(maxOID.Substring(2));
+            //string newOrderID = string.Format("OD{0:D6}", numOID + 1);
+            //int numODID = int.Parse(maxODID.Substring(3));
+            //string newOrderDetailID = string.Format("ODD{0:D6}", numODID + 1);
+
+
+            //Order o = new Order
+            //{
+            //    OrderId = newOrderID,
+            //    MemberId = memberId,
+            //    OrderDate = DateTime.Now,
+            //    //OrderTotalPrice = ,  
+            //    //CheckInPeople = , //網頁取值
+            //    ActivityId = int.Parse(activityId)
+            //    //ActivityPeople = , //網頁取值
+            //};
+
+            //OrderDetail od = new OrderDetail
+            //{
+            //    OrderDetailId = newOrderDetailID,
+            //    OrderId = newOrderID,
+            //    //RoomID =  ,  //房間list
+            //    //CheckInDate =  , ///房間list
+            //    //CheckOutDate = , //房間list
+            //    //PaymentDate = DateTime.Now,
+            //    //PaymentID = this.ODPaymentID,
+            //    //PaymentPrice = ,  //房間list
+
+
+            //};
+
+            ////修改
+            //DiscountDetail dd = new DiscountDetail()
+            //{
+            //    DiscountUse = 1,
+
+            //};
+            return View();
+        }
+
+        public IActionResult Detail()
+        {
+
+            return View();
+        }
 
         //未用到
         public IActionResult Create()

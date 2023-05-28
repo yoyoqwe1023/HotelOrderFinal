@@ -3,17 +3,73 @@
 @{
     ViewData["Title"] = "ActivityByCreate";
 }
+<link rel="stylesheet" href="~/css/ForAdminTable.css">
+<style>
 
+    .table td {
+        white-space: nowrap; 
+        overflow: hidden; 
+        text-overflow: ellipsis; 
+        overflow: hidden;
+        white-space: normal;
+            
+    }
+</style>
 <section class="breadcrumb_area">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
         <div class="page-cover text-center">
-            <h2 class="page-cover-tittle">後台管理系統</h2>
+            <h2 class="page-cover-tittle">後台管理系統：活動管理</h2>
         </div>
     </div>
 </section>
+<div class="Adminwrapper">
+<div class="row">
+<div class="col-xs-12 col-md-2">
+    <div class=" ">
+        <div class=" ">
+            <div class="">
+                @{
+                    var AdminId = Context.Session.GetString("AdminId");
+                }
 
-<h1>活動管理</h1>
+            </div>
+        </div>
+        <div class="">
+            <h2 style="text-align: center">
+                @Html.ActionLink(AdminId, "List", "Admin")
+            </h2>
+            <ul class="list" style="list-style: none; padding: 0;">
+
+                <!--改成手風琴下拉式-->
+                <li>
+                    @Html.ActionLink("會員管理", "List", "MemberMange", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
+                </li>
+                <li>
+                    @Html.ActionLink("房型管理", "AdminRoom", "Room", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
+                </li>
+                <li>
+                    @Html.ActionLink("活動管理", "ActivityByCreate", "Activity", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
+                </li>
+                <li>
+                    @Html.ActionLink("訂房管理", "EditPassword", "Member", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
+                </li>
+                <li>
+                    @Html.ActionLink("飯店一覽管理", "ListView", "HotelIndustry", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
+                </li>
+                <li>
+                    @Html.ActionLink("優惠折扣管理", "List", "Discount", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
+                </li>
+                <li>
+                    @Html.ActionLink("評論管理", "ListByAdmin", "Comment", null, new { @class = "nav-link Adminbutton  d-flex justify-content-center" })
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+        <div id="selectedItemContent" class="col-xs-12 col-md-10 ">
+            <!-- 這裡會顯示點選的項目的內容 -->
+@*<h1>活動管理</h1>*@
 <p>
     @using (Html.BeginForm())
     {
@@ -25,7 +81,7 @@
     <thead>
         <tr>
             <th>
-                序
+                編號
                 @*@Html.DisplayNameFor(Model => Model.ActivityId)*@
             </th>
             <th>
@@ -92,7 +148,7 @@
                 @Html.DisplayFor(modelItem => item.ActivityCost)
             </td>           
                 <td>
-                        @Html.ActionLink("修改", "Edit", new {id=item.ActivityId},new { @class="btn btn-success" }) |
+                        @Html.ActionLink("修改", "Edit", new {id=item.ActivityId},new { @class="btn btn-success" }) 
                         @Html.ActionLink("刪除", "Delete","Activity", new {  id=item.ActivityId },new { @class="btn btn-danger", onclick="return confirm('確定要刪除嗎?')"})                                               
                 </td>      
         </tr>
@@ -100,3 +156,6 @@
         }
     </tbody>
 </table>
+</div>
+</div>
+</div>

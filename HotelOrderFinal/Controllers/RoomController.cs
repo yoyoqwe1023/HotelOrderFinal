@@ -67,11 +67,19 @@ namespace HotelOrderFinal.Controllers
                 .Where(mrf => mrf.RoomClassId == id)
                 .Select(mrf => mrf.Facility)
                 .ToList();
+           
+                var hotelId = db.Room.FirstOrDefault(h => h.RoomClassId == id)?.HotelId;
+            var hotelName = db.HotelIndustry.FirstOrDefault(h => h.HotelId == hotelId)?.HotelName;
+            var hotelIds = db.Room.Where(h => h.RoomClassId == id).Select(h => h.HotelId).ToList();
+            var hotelIndustries = db.HotelIndustry.Where(h => hotelIds.Contains(h.HotelId)).ToList();
+
 
             var viewModel = new CRoomClassViewModel
             {
                 RoomClass = room,
-                Facility = facilities
+                Facility = facilities,
+                HotelIndustry = hotelIndustries,
+                HotelName = hotelName
             };
 
             return View(viewModel);
@@ -92,11 +100,25 @@ namespace HotelOrderFinal.Controllers
             RoomClass room = db.RoomClass.FirstOrDefault(t => t.RoomClassId == p.RoomClassId);
             if (room != null)
             {
-                if (p.photo != null)
+                if (p.photo1 != null)
                 {
                     string photoName = Guid.NewGuid().ToString() + ".jpg";
                     string path = _enviro.WebRootPath + "/image/room/" + photoName;
-                    p.photo.CopyTo(new FileStream(path, FileMode.Create));
+                    p.photo1.CopyTo(new FileStream(path, FileMode.Create));
+                    room.RoomClassPhoto1 = photoName;
+                }
+                if (p.photo2 != null)
+                {
+                    string photoName = Guid.NewGuid().ToString() + ".jpg";
+                    string path = _enviro.WebRootPath + "/image/room/" + photoName;
+                    p.photo2.CopyTo(new FileStream(path, FileMode.Create));
+                    room.RoomClassPhoto2 = photoName;
+                }
+                if (p.photo3 != null)
+                {
+                    string photoName = Guid.NewGuid().ToString() + ".jpg";
+                    string path = _enviro.WebRootPath + "/image/room/" + photoName;
+                    p.photo3.CopyTo(new FileStream(path, FileMode.Create));
                     room.RoomClassPhoto3 = photoName;
                 }
 
@@ -108,7 +130,7 @@ namespace HotelOrderFinal.Controllers
                 
                 db.SaveChanges();
             }
-            return RedirectToAction("List");
+            return RedirectToAction("AdminRoom");
         }
 
         public IActionResult SearchRooms()

@@ -3,13 +3,26 @@
     ViewData["Title"] = "Home Page";
 }
 <!--================Banner Area =================-->
+<style>
+    .fade-in {
+        opacity: 0; /* 設置初始透明度為 0 */
+        transform: translateY(50px); /* 將元素下移 50px */
+        transition: opacity 2s ease, transform 2s ease; /* 添加過渡效果 */
+    }
 
+        .fade-in.show {
+            opacity: 1; /* 漸入完成後，將透明度設置為 1 */
+            transform: translateY(0); /* 元素上移恢復原位 */
+        }
+</style>
 @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">*@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
+
 @*底下分別是Bootstrap CSS/fontawesome.com用的ICON 需要有才可以使用在飯店設施上的ICON!*@
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 
@@ -81,12 +94,14 @@
 <!--================Banner Area =================-->
 <!--================ Accomodation Area  =================-->
 <section class="accomodation_area section_gap">
+    <div class="white-block fade-in">
     <div class="container">
         <div class="section_title text-center">
             <h2 class="title_color">風格介紹</h2>
             <p>依照風格,展現不同的風貌</p>
+                <span class="blue-line"></span>
         </div>
-        <div class="row mb_30">
+        <div class="row mb_30 fade-in">
             <div class="col-lg-3 col-sm-6">
                 <div class="accomodation_item text-center">
                     <div class="hotel_img">
@@ -143,6 +158,7 @@
             </div>
         </div>
     </div>
+    </div>
 </section>
 <!--================ Accomodation Area  =================-->
 <!--================ About History Area  =================-->
@@ -168,45 +184,46 @@
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background="">
     </div>
     <div class="container">
-        <div class="section_title text-center">
+        <div class="section_title text-center fade-in">
             <h2 class="title_w">飯店設施</h2>
-            <p>Who are in extremely love with eco friendly system.</p>
+            <p style="color: #e9ecef;">我們提供一系列精心設計的設施，以滿足您的各種需求和喜好</p>
+            <span class="blue-line"></span>
         </div>
-        <div class="row mb_30">
+        <div class="row mb_30 fade-in">
             <div class="col-lg-4 col-md-6">
                 <div class="facilities_item">
-                    <h4 class="sec_h4"><i class="lnr lnr-dinner"></i>餐廳</h4>
-                    <p>Usage of the Internet is becoming more common due to rapid advancement of technology and power.</p>
+                    <h4 class="sec_h4"><i class="fas fa-coffee"></i>咖啡廳</h4>
+                    <p>舒適的咖啡廳，供旅客享受美味的咖啡和甜點，放鬆身心的絕佳場所。</p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="facilities_item">
-                    <h4 class="sec_h4"><i class="lnr lnr-bicycle"></i>戶外體驗</h4>
-                    <p>Usage of the Internet is becoming more common due to rapid advancement of technology and power.</p>
+                    <h4 class="sec_h4"><i class="fas fa-hot-tub"></i>溫泉浴場</h4>
+                    <p>天然溫泉浸泡和水療服務，盡情放鬆身心，舒緩疲勞。</p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="facilities_item">
-                    <h4 class="sec_h4"><i class="fas fa-swimmer"></i>游泳池</h4>
-                    <p>Usage of the Internet is becoming more common due to rapid advancement of technology and power.</p>
+                    <h4 class="sec_h4"><i class="fas fa-swimming-pool"></i>游泳池</h4>
+                    <p>室內游泳池，提供清涼和娛樂，讓您在旅途中享受暢遊的樂趣！</p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="facilities_item">
-                    <h4 class="sec_h4"><i class="lnr lnr-car"></i>租車服務</h4>
-                    <p>Usage of the Internet is becoming more common due to rapid advancement of technology and power.</p>
+                    <h4 class="sec_h4"><i class="fas fa-utensils"></i>自助餐廳</h4>
+                    <p>自助餐廳提供多樣化的美食選擇，根據自己的口味和喜好享受豐盛的用餐體驗。</p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="facilities_item">
-                    <h4 class="sec_h4"><i class="bi bi-wifi"></i>WIFI吃到飽</h4>
-                    <p>Usage of the Internet is becoming more common due to rapid advancement of technology and power.</p>
+                    <h4 class="sec_h4"><i class="fas fa-users"></i>會議室</h4>
+                    <p>現代化的會議室設施，適合舉辦各類商務會議、研討會和培訓活動，使您的會議順利進行！</p>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6">
                 <div class="facilities_item">
-                    <h4 class="sec_h4"><i class="lnr lnr-coffee-cup"></i>咖啡廳</h4>
-                    <p>Usage of the Internet is becoming more common due to rapid advancement of technology and power.</p>
+                    <h4 class="sec_h4"><i class="fas fa-plane"></i>旅遊服務</h4>
+                    <p>專業的旅遊服務，為旅客提供全面的旅遊諮詢和行程安排，讓旅行更加便捷和愉快！</p>
                 </div>
             </div>
         </div>
@@ -214,14 +231,17 @@
 </section>
 <!--================ Facilities Area  =================-->
 <!--================ Testimonial Area  =================-->
-<section class="latest_blog_area section_gap">
-    <div class="container">
+<section class="latest_blog_area section_gap comment-background">
+    <div class="comment-white-block">
+
+        <div class="container fade-in">
         <div class="section_title text-center">
                 <h2 class="title_color">來自客人優良評價</h2>
                 <p>給未來客人信心與參考</p>
+            <span class="blue-line"></span>
         </div>
 
-        <div class="testimonial_slider owl-carousel">
+        <div class="testimonial_slider owl-carousel fade-in">
             <div class="media testimonial_item" style="border-radius:10px">
                 <div class="media-body sec_h4">
                     <p>提前訂到228連假，2500元的價位，CP值很高，至少不是老舊飯店，安全上比較安心 </p>
@@ -274,14 +294,18 @@
             </div>
         </div>
     </div>
+      
+    </div>
 </section>
 <!--================ Testimonial Area  =================-->
 <!--================ Latest Blog Area  =================-->
 <section class="latest_blog_area section_gap">
+    <div class="white-block">
     <div class="container">
-        <div class="section_title text-center">
+        <div class="section_title text-center fade-in">
             <h2 class="title_color">體驗活動</h2>
-            <p>The French Revolution constituted for the conscience of the dominant aristocratic class a fall from </p>
+            <p>與我們一同探索當地文化，留下難忘的回憶和珍貴的體驗</p>
+            <span class="blue-line"></span>
         </div>
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
@@ -289,7 +313,7 @@
                 <li data-target="#myCarousel" data-slide-to="1"></li>
                 <li data-target="#myCarousel" data-slide-to="2"></li>
             </ol>
-            <div class="carousel-inner">
+            <div class="carousel-inner fade-in">
                 @for (int i = 0; i < Model.ActivityImage.Count; i += 3)
                 {
                     <div class="carousel-item @((i == 0) ? "active" : "")">
@@ -311,6 +335,18 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
+
+
+        <div>
+
+
+                <script type="text/javascript" src="https://popupsmart.com/freechat.js"></script><script>window.start.init({ title: "Hi there ✌️", message: "你好，請問有什麼可以幫你的呢?", color: "#1C86FA", position: "right", placeholder: "Enter your message", withText: "Write with", viaWhatsapp: "Or write us directly via Whatsapp", gty: "Go to your", awu: "and write us", connect: "Connect now", button: "Write us", device: "mobile", logo: "https://d2r80wdbkwti6l.cloudfront.net/t92kyZpzOpCh5UpxYcc1bzfXSdGKrE6i.jpg", person: "https://d2r80wdbkwti6l.cloudfront.net/W2Wy9BMlZ587LgOApPGQn5hoMXYBvwPY.jpg", services: [{ "name": "messenger", "content": "100001378891921" }] })</script>
+       
+            
+            
+            </div>
+
+
 @*        <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -420,6 +456,7 @@
         </div>
         </div>*@
     </div>
+    </div>
 </section>
 <!--================ Recent Area  =================-->
 @*<div class="text-center">
@@ -445,6 +482,20 @@
         window.location.href = url;
 
     }
+
+    window.addEventListener('scroll', function () {
+        var elements = document.querySelectorAll('.fade-in');
+
+        for (var i = 0; i < elements.length; i++) {
+            var element = elements[i];
+            var position = element.getBoundingClientRect().top;
+            var windowHeight = window.innerHeight;
+
+            if (position < windowHeight - 50) {
+                element.classList.add('show');
+            }
+        }
+    });
 
 </script>
 

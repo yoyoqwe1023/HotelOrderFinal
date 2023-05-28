@@ -31,5 +31,8 @@ namespace HotelOrderFinal.Models
         public virtual ICollection<Comment> Comment { get; set; }
         public virtual ICollection<DiscountDetail> DiscountDetail { get; set; }
         public virtual ICollection<Order> Order { get; set; }
+
+
+
     }
 }

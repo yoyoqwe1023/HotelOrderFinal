@@ -6,7 +6,9 @@
 <section class="breadcrumb_area">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
-
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle">會員管理系統:你的評論</h2>
+        </div>
     </div>
 </section>
 <head>
@@ -34,23 +36,15 @@
 </head>
 <body>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-2" style="background-color: #f2f2f2;">
-                <h2>左欄內容</h2>
-                <p>
-                    <a asp-action="Create">前往訂房</a>
-                </p>
-            </div>
-
+            <div class="row" style="background-color: #dcebfd;">
+            <div class="col-md-2"></div>
             <div class="col-md-10">
                 <p></p>
-
-                @*                <h1>Edit</h1>
-                *@
                 <h4>修改評論</h4>
                 <hr />
                 <div class="row">
                     <div class="col-md-4">
+
                         <form asp-action="Edit">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="form-group">

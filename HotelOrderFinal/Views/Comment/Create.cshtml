@@ -7,7 +7,9 @@
 <section class="breadcrumb_area">
     <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
     <div class="container">
-
+        <div class="page-cover text-center">
+            <h2 class="page-cover-tittle">會員管理系統:你的評論</h2>
+        </div>
     </div>
 </section>
 <head>
@@ -62,15 +64,16 @@
 </head>
 <body>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-2" style="background-color: #f2f2f2;">
-@*                <h2>左欄內容</h2>*@
-                <p>
-@*                    <a asp-action="Create">前往訂房</a>*@
-                </p>
-            </div>
+        <div class="row" style="background-color: #dcebfd;">
+            <div class="col-md-2"></div>
+            <p></p>
+            <h4>新增評論</h4>
+            <hr />
+
+            @*            <div class="row">
+            <div class="col-5 col-1-sm-6">*@
             <div class="row">
-                <div class="col-5 col-1-sm-6">
+                <div class="col-md-4">
                     <div class="d-flex flex-wrap">
 
                         <form asp-action="Create">
@@ -85,25 +88,34 @@
                                 <input type="hidden" asp-for="MemberId" value="@ViewBag.UserID" />
                                 <span asp-validation-for="MemberId" class="text-danger"></span>
                             </div>
+                            <br>
+                            <div class="form-group" style="padding-left:5px;font-size: 17px; color:#000000">
+                                <label>評價分類：</label>
+                                <label class="lab1">
+                                    <input sp-for="CommentClass" type="radio" name="CommentClass" value="1" required checked />整體
+                                </label>
+                                <label class="lab1">
+                                    <input sp-for="CommentClass" type="radio" name="CommentClass" value="2" />房間
+                                </label>
+                                <label class="lab1">
+                                    <input sp-for="CommentClass" type="radio" name="CommentClass" value="3" />服務
+                                </label>
+                            </div>
 
-                            @*<div class="form-group">
-                                <label asp-for="RoomClassId" class="control-label"></label>
-                                <input asp-for="RoomClassId" />
-                                <span asp-validation-for="RoomClassId" class="text-danger"></span>
-                            </div>*@
-@*                            <label>請先給予評點:</label>*@
+                            <label>請給予評點:</label>
                             <div id="stars" class="left">
                                 <img src="../image/comment/empty.png" title="非常失望" alt="">
                                 <img src="../image/comment/empty.png" title="不滿意" alt="">
                                 <img src="../image/comment/empty.png" title="普通" alt="">
                                 <img src="../image/comment/empty.png" title="滿意" alt="">
                                 <img src="../image/comment/empty.png" title="非常滿意" alt="">
-                                <span id="score" ></span>
+                                <span id="score"></span>
                             </div>
+
                             <p></p>
-                            <input type="hidden" asp-for="CommentPoint" value="-1"/>
+                            <input type="hidden" asp-for="CommentPoint" value="-1" />
                             <span asp-validation-for="CommentPoint"></span>
-                            <br></br>
+                            <br>
                             <div class="sub">
                                 <label asp-for="CommentDetail" class="control-label"></label>
                                 <textarea asp-for="CommentDetail" cols="40" rows="5" autofocus placeholder="請讓我們了解您的感受...."></textarea>
@@ -116,22 +128,20 @@
                                 <a asp-action="ListByMember" class="btn btn-warning">取消</a>
                             </div>
                             <div class="form-group">
-                                 @using (Html.BeginForm("Create", "Comment",  new { id = "my-form-id" }))
-                                 {
+                                @using (Html.BeginForm("Create", "Comment", new { id = "my-form-id" }))
+                                {
                                     <button type="button" class="btn btn-secondary" onclick="demoComment()">Demo</button>
-                                 }
-                                 @ViewBag.Message
-                           </div>
+                                }
+                                @ViewBag.Message
+                            </div>
                         </form>
                     </div>
                 </div>
-
             </div>
         </div>
-    </div>
 </body>
 @section Scripts
-{
+    {
     <script src="~/js/comment/commentpoint.js"></script>
 
     <script type="text/javascript">
