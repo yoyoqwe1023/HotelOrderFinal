@@ -23,7 +23,7 @@
 <hr />
 <div class="row" style="margin:50px;">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="HotelName" class="control-label">飯店名稱</label>
@@ -60,6 +60,11 @@
                 <input asp-for="HotelImageDiscription" class="form-control" />
                 <span asp-validation-for="HotelImageDiscription" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                    <label class="control-label">飯店照片</label>
+                    <input type="file" name="photo" class="form-control" />
+            </div>
+
             @*            <div class="form-group col-md-10">
             <label class="control-label">飯店照片</label>
             <input type="file" name="photo" class="form-control" />
