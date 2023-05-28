@@ -47,6 +47,16 @@
             get { return _HotelIndustry.HotelImageDiscription; }
             set { _HotelIndustry.HotelImageDiscription = value; }
         }
+        public string Lat
+        {
+            get { return _HotelIndustry.Lat; }
+            set { _HotelIndustry.Lat = value; }
+        }
+        public string Lng
+        {
+            get { return _HotelIndustry.Lng; }
+            set { _HotelIndustry.Lng = value; }
+        }
         public IFormFile photo { get; set; }
     }
 }
