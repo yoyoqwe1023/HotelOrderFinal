@@ -16,17 +16,17 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label for="MemberPhone">手機(為登入帳號)</label>
-                    <input type="tel" id="CMemberPhone" name="MemberPhone" class="form-control" required pattern="09\d{8}">
+                    <input type="tel" id="CMemberPhone" name="MemberPhone" class="form-control" required pattern="09\d{8}" placeholder="09XXXXXXXX">
                     <span class="text-danger" data-valmsg-for="MemberPhone" data-valmsg-replace="true"></span>
                 </div>
                 <div class="form-group">
                     <label for="MemberName">姓名</label>
-                    <input type="text" id="MemberName" name="MemberName" class="form-control" required>
+                    <input type="text" id="MemberName" name="MemberName" class="form-control" required placeholder="請輸入本名">
                     <span class="text-danger" data-valmsg-for="MemberName" data-valmsg-replace="true"></span>
                 </div>
                 <div class="form-group">
                     <label for="MemberIdentity">身份證字號</label>
-                    <input type="text" id="MemberIdentity" name="MemberIdentity" class="form-control" required pattern="[A-Z][12][0-9]{8}">
+                    <input type="text" id="MemberIdentity" name="MemberIdentity" class="form-control" required pattern="[A-Z][12][0-9]{8}" placeholder="請輸入正確的身分證字號">
                     <span class="text-danger" data-valmsg-for="MemberIdentity" data-valmsg-replace="true"></span>
                 </div>
                 <div class="form-group">
@@ -42,12 +42,12 @@
                 </div>
                 <div class="form-group">
                     <label for="MemberEmail">Email</label>
-                    <input type="email" id="MemberEmail" name="MemberEmail" class="form-control" required>
+                    <input type="email" id="MemberEmail" name="MemberEmail" class="form-control" required placeholder="請輸入有@完整的電子信箱">
                     <span class="text-danger" data-valmsg-for="MemberEmail" data-valmsg-replace="true"></span>
                 </div>
                 <div class="form-group">
                     <label for="MemberPassword">密碼</label>
-                    <input type="password" id="CMemberPassword" name="MemberPassword" class="form-control" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+                    <input type="password" id="CMemberPassword" name="MemberPassword" class="form-control" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="請8位字元以上，需包含中英文大小寫">
                     <span class="text-danger" data-valmsg-for="MemberPassword" data-valmsg-replace="true"></span>
                 </div>
 
@@ -578,7 +578,7 @@
         document.getElementById("MemberBirthday").value = "1991-12-12";
         document.querySelector('input[name="MemberGender"][value="female"]').checked = true;
         document.getElementById("CMemberPhone").value = "0978999999";
-        document.getElementById("MemberEmail").value = "imfufu1029@gmail.com";
+        document.getElementById("MemberEmail").value = "imfufuting@gmail.com";
         document.getElementById("CMemberPassword").value = "AAaa1122";
     }
     function autofill2() {

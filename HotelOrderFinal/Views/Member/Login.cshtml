@@ -18,11 +18,13 @@
         @Html.AntiForgeryToken()
         <div class="form-group">
             <label for="MemberPhone">手機號碼</label>
-            <input type="tel" id="MemberPhone" name="MemberPhone" class="form-control" required>
+            <input type="tel" id="MemberPhone" name="MemberPhone" class="form-control" required placeholder="09XXXXXXXX">
         </div>
         <div class="form-group">
             <label for="MemberPassword">密碼</label>
-            <input type="password" id="MemberPassword" name="MemberPassword" class="form-control" required>
+            <input type="password" id="MemberPassword" name="MemberPassword" class="form-control" required placeholder="8位字元以上，需包含中英文大小寫">
+        
+        
         </div>
         
 
