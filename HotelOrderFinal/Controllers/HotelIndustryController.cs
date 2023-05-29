@@ -32,7 +32,7 @@ namespace HotelOrderFinal.Controllers
             HotelOrderContext db = new HotelOrderContext();
             HotelIndustry Hl = db.HotelIndustry.FirstOrDefault(t => t.HotelId == id);
             if (Hl == null)
-                return RedirectToAction("List");
+                return RedirectToAction("ListView");
             return View(Hl);
         }
         [HttpPost]
@@ -60,7 +60,7 @@ namespace HotelOrderFinal.Controllers
                 db.SaveChanges();
             }
 
-            return RedirectToAction("List");
+            return RedirectToAction("ListView");
         }
         public IActionResult Create() //創建資料
         {
@@ -95,7 +95,7 @@ namespace HotelOrderFinal.Controllers
             cust.Lng= x.Lng;
             cust.HotelImageDiscription= x.HotelImageDiscription;
             db.SaveChanges();
-            return RedirectToAction("List");
+            return RedirectToAction("ListView");
         }
 
         //public IActionResult Create(HotelIndustry p)
@@ -116,7 +116,7 @@ namespace HotelOrderFinal.Controllers
                 db.HotelIndustry.Remove(cust);
                 db.SaveChanges();
             }
-            return RedirectToAction("List");
+            return RedirectToAction("ListView");
         }
     }
 }

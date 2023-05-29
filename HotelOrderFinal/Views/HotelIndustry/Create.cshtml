@@ -16,13 +16,14 @@
     </div>
 </section>
 
-
+<div class="row">
+    <div class="col-md-6 offset-md-3">
 <h1>新增飯店資料</h1>
 
 <h4>飯店資料</h4>
 <hr />
-<div class="row" style="margin:50px;">
-    <div class="col-md-4">
+<div class="row" >
+    <div class="col-md-6">
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -70,9 +71,9 @@
             <input type="file" name="photo" class="form-control" />
             </div>*@
             <br />
-            <div class="form-group col-md-10">
+            <div class="form-group">
                 <input type="submit" value="送出" class="btn btn-primary" style="margin-right:10px; margin-bottom:10px;" />
-                <button class="btn btn-secondary" style="margin-right:10px; margin-bottom:10px;" asp-action="List">回到飯店一覽</button>
+                <button class="btn btn-secondary" style="margin-right:10px; margin-bottom:10px;" asp-action="ListView">回到飯店一覽</button>
                 <button type="button" class="btn btn-secondary" onclick="demo()" style="margin-right:10px; margin-bottom:10px;">Demo</button>
                 <br />
                 <button class="btn btn-danger" asp-action="Index" asp-controller="Home">回到首頁</button>
@@ -80,7 +81,8 @@
         </form>
     </div>
 </div>
-
+    </div>
+</div>
 
 @section Scripts {
     @{
@@ -91,13 +93,13 @@
         function demo() {
             // 設定 Demo 評價
             // 取得表單元素和欄位元素
-            document.getElementById("HotelName").value = "南投飯店";
+            document.getElementById("HotelName").value = "墾丁飯店";
             document.getElementById("HotelPhone").value = "01234567";
-            document.getElementById("HotelRegionId").value = 2;
-            document.getElementById("HotelAddress").value = "Demo用南投飯店住址";
-            document.getElementById("Lat").value = 23.91657839569314;
-            document.getElementById("Lng").value = 120.66846763161121;
-            document.getElementById("HotelImageDiscription").value = "Demo南投飯店展示用";
+            document.getElementById("HotelRegionId").value = 3;
+            document.getElementById("HotelAddress").value = "Demo用墾丁飯店住址";
+            document.getElementById("Lat").value = 22.05595075828875;
+            document.getElementById("Lng").value = 120.77406132125643;
+            document.getElementById("HotelImageDiscription").value = "Demo飯店展示用敘述Demo飯店展示用敘述Demo飯店展示用敘述Demo飯店展示用敘述Demo飯店展示用敘述Demo飯店展示用敘述Demo飯店展示用敘述Demo飯店展示用敘述Demo飯店展示用敘述Demo飯店展示用敘述";
         }
     </script>
 }
