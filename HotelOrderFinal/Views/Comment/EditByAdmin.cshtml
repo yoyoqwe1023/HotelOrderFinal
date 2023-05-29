@@ -77,13 +77,13 @@
                             </label>
                             </div>*@
                             <div class="form-group">
-                                <label asp-for="CommentClass" class="control-label"></label>
+                                <label asp-for="CommentClass" class="control-label">分類：１-整體２-房間３-服務</label>
                                 <input asp-for="CommentClass" class="form-control" type="text" maxlength="1" pattern="[1-3]{1}" />
                                 <span asp-validation-for="CommentClass" class="text-danger"></span>
                             </div>
 
                             <div class="form-group">
-                                <label asp-for="CommentPoint" class="control-label"></label>
+                                <label asp-for="CommentPoint" class="control-label">評　點：(1-5)</label>
                                 <input asp-for="CommentPoint" class="form-control" type="text" maxlength="1" pattern="[1-5]{1}">
                                 @*                                <input type="hidden" asp-for="CommentPoint" />*@
                                 <span asp-validation-for="CommentPoint" class="text-danger"></span>
