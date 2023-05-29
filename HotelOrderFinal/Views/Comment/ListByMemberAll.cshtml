@@ -81,6 +81,18 @@
                                                     <img src="../image/comment/shining.png">
                                                 }
                                                 @Html.DisplayFor(modelItem => item.CommentPoint)
+                                                @if (item.CommentClass == 1)
+                                                {
+                                                    <label style="color:#2894FF">　整體</label>
+                                                }
+                                                @if (item.CommentClass == 2)
+                                                {
+                                                    <label style="color:#2894FF">　房間</label>
+                                                }
+                                                @if (item.CommentClass == 3)
+                                                {
+                                                    <label style="color:#2894FF">　服務</label>
+                                                }
                                             </h6>
                                             <p class="card-text; lnr-highlight:16rem;">@Html.DisplayFor(modelItem => item.CommentDetail)</p>
                                         </div>
