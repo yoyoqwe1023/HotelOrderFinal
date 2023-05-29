@@ -141,7 +141,18 @@
                         @Html.DisplayFor(modelItem => item.MemberId)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.CommentClass)
+                                    @if (item.CommentClass == 1)
+                                    {
+                                        <label >　整體</label>
+                                    }
+                                    @if (item.CommentClass == 2)
+                                    {
+                                        <label >　房間</label>
+                                    }
+                                    @if (item.CommentClass == 3)
+                                    {
+                                        <label>　服務</label>
+                                    }
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.CommentPoint)
