@@ -91,9 +91,11 @@
 
         @*// 在這裡可以使用 memberId 去查詢該會員的歷史訂單資訊*@
         @*// 假設您有一個名為 orders 的資料集合用於儲存訂單資訊*@
-
-        <div class="col-md-4">
+        
+        
             <form asp-action="Edit">
+                <div class="row">
+            <div class="col-md-6">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" name="FId" value="@Model.orderID" />
                 <div class="form-group">
@@ -101,6 +103,11 @@
                     <input asp-for="@Model.orderID" class="form-control" disabled />
                     <span asp-validation-for="@Model.orderID" class="text-danger"></span>
                 </div>
+                    <div class="form-group">
+                        <label asp-for="@Model.RoomClassName" class="control-label">房型名稱</label>
+                        <input asp-for="@Model.RoomClassName" class="form-control" disabled />
+                        <span asp-validation-for="@Model.RoomClassName" class="text-danger"></span>
+                    </div>
                 <div class="form-group">
                     <label asp-for="@Model.CheckInDate" class="control-label"></label>
                     <input asp-for="@Model.CheckInDate" class="form-control" disabled />
@@ -126,37 +133,36 @@
                     <input asp-for="@Model.OrderDetailRemark" class="form-control" disabled />
                     <span asp-validation-for="@Model.OrderDetailRemark" class="text-danger"></span>
                 </div>
+       
+        </div>
+                
+        <div class="col-md-4">
                 <div class="form-group">
-                    <label asp-for="@Model.RoomClassName" class="control-label"></label>
-                    <input asp-for="@Model.RoomClassName" class="form-control" disabled />
-                    <span asp-validation-for="@Model.RoomClassName" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label class="control-label">房間照片1</label>
+                    <label class="control-label">房間照片</label>
               
                     <img id="photo1Preview" class="mythumbnail" src="~/image/room/@Model.RoomClassPhoto1" width="240" height="180">
                     <span asp-validation-for="RoomClassPhoto1" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label class="control-label">房間照片2</label>
+                    <label class="control-label"></label>
                    
                     <img id="photo2Preview" class="mythumbnail" src="~/image/room/@Model.RoomClassPhoto2" width="240" height="180">
                     <span asp-validation-for="RoomClassPhoto2" class="text-danger"></span>
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label">房間照片3</label>
+                    <label class="control-label"></label>
                     
                     <img id="photo3Preview" class="mythumbnail" src="~/image/room/@Model.RoomClassPhoto3" width="240" height="180">
                     <span asp-validation-for="RoomClassPhoto3" class="text-danger"></span>
                 </div>
-
-
+            </div>
+            </div>
             </form>
         </div>
-
-
     </div>
+
+    
 
 
     <div>
