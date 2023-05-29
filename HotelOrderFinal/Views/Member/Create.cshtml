@@ -48,6 +48,9 @@
                 <div class="form-group">
                     <label for="MemberPassword">密碼</label>
                     <input type="password" id="CMemberPassword" name="MemberPassword" class="form-control" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="請8位字元以上，需包含中英文大小寫">
+                    <label class="input-group-text">
+                        <input type="checkbox" id="chkShowPassword1">顯示密碼
+                    </label>
                     <span class="text-danger" data-valmsg-for="MemberPassword" data-valmsg-replace="true"></span>
                 </div>
 
@@ -593,3 +596,18 @@
 
 </script>
 
+
+        <script>
+
+
+    const passwordInput1 = document.getElementById('CMemberPassword');
+    const showPasswordCheckbox = document.getElementById('chkShowPassword1');
+
+    showPasswordCheckbox.addEventListener('change', function () {
+        if (showPasswordCheckbox.checked) {
+            passwordInput1.type = 'text';
+        } else {
+            passwordInput1.type = 'password';
+        }
+    });
+        </script>

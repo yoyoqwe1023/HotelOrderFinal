@@ -20,12 +20,22 @@
             <label for="MemberPhone">手機號碼</label>
             <input type="tel" id="MemberPhone" name="MemberPhone" class="form-control" required placeholder="09XXXXXXXX">
         </div>
-        <div class="form-group">
-            <label for="MemberPassword">密碼</label>
+
+
+
+
+            <label for="MemberPassword">密碼</label>        
+@*            <label>
+                <input type="checkbox" name="showPassword" id="chkShowPassword">顯示密碼
+            </label>*@
             <input type="password" id="MemberPassword" name="MemberPassword" class="form-control" required placeholder="8位字元以上，需包含中英文大小寫">
+            <div class="input-group-append">
+                <label class="input-group-text">
+                    <input type="checkbox" id="chkShowPassword">顯示密碼
+                </label>
+            </div>
         
-        
-        </div>
+
         
 
         <div class="form-group">
@@ -64,6 +74,19 @@
             document.getElementById("MemberPassword").value = "U33dBsLF";
         }
     </script>
+<script>
 
+        const passwordInput = document.getElementById('MemberPassword');
+        const showPasswordCheckbox = document.getElementById('chkShowPassword');
+
+        showPasswordCheckbox.addEventListener('change', function () {
+            if (showPasswordCheckbox.checked) {
+                passwordInput.type = 'text';
+            } else {
+                passwordInput.type = 'password';
+            }
+        });
+
+</script>
 
 </div>
