@@ -139,7 +139,7 @@ model IEnumerable<String>
                         @{
                                 if (Model == null || Model.Count == 0)
                             {
-                                    <div id="noRooms"  class="stNotroom">該時段已沒有空間，請重新選擇時段。</div>
+                                    <div id="noRooms"  class="stNotroom">該時段已沒有空房，請重新選擇時段。</div>
                             }
                             else
                             {
@@ -272,7 +272,7 @@ model IEnumerable<String>
         if (data === null || (Array.isArray(data) && data.length === 0)) {
              //noRoomsDiv.style.display = "block";
             //console.log('有近0的判別事嗎?', data);
-            document.getElementById("RoomList").innerHTML = "<div class='stNotroom'>該時段已沒有空間，請重新選擇時段。</div>";
+            document.getElementById("RoomList").innerHTML = "<div class='stNotroom'>該時段已沒有空房，請重新選擇時段。</div>";
         } else {
             let html = "";
             //console.log('還是跑回圈了?', data);
